@@ -1,0 +1,489 @@
+{
+ "competition": "BKT EuroCup",
+ "season": "2026-27",
+ "updated": "2026-09-29T22:34:39Z",
+ "source": "https://www.euroleaguebasketball.net/eurocup/",
+ "group": "Group D",
+ "staff": [
+  {
+   "name": "Andrea Trinchieri",
+   "role": "Head Coach"
+  },
+  {
+   "name": "Massimiliano Menetti",
+   "role": "Assistant Coach"
+  },
+  {
+   "name": "Georgios Dedas",
+   "role": "Assistant Coach"
+  },
+  {
+   "name": "Charalampos Karaiskos",
+   "role": "Assistant Coach"
+  },
+  {
+   "name": "Andrew Antelidze",
+   "role": "Assistant Coach"
+  }
+ ],
+ "roster": [
+  {
+   "no": "0",
+   "name": "Raiquan Gray",
+   "pos": "Forward",
+   "nat": "USA",
+   "height": 203,
+   "born": "1999-07-07",
+   "from": "AEK BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/811ecfae-f953-4c76-b808-04490b770bbc.png"
+  },
+  {
+   "no": "1",
+   "name": "Naz Mitrou Long",
+   "pos": "Guard",
+   "nat": "CAN",
+   "height": 193,
+   "born": "1993-08-03",
+   "from": "Napoli Basket",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/46759f73-26e4-46cd-b82e-0556661e2cbe.png"
+  },
+  {
+   "no": "2",
+   "name": "Georgios Charalampidis",
+   "pos": "Guard",
+   "nat": "GRE",
+   "height": null,
+   "born": "2011-01-14",
+   "from": "Gba",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/bf894341-0192-4b80-ad80-3ddd7431b337.png"
+  },
+  {
+   "no": "5",
+   "name": "Breein Tyree",
+   "pos": "Guard",
+   "nat": "USA",
+   "height": 188,
+   "born": "1998-01-13",
+   "from": "PAOK BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/349c3b28-2955-440f-9388-6cf6c7558eb6.png"
+  },
+  {
+   "no": "6",
+   "name": "Cedi Osman",
+   "pos": "Forward",
+   "nat": "TUR",
+   "height": 204,
+   "born": "1995-04-08",
+   "from": "Panathinaikos Aktor Athens",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/73edf161-e304-4cb9-b37b-44cddefb6a27.png"
+  },
+  {
+   "no": "8",
+   "name": "Kyle Alexander",
+   "pos": "Center",
+   "nat": "CAN",
+   "height": 208,
+   "born": "1996-10-21",
+   "from": "Turk Telecom",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/53e97977-f93c-47df-bd61-1f2a4f34ee2a.png"
+  },
+  {
+   "no": "9",
+   "name": "Nikos Chougkaz",
+   "pos": "Forward",
+   "nat": "GRE",
+   "height": 204,
+   "born": "2000-10-04",
+   "from": "PAOK BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/284fa91a-ea18-4d06-a28b-1796f8ba58df.png"
+  },
+  {
+   "no": "10",
+   "name": "Ioannis Spanos",
+   "pos": "Forward",
+   "nat": "GRE",
+   "height": 204,
+   "born": "2010-01-26",
+   "from": "Deka",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/44cd5736-f6b8-4cfd-b2f7-33af1d0e0605.png"
+  },
+  {
+   "no": "11",
+   "name": "Clifford Omoruyi",
+   "pos": "Center",
+   "nat": "NGR",
+   "height": 211,
+   "born": "2001-10-11",
+   "from": "PAOK BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/1ba70c8b-b4c7-44df-b5d6-ab8cb8965121.png"
+  },
+  {
+   "no": "12",
+   "name": "Trevor Hudgins",
+   "pos": "Guard",
+   "nat": "USA",
+   "height": 180,
+   "born": "1999-03-23",
+   "from": "Le Mans",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/f152f853-8455-4771-898b-9351623a6e80.png"
+  },
+  {
+   "no": "14",
+   "name": "Dimitrios Kaklamanakis",
+   "pos": "Center",
+   "nat": "GRE",
+   "height": 206,
+   "born": "1994-01-25",
+   "from": "Peristei BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/d43d3cb2-0411-4f5d-8ee8-15a244f2bcef.png"
+  },
+  {
+   "no": "17",
+   "name": "Marcus Foster",
+   "pos": "Guard",
+   "nat": "USA",
+   "height": 191,
+   "born": "1995-06-03",
+   "from": "Alvark Tokyo",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/f90b8db3-7db9-4904-add0-17b927c51a01.png"
+  },
+  {
+   "no": "18",
+   "name": "Nikolaos Persidis",
+   "pos": "Forward",
+   "nat": "GRE",
+   "height": 201,
+   "born": "1995-09-08",
+   "from": "PAOK BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/b0278278-1368-4b8a-8523-b8eb0b193410.png"
+  },
+  {
+   "no": "25",
+   "name": "Georgios Fillios",
+   "pos": "Guard",
+   "nat": "GRE",
+   "height": 195,
+   "born": "2002-02-10",
+   "from": "PAOK BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/6b517b85-1752-4e7a-8df5-475585f5d364.png"
+  },
+  {
+   "no": "26",
+   "name": "Ben Moore",
+   "pos": "Center",
+   "nat": "USA",
+   "height": 203,
+   "born": "1995-05-13",
+   "from": "PAOK BC",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/dbe24d18-64d5-4021-a427-198b73119b5b.png"
+  },
+  {
+   "no": "33",
+   "name": "Nick Calathes",
+   "pos": "Guard",
+   "nat": "GRE",
+   "height": 196,
+   "born": "1989-02-07",
+   "from": "Partizan Mozzart Bet",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/909be9ee-8d4b-483f-a87a-1d427142a207.png"
+  },
+  {
+   "no": "77",
+   "name": "Athanasios Bazinas",
+   "pos": "Guard",
+   "nat": "GRE",
+   "height": 194,
+   "born": "2003-10-18",
+   "from": "Promitheas Patras",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/9099376a-f35a-4f76-8170-1b8025a33145.png"
+  }
+ ],
+ "games": [
+  {
+   "comp": "EuroCup",
+   "code": 14,
+   "round": "Round 1",
+   "phase": "Regular Season",
+   "date": "2026-09-30T16:30:00Z",
+   "home": true,
+   "opp": "Manresa",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/06792bed-0383-4de2-80b9-95ecca3fd973.png",
+   "venue": "Paok Sports Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 32,
+   "round": "Round 2",
+   "phase": "Regular Season",
+   "date": "2026-10-06T17:30:00Z",
+   "home": false,
+   "opp": "Bosna",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
+   "venue": "Zetra Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 45,
+   "round": "Round 3",
+   "phase": "Regular Season",
+   "date": "2026-10-13T16:00:00Z",
+   "home": false,
+   "opp": "Lietkabelis",
+   "oppCrest": "https://media-cdn.cortextech.io/ffcb6e37-31f4-48f6-91c2-a8c9a6f791a9.png",
+   "venue": "Kalnapilio Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 64,
+   "round": "Round 4",
+   "phase": "Regular Season",
+   "date": "2026-10-21T17:00:00Z",
+   "home": true,
+   "opp": "Ulm",
+   "oppCrest": "https://media-cdn.cortextech.io/5750bc8b-dd63-48e4-8586-10d4e5e2b4e2.png",
+   "venue": "Paok Sports Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 78,
+   "round": "Round 5",
+   "phase": "Regular Season",
+   "date": "2026-10-27T16:00:00Z",
+   "home": false,
+   "opp": "Bahcesehir",
+   "oppCrest": "https://media-cdn.incrowdsports.com/1d3274d8-da86-4d21-9e97-6810ab88babe.png",
+   "venue": "Sinan Erdem Sports Hall",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 95,
+   "round": "Round 6",
+   "phase": "Regular Season",
+   "date": "2026-11-03T18:00:00Z",
+   "home": true,
+   "opp": "Roma",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
+   "venue": "Paok Sports Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 111,
+   "round": "Round 7",
+   "phase": "Regular Season",
+   "date": "2026-11-10T17:00:00Z",
+   "home": false,
+   "opp": "Balkan",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/ba6e2d99-3ea9-4730-a0ce-830cccca4657.png",
+   "venue": "Arena Botevgrad",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 126,
+   "round": "Round 8",
+   "phase": "Regular Season",
+   "date": "2026-11-18T19:30:00Z",
+   "home": false,
+   "opp": "Manresa",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/06792bed-0383-4de2-80b9-95ecca3fd973.png",
+   "venue": "Pavello Nou Congost",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 144,
+   "round": "Round 9",
+   "phase": "Regular Season",
+   "date": "2026-12-08T18:00:00Z",
+   "home": true,
+   "opp": "Bosna",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
+   "venue": "Paok Sports Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 157,
+   "round": "Round 10",
+   "phase": "Regular Season",
+   "date": "2026-12-16T18:00:00Z",
+   "home": true,
+   "opp": "Lietkabelis",
+   "oppCrest": "https://media-cdn.cortextech.io/ffcb6e37-31f4-48f6-91c2-a8c9a6f791a9.png",
+   "venue": "Paok Sports Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 176,
+   "round": "Round 11",
+   "phase": "Regular Season",
+   "date": "2026-12-23T18:00:00Z",
+   "home": false,
+   "opp": "Ulm",
+   "oppCrest": "https://media-cdn.cortextech.io/5750bc8b-dd63-48e4-8586-10d4e5e2b4e2.png",
+   "venue": "Ratiopharm Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 190,
+   "round": "Round 12",
+   "phase": "Regular Season",
+   "date": "2026-12-29T18:30:00Z",
+   "home": true,
+   "opp": "Bahcesehir",
+   "oppCrest": "https://media-cdn.incrowdsports.com/1d3274d8-da86-4d21-9e97-6810ab88babe.png",
+   "venue": "Paok Sports Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 207,
+   "round": "Round 13",
+   "phase": "Regular Season",
+   "date": "2027-01-06T19:00:00Z",
+   "home": false,
+   "opp": "Roma",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
+   "venue": "Palazzetto Dello Sport",
+   "played": false,
+   "us": null,
+   "them": null
+  },
+  {
+   "comp": "EuroCup",
+   "code": 223,
+   "round": "Round 14",
+   "phase": "Regular Season",
+   "date": "2027-01-13T17:30:00Z",
+   "home": true,
+   "opp": "Balkan",
+   "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/ba6e2d99-3ea9-4730-a0ce-830cccca4657.png",
+   "venue": "Paok Sports Arena",
+   "played": false,
+   "us": null,
+   "them": null
+  }
+ ],
+ "standings": [
+  {
+   "pos": 1,
+   "team": "Bahcesehir",
+   "crest": "https://media-cdn.incrowdsports.com/1d3274d8-da86-4d21-9e97-6810ab88babe.png",
+   "paok": false,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  },
+  {
+   "pos": 2,
+   "team": "Balkan",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/ba6e2d99-3ea9-4730-a0ce-830cccca4657.png",
+   "paok": false,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  },
+  {
+   "pos": 3,
+   "team": "Bosna",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
+   "paok": false,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  },
+  {
+   "pos": 4,
+   "team": "Manresa",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/06792bed-0383-4de2-80b9-95ecca3fd973.png",
+   "paok": false,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  },
+  {
+   "pos": 5,
+   "team": "Lietkabelis",
+   "crest": "https://media-cdn.cortextech.io/ffcb6e37-31f4-48f6-91c2-a8c9a6f791a9.png",
+   "paok": false,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  },
+  {
+   "pos": 6,
+   "team": "PAOK",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/0506e7c4-ec4b-460a-bc59-b033ad9e336c.png",
+   "paok": true,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  },
+  {
+   "pos": 7,
+   "team": "Ulm",
+   "crest": "https://media-cdn.cortextech.io/5750bc8b-dd63-48e4-8586-10d4e5e2b4e2.png",
+   "paok": false,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  },
+  {
+   "pos": 8,
+   "team": "Roma",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
+   "paok": false,
+   "gp": 0,
+   "w": 0,
+   "l": 0,
+   "pf": 0,
+   "pa": 0
+  }
+ ]
+}

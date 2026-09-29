@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAOK Basketball 2026-27</title>
+<meta name="description" content="PAOK basketball 2026-27: rosters, schedule, results, team and player stats for the Greek Basket League and the BKT EuroCup.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#home"><span class="brand-main">PAOK</span><span class="brand-sub">Basketball 2026-27</span></a>
+    <nav class="tabs" id="tabs">
+      <a href="#home" data-tab="home">Home</a>
+      <a href="#roster" data-tab="roster">Roster</a>
+      <a href="#schedule" data-tab="schedule">Schedule</a>
+      <a href="#team" data-tab="team">Team Stats</a>
+      <a href="#players" data-tab="players">Player Stats</a>
+      <a href="#standings" data-tab="standings">Standings</a>
+    </nav>
+  </div>
+  <div class="stripes" aria-hidden="true"></div>
+</header>
+
+<main class="wrap" id="app">
+  <p class="loading">Loading…</p>
+</main>
+
+<dialog id="box-dialog">
+  <div class="dialog-head">
+    <h3 id="box-title"></h3>
+    <button class="close" onclick="document.getElementById('box-dialog').close()" aria-label="Close">×</button>
+  </div>
+  <div id="box-body"></div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Unofficial fan site. Data: <a href="https://www.euroleaguebasketball.net/eurocup/" target="_blank" rel="noopener">EuroCup</a> ·
+      <a href="https://www.esake.gr/" target="_blank" rel="noopener">ESAKE / Stoiximan GBL</a>. Times shown in Greek time.</p>
+    <p id="updated"></p>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

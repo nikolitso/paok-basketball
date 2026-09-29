@@ -1,0 +1,33 @@
+name: Update stats
+
+on:
+  schedule:
+    - cron: "15 */2 * * *"   # every 2 hours
+  workflow_dispatch:          # "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: EuroCup
+        run: python scripts/update_eurocup.py
+      - name: Greek League (ESAKE)
+        run: python scripts/update_gbl.py
+      - name: Commit if anything changed
+        run: |
+          git add -A data
+          # ignore the "updated" timestamp so we only commit real changes
+          if git diff --cached --quiet -I '"updated"'; then
+            echo "No new data"; exit 0
+          fi
+          git config user.name "stats-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update stats $(date -u +'%Y-%m-%d %H:%M')"
+          git push
