@@ -1,7 +1,7 @@
 {
  "competition": "BKT EuroCup",
  "season": "2026-27",
- "updated": "2026-09-29T22:34:39Z",
+ "updated": "2026-09-30T18:31:30Z",
  "source": "https://www.euroleaguebasketball.net/eurocup/",
  "group": "Group D",
  "staff": [
@@ -402,27 +402,27 @@
    "team": "Bahcesehir",
    "crest": "https://media-cdn.incrowdsports.com/1d3274d8-da86-4d21-9e97-6810ab88babe.png",
    "paok": false,
-   "gp": 0,
-   "w": 0,
+   "gp": 1,
+   "w": 1,
    "l": 0,
-   "pf": 0,
-   "pa": 0
+   "pf": 91,
+   "pa": 78
   },
   {
    "pos": 2,
-   "team": "Balkan",
-   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/ba6e2d99-3ea9-4730-a0ce-830cccca4657.png",
+   "team": "Lietkabelis",
+   "crest": "https://media-cdn.cortextech.io/ffcb6e37-31f4-48f6-91c2-a8c9a6f791a9.png",
    "paok": false,
-   "gp": 0,
-   "w": 0,
+   "gp": 1,
+   "w": 1,
    "l": 0,
-   "pf": 0,
-   "pa": 0
+   "pf": 75,
+   "pa": 72
   },
   {
    "pos": 3,
-   "team": "Bosna",
-   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
+   "team": "Balkan",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/ba6e2d99-3ea9-4730-a0ce-830cccca4657.png",
    "paok": false,
    "gp": 0,
    "w": 0,
@@ -443,17 +443,6 @@
   },
   {
    "pos": 5,
-   "team": "Lietkabelis",
-   "crest": "https://media-cdn.cortextech.io/ffcb6e37-31f4-48f6-91c2-a8c9a6f791a9.png",
-   "paok": false,
-   "gp": 0,
-   "w": 0,
-   "l": 0,
-   "pf": 0,
-   "pa": 0
-  },
-  {
-   "pos": 6,
    "team": "PAOK",
    "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/0506e7c4-ec4b-460a-bc59-b033ad9e336c.png",
    "paok": true,
@@ -464,7 +453,7 @@
    "pa": 0
   },
   {
-   "pos": 7,
+   "pos": 6,
    "team": "Ulm",
    "crest": "https://media-cdn.cortextech.io/5750bc8b-dd63-48e4-8586-10d4e5e2b4e2.png",
    "paok": false,
@@ -475,15 +464,26 @@
    "pa": 0
   },
   {
+   "pos": 7,
+   "team": "Bosna",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
+   "paok": false,
+   "gp": 1,
+   "w": 0,
+   "l": 1,
+   "pf": 72,
+   "pa": 75
+  },
+  {
    "pos": 8,
    "team": "Roma",
    "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
    "paok": false,
-   "gp": 0,
+   "gp": 1,
    "w": 0,
-   "l": 0,
-   "pf": 0,
-   "pa": 0
+   "l": 1,
+   "pf": 78,
+   "pa": 91
   }
  ]
 }
