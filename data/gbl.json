@@ -1,9 +1,20 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-02T12:36:34Z",
+ "updated": "2026-10-02T16:31:35Z",
  "source": "https://www.esake.gr/",
  "roster": [
+  {
+   "no": "0",
+   "name": "Giorgos Charalampidis",
+   "pos": "Guard",
+   "posCode": "PG",
+   "nat": "GRE",
+   "height": 185,
+   "born": "2011-01-14",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/bf894341-0192-4b80-ad80-3ddd7431b337.png",
+   "from": "Gba"
+  },
   {
    "no": "0",
    "name": "Raiquan Gray",
@@ -14,6 +25,26 @@
    "born": "1999-07-07",
    "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/811ecfae-f953-4c76-b808-04490b770bbc.png",
    "from": "AEK BC"
+  },
+  {
+   "no": "0",
+   "name": "Giannis Spanos",
+   "pos": "Forward",
+   "posCode": "PF",
+   "nat": "GRE",
+   "height": 202,
+   "born": "2010-01-26",
+   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/44cd5736-f6b8-4cfd-b2f7-33af1d0e0605.png",
+   "from": "Deka"
+  },
+  {
+   "no": "0",
+   "name": "Manolis Manis",
+   "pos": "Guard",
+   "posCode": "SG",
+   "nat": "GRE",
+   "height": 191,
+   "born": "2009-09-30"
   },
   {
    "no": "1",
