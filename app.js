@@ -435,6 +435,7 @@ VIEWS.profiles = function profiles() {
     <div class="grid three">${items.map(({ r, p }) => profileCard(r, p, regulars, emptyText)).join('')}</div>
     <h2>What the badges mean</h2>
     <div class="grid two">${legend('Offence &amp; all-round', TAG_RULES, '')}${legend('Defence', DEF_RULES, 'def')}</div>
+    ${PIR_EXPLAINER}
     <p class="note">"Leads the team" counts players who've played at least half of the games. Box scores only capture part of defence: steals, blocks, defensive rebounds, fouls and plus/minus.
       Plus/minus comes from the EuroCup and FIBA LiveStats; ESAKE's own pages don't publish it, so it can be missing for some Greek League games.</p>`;
 };
