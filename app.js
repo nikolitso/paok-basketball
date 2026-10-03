@@ -162,11 +162,13 @@ const VIEWS = {
       month = m;
       return head + gameRow(g, g === next);
     }).join('');
-    const all = state.games.filter((g) => (f === 'All' || g.comp === f) && g.played);
-    const r = record(all);
+    const recChip = (c, label) => {
+      const r = record(state.games.filter((g) => g.played && (c === 'All' || g.comp === c)));
+      return `<div class="rec ${f === c ? 'on' : ''}"><span>${esc(label)}</span><b>${r.w}–${r.l}</b></div>`;
+    };
     return `<h2>Schedule & Results</h2>
-      <div class="controls">${seg('schedule', [['All', 'All'], ...compsWithGames().map((c) => [c, compName(c)])])}
-      <span class="muted">Record: <b>${r.w}–${r.l}</b></span></div>
+      <div class="records">${recChip('All', 'Overall')}${compsWithGames().map((c) => recChip(c, compName(c))).join('')}</div>
+      <div class="controls">${seg('schedule', [['All', 'All'], ...compsWithGames().map((c) => [c, compName(c)])])}</div>
       <div class="games">${rows || '<p class="empty">No games.</p>'}</div>`;
   },
 

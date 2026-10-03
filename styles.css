@@ -134,3 +134,11 @@ main { padding-bottom: 48px; }
 
 .report { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
 .report:hover { text-decoration-thickness: 2px; }
+
+/* records per competition (schedule) */
+.records { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.rec { border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; display: flex; align-items: baseline; gap: 8px; }
+.rec span { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.rec b { font: 700 20px Oswald, sans-serif; }
+.rec.on { background: var(--black); border-color: var(--black); color: var(--white); }
+.rec.on span { color: #bbb; }
