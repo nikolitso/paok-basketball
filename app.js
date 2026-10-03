@@ -1,7 +1,7 @@
 /* PAOK Basketball 2026-27 — static site reading data/eurocup.json and data/gbl.json */
 const TZ = 'Europe/Athens';
 const COMPS = { GBL: 'Greek League', EuroCup: 'EuroCup', 'Greek Super Cup': 'Super Cup', 'Greek Cup': 'Greek Cup' };
-const state = { ec: null, gbl: null, games: [], filters: { scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
+const state = { ec: null, gbl: null, games: [], filters: { profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -332,6 +332,61 @@ VIEWS.scout = function scout() {
       <tbody>${rows.map(([l, a, b]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td></tr>`).join('')}</tbody>
     </table></div>
     ${pick.paokImpact.length ? `<h2>PAOK's key players (${esc(compName(pick.comp))})</h2><div class="grid three">${pick.paokImpact.slice(0, 3).map(card).join('')}</div>` : ''}`;
+};
+
+/* ---------- player profiles ---------- */
+const TAG_RULES = [
+  ['Top scorer', 'Leads the team in points per game'],
+  ['Rebounder', 'Leads the team in rebounds, or 6+ per game'],
+  ['Playmaker', 'Leads the team in assists, or 4+ per game'],
+  ['3-pt threat', '1.5+ threes made per game at 35%+'],
+  ['Gets to the line', '4+ free-throw attempts per game'],
+  ['Disruptor', '2+ steals and blocks combined per game'],
+];
+function profileTags(p, regulars) {
+  const per = (x, k) => x[k] / x.gp;
+  const leader = (k) => regulars.length && regulars.reduce((a, b) => (per(b, k) > per(a, k) ? b : a)) === p;
+  const isReg = regulars.includes(p);
+  const tags = [];
+  if (isReg && leader('pts')) tags.push('Top scorer');
+  if ((isReg && leader('reb')) || per(p, 'reb') >= 6) tags.push('Rebounder');
+  if ((isReg && leader('ast')) || per(p, 'ast') >= 4) tags.push('Playmaker');
+  if (per(p, 'fg3m') >= 1.5 && p.fg3m / (p.fg3a || 1) >= 0.35) tags.push('3-pt threat');
+  if (per(p, 'fta') >= 4) tags.push('Gets to the line');
+  if (per(p, 'stl') + per(p, 'blk') >= 2) tags.push('Disruptor');
+  return tags;
+}
+VIEWS.profiles = function profiles() {
+  const comp = state.filters.profiles;
+  const opts = [['All', 'All games'], ...compsWithGames().map((c) => [c, compName(c)])];
+  const stats = playerTotals(comp);
+  const teamGp = gamesWithBox(comp).length;
+  const regulars = stats.filter((p) => p.gp >= Math.max(1, Math.ceil(teamGp / 2)));
+  const sur = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
+  // everyone registered in either competition, with their season numbers if they've played
+  const roster = new Map();
+  for (const r of [...state.gbl.roster, ...state.ec.roster]) if (!roster.has(sur(r.name))) roster.set(sur(r.name), r);
+  const age = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
+  const cards = [...roster.values()].map((r) => ({ r, s: stats.find((p) => sur(p.name) === sur(r.name)) }))
+    .sort((a, b) => (b.s ? b.s.pir / b.s.gp : -99) - (a.s ? a.s.pir / a.s.gp : -99));
+  const card = ({ r, s }) => {
+    const bio = [r.posCode || r.pos, r.height ? (r.height / 100).toFixed(2) + ' m' : '', r.nat, age(r.born) ? age(r.born) + ' yrs' : ''].filter(Boolean).map(esc).join(' · ');
+    if (!s) return `<div class="card impact muted-card"><div class="impact-head"><span class="num">${esc(r.no || '–')}</span><div><b>${esc(r.name)}</b><div class="muted" style="font-size:12px">${bio}</div></div></div>
+      <p class="muted" style="margin:14px 0 0">No ${comp === 'All' ? '' : esc(compName(comp)) + ' '}games played yet.</p></div>`;
+    const g = s.gp, tags = profileTags(s, regulars);
+    return `<div class="card impact">
+      <div class="impact-head"><span class="num">${esc(r.no || s.no || '–')}</span><div><b>${esc(r.name)}</b><div class="muted" style="font-size:12px">${bio}</div>
+        <div class="muted" style="font-size:12px">${g} game${g > 1 ? 's' : ''} · ${f1(s.sec / 60 / g)} min</div></div>
+        <div class="pir-badge">${f1(s.pir / g)}<span>PIR</span></div></div>
+      <div class="impact-line"><div><b>${f1(s.pts / g)}</b><span>PTS</span></div><div><b>${f1(s.reb / g)}</b><span>REB</span></div><div><b>${f1(s.ast / g)}</b><span>AST</span></div><div><b>${pct(s.fg3m, s.fg3a)}${s.fg3a ? '%' : ''}</b><span>3P</span></div></div>
+      ${tags.length ? `<div class="tags">${tags.map((t) => `<span class="pill" title="${esc(TAG_RULES.find(([n]) => n === t)[1])}">${esc(t)}</span>`).join(' ')}</div>` : ''}
+    </div>`;
+  };
+  return `<h2>Player Profiles</h2>${seg('profiles', opts)}
+    <div class="grid three">${cards.map(card).join('')}</div>
+    <h2>What the badges mean</h2>
+    <div class="card" style="max-width:640px"><ul class="leaders">${TAG_RULES.map(([n, d]) => `<li><span class="pill">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul>
+    <p class="note">"Leads the team" counts players who've played at least half of the games in the selected competition. Badges update after every game.</p></div>`;
 };
 
 /* ---------- pieces ---------- */
