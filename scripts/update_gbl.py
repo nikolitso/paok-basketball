@@ -38,6 +38,20 @@ MONTHS = {"ΙΑΝ": 1, "ΦΕΒ": 2, "ΜΑΡ": 3, "ΑΠΡ": 4, "ΜΑΙ": 5, "ΙΟ
           "ΑΥΓ": 8, "ΣΕΠ": 9, "ΟΚΤ": 10, "ΝΟΕ": 11, "ΔΕΚ": 12}
 
 
+
+def excluded():
+    """Surnames from data/excluded_players.json (e.g. players about to leave), kept off the whole site."""
+    path = os.path.join(DATA, "excluded_players.json")
+    if not os.path.exists(path):
+        return set()
+    with open(path, encoding="utf-8") as f:
+        return {n.lower() for n in json.load(f).get("players", [])}
+
+
+def is_excluded(name, names):
+    return name.lower().replace("-", " ").split()[-1] in names
+
+
 def fetch(path):
     req = urllib.request.Request(BASE + path, headers={"User-Agent": "Mozilla/5.0 (paok-basketball-site)"})
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -354,7 +368,8 @@ def main():
 
     with open(os.path.join(DATA, "eurocup.json"), encoding="utf-8") as f:
         ec_roster = {key(p["name"]): p for p in json.load(f)["roster"]}
-    players = roster()
+    gone = excluded()
+    players = [p for p in roster() if not is_excluded(p["name"], gone)]
     for p in players:  # fill gaps (birth date, photo) from the EuroCup feed when surnames match
         ec = ec_roster.get(key(p["name"]))
         if ec:
@@ -370,6 +385,9 @@ def main():
     players.sort(key=lambda p: int(p["no"]) if p["no"].isdigit() else 999)
 
     games = league_games() + extra_games()
+    for g in games:
+        if g.get("box"):
+            g["box"]["players"] = [p for p in g["box"]["players"] if not is_excluded(p["name"], gone)]
     games.sort(key=lambda g: g["date"] or "9999")
     out = {
         "competition": "Stoiximan GBL",

@@ -1,0 +1,173 @@
+{
+ "gray": {
+  "name": "RaiQuan Gray",
+  "photo": "https://paokbc.gr/images/players/2025-26/GRAY.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/139",
+  "nationality": "USA",
+  "birthplace": "Fort Lauderdale, Florida",
+  "born": "07/07/1999",
+  "height": "2.03"
+ },
+ "mitrou": {
+  "name": "Naz Mitrou",
+  "photo": "https://paokbc.gr/images/players/2025-26/MITROU_-_LONG.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/141",
+  "nationality": "GRE-CAN",
+  "birthplace": "Ontario, Canada",
+  "born": "03/08/1993",
+  "height": "1.93"
+ },
+ "charalampidis": {
+  "name": "Giorgos Charalampidis",
+  "photo": "https://paokbc.gr/images/players/2025-26/CHARALAMPIDIS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/144",
+  "nationality": "GRE",
+  "birthplace": "",
+  "born": "14/01/2011",
+  "height": "1.87"
+ },
+ "tyree": {
+  "name": "Breein Tyree",
+  "photo": "https://paokbc.gr/images/players/2025-26/TYREE.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/130",
+  "nationality": "USA",
+  "birthplace": "Metuchen, New Jersey",
+  "born": "13/01/1998",
+  "height": "1.88"
+ },
+ "osman": {
+  "name": "Cedi Osman",
+  "photo": "https://paokbc.gr/images/players/2025-26/OSMAN.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/143",
+  "nationality": "TUR",
+  "birthplace": "Ohrid",
+  "born": "08/04/1995",
+  "height": "2.04"
+ },
+ "alexander": {
+  "name": "Kyle Alexander",
+  "photo": "https://paokbc.gr/images/players/2025-26/ALEXANDER.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/137",
+  "nationality": "CAN",
+  "birthplace": "",
+  "born": "21/10/1996",
+  "height": "2.08"
+ },
+ "chougkaz": {
+  "name": "Nikos Chougkaz",
+  "photo": "https://paokbc.gr/images/players/2025-26/CHOUGKAZ.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/132",
+  "nationality": "Athens",
+  "birthplace": "Athens",
+  "born": "04/10/2000",
+  "height": "2.08"
+ },
+ "spanos": {
+  "name": "Giannis Spanos",
+  "photo": "https://paokbc.gr/images/players/2025-26/SPANOS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/145",
+  "nationality": "",
+  "birthplace": "",
+  "born": "26/10/2010",
+  "height": "2.02"
+ },
+ "omoruyi": {
+  "name": "Clifford Omoruyi",
+  "photo": "https://paokbc.gr/images/players/2025-26/OMOROUYI.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/133",
+  "nationality": "Nigeria",
+  "birthplace": "Bennin City, Nigeria",
+  "born": "10/10/2001",
+  "height": "2.11"
+ },
+ "hudgins": {
+  "name": "Trevor Hudgins",
+  "photo": "https://paokbc.gr/images/players/2025-26/HUDGINS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/140",
+  "nationality": "USA",
+  "birthplace": "Manhattan, Kansas",
+  "born": "23/03/1999",
+  "height": "1.80"
+ },
+ "kaklamanakis": {
+  "name": "Dimitris Kaklamanakis",
+  "photo": "https://paokbc.gr/images/players/2025-26/KAKLAMANAKIS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/136",
+  "nationality": "GRE",
+  "birthplace": "",
+  "born": "25/01/1994",
+  "height": "2.06"
+ },
+ "manis": {
+  "name": "Manolis Manis",
+  "photo": "https://paokbc.gr/images/players/2025-26/MANIS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/127",
+  "nationality": "Greek",
+  "birthplace": "",
+  "born": "30/09/2009",
+  "height": "1.90"
+ },
+ "foster": {
+  "name": "Marcus Foster",
+  "photo": "https://paokbc.gr/images/players/2025-26/FOSTER.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/142",
+  "nationality": "USA",
+  "birthplace": "Texas",
+  "born": "03/06/1995",
+  "height": "1.91"
+ },
+ "persidis": {
+  "name": "Nikos Persidis",
+  "photo": "https://paokbc.gr/images/players/2025-26/PERSIDIS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/124",
+  "nationality": "Greek",
+  "birthplace": "Chalkida",
+  "born": "08/09/1995",
+  "height": "2.01"
+ },
+ "fillios": {
+  "name": "Giorgos Fillios",
+  "photo": "https://paokbc.gr/images/players/2025-26/FILLIOS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/117",
+  "nationality": "Greek",
+  "birthplace": "Thessaloniki",
+  "born": "10/02/2002",
+  "height": "1.96"
+ },
+ "moore": {
+  "name": "Ben Moore",
+  "photo": "https://paokbc.gr/images/players/2025-26/MOORE.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/118",
+  "nationality": "USA",
+  "birthplace": "",
+  "born": "13/05/1995",
+  "height": "2.03"
+ },
+ "manthopoulos": {
+  "name": "Christos Manthopoulos",
+  "photo": "https://paokbc.gr/images/players/2025-26/MANTHOPOULOS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/126",
+  "nationality": "Greek",
+  "birthplace": "Larisa",
+  "born": "29/07/2006",
+  "height": "2.03"
+ },
+ "calathes": {
+  "name": "Nick Calathes",
+  "photo": "https://paokbc.gr/images/players/2025-26/CALATHES.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/138",
+  "nationality": "GRE-USA",
+  "birthplace": "",
+  "born": "07/02/1989",
+  "height": "1.98"
+ },
+ "bazinas": {
+  "name": "Nasos Bazinas",
+  "photo": "https://paokbc.gr/images/players/2025-26/BAZINAS.png",
+  "profile": "https://paokbc.gr/en/the-team/players/player/135",
+  "nationality": "GRE",
+  "birthplace": "Patras",
+  "born": "18/10/2003",
+  "height": "1.94"
+ }
+}

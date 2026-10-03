@@ -1,7 +1,7 @@
 {
  "competition": "BKT EuroCup",
  "season": "2026-27",
- "updated": "2026-10-03T20:08:26Z",
+ "updated": "2026-10-03T22:14:02Z",
  "source": "https://www.euroleaguebasketball.net/eurocup/",
  "group": "Group D",
  "staff": [
@@ -106,16 +106,6 @@
    "born": "2010-01-26",
    "from": "Deka",
    "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/44cd5736-f6b8-4cfd-b2f7-33af1d0e0605.png"
-  },
-  {
-   "no": "11",
-   "name": "Clifford Omoruyi",
-   "pos": "Center",
-   "nat": "NGR",
-   "height": 211,
-   "born": "2001-10-11",
-   "from": "PAOK BC",
-   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/1ba70c8b-b4c7-44df-b5d6-ab8cb8965121.png"
   },
   {
    "no": "12",
@@ -398,29 +388,6 @@
       "pf": 5,
       "pir": 0,
       "pm": 11
-     },
-     {
-      "no": "11",
-      "name": "Clifford Omoruyi",
-      "start": false,
-      "sec": 0,
-      "pts": 0,
-      "fg2m": 0,
-      "fg2a": 0,
-      "fg3m": 0,
-      "fg3a": 0,
-      "ftm": 0,
-      "fta": 0,
-      "oreb": 0,
-      "dreb": 0,
-      "reb": 0,
-      "ast": 0,
-      "stl": 0,
-      "tov": 0,
-      "blk": 0,
-      "pf": 0,
-      "pir": 0,
-      "pm": 0
      },
      {
       "no": "6",

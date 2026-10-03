@@ -24,6 +24,20 @@ def get(path):
         return json.load(r)
 
 
+
+def excluded():
+    """Surnames from data/excluded_players.json (e.g. players about to leave), kept off the whole site."""
+    path = os.path.join(DATA, "excluded_players.json")
+    if not os.path.exists(path):
+        return set()
+    with open(path, encoding="utf-8") as f:
+        return {n.lower() for n in json.load(f).get("players", [])}
+
+
+def is_excluded(name, names):
+    return name.lower().replace("-", " ").split()[-1] in names
+
+
 def title_name(raw):
     """'CALATHES, NICK' -> 'Nick Calathes'."""
     if "," in raw:
@@ -154,6 +168,8 @@ def main():
             })
         elif x["type"] in ("E", "A"):
             staff.append({"name": title_name(p["name"]), "role": "Head Coach" if x["type"] == "E" else "Assistant Coach"})
+    gone = excluded()
+    roster = [r for r in roster if not is_excluded(r["name"], gone)]
     roster.sort(key=lambda r: int(r["no"]) if r["no"].isdigit() else 999)
     staff.sort(key=lambda s: s["role"] != "Head Coach")
 
@@ -184,6 +200,8 @@ def main():
                 game["box"] = box_score(g["gameCode"], is_home)
             except Exception as e:  # box score may lag behind the result
                 print("box score unavailable for", g["gameCode"], e)
+        if game.get("box"):
+            game["box"]["players"] = [p for p in game["box"]["players"] if not is_excluded(p["name"], gone)]
         games.append(game)
     games.sort(key=lambda g: g["date"])
 

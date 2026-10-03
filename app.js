@@ -26,7 +26,14 @@ const vsAt = (g) => (g.neutral ? 'vs' : g.home ? 'vs' : '@');
 
 async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
-  [state.ec, state.gbl, state.scout] = await Promise.all([get('eurocup.json'), get('gbl.json'), get('scout.json').catch(() => ({ reports: [] }))]);
+  let hidden;
+  [state.ec, state.gbl, state.scout, hidden, state.club] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({}))]);
+  // players hidden until their first game (e.g. youth players registered for depth)
+  const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
+  const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
+  const waiting = new Set((hidden.until_played || []).map((n) => n.toLowerCase()).filter((n) => !played.has(n)));
+  for (const d of [state.ec, state.gbl]) d.roster = d.roster.filter((r) => !waiting.has(surnameOf(r.name)));
   state.games = [...state.ec.games, ...state.gbl.games].filter((g) => g.date).sort((a, b) => toDate(a.date) - toDate(b.date));
   window.addEventListener('hashchange', render);
   render();
@@ -133,21 +140,36 @@ const VIEWS = {
     const sur = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
     const inEc = new Set(ec.map((p) => sur(p.name))), inGbl = new Set(gbl.map((p) => sur(p.name)));
     const list = comp === 'EuroCup' ? ec : gbl;
-    const age = (b) => { if (!b) return '–'; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
-    const rows = list.map((p) => {
+    const club = (name) => { // paokbc.gr entry: match on the full surname or any part of it ("Mitrou-Long" ~ "Mitrou")
+      const parts = name.toLowerCase().split(' ').slice(1).join(' ');
+      const keys = [parts.replace(/[^a-z]/g, ''), ...parts.split(/[\s-]+/).map((w) => w.replace(/[^a-z]/g, ''))];
+      return keys.map((k) => state.club[k]).find(Boolean) || {};
+    };
+    const age = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
+    const cards = list.map((p) => {
+      const c = club(p.name);
       const onlyHere = comp === 'EuroCup' ? !inGbl.has(sur(p.name)) : !inEc.has(sur(p.name));
-      return `<tr><td class="l"><span class="num">${esc(p.no || "–")}</span></td>
-        <td class="l"><b>${esc(p.name)}</b>${onlyHere ? ` <span class="pill">${comp === 'EuroCup' ? 'EuroCup only' : 'GBL only'}</span>` : ''}</td>
-        <td class="l">${esc(p.posCode || p.pos)}</td><td>${p.height ? (p.height / 100).toFixed(2) + ' m' : '–'}</td>
-        <td class="l">${esc(p.nat)}</td><td>${age(p.born)}</td><td class="l muted">${esc(p.from || '')}</td></tr>`;
+      const h = p.height && p.height >= 160 ? (p.height / 100).toFixed(2) + ' m' : c.height ? c.height + ' m' : '';
+      const facts = [
+        ['Position', p.posCode ? `${p.posCode} · ${p.pos}` : p.pos], ['Height', h], ['Nationality', p.nat],
+        ['Age', age(p.born) ? `${age(p.born)}` : ''], ['Born in', c.birthplace], ['Previous team', p.from],
+      ].filter(([, v]) => v);
+      return `<div class="card player-card">
+        <div class="photo">${c.photo ? `<img src="${esc(c.photo)}" alt="${esc(p.name)}" loading="lazy">` : '<div class="no-photo">PAOK</div>'}
+          <span class="num">${esc(p.no || '–')}</span></div>
+        <div class="pc-body">
+          <h3>${esc(p.name)}</h3>
+          ${onlyHere ? `<span class="pill">${comp === 'EuroCup' ? 'EuroCup only' : 'GBL only'}</span>` : ''}
+          <dl>${facts.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
+          ${c.profile ? `<a class="report" href="${esc(c.profile)}" target="_blank" rel="noopener">Club profile ↗</a>` : ''}
+        </div></div>`;
     }).join('');
     const staff = state.ec.staff.map((s) => `<li><span>${esc(s.name)}</span><span class="muted">${esc(s.role)}</span></li>`).join('');
     return `<h2>Roster</h2>
       ${seg('roster', [['GBL', `Greek League (${gbl.length})`], ['EuroCup', `EuroCup (${ec.length})`]])}
-      <div class="table-wrap"><table>
-        <thead><tr><th class="l">#</th><th class="l">Player</th><th class="l">Pos</th><th>Height</th><th class="l">Nat.</th><th>Age</th><th class="l">Previous team</th></tr></thead>
-        <tbody>${rows}</tbody></table></div>
-      <p class="note">Registered roster from ${comp === 'EuroCup' ? 'the EuroCup' : 'ESAKE (Greek League)'}. The two leagues have different rules on foreign players, so the lists differ.</p>
+      <div class="grid roster-grid">${cards}</div>
+      <p class="note">Registered roster from ${comp === 'EuroCup' ? 'the EuroCup' : 'ESAKE (Greek League)'}. The two leagues have different rules on foreign players, so the lists differ.
+        Photos and profiles: <a href="https://paokbc.gr/en/the-team/players" target="_blank" rel="noopener">PAOK BC</a>.</p>
       <h2>Coaching staff</h2>
       <div class="card" style="max-width:520px"><ul class="leaders">${staff}</ul></div>`;
   },
@@ -237,7 +259,7 @@ const VIEWS = {
       ['fgp', 'FG%', (p) => pct(p.fg2m + p.fg3m, p.fg2a + p.fg3a)], ['fg2p', '2P%', (p) => pct(p.fg2m, p.fg2a)],
       ['fg3p', '3P%', (p) => pct(p.fg3m, p.fg3a)], ['fg3m', '3PM', (p) => fmt(per(p, 'fg3m'))], ['ftp', 'FT%', (p) => pct(p.ftm, p.fta)],
       ['pf', 'PF', (p) => fmt(per(p, 'pf'))], ['pir', 'PIR', (p) => fmt(per(p, 'pir'))],
-      ...(showPm ? [['pm', '+/-', (p) => (p.hasPm ? fmt(mode === 'avg' ? p.pm / p.pmg : p.pm) : '–')]] : []), ['high', 'High', (p) => p.high],
+      ...(showPm ? [['pm', '+/-', (p) => { if (!p.hasPm) return '–'; const v = mode === 'avg' ? p.pm / p.pmg : p.pm; return `<span class="${pmClass(v)}">${v > 0 ? '+' : ''}${fmt(v)}</span>`; }]] : []), ['high', 'High', (p) => p.high],
     ];
     function fmt(x) { return mode === 'avg' ? f1(x) : Math.round(x); }
     const sortVal = (p, k) => ({ fgp: (p.fg2m + p.fg3m) / (p.fg2a + p.fg3a || 1), fg2p: p.fg2m / (p.fg2a || 1), fg3p: p.fg3m / (p.fg3a || 1), ftp: p.ftm / (p.fta || 1), gp: p.gp, high: p.high, pm: p.hasPm ? (mode === 'avg' ? p.pm / p.pmg : p.pm) : -999 }[k] ?? per(p, k));
@@ -347,10 +369,12 @@ const DEF_RULES = [
   ['Ball hawk', '1.5+ steals per game'],
   ['Rim protector', '1+ blocks per game'],
   ['Defensive glass', 'Leads the team in defensive rebounds, or 5+ per game'],
-  ['Plus/minus impact', 'Team outscores opponents by 5+ per game with him on court'],
+  ['Positive +/-', 'PAOK outscore opponents while he is on court (plus/minus above 0)'],
+  ['Negative +/-', 'PAOK are outscored while he is on court (plus/minus below 0)'],
   ['Foul trouble', '3.5+ personal fouls per game'],
 ];
 const RULE_TEXT = Object.fromEntries([...TAG_RULES, ...DEF_RULES]);
+const pmClass = (v) => (v === null || v === undefined || v === 0 ? '' : v > 0 ? 'pos-text' : 'neg-text');
 
 /* every profile is a per-game line: {name, no, gp, min, pts, reb, dreb, ast, stl, blk, pf, fg3m, fg3a (total), fg3p, fta, pir, pm} */
 function perGameFromTotals(t) {
@@ -374,7 +398,7 @@ function profileTags(p, regulars) {
   if (p.stl >= 1.5) def.push('Ball hawk');
   if (p.blk >= 1) def.push('Rim protector');
   if (leads('dreb') || p.dreb >= 5) def.push('Defensive glass');
-  if (p.pm !== null && p.pm !== undefined && p.pm >= 5) def.push('Plus/minus impact');
+  if (p.pm !== null && p.pm !== undefined && p.pm !== 0) def.push(p.pm > 0 ? 'Positive +/-' : 'Negative +/-');
   if (p.pf >= 3.5) def.push('Foul trouble');
   return { off, def };
 }
@@ -395,8 +419,8 @@ function profileCard(r, p, regulars, emptyText) {
     <div class="impact-line"><div><b>${f1(p.pts)}</b><span>PTS</span></div><div><b>${f1(p.reb)}</b><span>REB</span></div><div><b>${f1(p.ast)}</b><span>AST</span></div><div><b>${p.fg3p === null || p.fg3p === undefined ? '–' : f1(p.fg3p) + '%'}</b><span>3P</span></div></div>
     ${off.length ? `<div class="tags">${off.map((t) => pill(t)).join('')}</div>` : ''}
     <div class="def-line"><span class="label">Defence</span>
-      <div><b>${f1(p.stl)}</b><span>STL</span></div><div><b>${f1(p.blk)}</b><span>BLK</span></div><div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b>${pm}</b><span>+/-</span></div></div>
-    ${def.length ? `<div class="tags">${def.map((t) => pill(t, t === 'Foul trouble' ? '' : 'def')).join('')}</div>` : ''}
+      <div><b>${f1(p.stl)}</b><span>STL</span></div><div><b>${f1(p.blk)}</b><span>BLK</span></div><div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b class="${pmClass(p.pm)}">${pm}</b><span>+/-</span></div></div>
+    ${def.length ? `<div class="tags">${def.map((t) => pill(t, { 'Foul trouble': '', 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[t] ?? 'def')).join('')}</div>` : ''}
   </div>`;
 }
 
@@ -430,7 +454,7 @@ VIEWS.profiles = function profiles() {
       <a href="#scout" onclick="state.filters.scout='${rep.comp}'">Scouting report →</a></p>`;
   }
   items.sort((a, b) => (b.p ? b.p.pir : -99) - (a.p ? a.p.pir : -99));
-  const legend = (title, rules, cls) => `<div class="card"><h3>${title}</h3><ul class="leaders">${rules.map(([n, d]) => `<li><span class="pill ${cls}">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul></div>`;
+  const legend = (title, rules, cls) => `<div class="card"><h3>${title}</h3><ul class="leaders">${rules.map(([n, d]) => `<li><span class="pill ${{ 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[n] || cls}">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul></div>`;
   return `<h2>Player Profiles</h2>${seg('profTeam', teams)}${intro}
     <div class="grid three">${items.map(({ r, p }) => profileCard(r, p, regulars, emptyText)).join('')}</div>
     <h2>What the badges mean</h2>
@@ -517,7 +541,7 @@ function openBox(code) {
   const hasPm = g.box.players.some((p) => p.pm !== null && p.pm !== undefined);
   const rows = g.box.players.map((p) => `<tr><td class="l">${esc(p.no)}</td><td class="l">${p.start ? '<b>' : ''}${esc(p.name)}${p.start ? '</b>' : ''}</td>
     ${p.sec ? `<td>${mins(p.sec)}</td><td><b>${p.pts}</b></td><td>${p.fg2m}/${p.fg2a}</td><td>${p.fg3m}/${p.fg3a}</td><td>${p.ftm}/${p.fta}</td>
-    <td>${p.oreb}</td><td>${p.dreb}</td><td>${p.reb}</td><td>${p.ast}</td><td>${p.stl}</td><td>${p.tov}</td><td>${p.blk}</td><td>${p.pf}</td><td>${p.pir}</td>${hasPm ? `<td>${p.pm ?? ''}</td>` : ''}`
+    <td>${p.oreb}</td><td>${p.dreb}</td><td>${p.reb}</td><td>${p.ast}</td><td>${p.stl}</td><td>${p.tov}</td><td>${p.blk}</td><td>${p.pf}</td><td>${p.pir}</td>${hasPm ? `<td class="${pmClass(p.pm)}">${p.pm === null || p.pm === undefined ? '' : (p.pm > 0 ? '+' : '') + p.pm}</td>` : ''}`
     : `<td colspan="${hasPm ? 15 : 14}" class="l muted">Did not play</td>`}</tr>`).join('');
   const tot = (t, label) => `<tr class="hl"><td></td><td class="l">${label}</td><td></td><td>${t.pts}</td><td>${t.fg2m}/${t.fg2a}</td><td>${t.fg3m}/${t.fg3a}</td><td>${t.ftm}/${t.fta}</td>
     <td>${t.oreb}</td><td>${t.dreb}</td><td>${t.reb}</td><td>${t.ast}</td><td>${t.stl}</td><td>${t.tov}</td><td>${t.blk}</td><td>${t.pf}</td><td>${t.pir}</td>${hasPm ? '<td></td>' : ''}</tr>`;
