@@ -61,6 +61,49 @@ def main():
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(players, f, ensure_ascii=False, indent=1)
     print(f"paokbc.gr: {len(players)} players")
+    staff()
+
+
+def short_bio(page, sentences=2):
+    """First sentences of the member's biography (the 'articleBody' text)."""
+    body = page.split('itemprop="articleBody"', 1)
+    if len(body) < 2:
+        return ""
+    words = " ".join(text(body[1].split("</div>", 1)[0])).lstrip("> ")
+    parts = re.split(r"(?<=[.!?])\s+(?=[A-Z“\"])", words)
+    return " ".join(parts[:sentences]).strip()
+
+
+def staff():
+    """Head coach + coaching staff: photo, role and a short bio, into data/paokbc_staff.json."""
+    people = []
+    page = fetch("/en/the-team/head-coach")
+    photo = re.search(r'post-photo[^>]*>\s*<img src="([^"]+)"', page)
+    name = re.search(r'<strong>([^<]+)</strong>', page)
+    if name:
+        people.append({"name": html.unescape(name.group(1)).strip(), "role": "Head Coach",
+                       "photo": photo.group(1) if photo else None, "bio": short_bio(page)})
+    page = fetch("/en/the-team/staff")
+    for block in page.split('class="w3-cell player"')[1:]:
+        link = re.search(r'href="(/en/the-team/staff/member/\d+)"', block)
+        img = re.search(r'<img src="([^"]+)"', block)
+        first = re.search(r'player-first-name">([^<]*)<', block)
+        last = re.search(r'player-last-name">(.*?)</div>', block, re.S)
+        role = re.search(r'player-position">(.*?)</div>', block, re.S)
+        if not (link and last):
+            continue
+        entry = {"name": f"{html.unescape(first.group(1)).strip()} {' '.join(text(last.group(1)))}".strip(),
+                 "role": " ".join(text(role.group(1))).title() if role else "",
+                 "photo": img.group(1) if img else None, "bio": ""}
+        entry["role"] = {"Assistant": "Assistant Coach", "Players Developement Coach": "Player Development Coach"}.get(entry["role"], entry["role"])
+        try:
+            entry["bio"] = short_bio(fetch(link.group(1)))
+        except Exception as e:
+            print("bio unavailable for", entry["name"], e)
+        people.append(entry)
+    with open(os.path.join(ROOT, "data", "paokbc_staff.json"), "w", encoding="utf-8") as f:
+        json.dump(people, f, ensure_ascii=False, indent=1)
+    print(f"paokbc.gr: {len(people)} coaches")
 
 
 if __name__ == "__main__":

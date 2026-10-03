@@ -27,8 +27,8 @@ const vsAt = (g) => (g.neutral ? 'vs' : g.home ? 'vs' : '@');
 async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
-  [state.ec, state.gbl, state.scout, hidden, state.club] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({}))]);
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => [])]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
@@ -161,17 +161,20 @@ const VIEWS = {
           <h3>${esc(p.name)}</h3>
           ${onlyHere ? `<span class="pill">${comp === 'EuroCup' ? 'EuroCup only' : 'GBL only'}</span>` : ''}
           <dl>${facts.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
-          ${c.profile ? `<a class="report" href="${esc(c.profile)}" target="_blank" rel="noopener">Club profile ↗</a>` : ''}
         </div></div>`;
     }).join('');
-    const staff = state.ec.staff.map((s) => `<li><span>${esc(s.name)}</span><span class="muted">${esc(s.role)}</span></li>`).join('');
+    const staffList = state.clubStaff.length ? state.clubStaff : state.ec.staff;
+    const staff = staffList.map((s) => `<div class="card coach ${s.role === 'Head Coach' ? 'head' : ''}">
+        <div class="coach-photo">${s.photo ? `<img src="${esc(s.photo)}" alt="${esc(s.name)}" loading="lazy">` : ''}</div>
+        <div><div class="label">${esc(s.role)}</div><h3>${esc(s.name)}</h3>${s.bio ? `<p>${esc(s.bio)}</p>` : ''}</div>
+      </div>`).join('');
     return `<h2>Roster</h2>
       ${seg('roster', [['GBL', `Greek League (${gbl.length})`], ['EuroCup', `EuroCup (${ec.length})`]])}
       <div class="grid roster-grid">${cards}</div>
       <p class="note">Registered roster from ${comp === 'EuroCup' ? 'the EuroCup' : 'ESAKE (Greek League)'}. The two leagues have different rules on foreign players, so the lists differ.
-        Photos and profiles: <a href="https://paokbc.gr/en/the-team/players" target="_blank" rel="noopener">PAOK BC</a>.</p>
+        Photos and profiles: PAOK BC.</p>
       <h2>Coaching staff</h2>
-      <div class="card" style="max-width:520px"><ul class="leaders">${staff}</ul></div>`;
+      <div class="grid staff-grid">${staff}</div>`;
   },
 
   schedule() {
