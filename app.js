@@ -137,7 +137,7 @@ const VIEWS = {
     const age = (b) => { if (!b) return '–'; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
     const rows = list.map((p) => {
       const onlyHere = comp === 'EuroCup' ? !inGbl.has(sur(p.name)) : !inEc.has(sur(p.name));
-      return `<tr><td class="l"><span class="num">${esc(p.no)}</span></td>
+      return `<tr><td class="l"><span class="num">${esc(p.no || "–")}</span></td>
         <td class="l"><b>${esc(p.name)}</b>${onlyHere ? ` <span class="pill">${comp === 'EuroCup' ? 'EuroCup only' : 'GBL only'}</span>` : ''}</td>
         <td class="l">${esc(p.posCode || p.pos)}</td><td>${p.height ? (p.height / 100).toFixed(2) + ' m' : '–'}</td>
         <td class="l">${esc(p.nat)}</td><td>${age(p.born)}</td><td class="l muted">${esc(p.from || '')}</td></tr>`;

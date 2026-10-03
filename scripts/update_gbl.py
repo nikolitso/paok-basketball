@@ -164,7 +164,80 @@ def box_score(idgame):
     return box
 
 
+LIVESTATS = "https://fibalivestats.dcd.shared.geniussports.com/data/{id}/data.json"
+
+
+def livestats_box(fls_id):
+    """Box score from FIBA LiveStats (posted live; ESAKE's own pages can lag by a day).
+    Returns None until the game is finished."""
+    req = urllib.request.Request(LIVESTATS.format(id=fls_id), headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        d = json.load(r)
+    s1, s2 = d["tm"]["1"]["score"], d["tm"]["2"]["score"]
+    if not (d.get("period", 0) >= 4 and d.get("clock") in ("00:00", "0:00") and s1 != s2):
+        return None
+
+    def line(s, prefix=""):
+        g = lambda k: int(s.get(prefix + k) or 0)
+        return {
+            "pts": g("sPoints"), "fg2m": g("sTwoPointersMade"), "fg2a": g("sTwoPointersAttempted"),
+            "fg3m": g("sThreePointersMade"), "fg3a": g("sThreePointersAttempted"),
+            "ftm": g("sFreeThrowsMade"), "fta": g("sFreeThrowsAttempted"),
+            "reb": g("sReboundsTotal"), "dreb": g("sReboundsDefensive"), "oreb": g("sReboundsOffensive"),
+            "ast": g("sAssists"), "blk": g("sBlocks"), "pf": g("sFoulsPersonal"), "stl": g("sSteals"),
+            "tov": g("sTurnovers"), "pir": int(round(float(s.get(prefix + "eff_5") or 0))),
+        }
+
+    teams = {}
+    for k in ("1", "2"):
+        t = d["tm"][k]
+        players = []
+        for p in t["pl"].values():
+            m, _, sec = (p.get("sMinutes") or "0:00").partition(":")
+            row = line(p)
+            row.update({
+                "no": str(p.get("shirtNumber", "")),
+                "name": person(p["internationalFamilyName"], p["internationalFirstName"].split()[0]),
+                "start": bool(p.get("starter")), "sec": int(m or 0) * 60 + int(sec or 0),
+                "pm": int(p.get("sPlusMinusPoints") or 0),
+            })
+            players.append(row)
+        players.sort(key=lambda p: int(p["no"]) if p["no"].isdigit() else 999)
+        teams[k] = {"name": t["name"], "players": players, "total": line(t, "tot_")}
+    paok = "1" if "PAOK" in teams["1"]["name"].upper() else "2"
+    other = "2" if paok == "1" else "1"
+    return {"players": teams[paok]["players"], "team": teams[paok]["total"], "opp": teams[other]["total"]}
+
+
+def livestats_ids():
+    """data/livestats.json: {esake game id: FIBA LiveStats id}, filled by scripts/add_livestats.py."""
+    path = os.path.join(DATA, "livestats.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def use_livestats(game, fls_id):
+    """Fill in a finished game from LiveStats when ESAKE hasn't posted it yet."""
+    path = os.path.join(BOX_DIR, f"{game['code']}.json")
+    box = None
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            box = json.load(f)
+    else:
+        box = livestats_box(fls_id)
+        if box:
+            os.makedirs(BOX_DIR, exist_ok=True)
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(box, f, ensure_ascii=False, indent=1)
+    if box:
+        game.update({"played": True, "us": box["team"]["pts"], "them": box["opp"]["pts"], "box": box,
+                     "url": f"https://fibalivestats.dcd.shared.geniussports.com/u/ESAKE/{fls_id}/bs.html"})
+
+
 def league_games():
+    fls = livestats_ids()
     games = []
     for r in range(1, ROUNDS + 1):
         page = fetch(f"EsakeResults?idchampionship={CHAMPIONSHIP}&idteam={TEAM}&idseason=00000001&series={r:02d}")
@@ -191,7 +264,9 @@ def league_games():
                 "them": (int(sc[1]) if is_home else int(sc[0])) if played else None,
                 "url": f"https://www.esake.gr/el/action/EsakegameView?idgame={ids[0]}&mode=3",
             }
-            if played:
+            if ids[0] in fls:  # LiveStats box (same Genius Sports data ESAKE uses, plus +/-)
+                use_livestats(game, fls[ids[0]])
+            if game["played"] and "box" not in game:
                 game["box"] = box_score(ids[0])
             games.append(game)
     return games
@@ -277,6 +352,13 @@ def main():
             p["born"] = p["born"] or ec.get("born", "")
             p["photo"] = ec.get("photo")
             p["from"] = ec.get("from", "")
+    # ESAKE lists newly registered players as #0 until they get a number
+    zeros = [p for p in players if p["no"] == "0"]
+    if len(zeros) > 1:
+        for p in zeros:
+            ec = ec_roster.get(key(p["name"]))
+            p["no"] = ec["no"] if ec else ""
+    players.sort(key=lambda p: int(p["no"]) if p["no"].isdigit() else 999)
 
     games = league_games() + extra_games()
     games.sort(key=lambda g: g["date"] or "9999")

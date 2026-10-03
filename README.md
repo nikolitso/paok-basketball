@@ -17,6 +17,15 @@ A GitHub Action (`.github/workflows/update-data.yml`) runs every 2 hours and:
 Regular-season league and EuroCup games are picked up automatically, with no manual steps.
 To run it right away: **Actions → Update stats → Run workflow**.
 
+## Results before ESAKE posts them
+
+ESAKE's own pages can take a day to show a result. The FIBA LiveStats box score is live, so link it:
+
+```bash
+python scripts/add_livestats.py https://fibalivestats.dcd.shared.geniussports.com/u/ESAKE/2902681/bs.html
+python scripts/update_gbl.py
+```
+
 ## Adding cup / Super Cup / playoff games
 
 These aren't in the regular-season schedule, so add them from their ESAKE link:
