@@ -24,9 +24,11 @@ h3 { font-size: 18px; margin: 0 0 10px; }
 /* header */
 .site-header { background: var(--black); color: var(--white); position: sticky; top: 0; z-index: 10; }
 .header-inner { display: flex; align-items: center; gap: 24px; min-height: 64px; flex-wrap: wrap; }
-.brand { text-decoration: none; display: flex; align-items: baseline; gap: 10px; }
+.brand { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand .ball { width: 34px; height: 34px; flex-shrink: 0; transition: transform .6s; }
+.brand:hover .ball { transform: rotate(180deg); }
 .brand-main { font-size: 30px; font-weight: 700; }
-.brand-sub { font-size: 13px; color: #bbb; }
+.brand-sub { font: 500 16px Oswald, sans-serif; color: #bbb; text-transform: uppercase; letter-spacing: .12em; margin-top: 4px; }
 .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin-left: auto; }
 .tabs::-webkit-scrollbar { display: none; }
 .tabs a { text-decoration: none; padding: 8px 12px; font-size: 15px; color: #ccc; border-bottom: 3px solid transparent; white-space: nowrap; }
