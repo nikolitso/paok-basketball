@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T21:25:53Z",
+ "updated": "2026-10-03T21:59:41Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -66,6 +66,9 @@
      "fg3p": 33.3,
      "fgp": 45.5,
      "fta": 4.0,
+     "dreb": 4.0,
+     "pf": 0.0,
+     "pm": -5.0,
      "tags": [
       "Top scorer",
       "Rebounder",
@@ -89,6 +92,9 @@
      "fg3p": 40.0,
      "fgp": 55.6,
      "fta": 0.0,
+     "dreb": 2.0,
+     "pf": 1.0,
+     "pm": 0.0,
      "tags": [
       "3-pt threat"
      ]
@@ -110,6 +116,9 @@
      "fg3p": 100.0,
      "fgp": 40.0,
      "fta": 1.0,
+     "dreb": 2.0,
+     "pf": 1.0,
+     "pm": -10.0,
      "tags": [
       "3-pt threat"
      ]
@@ -131,6 +140,9 @@
      "fg3p": 0.0,
      "fgp": 50.0,
      "fta": 2.0,
+     "dreb": 2.0,
+     "pf": 1.0,
+     "pm": 7.0,
      "tags": [
       "Playmaker"
      ]
@@ -152,6 +164,9 @@
      "fg3p": 50.0,
      "fgp": 28.6,
      "fta": 4.0,
+     "dreb": 5.0,
+     "pf": 3.0,
+     "pm": 5.0,
      "tags": [
       "3-pt threat",
       "Gets to the line"
@@ -176,6 +191,9 @@
      "fg3p": 25.0,
      "fgp": 53.8,
      "fta": 12.0,
+     "dreb": 5.0,
+     "pf": 2.0,
+     "pm": 11.0,
      "tags": [
       "Top scorer",
       "Gets to the line",
@@ -199,6 +217,9 @@
      "fg3p": 50.0,
      "fgp": 83.3,
      "fta": 2.0,
+     "dreb": 6.0,
+     "pf": 4.0,
+     "pm": 19.0,
      "tags": [
       "Rebounder",
       "Playmaker"
@@ -221,6 +242,9 @@
      "fg3p": 80.0,
      "fgp": 85.7,
      "fta": 5.0,
+     "dreb": 0.0,
+     "pf": 1.0,
+     "pm": 13.0,
      "tags": [
       "3-pt threat",
       "Gets to the line"
@@ -243,6 +267,9 @@
      "fg3p": null,
      "fgp": 75.0,
      "fta": 1.0,
+     "dreb": 7.0,
+     "pf": 2.0,
+     "pm": 4.0,
      "tags": []
     },
     {
@@ -262,7 +289,336 @@
      "fg3p": 20.0,
      "fgp": 33.3,
      "fta": 2.0,
+     "dreb": 3.0,
+     "pf": 2.0,
+     "pm": -1.0,
      "tags": []
+    }
+   ],
+   "oppPlayers": [
+    {
+     "name": "Reginald Perry",
+     "no": "11",
+     "gp": 1,
+     "min": 21.9,
+     "pts": 14.0,
+     "reb": 5.0,
+     "ast": 1.0,
+     "stl": 0.0,
+     "blk": 1.0,
+     "tov": 2.0,
+     "pir": 16.0,
+     "fg3m": 1.0,
+     "fg3a": 3,
+     "fg3p": 33.3,
+     "fgp": 45.5,
+     "fta": 4.0,
+     "dreb": 4.0,
+     "pf": 0.0,
+     "pm": -5.0
+    },
+    {
+     "name": "Ryan Hawkins",
+     "no": "44",
+     "gp": 1,
+     "min": 23.0,
+     "pts": 12.0,
+     "reb": 5.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 10.0,
+     "fg3m": 2.0,
+     "fg3a": 5,
+     "fg3p": 40.0,
+     "fgp": 55.6,
+     "fta": 0.0,
+     "dreb": 2.0,
+     "pf": 1.0,
+     "pm": 0.0
+    },
+    {
+     "name": "Shawn Pipes Jr",
+     "no": "2",
+     "gp": 1,
+     "min": 19.6,
+     "pts": 11.0,
+     "reb": 3.0,
+     "ast": 2.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 10.0,
+     "fg3m": 2.0,
+     "fg3a": 2,
+     "fg3p": 100.0,
+     "fgp": 40.0,
+     "fta": 1.0,
+     "dreb": 2.0,
+     "pf": 1.0,
+     "pm": -10.0
+    },
+    {
+     "name": "Marcus Domask",
+     "no": "3",
+     "gp": 1,
+     "min": 20.4,
+     "pts": 7.0,
+     "reb": 5.0,
+     "ast": 3.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 9.0,
+     "fg3m": 0.0,
+     "fg3a": 1,
+     "fg3p": 0.0,
+     "fgp": 50.0,
+     "fta": 2.0,
+     "dreb": 2.0,
+     "pf": 1.0,
+     "pm": 7.0
+    },
+    {
+     "name": "Deandre Gholston",
+     "no": "4",
+     "gp": 1,
+     "min": 23.7,
+     "pts": 9.0,
+     "reb": 5.0,
+     "ast": 1.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 8.0,
+     "fg3m": 2.0,
+     "fg3a": 4,
+     "fg3p": 50.0,
+     "fgp": 28.6,
+     "fta": 4.0,
+     "dreb": 5.0,
+     "pf": 3.0,
+     "pm": 5.0
+    },
+    {
+     "name": "Darko Talic",
+     "no": "19",
+     "gp": 1,
+     "min": 28.4,
+     "pts": 4.0,
+     "reb": 3.0,
+     "ast": 3.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 3.0,
+     "pir": 8.0,
+     "fg3m": 0.0,
+     "fg3a": 1,
+     "fg3p": 0.0,
+     "fgp": 50.0,
+     "fta": 2.0,
+     "dreb": 3.0,
+     "pf": 2.0,
+     "pm": 12.0
+    },
+    {
+     "name": "Nikola Popovic",
+     "no": "21",
+     "gp": 1,
+     "min": 18.1,
+     "pts": 6.0,
+     "reb": 5.0,
+     "ast": 1.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 4.0,
+     "fg3m": 0.0,
+     "fg3a": 1,
+     "fg3p": 0.0,
+     "fgp": 37.5,
+     "fta": 0.0,
+     "dreb": 2.0,
+     "pf": 3.0,
+     "pm": 2.0
+    },
+    {
+     "name": "Adin Vrabac",
+     "no": "7",
+     "gp": 1,
+     "min": 17.0,
+     "pts": 4.0,
+     "reb": 0.0,
+     "ast": 1.0,
+     "stl": 1.0,
+     "blk": 1.0,
+     "tov": 0.0,
+     "pir": 4.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 50.0,
+     "fta": 2.0,
+     "dreb": 0.0,
+     "pf": 3.0,
+     "pm": -3.0
+    },
+    {
+     "name": "Edin Atic",
+     "no": "5",
+     "gp": 1,
+     "min": 16.3,
+     "pts": 3.0,
+     "reb": 2.0,
+     "ast": 2.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 3.0,
+     "pir": 0.0,
+     "fg3m": 1.0,
+     "fg3a": 2,
+     "fg3p": 50.0,
+     "fgp": 33.3,
+     "fta": 2.0,
+     "dreb": 2.0,
+     "pf": 2.0,
+     "pm": -8.0
+    },
+    {
+     "name": "Gary Browne",
+     "no": "14",
+     "gp": 1,
+     "min": 11.6,
+     "pts": 2.0,
+     "reb": 1.0,
+     "ast": 2.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 5.0,
+     "pir": 0.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 100.0,
+     "fta": 0.0,
+     "dreb": 1.0,
+     "pf": 3.0,
+     "pm": -15.0
+    }
+   ],
+   "oppRoster": [
+    {
+     "no": "14",
+     "name": "Gary Browne",
+     "pos": "Guard",
+     "nat": "USA",
+     "height": 183,
+     "born": "1993-03-24"
+    },
+    {
+     "no": "11",
+     "name": "Reginald Perry",
+     "pos": "Center",
+     "nat": "USA",
+     "height": 130,
+     "born": "2000-03-21"
+    },
+    {
+     "no": "1",
+     "name": "James Banks",
+     "pos": "Center",
+     "nat": "USA",
+     "height": 208,
+     "born": "1998-01-16"
+    },
+    {
+     "no": "4",
+     "name": "Deandre Gholston",
+     "pos": "Guard",
+     "nat": "USA",
+     "height": 196,
+     "born": "2000-07-08"
+    },
+    {
+     "no": "3",
+     "name": "Marcus Domask",
+     "pos": "Guard",
+     "nat": "USA",
+     "height": 197,
+     "born": "2000-06-09"
+    },
+    {
+     "no": "44",
+     "name": "Ryan Hawkins",
+     "pos": "Forward",
+     "nat": "USA",
+     "height": 204,
+     "born": "1997-05-12"
+    },
+    {
+     "no": "33",
+     "name": "Alija Islamovic",
+     "pos": "Center",
+     "nat": "BIH",
+     "height": 208,
+     "born": "2001-05-10"
+    },
+    {
+     "no": "22",
+     "name": "Daut Livadic",
+     "pos": "Center",
+     "nat": "BIH",
+     "height": 208,
+     "born": "2007-08-28"
+    },
+    {
+     "no": "21",
+     "name": "Nikola Popovic",
+     "pos": "Center",
+     "nat": "BIH",
+     "height": 211,
+     "born": "1997-07-19"
+    },
+    {
+     "no": "19",
+     "name": "Darko Talic",
+     "pos": "Guard",
+     "nat": "BIH",
+     "height": 192,
+     "born": "1998-02-23"
+    },
+    {
+     "no": "7",
+     "name": "Adin Vrabac",
+     "pos": "Guard",
+     "nat": "BIH",
+     "height": 202,
+     "born": "1994-01-27"
+    },
+    {
+     "no": "5",
+     "name": "Edin Atic",
+     "pos": "Guard",
+     "nat": "BIH",
+     "height": 201,
+     "born": "1997-01-19"
+    },
+    {
+     "no": "2",
+     "name": "Shawn Pipes Jr",
+     "pos": "Guard",
+     "nat": "USA",
+     "height": 193,
+     "born": "1999-03-20"
+    },
+    {
+     "no": "0",
+     "name": "Miljan Kljestan",
+     "pos": "Guard",
+     "nat": "BIH",
+     "height": 190,
+     "born": "2007-06-28"
     }
    ],
    "projection": {
@@ -564,6 +920,9 @@
      "fg3p": 25.0,
      "fgp": 58.8,
      "fta": 0.0,
+     "dreb": 2.0,
+     "pf": 2.0,
+     "pm": null,
      "tags": [
       "Top scorer",
       "Playmaker",
@@ -587,6 +946,9 @@
      "fg3p": 100.0,
      "fgp": 62.5,
      "fta": 1.0,
+     "dreb": 4.0,
+     "pf": 1.0,
+     "pm": null,
      "tags": [
       "3-pt threat"
      ]
@@ -608,6 +970,9 @@
      "fg3p": null,
      "fgp": 42.9,
      "fta": 8.0,
+     "dreb": 6.0,
+     "pf": 3.0,
+     "pm": null,
      "tags": [
       "Rebounder",
       "Gets to the line",
@@ -631,6 +996,9 @@
      "fg3p": 25.0,
      "fgp": 42.9,
      "fta": 2.0,
+     "dreb": 6.0,
+     "pf": 1.0,
+     "pm": null,
      "tags": [
       "Disruptor"
      ]
@@ -652,6 +1020,9 @@
      "fg3p": null,
      "fgp": 75.0,
      "fta": 2.0,
+     "dreb": 0.0,
+     "pf": 3.0,
+     "pm": null,
      "tags": []
     }
    ],
@@ -673,6 +1044,9 @@
      "fg3p": 40.0,
      "fgp": 33.3,
      "fta": 6.0,
+     "dreb": 3.0,
+     "pf": 2.0,
+     "pm": 6.0,
      "tags": [
       "3-pt threat",
       "Gets to the line"
@@ -695,6 +1069,9 @@
      "fg3p": 37.5,
      "fgp": 50.0,
      "fta": 6.0,
+     "dreb": 2.0,
+     "pf": 2.0,
+     "pm": 17.0,
      "tags": [
       "Top scorer",
       "3-pt threat",
@@ -718,6 +1095,9 @@
      "fg3p": 33.3,
      "fgp": 55.6,
      "fta": 2.0,
+     "dreb": 2.0,
+     "pf": 1.0,
+     "pm": 9.0,
      "tags": [
       "Playmaker"
      ]
@@ -739,6 +1119,9 @@
      "fg3p": 33.3,
      "fgp": 40.0,
      "fta": 4.0,
+     "dreb": 4.0,
+     "pf": 1.0,
+     "pm": -1.0,
      "tags": [
       "Gets to the line"
      ]
@@ -760,11 +1143,324 @@
      "fg3p": null,
      "fgp": 66.7,
      "fta": 4.0,
+     "dreb": 3.0,
+     "pf": 2.0,
+     "pm": 12.0,
      "tags": [
       "Rebounder",
       "Gets to the line",
       "Disruptor"
      ]
+    }
+   ],
+   "oppPlayers": [
+    {
+     "name": "De’Vion Harmon",
+     "no": "2",
+     "gp": 1,
+     "min": 36.8,
+     "pts": 21.0,
+     "reb": 3.0,
+     "ast": 6.0,
+     "stl": 2.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 23.0,
+     "fg3m": 1.0,
+     "fg3a": 4,
+     "fg3p": 25.0,
+     "fgp": 58.8,
+     "fta": 0.0,
+     "dreb": 2.0,
+     "pf": 2.0,
+     "pm": null
+    },
+    {
+     "name": "Jakeenan Gant",
+     "no": "23",
+     "gp": 1,
+     "min": 26.9,
+     "pts": 14.0,
+     "reb": 5.0,
+     "ast": 0.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 16.0,
+     "fg3m": 3.0,
+     "fg3a": 3,
+     "fg3p": 100.0,
+     "fgp": 62.5,
+     "fta": 1.0,
+     "dreb": 4.0,
+     "pf": 1.0,
+     "pm": null
+    },
+    {
+     "name": "Josh Sharma",
+     "no": "20",
+     "gp": 1,
+     "min": 25.5,
+     "pts": 10.0,
+     "reb": 10.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 2.0,
+     "tov": 2.0,
+     "pir": 12.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 42.9,
+     "fta": 8.0,
+     "dreb": 6.0,
+     "pf": 3.0,
+     "pm": null
+    },
+    {
+     "name": "Giannis Chatzinikolas",
+     "no": "11",
+     "gp": 1,
+     "min": 25.5,
+     "pts": 8.0,
+     "reb": 6.0,
+     "ast": 2.0,
+     "stl": 2.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 12.0,
+     "fg3m": 1.0,
+     "fg3a": 4,
+     "fg3p": 25.0,
+     "fgp": 42.9,
+     "fta": 2.0,
+     "dreb": 6.0,
+     "pf": 1.0,
+     "pm": null
+    },
+    {
+     "name": "Michalis Tsairelis",
+     "no": "6",
+     "gp": 1,
+     "min": 14.5,
+     "pts": 7.0,
+     "reb": 0.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 5.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 75.0,
+     "fta": 2.0,
+     "dreb": 0.0,
+     "pf": 3.0,
+     "pm": null
+    },
+    {
+     "name": "Trey Robinson",
+     "no": "1",
+     "gp": 1,
+     "min": 26.7,
+     "pts": 6.0,
+     "reb": 4.0,
+     "ast": 1.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 1.0,
+     "fg3m": 0.0,
+     "fg3a": 2,
+     "fg3p": 0.0,
+     "fgp": 22.2,
+     "fta": 3.0,
+     "dreb": 2.0,
+     "pf": 3.0,
+     "pm": null
+    },
+    {
+     "name": "Micah Parrish",
+     "no": "3",
+     "gp": 1,
+     "min": 14.8,
+     "pts": 3.0,
+     "reb": 1.0,
+     "ast": 1.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 1.0,
+     "fg3m": 1.0,
+     "fg3a": 2,
+     "fg3p": 50.0,
+     "fgp": 20.0,
+     "fta": 0.0,
+     "dreb": 1.0,
+     "pf": 2.0,
+     "pm": null
+    },
+    {
+     "name": "Marios Poulianitis",
+     "no": "8",
+     "gp": 1,
+     "min": 4.3,
+     "pts": 0.0,
+     "reb": 0.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 0.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": null,
+     "fta": 0.0,
+     "dreb": 0.0,
+     "pf": 0.0,
+     "pm": null
+    },
+    {
+     "name": "Denver Jones",
+     "no": "0",
+     "gp": 1,
+     "min": 24.9,
+     "pts": 6.0,
+     "reb": 1.0,
+     "ast": 1.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 4.0,
+     "pir": -1.0,
+     "fg3m": 2.0,
+     "fg3a": 6,
+     "fg3p": 33.3,
+     "fgp": 25.0,
+     "fta": 0.0,
+     "dreb": 1.0,
+     "pf": 4.0,
+     "pm": null
+    }
+   ],
+   "oppRoster": [
+    {
+     "no": "0",
+     "name": "Denver Jones",
+     "pos": "Guard",
+     "posCode": "PG",
+     "nat": "USA",
+     "height": 194,
+     "born": "2000-11-02"
+    },
+    {
+     "no": "1",
+     "name": "Trey Robinson",
+     "pos": "Forward",
+     "posCode": "SF",
+     "nat": "USA",
+     "height": 198,
+     "born": "2002-03-09"
+    },
+    {
+     "no": "2",
+     "name": "De’Vion Harmon",
+     "pos": "Guard",
+     "posCode": "SG",
+     "nat": "USA",
+     "height": 186,
+     "born": "2001-01-22"
+    },
+    {
+     "no": "3",
+     "name": "Micah Parrish",
+     "pos": "Forward",
+     "posCode": "SF",
+     "nat": "USA",
+     "height": 197,
+     "born": "2001-02-17"
+    },
+    {
+     "no": "6",
+     "name": "Michalis Tsairelis",
+     "pos": "Forward",
+     "posCode": "PF",
+     "nat": "GRE",
+     "height": 208,
+     "born": "1988-02-23"
+    },
+    {
+     "no": "7",
+     "name": "Nikos Arsenopoulos",
+     "pos": "Guard",
+     "posCode": "PG",
+     "nat": "GRE",
+     "height": 196,
+     "born": "2000-05-19"
+    },
+    {
+     "no": "8",
+     "name": "Marios Poulianitis",
+     "pos": "Guard",
+     "posCode": "PG",
+     "nat": "GRE",
+     "height": 193,
+     "born": "1999-11-29"
+    },
+    {
+     "no": "9",
+     "name": "Giannis Sachpatzidis",
+     "pos": "Center",
+     "posCode": "C",
+     "nat": "GRE",
+     "height": 208,
+     "born": "1993-09-29"
+    },
+    {
+     "no": "11",
+     "name": "Giannis Chatzinikolas",
+     "pos": "Guard",
+     "posCode": "SG",
+     "nat": "GRE",
+     "height": 193,
+     "born": "1995-10-07"
+    },
+    {
+     "no": "13",
+     "name": "Tilemachos Vissariou",
+     "pos": "Guard",
+     "posCode": "SG",
+     "nat": "GRE",
+     "height": 197,
+     "born": "2002-01-28"
+    },
+    {
+     "no": "20",
+     "name": "Josh Sharma",
+     "pos": "Center",
+     "posCode": "C",
+     "nat": "USA",
+     "height": 213,
+     "born": "1995-09-28"
+    },
+    {
+     "no": "22",
+     "name": "Giannis Fytros",
+     "pos": "Guard",
+     "posCode": "SG",
+     "nat": "GRE",
+     "height": 197,
+     "born": "2004-01-21"
+    },
+    {
+     "no": "23",
+     "name": "Jakeenan Gant",
+     "pos": "Forward",
+     "posCode": "PF",
+     "nat": "USA",
+     "height": 203,
+     "born": "1996-05-06"
     }
    ],
    "projection": {

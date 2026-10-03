@@ -1,7 +1,7 @@
 /* PAOK Basketball 2026-27 — static site reading data/eurocup.json and data/gbl.json */
 const TZ = 'Europe/Athens';
 const COMPS = { GBL: 'Greek League', EuroCup: 'EuroCup', 'Greek Super Cup': 'Super Cup', 'Greek Cup': 'Greek Cup' };
-const state = { ec: null, gbl: null, games: [], filters: { profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
+const state = { ec: null, gbl: null, games: [], filters: { profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -66,7 +66,7 @@ function playerTotals(comp) {
       if (!p.sec) continue; // DNP
       t.gp++; if (p.start) t.gs++;
       for (const k of ['sec', 'pts', 'fg2m', 'fg2a', 'fg3m', 'fg3a', 'ftm', 'fta', 'oreb', 'dreb', 'reb', 'ast', 'stl', 'tov', 'blk', 'pf', 'pir']) t[k] += p[k] || 0;
-      if (p.pm !== null && p.pm !== undefined) { t.pm += p.pm; t.hasPm = true; }
+      if (p.pm !== null && p.pm !== undefined) { t.pm += p.pm; t.pmg = (t.pmg || 0) + 1; t.hasPm = true; }
       t.high = Math.max(t.high, p.pts);
     }
   }
@@ -237,10 +237,10 @@ const VIEWS = {
       ['fgp', 'FG%', (p) => pct(p.fg2m + p.fg3m, p.fg2a + p.fg3a)], ['fg2p', '2P%', (p) => pct(p.fg2m, p.fg2a)],
       ['fg3p', '3P%', (p) => pct(p.fg3m, p.fg3a)], ['fg3m', '3PM', (p) => fmt(per(p, 'fg3m'))], ['ftp', 'FT%', (p) => pct(p.ftm, p.fta)],
       ['pf', 'PF', (p) => fmt(per(p, 'pf'))], ['pir', 'PIR', (p) => fmt(per(p, 'pir'))],
-      ...(showPm ? [['pm', '+/-', (p) => (p.hasPm ? fmt(per(p, 'pm')) : '–')]] : []), ['high', 'High', (p) => p.high],
+      ...(showPm ? [['pm', '+/-', (p) => (p.hasPm ? fmt(mode === 'avg' ? p.pm / p.pmg : p.pm) : '–')]] : []), ['high', 'High', (p) => p.high],
     ];
     function fmt(x) { return mode === 'avg' ? f1(x) : Math.round(x); }
-    const sortVal = (p, k) => ({ fgp: (p.fg2m + p.fg3m) / (p.fg2a + p.fg3a || 1), fg2p: p.fg2m / (p.fg2a || 1), fg3p: p.fg3m / (p.fg3a || 1), ftp: p.ftm / (p.fta || 1), gp: p.gp, high: p.high }[k] ?? per(p, k));
+    const sortVal = (p, k) => ({ fgp: (p.fg2m + p.fg3m) / (p.fg2a + p.fg3a || 1), fg2p: p.fg2m / (p.fg2a || 1), fg3p: p.fg3m / (p.fg3a || 1), ftp: p.ftm / (p.fta || 1), gp: p.gp, high: p.high, pm: p.hasPm ? (mode === 'avg' ? p.pm / p.pmg : p.pm) : -999 }[k] ?? per(p, k));
     const { key, dir } = state.sort;
     ps.sort((a, b) => dir * (sortVal(a, key) - sortVal(b, key)));
     return `<h2>Player Stats</h2>
@@ -343,50 +343,100 @@ const TAG_RULES = [
   ['Gets to the line', '4+ free-throw attempts per game'],
   ['Disruptor', '2+ steals and blocks combined per game'],
 ];
-function profileTags(p, regulars) {
-  const per = (x, k) => x[k] / x.gp;
-  const leader = (k) => regulars.length && regulars.reduce((a, b) => (per(b, k) > per(a, k) ? b : a)) === p;
-  const isReg = regulars.includes(p);
-  const tags = [];
-  if (isReg && leader('pts')) tags.push('Top scorer');
-  if ((isReg && leader('reb')) || per(p, 'reb') >= 6) tags.push('Rebounder');
-  if ((isReg && leader('ast')) || per(p, 'ast') >= 4) tags.push('Playmaker');
-  if (per(p, 'fg3m') >= 1.5 && p.fg3m / (p.fg3a || 1) >= 0.35) tags.push('3-pt threat');
-  if (per(p, 'fta') >= 4) tags.push('Gets to the line');
-  if (per(p, 'stl') + per(p, 'blk') >= 2) tags.push('Disruptor');
-  return tags;
-}
-VIEWS.profiles = function profiles() {
-  const comp = state.filters.profiles;
-  const opts = [['All', 'All games'], ...compsWithGames().map((c) => [c, compName(c)])];
-  const stats = playerTotals(comp);
-  const teamGp = gamesWithBox(comp).length;
-  const regulars = stats.filter((p) => p.gp >= Math.max(1, Math.ceil(teamGp / 2)));
-  const sur = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
-  // everyone registered in either competition, with their season numbers if they've played
-  const roster = new Map();
-  for (const r of [...state.gbl.roster, ...state.ec.roster]) if (!roster.has(sur(r.name))) roster.set(sur(r.name), r);
-  const age = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
-  const cards = [...roster.values()].map((r) => ({ r, s: stats.find((p) => sur(p.name) === sur(r.name)) }))
-    .sort((a, b) => (b.s ? b.s.pir / b.s.gp : -99) - (a.s ? a.s.pir / a.s.gp : -99));
-  const card = ({ r, s }) => {
-    const bio = [r.posCode || r.pos, r.height ? (r.height / 100).toFixed(2) + ' m' : '', r.nat, age(r.born) ? age(r.born) + ' yrs' : ''].filter(Boolean).map(esc).join(' · ');
-    if (!s) return `<div class="card impact muted-card"><div class="impact-head"><span class="num">${esc(r.no || '–')}</span><div><b>${esc(r.name)}</b><div class="muted" style="font-size:12px">${bio}</div></div></div>
-      <p class="muted" style="margin:14px 0 0">No ${comp === 'All' ? '' : esc(compName(comp)) + ' '}games played yet.</p></div>`;
-    const g = s.gp, tags = profileTags(s, regulars);
-    return `<div class="card impact">
-      <div class="impact-head"><span class="num">${esc(r.no || s.no || '–')}</span><div><b>${esc(r.name)}</b><div class="muted" style="font-size:12px">${bio}</div>
-        <div class="muted" style="font-size:12px">${g} game${g > 1 ? 's' : ''} · ${f1(s.sec / 60 / g)} min</div></div>
-        <div class="pir-badge">${f1(s.pir / g)}<span>PIR</span></div></div>
-      <div class="impact-line"><div><b>${f1(s.pts / g)}</b><span>PTS</span></div><div><b>${f1(s.reb / g)}</b><span>REB</span></div><div><b>${f1(s.ast / g)}</b><span>AST</span></div><div><b>${pct(s.fg3m, s.fg3a)}${s.fg3a ? '%' : ''}</b><span>3P</span></div></div>
-      ${tags.length ? `<div class="tags">${tags.map((t) => `<span class="pill" title="${esc(TAG_RULES.find(([n]) => n === t)[1])}">${esc(t)}</span>`).join(' ')}</div>` : ''}
-    </div>`;
+const DEF_RULES = [
+  ['Ball hawk', '1.5+ steals per game'],
+  ['Rim protector', '1+ blocks per game'],
+  ['Defensive glass', 'Leads the team in defensive rebounds, or 5+ per game'],
+  ['Plus/minus impact', 'Team outscores opponents by 5+ per game with him on court'],
+  ['Foul trouble', '3.5+ personal fouls per game'],
+];
+const RULE_TEXT = Object.fromEntries([...TAG_RULES, ...DEF_RULES]);
+
+/* every profile is a per-game line: {name, no, gp, min, pts, reb, dreb, ast, stl, blk, pf, fg3m, fg3a (total), fg3p, fta, pir, pm} */
+function perGameFromTotals(t) {
+  const g = t.gp;
+  return {
+    name: t.name, no: t.no, gp: g, min: t.sec / 60 / g, pts: t.pts / g, reb: t.reb / g, dreb: t.dreb / g, ast: t.ast / g,
+    stl: t.stl / g, blk: t.blk / g, pf: t.pf / g, fg3m: t.fg3m / g, fg3a: t.fg3a, fg3p: t.fg3a ? (100 * t.fg3m) / t.fg3a : null,
+    fta: t.fta / g, pir: t.pir / g, pm: t.hasPm ? t.pm / t.pmg : null, // only games that publish +/-
   };
-  return `<h2>Player Profiles</h2>${seg('profiles', opts)}
-    <div class="grid three">${cards.map(card).join('')}</div>
+}
+function profileTags(p, regulars) {
+  const isReg = regulars.includes(p);
+  const leads = (k) => isReg && regulars.every((o) => o === p || o[k] <= p[k]);
+  const off = [], def = [];
+  if (leads('pts')) off.push('Top scorer');
+  if (leads('reb') || p.reb >= 6) off.push('Rebounder');
+  if (leads('ast') || p.ast >= 4) off.push('Playmaker');
+  if (p.fg3m >= 1.5 && (p.fg3p || 0) >= 35) off.push('3-pt threat');
+  if (p.fta >= 4) off.push('Gets to the line');
+  if (p.stl + p.blk >= 2) off.push('Disruptor');
+  if (p.stl >= 1.5) def.push('Ball hawk');
+  if (p.blk >= 1) def.push('Rim protector');
+  if (leads('dreb') || p.dreb >= 5) def.push('Defensive glass');
+  if (p.pm !== null && p.pm !== undefined && p.pm >= 5) def.push('Plus/minus impact');
+  if (p.pf >= 3.5) def.push('Foul trouble');
+  return { off, def };
+}
+const sname = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
+const yearsOld = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
+
+function profileCard(r, p, regulars, emptyText) {
+  const h = r.height && r.height >= 160 ? (r.height / 100).toFixed(2) + ' m' : ''; // feeds sometimes carry placeholder heights
+  const age = yearsOld(r.born);
+  const bio = [r.posCode || r.pos, h, r.nat, age ? age + ' yrs' : ''].filter(Boolean).map(esc).join(' · ');
+  const head = (extra) => `<div class="impact-head"><span class="num">${esc(r.no || (p && p.no) || '–')}</span><div><b>${esc(r.name)}</b><div class="muted" style="font-size:12px">${bio}</div>${extra}</div>${p ? `<div class="pir-badge">${f1(p.pir)}<span>PIR</span></div>` : ''}</div>`;
+  if (!p) return `<div class="card impact muted-card">${head('')}<p class="muted" style="margin:14px 0 0">${esc(emptyText)}</p></div>`;
+  const { off, def } = profileTags(p, regulars);
+  const pill = (t, cls = '') => `<span class="pill ${cls}" title="${esc(RULE_TEXT[t])}">${esc(t)}</span>`;
+  const pm = p.pm === null || p.pm === undefined ? '–' : (p.pm > 0 ? '+' : '') + f1(p.pm);
+  return `<div class="card impact">
+    ${head(`<div class="muted" style="font-size:12px">${p.gp} game${p.gp > 1 ? 's' : ''} · ${f1(p.min)} min</div>`)}
+    <div class="impact-line"><div><b>${f1(p.pts)}</b><span>PTS</span></div><div><b>${f1(p.reb)}</b><span>REB</span></div><div><b>${f1(p.ast)}</b><span>AST</span></div><div><b>${p.fg3p === null || p.fg3p === undefined ? '–' : f1(p.fg3p) + '%'}</b><span>3P</span></div></div>
+    ${off.length ? `<div class="tags">${off.map((t) => pill(t)).join('')}</div>` : ''}
+    <div class="def-line"><span class="label">Defence</span>
+      <div><b>${f1(p.stl)}</b><span>STL</span></div><div><b>${f1(p.blk)}</b><span>BLK</span></div><div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b>${pm}</b><span>+/-</span></div></div>
+    ${def.length ? `<div class="tags">${def.map((t) => pill(t, t === 'Foul trouble' ? '' : 'def')).join('')}</div>` : ''}
+  </div>`;
+}
+
+VIEWS.profiles = function profiles() {
+  const reports = [...state.scout.reports].sort((a, b) => toDate(a.date) - toDate(b.date));
+  const teams = [['PAOK', 'PAOK'], ...reports.map((r) => [`opp:${r.comp}`, `${r.opp} (${compName(r.comp)})`])];
+  if (!teams.some(([k]) => k === state.filters.profTeam)) state.filters.profTeam = 'PAOK';
+  const team = state.filters.profTeam;
+  let items, regulars, emptyText, intro = '';
+  if (team === 'PAOK') {
+    const comp = state.filters.profiles;
+    const teamGp = gamesWithBox(comp).length;
+    const lines = playerTotals(comp).map(perGameFromTotals);
+    regulars = lines.filter((p) => p.gp >= Math.max(1, Math.ceil(teamGp / 2)));
+    const roster = new Map();
+    for (const r of [...state.gbl.roster, ...state.ec.roster]) if (!roster.has(sname(r.name))) roster.set(sname(r.name), r);
+    items = [...roster.values()].map((r) => ({ r, p: lines.find((x) => sname(x.name) === sname(r.name)) }));
+    emptyText = `No ${comp === 'All' ? '' : compName(comp) + ' '}games played yet.`;
+    intro = seg('profiles', [['All', 'All games'], ...compsWithGames().map((c) => [c, compName(c)])]);
+  } else {
+    const rep = reports.find((r) => `opp:${r.comp}` === team);
+    const lines = rep.oppPlayers || [];
+    const teamGp = rep.oppTeam ? rep.oppTeam.gp : 0;
+    regulars = lines.filter((p) => p.gp >= Math.max(1, Math.ceil(teamGp / 2)));
+    const roster = rep.oppRoster && rep.oppRoster.length ? rep.oppRoster : [];
+    const seen = new Set(roster.map((r) => sname(r.name)));
+    const all = [...roster, ...lines.filter((p) => !seen.has(sname(p.name))).map((p) => ({ name: p.name, no: p.no }))];
+    items = all.map((r) => ({ r, p: lines.find((x) => sname(x.name) === sname(r.name)) }));
+    emptyText = `No ${compName(rep.comp)} games played yet.`;
+    intro = `<p class="muted">${esc(compName(rep.comp))} stats this season${teamGp ? ` (${teamGp} game${teamGp > 1 ? 's' : ''})` : ''} · next meeting ${fmtDate(rep.date)} ·
+      <a href="#scout" onclick="state.filters.scout='${rep.comp}'">Scouting report →</a></p>`;
+  }
+  items.sort((a, b) => (b.p ? b.p.pir : -99) - (a.p ? a.p.pir : -99));
+  const legend = (title, rules, cls) => `<div class="card"><h3>${title}</h3><ul class="leaders">${rules.map(([n, d]) => `<li><span class="pill ${cls}">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul></div>`;
+  return `<h2>Player Profiles</h2>${seg('profTeam', teams)}${intro}
+    <div class="grid three">${items.map(({ r, p }) => profileCard(r, p, regulars, emptyText)).join('')}</div>
     <h2>What the badges mean</h2>
-    <div class="card" style="max-width:640px"><ul class="leaders">${TAG_RULES.map(([n, d]) => `<li><span class="pill">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul>
-    <p class="note">"Leads the team" counts players who've played at least half of the games in the selected competition. Badges update after every game.</p></div>`;
+    <div class="grid two">${legend('Offence &amp; all-round', TAG_RULES, '')}${legend('Defence', DEF_RULES, 'def')}</div>
+    <p class="note">"Leads the team" counts players who've played at least half of the games. Box scores only capture part of defence: steals, blocks, defensive rebounds, fouls and plus/minus.
+      Plus/minus comes from the EuroCup and FIBA LiveStats; ESAKE's own pages don't publish it, so it can be missing for some Greek League games.</p>`;
 };
 
 /* ---------- pieces ---------- */

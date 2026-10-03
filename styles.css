@@ -159,3 +159,10 @@ main { padding-bottom: 48px; }
 .muted-card { opacity: .6; }
 .leaders li .pill { flex-shrink: 0; margin-right: 12px; }
 .leaders li .muted { text-align: right; }
+.def-line { display: grid; grid-template-columns: auto repeat(5, 1fr); gap: 6px; align-items: center; text-align: center; margin: 12px 0 8px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.def-line .label { text-align: left; }
+.def-line b { display: block; font: 700 16px Oswald, sans-serif; }
+.def-line span:not(.label) { font-size: 10px; color: var(--muted); letter-spacing: .06em; }
+.pill.def { background: var(--soft); border-style: dashed; }
+.tags { margin-top: 4px; }
+@media (max-width: 400px) { .def-line { grid-template-columns: repeat(5, 1fr); } .def-line .label { grid-column: 1 / -1; } }

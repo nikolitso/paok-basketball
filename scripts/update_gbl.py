@@ -308,8 +308,8 @@ def extra_games():
     return games
 
 
-def roster():
-    c = cells(fetch(f"EsaketeamView?idteam={TEAM}&mode=1"))
+def roster(team=TEAM):
+    c = cells(fetch(f"EsaketeamView?idteam={team}&mode=1"))
     players = []
     for i, cell in enumerate(c):
         if cell == "#" and i + 4 < len(c) and c[i + 1].isdigit() and c[i + 5] == "ΟΜΑΔΑ":

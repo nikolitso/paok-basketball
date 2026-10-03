@@ -76,12 +76,16 @@ def aggregate(boxes):
             if not p.get("sec"):
                 continue
             t = players.setdefault(surname(p["name"]), {"name": p["name"], "no": p.get("no", ""), "gp": 0, "sec": 0,
-                                                        **{k: 0 for k in ("pts", "reb", "oreb", "ast", "stl", "blk", "tov", "pir",
+                                                        "pm": 0, "pmg": 0,
+                                                        **{k: 0 for k in ("pts", "reb", "oreb", "dreb", "ast", "stl", "blk", "tov", "pir", "pf",
                                                                           "fg2m", "fg2a", "fg3m", "fg3a", "ftm", "fta")}})
             t["gp"] += 1
             for k in list(t):
-                if k not in ("name", "no", "gp"):
+                if k not in ("name", "no", "gp", "pm", "pmg"):
                     t[k] += p.get(k, 0) or 0
+            if p.get("pm") is not None:  # plus/minus isn't in every source
+                t["pm"] += p["pm"]
+                t["pmg"] += 1
     out = []
     for t in players.values():
         g = t["gp"]
@@ -91,7 +95,8 @@ def aggregate(boxes):
             "stl": round(t["stl"] / g, 1), "blk": round(t["blk"] / g, 1), "tov": round(t["tov"] / g, 1),
             "pir": round(t["pir"] / g, 1), "fg3m": round(t["fg3m"] / g, 1), "fg3a": t["fg3a"],
             "fg3p": pct(t["fg3m"], t["fg3a"]), "fgp": pct(t["fg2m"] + t["fg3m"], t["fg2a"] + t["fg3a"]),
-            "fta": round(t["fta"] / g, 1),
+            "fta": round(t["fta"] / g, 1), "dreb": round(t["dreb"] / g, 1), "pf": round(t["pf"] / g, 1),
+            "pm": round(t["pm"] / t["pmg"], 1) if t["pmg"] else None,
             # per-minute rates for projections
             "_rate": {k: t[k] / (t["sec"] / 60) for k in ("pts", "reb", "ast", "pir")} if t["sec"] else {},
         })
@@ -188,7 +193,14 @@ def eurocup_scout(next_game, paok_boxes):
             dressed = {c: [ec.title_name(p["player"]["person"]["name"]) for p in s["players"]] for c, s in sides.items() if c}
     except Exception:
         pass
-    return boxes, opp["club"]["editorialName"].strip(), dressed and (dressed.get(ec.CLUB), dressed.get(code))
+    bios = []
+    for x in ec.get(f"/clubs/{code}/people"):
+        if x["type"] == "J" and x.get("active"):
+            per = x["person"]
+            bios.append({"no": x["dorsal"], "name": ec.title_name(per["name"]), "pos": x.get("positionName") or "",
+                         "nat": (per.get("country") or {}).get("code", ""), "height": per.get("height") or None,
+                         "born": (per.get("birthDate") or "")[:10]})
+    return boxes, opp["club"]["editorialName"].strip(), dressed and (dressed.get(ec.CLUB), dressed.get(code)), bios
 
 
 def esake_team_ids():
@@ -201,7 +213,7 @@ def gbl_scout(next_game, gbl_data):
     opp = next_game["opp"]
     tid = esake_team_ids().get(opp)
     if not tid:
-        return [], opp, None
+        return [], opp, None, []
     now = datetime.now(timezone.utc)
     done_rounds = [int(x["round"].split()[-1]) for x in gbl_data["games"]
                    if x["comp"] == "GBL" and x["date"] and x["date"].endswith("Z")
@@ -223,7 +235,12 @@ def gbl_scout(next_game, gbl_data):
         is_home = gbl.team_name(g["home"]) == opp
         won = (g["hs"] > g["as"]) == is_home
         boxes.append({"players": mine["players"], "team": mine["total"], "opp": other["total"], "won": won})
-    return boxes, opp, None
+    try:
+        bios = gbl.roster(tid)
+    except Exception as e:
+        print("opponent roster unavailable:", e)
+        bios = []
+    return boxes, opp, None, bios
 
 
 # ---------- main ----------
@@ -245,9 +262,9 @@ def main():
                       for g in data["games"] if g["comp"] == comp and g["played"] and g.get("box")]
         try:
             if comp == "EuroCup":
-                opp_boxes, opp_name, dressed = eurocup_scout(nxt, paok_boxes)
+                opp_boxes, opp_name, dressed, opp_bios = eurocup_scout(nxt, paok_boxes)
             else:
-                opp_boxes, opp_name, dressed = gbl_scout(nxt, gbld)
+                opp_boxes, opp_name, dressed, opp_bios = gbl_scout(nxt, gbld)
         except Exception as e:
             print(f"{comp}: scouting failed ({e})")
             continue
@@ -259,6 +276,9 @@ def main():
             "paokTeam": paok_team, "oppTeam": opp_team,
             "impact": impact(opp_players, opp_team["gp"]) if opp_team else [],
             "paokImpact": impact(paok_players, paok_team["gp"]) if paok_team else [],
+            # full opponent player list + registered roster, for the Player Profiles page
+            "oppPlayers": [{k: v for k, v in p.items() if not k.startswith("_")} for p in opp_players],
+            "oppRoster": opp_bios,
         }
         # match-day projections
         key = f"{comp}:{nxt['code']}"
