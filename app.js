@@ -454,7 +454,7 @@ VIEWS.profiles = function profiles() {
       <a href="#scout" onclick="state.filters.scout='${rep.comp}'">Scouting report →</a></p>`;
   }
   items.sort((a, b) => (b.p ? b.p.pir : -99) - (a.p ? a.p.pir : -99));
-  const legend = (title, rules, cls) => `<div class="card"><h3>${title}</h3><ul class="leaders">${rules.map(([n, d]) => `<li><span class="pill ${{ 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[n] || cls}">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul></div>`;
+  const legend = (title, rules, cls) => `<div class="card"><h3>${title}</h3><ul class="legend">${rules.map(([n, d]) => `<li><span class="pill ${{ 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[n] || cls}">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul></div>`;
   return `<h2>Player Profiles</h2>${seg('profTeam', teams)}${intro}
     <div class="grid three">${items.map(({ r, p }) => profileCard(r, p, regulars, emptyText)).join('')}</div>
     <h2>What the badges mean</h2>
