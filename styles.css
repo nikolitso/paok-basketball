@@ -120,3 +120,14 @@ dialog::backdrop { background: rgba(0,0,0,.6); }
 
 main { padding-bottom: 48px; }
 .note { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+
+/* PIR explainer */
+.pir { margin-top: 24px; max-width: 760px; }
+.pir p { margin: 0 0 12px; }
+.pir .formula { display: grid; gap: 8px; margin: 12px 0; }
+.pir .formula div { background: var(--soft); border-radius: 8px; padding: 10px 12px; }
+.pir .formula .label { display: block; margin-bottom: 2px; }
+.pir .scale { list-style: none; padding: 0; margin: 12px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+.pir .scale li { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.pir .scale b { display: block; font: 700 20px Oswald, sans-serif; }
+.pir .scale span { font-size: 13px; color: var(--muted); }

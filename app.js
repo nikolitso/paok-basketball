@@ -245,7 +245,8 @@ const VIEWS = {
         <thead><tr><th class="l">#</th><th class="l">Player</th>${cols.map(([k, l]) => `<th class="sortable ${key === k ? 'sorted' : ''}" onclick="sortBy('${k}')">${l}</th>`).join('')}</tr></thead>
         <tbody>${ps.map((p) => `<tr><td class="l">${esc(p.no)}</td><td class="l"><b>${esc(p.name)}</b></td>${cols.map(([, , f]) => `<td>${f(p)}</td>`).join('')}</tr>`).join('')}</tbody>
       </table></div>
-      <p class="note">Click a column to sort. PIR = Performance Index Rating.${showPm ? '' : ' Plus/minus is only published in the EuroCup feed.'}</p>`;
+      <p class="note">Click a column to sort.${showPm ? '' : ' Plus/minus isn\'t available for these games.'}</p>
+      ${PIR_EXPLAINER}`;
   },
 
   standings() {
@@ -262,6 +263,23 @@ const VIEWS = {
 };
 
 /* ---------- pieces ---------- */
+const PIR_EXPLAINER = `
+  <div class="card pir">
+    <h3>What is PIR?</h3>
+    <p><b>Performance Index Rating</b> is the one-number score the EuroLeague, EuroCup and Greek League use to rate a player's game
+      (in Greek: <i>Αξιολόγηση</i> or "Ranking").</p>
+    <div class="formula">
+      <div><span class="label">Adds</span>Points + Rebounds + Assists + Steals + Blocks + Fouls drawn</div>
+      <div><span class="label">Subtracts</span>Missed shots + Missed free throws + Turnovers + Shots blocked + Fouls committed</div>
+    </div>
+    <ul class="scale">
+      <li><b>0 or less</b><span>poor game</span></li>
+      <li><b>~10</b><span>solid game</span></li>
+      <li><b>20+</b><span>very good game</span></li>
+      <li><b>30+</b><span>outstanding game</span></li>
+    </ul>
+    <p class="note">Example: 12 points in 20 minutes plus rebounds, assists and drawn fouls with few misses can be worth more PIR than 20 points on poor shooting.</p>
+  </div>`;
 function gameRow(g, isNext = false) {
   const res = g.played
     ? `<span class="wl ${result(g)}">${result(g)}</span> ${g.us}–${g.them}`
