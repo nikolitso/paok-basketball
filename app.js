@@ -27,8 +27,8 @@ const vsAt = (g) => (g.neutral ? 'vs' : g.home ? 'vs' : '@');
 async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
-  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => [])]);
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({}))]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
@@ -148,11 +148,15 @@ const VIEWS = {
     const age = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
     const cards = list.map((p) => {
       const c = club(p.name);
+      const parts = p.name.toLowerCase().split(' ').slice(1).join(' ');
+      const info = [parts.replace(/[^a-z]/g, ''), ...parts.split(/[\s-]+/)].map((k) => state.info[k]).find(Boolean) || {};
+      const prev = info.prev || (/paok/i.test(p.from || '') ? '' : p.from);
       const onlyHere = comp === 'EuroCup' ? !inGbl.has(sur(p.name)) : !inEc.has(sur(p.name));
       const h = p.height && p.height >= 160 ? (p.height / 100).toFixed(2) + ' m' : c.height ? c.height + ' m' : '';
       const facts = [
         ['Position', p.posCode ? `${p.posCode} · ${p.pos}` : p.pos], ['Height', h], ['Nationality', p.nat],
-        ['Age', age(p.born) ? `${age(p.born)}` : ''], ['Born in', c.birthplace], ['Previous team', p.from],
+        ['Age', age(p.born) ? `${age(p.born)}` : ''], ['Born in', info.birthplace || c.birthplace], ['Previous team', prev],
+        ['At PAOK since', info.joined], ['Contract until', info.until ? `${info.until} (summer)` : ''],
       ].filter(([, v]) => v);
       return `<div class="card player-card">
         <div class="photo">${c.photo ? `<img src="${esc(c.photo)}" alt="${esc(p.name)}" loading="lazy">` : '<div class="no-photo">PAOK</div>'}
@@ -161,6 +165,7 @@ const VIEWS = {
           <h3>${esc(p.name)}</h3>
           ${onlyHere ? `<span class="pill">${comp === 'EuroCup' ? 'EuroCup only' : 'GBL only'}</span>` : ''}
           <dl>${facts.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
+          ${info.note ? `<p class="muted" style="font-size:12px;margin:0">${esc(info.note)}</p>` : ''}
         </div></div>`;
     }).join('');
     const staffList = state.clubStaff.length ? state.clubStaff : state.ec.staff;
@@ -172,7 +177,7 @@ const VIEWS = {
       ${seg('roster', [['GBL', `Greek League (${gbl.length})`], ['EuroCup', `EuroCup (${ec.length})`]])}
       <div class="grid roster-grid">${cards}</div>
       <p class="note">Registered roster from ${comp === 'EuroCup' ? 'the EuroCup' : 'ESAKE (Greek League)'}. The two leagues have different rules on foreign players, so the lists differ.
-        Photos and profiles: PAOK BC.</p>
+        Photos and profiles: PAOK BC. Contracts and transfer dates from club announcements and press reports.</p>
       <h2>Coaching staff</h2>
       <div class="grid staff-grid">${staff}</div>`;
   },
