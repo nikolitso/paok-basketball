@@ -28,8 +28,6 @@ async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   [state.ec, state.gbl] = await Promise.all([get('eurocup.json'), get('gbl.json')]);
   state.games = [...state.ec.games, ...state.gbl.games].filter((g) => g.date).sort((a, b) => toDate(a.date) - toDate(b.date));
-  const upd = [state.ec.updated, state.gbl.updated].sort().pop();
-  $('#updated').textContent = `Last updated: ${new Intl.DateTimeFormat('en-GB', { timeZone: TZ, dateStyle: 'medium', timeStyle: 'short' }).format(new Date(upd))}`;
   window.addEventListener('hashchange', render);
   render();
 }
