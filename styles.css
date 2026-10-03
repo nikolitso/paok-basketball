@@ -131,3 +131,6 @@ main { padding-bottom: 48px; }
 .pir .scale li { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
 .pir .scale b { display: block; font: 700 20px Oswald, sans-serif; }
 .pir .scale span { font-size: 13px; color: var(--muted); }
+
+.report { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.report:hover { text-decoration-thickness: 2px; }

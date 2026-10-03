@@ -312,5 +312,25 @@
   "blk": 1,
   "pf": 22,
   "pir": 82
+ },
+ "extra": {
+  "us": {
+   "tovPts": 18,
+   "paint": 46,
+   "second": 6,
+   "fastbreak": 14,
+   "bench": 39,
+   "lead": 15,
+   "run": 14
+  },
+  "them": {
+   "tovPts": 11,
+   "paint": 40,
+   "second": 7,
+   "fastbreak": 21,
+   "bench": 34,
+   "lead": 5,
+   "run": 6
+  }
  }
 }

@@ -206,7 +206,16 @@ def livestats_box(fls_id):
         teams[k] = {"name": t["name"], "players": players, "total": line(t, "tot_")}
     paok = "1" if "PAOK" in teams["1"]["name"].upper() else "2"
     other = "2" if paok == "1" else "1"
-    return {"players": teams[paok]["players"], "team": teams[paok]["total"], "opp": teams[other]["total"]}
+
+    def extra(k):
+        t = d["tm"][k]
+        g = lambda key: int(t.get("tot_" + key) or 0)
+        return {"tovPts": g("sPointsFromTurnovers"), "paint": g("sPointsInThePaint"),
+                "second": g("sPointsSecondChance"), "fastbreak": g("sPointsFastBreak"),
+                "bench": g("sBenchPoints"), "lead": g("sBiggestLead"), "run": g("sBiggestScoringRun")}
+
+    return {"players": teams[paok]["players"], "team": teams[paok]["total"], "opp": teams[other]["total"],
+            "extra": {"us": extra(paok), "them": extra(other)}}
 
 
 def livestats_ids():
@@ -225,8 +234,8 @@ def use_livestats(game, fls_id):
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
             box = json.load(f)
-    else:
-        box = livestats_box(fls_id)
+    if not box or "extra" not in box:  # boxes saved before the extras were added get refetched once
+        box = livestats_box(fls_id) or box
         if box:
             os.makedirs(BOX_DIR, exist_ok=True)
             with open(path, "w", encoding="utf-8") as f:

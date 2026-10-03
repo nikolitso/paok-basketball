@@ -1,7 +1,7 @@
 {
  "competition": "BKT EuroCup",
  "season": "2026-27",
- "updated": "2026-10-03T20:06:09Z",
+ "updated": "2026-10-03T20:08:26Z",
  "source": "https://www.euroleaguebasketball.net/eurocup/",
  "group": "Group D",
  "staff": [
@@ -210,6 +210,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/06792bed-0383-4de2-80b9-95ecca3fd973.png",
    "venue": "Paok Sports Arena",
    "played": true,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/14/",
    "us": 93,
    "them": 78,
    "box": {
@@ -526,6 +527,26 @@
      "blk": 1,
      "pf": 22,
      "pir": 82
+    },
+    "extra": {
+     "us": {
+      "tovPts": 18,
+      "paint": 46,
+      "second": 6,
+      "fastbreak": 14,
+      "bench": 39,
+      "lead": 15,
+      "run": 14
+     },
+     "them": {
+      "tovPts": 11,
+      "paint": 40,
+      "second": 7,
+      "fastbreak": 21,
+      "bench": 34,
+      "lead": 5,
+      "run": 6
+     }
     }
    }
   },
@@ -540,6 +561,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
    "venue": "Zetra Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/32/",
    "us": null,
    "them": null
   },
@@ -554,6 +576,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/ffcb6e37-31f4-48f6-91c2-a8c9a6f791a9.png",
    "venue": "Kalnapilio Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/45/",
    "us": null,
    "them": null
   },
@@ -568,6 +591,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/5750bc8b-dd63-48e4-8586-10d4e5e2b4e2.png",
    "venue": "Paok Sports Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/64/",
    "us": null,
    "them": null
   },
@@ -582,6 +606,7 @@
    "oppCrest": "https://media-cdn.incrowdsports.com/1d3274d8-da86-4d21-9e97-6810ab88babe.png",
    "venue": "Sinan Erdem Sports Hall",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/78/",
    "us": null,
    "them": null
   },
@@ -596,6 +621,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
    "venue": "Paok Sports Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/95/",
    "us": null,
    "them": null
   },
@@ -610,6 +636,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/ba6e2d99-3ea9-4730-a0ce-830cccca4657.png",
    "venue": "Arena Botevgrad",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/111/",
    "us": null,
    "them": null
   },
@@ -624,6 +651,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/06792bed-0383-4de2-80b9-95ecca3fd973.png",
    "venue": "Pavello Nou Congost",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/126/",
    "us": null,
    "them": null
   },
@@ -638,6 +666,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
    "venue": "Paok Sports Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/144/",
    "us": null,
    "them": null
   },
@@ -652,6 +681,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/ffcb6e37-31f4-48f6-91c2-a8c9a6f791a9.png",
    "venue": "Paok Sports Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/157/",
    "us": null,
    "them": null
   },
@@ -666,6 +696,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/5750bc8b-dd63-48e4-8586-10d4e5e2b4e2.png",
    "venue": "Ratiopharm Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/176/",
    "us": null,
    "them": null
   },
@@ -680,6 +711,7 @@
    "oppCrest": "https://media-cdn.incrowdsports.com/1d3274d8-da86-4d21-9e97-6810ab88babe.png",
    "venue": "Paok Sports Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/190/",
    "us": null,
    "them": null
   },
@@ -694,6 +726,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
    "venue": "Palazzetto Dello Sport",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/207/",
    "us": null,
    "them": null
   },
@@ -708,6 +741,7 @@
    "oppCrest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCpC/ba6e2d99-3ea9-4730-a0ce-830cccca4657.png",
    "venue": "Paok Sports Arena",
    "played": false,
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/223/",
    "us": null,
    "them": null
   }

@@ -312,5 +312,25 @@
   "stl": 7,
   "tov": 12,
   "pir": 97
+ },
+ "extra": {
+  "us": {
+   "tovPts": 16,
+   "paint": 30,
+   "second": 16,
+   "fastbreak": 14,
+   "bench": 55,
+   "lead": 8,
+   "run": 8
+  },
+  "them": {
+   "tovPts": 9,
+   "paint": 22,
+   "second": 11,
+   "fastbreak": 7,
+   "bench": 31,
+   "lead": 10,
+   "run": 7
+  }
  }
 }

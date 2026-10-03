@@ -213,6 +213,7 @@ const VIEWS = {
         <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th></tr></thead>
         <tbody>${cmp.map(([l, a, b]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td></tr>`).join('')}</tbody>
       </table></div>
+      ${extrasSection(games)}
       <h2>Game log</h2>
       <div class="table-wrap"><table>
         <thead><tr><th class="l">Date</th><th class="l">Comp</th><th class="l">Opponent</th><th></th><th>Score</th><th>FG%</th><th>3P%</th><th>REB</th><th>AST</th><th>TO</th><th>PIR</th></tr></thead>
@@ -263,6 +264,29 @@ const VIEWS = {
 };
 
 /* ---------- pieces ---------- */
+const EXTRAS = [
+  ['tovPts', 'Points from turnovers'], ['paint', 'Points in the paint'], ['second', 'Second chance points'],
+  ['fastbreak', 'Fast break points'], ['bench', 'Bench points'], ['lead', 'Biggest lead'], ['run', 'Biggest scoring run'],
+];
+function extrasSection(games) {
+  const withX = games.filter((g) => g.box.extra);
+  if (!withX.length) return '';
+  const n = withX.length;
+  const avg = (side, k) => f1(withX.reduce((s, g) => s + g.box.extra[side][k], 0) / n);
+  const best = (side, k) => Math.max(...withX.map((g) => g.box.extra[side][k]));
+  const cell = (side, k) => (['lead', 'run'].includes(k) && n > 1 ? `${avg(side, k)} <span class="muted">(best ${best(side, k)})</span>` : avg(side, k));
+  return `<h2>Scoring breakdown (per game)</h2>
+    <div class="table-wrap" style="max-width:640px"><table>
+      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th></tr></thead>
+      <tbody>${EXTRAS.map(([k, l]) => `<tr><td class="l">${l}</td><td><b>${cell('us', k)}</b></td><td>${cell('them', k)}</td></tr>`).join('')}</tbody>
+    </table></div>
+    ${n < games.length ? `<p class="note">Based on ${n} of ${games.length} games (not published for the others).</p>` : ''}`;
+}
+function linkFor(g) {
+  if (!g.url) return '';
+  const label = g.played ? 'Match report' : 'Game page';
+  return `<a class="report" href="${esc(g.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${label} ↗</a>`;
+}
 const PIR_EXPLAINER = `
   <div class="card pir">
     <h3>What is PIR?</h3>
@@ -287,7 +311,7 @@ function gameRow(g, isNext = false) {
   return `<div class="game ${g.played ? 'played' : ''} ${isNext ? 'next' : ''}" ${g.played ? `onclick="openBox('${g.code}')"` : ''}>
     <div class="when"><b>${fmtDate(g.date)}</b>${where(g)}</div>
     <div><div class="opp">${vsAt(g)} ${esc(g.opp)} ${isNext ? '<span class="pill solid">Next</span>' : ''}</div>
-      <div class="meta">${esc(compName(g.comp))} · ${esc(g.round)} · ${esc(g.venue)}</div></div>
+      <div class="meta">${esc(compName(g.comp))} · ${esc(g.round)} · ${esc(g.venue)}</div>${linkFor(g)}</div>
     <div class="res">${res}</div></div>`;
 }
 function topScorer(g) {
@@ -321,10 +345,14 @@ function openBox(code) {
   const tot = (t, label) => `<tr class="hl"><td></td><td class="l">${label}</td><td></td><td>${t.pts}</td><td>${t.fg2m}/${t.fg2a}</td><td>${t.fg3m}/${t.fg3a}</td><td>${t.ftm}/${t.fta}</td>
     <td>${t.oreb}</td><td>${t.dreb}</td><td>${t.reb}</td><td>${t.ast}</td><td>${t.stl}</td><td>${t.tov}</td><td>${t.blk}</td><td>${t.pf}</td><td>${t.pir}</td>${hasPm ? '<td></td>' : ''}</tr>`;
   $('#box-title').textContent = `PAOK ${g.us}–${g.them} ${g.opp} · ${compName(g.comp)} ${g.round}`;
-  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Official box score</a>` : ''}</p>
+  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Official match report ↗</a>` : ''}</p>
     <div class="table-wrap"><table>
     <thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>2P</th><th>3P</th><th>FT</th><th>OR</th><th>DR</th><th>REB</th><th>AST</th><th>STL</th><th>TO</th><th>BLK</th><th>PF</th><th>PIR</th>${hasPm ? '<th>+/-</th>' : ''}</tr></thead>
-    <tbody>${rows}${tot(g.box.team, 'PAOK')}${tot(g.box.opp, esc(g.opp)).replace('class="hl"', '')}</tbody></table></div>`;
+    <tbody>${rows}${tot(g.box.team, 'PAOK')}${tot(g.box.opp, esc(g.opp)).replace('class="hl"', '')}</tbody></table></div>
+    ${g.box.extra ? `<h3 style="margin-top:18px">Scoring breakdown</h3><div class="table-wrap" style="max-width:520px"><table>
+      <thead><tr><th class="l"></th><th>PAOK</th><th>${esc(g.opp)}</th></tr></thead>
+      <tbody>${EXTRAS.map(([k, l]) => `<tr><td class="l">${l}</td><td><b>${g.box.extra.us[k]}</b></td><td>${g.box.extra.them[k]}</td></tr>`).join('')}</tbody>
+    </table></div>` : ''}`;
   $('#box-dialog').showModal();
 }
 

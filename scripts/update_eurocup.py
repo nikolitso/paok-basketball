@@ -76,19 +76,59 @@ def norm_totals(t):
     }
 
 
+LIVE = "https://live.euroleague.net/api/{endpoint}?gamecode={code}&seasoncode=" + SEASON
+PAINT_ZONES = {"A", "B", "C"}  # restricted area + rest of the lane in the shot-chart zones
+
+
+def live(endpoint, code):
+    req = urllib.request.Request(LIVE.format(endpoint=endpoint, code=code), headers={"User-Agent": "paok-basketball-site"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
+
+
+def game_extras(code, paok_home):
+    """Points off turnovers / in the paint / second chance / fast break, bench points,
+    biggest lead and biggest scoring run, for PAOK ('us') and the opponent ('them')."""
+    shots = live("Points", code)["Rows"]
+    comp = live("Comparison", code)
+    header = live("Header", code)
+    sides = {"A": header["CodeTeamA"].strip(), "B": header["CodeTeamB"].strip()}
+    out = {}
+    for side, team in sides.items():
+        rows = [s for s in shots if s["TEAM"].strip() == team]
+        flagged = lambda flag: sum(s["POINTS"] for s in rows if s[flag] == "1")
+        out["us" if team == CLUB else "them"] = {
+            "tovPts": flagged("POINTS_OFF_TURNOVER"),
+            "paint": sum(s["POINTS"] for s in rows if s["ID_ACTION"] == "2FGM" and s["ZONE"].strip() in PAINT_ZONES),
+            "second": flagged("SECOND_CHANCE"),
+            "fastbreak": flagged("FASTBREAK"),
+            "bench": int(comp[f"PointsBench{side}"]),
+            "lead": int(comp[f"maxLead{side}"]),
+            "run": int(comp[f"max{side}"]),
+        }
+    return out
+
+
 def box_score(code, paok_home):
     os.makedirs(BOX_DIR, exist_ok=True)
     path = os.path.join(BOX_DIR, f"{code}.json")
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    raw = get(f"/games/{code}/stats")
-    us, them = (raw["local"], raw["road"]) if paok_home else (raw["road"], raw["local"])
-    box = {
-        "players": [norm_player_stats(p) for p in us["players"]],
-        "team": norm_totals(us["total"]),
-        "opp": norm_totals(them["total"]),
-    }
+            box = json.load(f)
+        if "extra" in box:
+            return box
+    else:
+        raw = get(f"/games/{code}/stats")
+        us, them = (raw["local"], raw["road"]) if paok_home else (raw["road"], raw["local"])
+        box = {
+            "players": [norm_player_stats(p) for p in us["players"]],
+            "team": norm_totals(us["total"]),
+            "opp": norm_totals(them["total"]),
+        }
+    try:
+        box["extra"] = game_extras(code, paok_home)
+    except Exception as e:  # shot data can lag behind the box score; retried next run
+        print("extras unavailable for", code, e)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(box, f, ensure_ascii=False, indent=1)
     return box
@@ -135,6 +175,7 @@ def main():
             "oppCrest": opp["club"]["images"].get("crest"),
             "venue": (g.get("venue") or {}).get("name", "").title(),
             "played": g["played"],
+            "url": f"https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/{SEASON}/{g['gameCode']}/",
             "us": (home if is_home else away)["score"] if g["played"] else None,
             "them": opp["score"] if g["played"] else None,
         }
