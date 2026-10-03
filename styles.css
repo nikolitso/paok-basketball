@@ -142,3 +142,17 @@ main { padding-bottom: 48px; }
 .rec b { font: 700 20px Oswald, sans-serif; }
 .rec.on { background: var(--black); border-color: var(--black); color: var(--white); }
 .rec.on span { color: #bbb; }
+
+/* next game: scouting */
+.impact-head { display: flex; align-items: center; gap: 10px; }
+.impact-head > div:nth-child(2) { flex: 1; min-width: 0; }
+.pir-badge { text-align: center; font: 700 26px/1 Oswald, sans-serif; }
+.pir-badge span { display: block; font: 600 10px Inter, sans-serif; color: var(--muted); letter-spacing: .08em; }
+.impact-line { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 14px 0 10px; text-align: center; }
+.impact-line b { display: block; font: 700 20px Oswald, sans-serif; }
+.impact-line span { font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.locked { border-style: dashed; }
+.proj .big { font-size: 38px; }
+.winbar { height: 8px; background: #444; border-radius: 99px; overflow: hidden; margin: 12px 0 8px; max-width: 420px; }
+.winbar div { height: 100%; background: var(--white); }

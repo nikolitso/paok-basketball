@@ -1,7 +1,7 @@
 /* PAOK Basketball 2026-27 — static site reading data/eurocup.json and data/gbl.json */
 const TZ = 'Europe/Athens';
 const COMPS = { GBL: 'Greek League', EuroCup: 'EuroCup', 'Greek Super Cup': 'Super Cup', 'Greek Cup': 'Greek Cup' };
-const state = { ec: null, gbl: null, games: [], filters: { schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
+const state = { ec: null, gbl: null, games: [], filters: { scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -26,7 +26,7 @@ const vsAt = (g) => (g.neutral ? 'vs' : g.home ? 'vs' : '@');
 
 async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
-  [state.ec, state.gbl] = await Promise.all([get('eurocup.json'), get('gbl.json')]);
+  [state.ec, state.gbl, state.scout] = await Promise.all([get('eurocup.json'), get('gbl.json'), get('scout.json').catch(() => ({ reports: [] }))]);
   state.games = [...state.ec.games, ...state.gbl.games].filter((g) => g.date).sort((a, b) => toDate(a.date) - toDate(b.date));
   window.addEventListener('hashchange', render);
   render();
@@ -92,6 +92,7 @@ const VIEWS = {
           <div class="big vs">PAOK ${vsAt(next)} ${esc(next.opp)}</div>
           <div class="muted">${fmtDate(next.date, { weekday: 'long', year: 'numeric' })} · ${fmtTime(next.date)} · ${esc(next.venue)}${next.tv ? ' · TV: ' + esc(next.tv) : ''}</div>
           ${oppContext(next)}
+          ${state.scout.reports.some((r) => String(r.code) === String(next.code)) ? `<a class="report" style="color:#fff" href="#scout" onclick="state.filters.scout='${next.comp}'">Scouting report & projections →</a>` : ''}
         </div>
         ${hasTime(next.date) ? `<div class="countdown" id="countdown" data-t="${next.date}"></div>` : ''}
       </section>` : '';
@@ -263,6 +264,74 @@ const VIEWS = {
       <h2>EuroCup · ${esc(state.ec.group)}</h2>${tbl(ec, false)}
       <p class="note">Top 4 of the group go to the play-offs.</p>`;
   },
+};
+
+/* ---------- next game: scouting + projections ---------- */
+const athensDay = (d) => new Intl.DateTimeFormat('en-CA', { timeZone: hasTime(d) ? TZ : 'UTC' }).format(toDate(d));
+VIEWS.scout = function scout() {
+  const reports = [...state.scout.reports].sort((a, b) => toDate(a.date) - toDate(b.date));
+  if (!reports.length) return '<h2>Next Game</h2><p class="empty">No upcoming games to scout.</p>';
+  const pick = reports.find((r) => r.comp === state.filters.scout) || reports[0];
+  state.filters.scout = pick.comp;
+  const tabs = reports.length > 1 ? seg('scout', reports.map((r) => [r.comp, `${compName(r.comp)} · ${r.home ? 'vs' : '@'} ${r.opp}`])) : '';
+  const o = pick.oppTeam, p = pick.paokTeam;
+  const v = (x, suf = '') => (x === null || x === undefined ? '–' : x + suf);
+  const rows = [
+    ['Record', p ? `${p.w}–${p.l}` : '–', o ? `${o.w}–${o.l}` : '–'],
+    ['Points scored', v(p?.pts), v(o?.pts)], ['Points allowed', v(p?.allowed), v(o?.allowed)],
+    ['FG%', v(p?.fgp), v(o?.fgp)], ['3P%', v(p?.fg3p), v(o?.fg3p)], ['3PA', v(p?.fg3a), v(o?.fg3a)],
+    ['FT%', v(p?.ftp), v(o?.ftp)], ['Rebounds', v(p?.reb), v(o?.reb)], ['Off. rebounds', v(p?.oreb), v(o?.oreb)],
+    ['Assists', v(p?.ast), v(o?.ast)], ['Turnovers', v(p?.tov), v(o?.tov)], ['Steals', v(p?.stl), v(o?.stl)],
+    ['PIR', v(p?.pir), v(o?.pir)], ['Opponents’ FG%', v(p?.opp_fgp), v(o?.opp_fgp)],
+  ];
+  const sample = o && o.gp < 3 ? `<p class="note">Early season: ${esc(pick.opp)} ${o.gp === 1 ? 'has played 1 game' : `have played ${o.gp} games`} in the ${esc(compName(pick.comp))}, so treat these numbers as a first look.</p>` : '';
+  const card = (pl) => `<div class="card impact">
+      <div class="impact-head"><span class="num">${esc(pl.no || '–')}</span><div><b>${esc(pl.name)}</b><div class="muted" style="font-size:12px">${pl.gp} game${pl.gp > 1 ? 's' : ''} · ${pl.min} min</div></div><div class="pir-badge">${pl.pir}<span>PIR</span></div></div>
+      <div class="impact-line"><div><b>${pl.pts}</b><span>PTS</span></div><div><b>${pl.reb}</b><span>REB</span></div><div><b>${pl.ast}</b><span>AST</span></div><div><b>${v(pl.fg3p, '%')}</b><span>3P</span></div></div>
+      ${pl.tags.length ? `<div class="tags">${pl.tags.map((t) => `<span class="pill">${esc(t)}</span>`).join(' ')}</div>` : ''}
+    </div>`;
+
+  // projections unlock on match day (Greek time)
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date());
+  const matchDay = athensDay(pick.date) <= today;
+  let proj;
+  if (!pick.projection) proj = '<p class="empty">Not enough data for projections yet.</p>';
+  else if (!matchDay) {
+    proj = `<div class="card locked"><b>Projections unlock on match day</b> (${fmtDate(pick.date, { weekday: 'long' })}).
+      <p class="muted" style="margin:6px 0 0">They use the expected lineups, so they're published once it's known who plays.</p></div>`;
+  } else {
+    const pr = pick.projection, us = pr.paok, them = pr.opp;
+    const src = { manual: 'Lineups: confirmed team news', official: 'Lineups: official game roster', assumed: 'Lineups not confirmed yet: full squads assumed' }[pr.lineupSource];
+    const ptable = (side, name) => `<div><h3>${esc(name)} <span class="muted" style="font:500 13px Inter">${side.missing.length ? 'Out: ' + side.missing.map(esc).join(', ') : 'No absences'}</span></h3>
+      <div class="table-wrap"><table><thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>PIR</th></tr></thead>
+      <tbody>${side.players.map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.min}</td><td><b>${f1(r.pts)}</b></td><td>${f1(r.reb)}</td><td>${f1(r.ast)}</td><td>${f1(r.pir)}</td></tr>`).join('')}</tbody></table></div></div>`;
+    const [hn, hs, an, as] = pick.home ? ['PAOK', us.score, pick.opp, them.score] : [pick.opp, them.score, 'PAOK', us.score];
+    proj = `<div class="card dark proj">
+        <div class="label">Projected score</div>
+        <div class="big">${esc(hn)} ${Math.round(hs)} – ${Math.round(as)} ${esc(an)}</div>
+        <div class="winbar"><div style="width:${pr.winProb}%"></div></div>
+        <div class="muted">PAOK win chance: <b style="color:#fff">${pr.winProb}%</b> · ${esc(src)}${pr.note ? ' · ' + esc(pr.note) : ''}</div>
+      </div>
+      <div class="grid two" style="margin-top:16px">${ptable(us, 'PAOK')}${ptable(them, pick.opp)}</div>
+      <p class="note">How it works: each player's per-minute production this season × expected minutes (shared out among the available players when someone is missing).
+        Team totals blend PAOK's attack with the opponent's defence and vice versa, pulled toward the league average early in the season, with a small home-court edge.</p>`;
+  }
+  return `<h2>Next Game</h2>${tabs}
+    <div class="card dark" style="margin-bottom:8px">
+      <div class="label">${esc(compName(pick.comp))} · ${esc(pick.round)}</div>
+      <div class="big">PAOK ${pick.home ? 'vs' : '@'} ${esc(pick.opp)}</div>
+      <div class="muted">${fmtDate(pick.date, { weekday: 'long', year: 'numeric' })} · ${fmtTime(pick.date)} · ${esc(pick.venue)}${pick.url ? ` · <a class="report" style="color:#fff" href="${esc(pick.url)}" target="_blank" rel="noopener">Game page ↗</a>` : ''}</div>
+    </div>
+    <h2>Match-day projections</h2>${proj}
+    <h2>${esc(pick.opp)}: impact players</h2>
+    ${pick.impact.length ? `<div class="grid three">${pick.impact.map(card).join('')}</div>` : '<p class="empty">They haven\'t played yet this season.</p>'}
+    ${sample}
+    <h2>Team comparison (${esc(compName(pick.comp))}, per game)</h2>
+    <div class="table-wrap" style="max-width:640px"><table>
+      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th></tr></thead>
+      <tbody>${rows.map(([l, a, b]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td></tr>`).join('')}</tbody>
+    </table></div>
+    ${pick.paokImpact.length ? `<h2>PAOK's key players (${esc(compName(pick.comp))})</h2><div class="grid three">${pick.paokImpact.slice(0, 3).map(card).join('')}</div>` : ''}`;
 };
 
 /* ---------- pieces ---------- */

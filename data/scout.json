@@ -1,0 +1,996 @@
+{
+ "updated": "2026-10-03T21:25:53Z",
+ "reports": [
+  {
+   "comp": "EuroCup",
+   "code": 32,
+   "date": "2026-10-06T17:30:00Z",
+   "round": "Round 2",
+   "home": false,
+   "opp": "Bosna",
+   "venue": "Zetra Arena",
+   "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/32/",
+   "paokTeam": {
+    "gp": 1,
+    "w": 1,
+    "l": 0,
+    "pts": 93.0,
+    "allowed": 78.0,
+    "fgp": 51.6,
+    "fg3p": 32.0,
+    "fg3a": 25.0,
+    "ftp": 79.2,
+    "reb": 45.0,
+    "oreb": 10.0,
+    "ast": 14.0,
+    "tov": 14.0,
+    "stl": 6.0,
+    "pir": 106.0,
+    "opp_fgp": 41.8,
+    "opp_fg3p": 18.5
+   },
+   "oppTeam": {
+    "gp": 1,
+    "w": 0,
+    "l": 1,
+    "pts": 72.0,
+    "allowed": 75.0,
+    "fgp": 44.1,
+    "fg3p": 42.1,
+    "fg3a": 19.0,
+    "ftp": 70.6,
+    "reb": 39.0,
+    "oreb": 14.0,
+    "ast": 16.0,
+    "tov": 21.0,
+    "stl": 5.0,
+    "pir": 73.0,
+    "opp_fgp": 41.3,
+    "opp_fg3p": 32.1
+   },
+   "impact": [
+    {
+     "name": "Reginald Perry",
+     "no": "11",
+     "gp": 1,
+     "min": 21.9,
+     "pts": 14.0,
+     "reb": 5.0,
+     "ast": 1.0,
+     "stl": 0.0,
+     "blk": 1.0,
+     "tov": 2.0,
+     "pir": 16.0,
+     "fg3m": 1.0,
+     "fg3a": 3,
+     "fg3p": 33.3,
+     "fgp": 45.5,
+     "fta": 4.0,
+     "tags": [
+      "Top scorer",
+      "Rebounder",
+      "Gets to the line"
+     ]
+    },
+    {
+     "name": "Ryan Hawkins",
+     "no": "44",
+     "gp": 1,
+     "min": 23.0,
+     "pts": 12.0,
+     "reb": 5.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 10.0,
+     "fg3m": 2.0,
+     "fg3a": 5,
+     "fg3p": 40.0,
+     "fgp": 55.6,
+     "fta": 0.0,
+     "tags": [
+      "3-pt threat"
+     ]
+    },
+    {
+     "name": "Shawn Pipes Jr",
+     "no": "2",
+     "gp": 1,
+     "min": 19.6,
+     "pts": 11.0,
+     "reb": 3.0,
+     "ast": 2.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 10.0,
+     "fg3m": 2.0,
+     "fg3a": 2,
+     "fg3p": 100.0,
+     "fgp": 40.0,
+     "fta": 1.0,
+     "tags": [
+      "3-pt threat"
+     ]
+    },
+    {
+     "name": "Marcus Domask",
+     "no": "3",
+     "gp": 1,
+     "min": 20.4,
+     "pts": 7.0,
+     "reb": 5.0,
+     "ast": 3.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 9.0,
+     "fg3m": 0.0,
+     "fg3a": 1,
+     "fg3p": 0.0,
+     "fgp": 50.0,
+     "fta": 2.0,
+     "tags": [
+      "Playmaker"
+     ]
+    },
+    {
+     "name": "Deandre Gholston",
+     "no": "4",
+     "gp": 1,
+     "min": 23.7,
+     "pts": 9.0,
+     "reb": 5.0,
+     "ast": 1.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 8.0,
+     "fg3m": 2.0,
+     "fg3a": 4,
+     "fg3p": 50.0,
+     "fgp": 28.6,
+     "fta": 4.0,
+     "tags": [
+      "3-pt threat",
+      "Gets to the line"
+     ]
+    }
+   ],
+   "paokImpact": [
+    {
+     "name": "Cedi Osman",
+     "no": "6",
+     "gp": 1,
+     "min": 33.5,
+     "pts": 23.0,
+     "reb": 5.0,
+     "ast": 2.0,
+     "stl": 2.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 25.0,
+     "fg3m": 1.0,
+     "fg3a": 4,
+     "fg3p": 25.0,
+     "fgp": 53.8,
+     "fta": 12.0,
+     "tags": [
+      "Top scorer",
+      "Gets to the line",
+      "Disruptor"
+     ]
+    },
+    {
+     "name": "Nick Calathes",
+     "no": "33",
+     "gp": 1,
+     "min": 23.8,
+     "pts": 13.0,
+     "reb": 9.0,
+     "ast": 5.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 3.0,
+     "pir": 23.0,
+     "fg3m": 1.0,
+     "fg3a": 2,
+     "fg3p": 50.0,
+     "fgp": 83.3,
+     "fta": 2.0,
+     "tags": [
+      "Rebounder",
+      "Playmaker"
+     ]
+    },
+    {
+     "name": "Breein Tyree",
+     "no": "5",
+     "gp": 1,
+     "min": 16.1,
+     "pts": 20.0,
+     "reb": 0.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 19.0,
+     "fg3m": 4.0,
+     "fg3a": 5,
+     "fg3p": 80.0,
+     "fgp": 85.7,
+     "fta": 5.0,
+     "tags": [
+      "3-pt threat",
+      "Gets to the line"
+     ]
+    },
+    {
+     "name": "Kyle Alexander",
+     "no": "8",
+     "gp": 1,
+     "min": 21.5,
+     "pts": 7.0,
+     "reb": 9.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 1.0,
+     "tov": 0.0,
+     "pir": 15.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 75.0,
+     "fta": 1.0,
+     "tags": []
+    },
+    {
+     "name": "Trevor Hudgins",
+     "no": "12",
+     "gp": 1,
+     "min": 18.5,
+     "pts": 9.0,
+     "reb": 3.0,
+     "ast": 2.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 10.0,
+     "fg3m": 1.0,
+     "fg3a": 5,
+     "fg3p": 20.0,
+     "fgp": 33.3,
+     "fta": 2.0,
+     "tags": []
+    }
+   ],
+   "projection": {
+    "paok": {
+     "score": 82.0,
+     "players": [
+      {
+       "name": "Cedi Osman",
+       "no": "6",
+       "min": 32,
+       "pts": 16.8,
+       "reb": 5.3,
+       "ast": 2.0,
+       "pir": 17.3
+      },
+      {
+       "name": "Kyle Alexander",
+       "no": "8",
+       "min": 21,
+       "pts": 10.9,
+       "reb": 5.7,
+       "ast": 0.5,
+       "pir": 16.5
+      },
+      {
+       "name": "Nick Calathes",
+       "no": "33",
+       "min": 27,
+       "pts": 9.8,
+       "reb": 4.0,
+       "ast": 6.0,
+       "pir": 15.5
+      },
+      {
+       "name": "Marcus Foster",
+       "no": "17",
+       "min": 25,
+       "pts": 11.1,
+       "reb": 2.0,
+       "ast": 4.0,
+       "pir": 10.7
+      },
+      {
+       "name": "Trevor Hudgins",
+       "no": "12",
+       "min": 19,
+       "pts": 7.9,
+       "reb": 2.5,
+       "ast": 3.2,
+       "pir": 10.0
+      },
+      {
+       "name": "Ben Moore",
+       "no": "26",
+       "min": 19,
+       "pts": 5.0,
+       "reb": 5.3,
+       "ast": 0.8,
+       "pir": 8.8
+      },
+      {
+       "name": "Naz Mitrou Long",
+       "no": "1",
+       "min": 17,
+       "pts": 7.9,
+       "reb": 3.0,
+       "ast": 1.5,
+       "pir": 7.2
+      },
+      {
+       "name": "Breein Tyree",
+       "no": "5",
+       "min": 9,
+       "pts": 7.3,
+       "reb": 0.0,
+       "ast": 0.3,
+       "pir": 6.5
+      },
+      {
+       "name": "Nikolaos Persidis",
+       "no": "18",
+       "min": 16,
+       "pts": 2.7,
+       "reb": 3.2,
+       "ast": 0.5,
+       "pir": 4.0
+      },
+      {
+       "name": "Nikos Chougkaz",
+       "no": "9",
+       "min": 5,
+       "pts": 1.1,
+       "reb": 0.2,
+       "ast": 0.2,
+       "pir": 0.7
+      },
+      {
+       "name": "Giorgos Fillios",
+       "no": "25",
+       "min": 1,
+       "pts": 0.0,
+       "reb": 0.0,
+       "ast": 0.0,
+       "pir": 0.0
+      },
+      {
+       "name": "Raiquan Gray",
+       "no": "0",
+       "min": 7,
+       "pts": 0.9,
+       "reb": 0.8,
+       "ast": 0.0,
+       "pir": -0.3
+      },
+      {
+       "name": "Athanasios Bazinas",
+       "no": "77",
+       "min": 4,
+       "pts": 0.5,
+       "reb": 0.0,
+       "ast": 0.3,
+       "pir": -0.5
+      },
+      {
+       "name": "Dimitris Kaklamanakis",
+       "no": "14",
+       "min": 1,
+       "pts": 0.0,
+       "reb": 0.0,
+       "ast": 0.0,
+       "pir": -0.5
+      }
+     ],
+     "missing": []
+    },
+    "opp": {
+     "score": 83.5,
+     "players": [
+      {
+       "name": "Reginald Perry",
+       "no": "11",
+       "min": 22,
+       "pts": 16.3,
+       "reb": 5.0,
+       "ast": 1.0,
+       "pir": 16.0
+      },
+      {
+       "name": "Ryan Hawkins",
+       "no": "44",
+       "min": 23,
+       "pts": 13.9,
+       "reb": 5.0,
+       "ast": 0.0,
+       "pir": 10.0
+      },
+      {
+       "name": "Shawn Pipes Jr",
+       "no": "2",
+       "min": 20,
+       "pts": 12.7,
+       "reb": 3.0,
+       "ast": 2.0,
+       "pir": 10.0
+      },
+      {
+       "name": "Marcus Domask",
+       "no": "3",
+       "min": 20,
+       "pts": 8.1,
+       "reb": 5.0,
+       "ast": 3.0,
+       "pir": 9.0
+      },
+      {
+       "name": "Deandre Gholston",
+       "no": "4",
+       "min": 24,
+       "pts": 10.5,
+       "reb": 5.0,
+       "ast": 1.0,
+       "pir": 8.0
+      },
+      {
+       "name": "Darko Talic",
+       "no": "19",
+       "min": 28,
+       "pts": 4.6,
+       "reb": 3.0,
+       "ast": 3.0,
+       "pir": 8.0
+      },
+      {
+       "name": "Nikola Popovic",
+       "no": "21",
+       "min": 18,
+       "pts": 6.9,
+       "reb": 5.0,
+       "ast": 1.0,
+       "pir": 4.0
+      },
+      {
+       "name": "Adin Vrabac",
+       "no": "7",
+       "min": 17,
+       "pts": 4.6,
+       "reb": 0.0,
+       "ast": 1.0,
+       "pir": 4.0
+      },
+      {
+       "name": "Edin Atic",
+       "no": "5",
+       "min": 16,
+       "pts": 3.5,
+       "reb": 2.0,
+       "ast": 2.0,
+       "pir": 0.0
+      },
+      {
+       "name": "Gary Browne",
+       "no": "14",
+       "min": 12,
+       "pts": 2.3,
+       "reb": 1.0,
+       "ast": 2.0,
+       "pir": 0.0
+      }
+     ],
+     "missing": []
+    },
+    "winProb": 45,
+    "lineupSource": "assumed",
+    "note": ""
+   }
+  },
+  {
+   "comp": "GBL",
+   "code": "28F71477",
+   "date": "2026-10-10T13:00:00Z",
+   "round": "Round 2",
+   "home": true,
+   "opp": "Doxa Lefkadas",
+   "venue": "Paok Sports Ar. Κεκλεισμενων Θυρων",
+   "url": "https://www.esake.gr/el/action/EsakegameView?idgame=28F71477&mode=3",
+   "paokTeam": {
+    "gp": 1,
+    "w": 1,
+    "l": 0,
+    "pts": 88.0,
+    "allowed": 85.0,
+    "fgp": 44.3,
+    "fg3p": 34.4,
+    "fg3a": 32.0,
+    "ftp": 69.7,
+    "reb": 33.0,
+    "oreb": 13.0,
+    "ast": 21.0,
+    "tov": 8.0,
+    "stl": 5.0,
+    "pir": 94.0,
+    "opp_fgp": 51.9,
+    "opp_fg3p": 47.6
+   },
+   "oppTeam": {
+    "gp": 1,
+    "w": 0,
+    "l": 1,
+    "pts": 75.0,
+    "allowed": 91.0,
+    "fgp": 44.6,
+    "fg3p": 38.1,
+    "fg3a": 21.0,
+    "ftp": 56.2,
+    "reb": 34.0,
+    "oreb": 10.0,
+    "ast": 11.0,
+    "tov": 12.0,
+    "stl": 6.0,
+    "pir": 69.0,
+    "opp_fgp": 52.6,
+    "opp_fg3p": 50.0
+   },
+   "impact": [
+    {
+     "name": "De’Vion Harmon",
+     "no": "2",
+     "gp": 1,
+     "min": 36.8,
+     "pts": 21.0,
+     "reb": 3.0,
+     "ast": 6.0,
+     "stl": 2.0,
+     "blk": 0.0,
+     "tov": 2.0,
+     "pir": 23.0,
+     "fg3m": 1.0,
+     "fg3a": 4,
+     "fg3p": 25.0,
+     "fgp": 58.8,
+     "fta": 0.0,
+     "tags": [
+      "Top scorer",
+      "Playmaker",
+      "Disruptor"
+     ]
+    },
+    {
+     "name": "Jakeenan Gant",
+     "no": "23",
+     "gp": 1,
+     "min": 26.9,
+     "pts": 14.0,
+     "reb": 5.0,
+     "ast": 0.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 16.0,
+     "fg3m": 3.0,
+     "fg3a": 3,
+     "fg3p": 100.0,
+     "fgp": 62.5,
+     "fta": 1.0,
+     "tags": [
+      "3-pt threat"
+     ]
+    },
+    {
+     "name": "Josh Sharma",
+     "no": "20",
+     "gp": 1,
+     "min": 25.5,
+     "pts": 10.0,
+     "reb": 10.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 2.0,
+     "tov": 2.0,
+     "pir": 12.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 42.9,
+     "fta": 8.0,
+     "tags": [
+      "Rebounder",
+      "Gets to the line",
+      "Disruptor"
+     ]
+    },
+    {
+     "name": "Giannis Chatzinikolas",
+     "no": "11",
+     "gp": 1,
+     "min": 25.5,
+     "pts": 8.0,
+     "reb": 6.0,
+     "ast": 2.0,
+     "stl": 2.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 12.0,
+     "fg3m": 1.0,
+     "fg3a": 4,
+     "fg3p": 25.0,
+     "fgp": 42.9,
+     "fta": 2.0,
+     "tags": [
+      "Disruptor"
+     ]
+    },
+    {
+     "name": "Michalis Tsairelis",
+     "no": "6",
+     "gp": 1,
+     "min": 14.5,
+     "pts": 7.0,
+     "reb": 0.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 5.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 75.0,
+     "fta": 2.0,
+     "tags": []
+    }
+   ],
+   "paokImpact": [
+    {
+     "name": "Trevor Hudgins",
+     "no": "12",
+     "gp": 1,
+     "min": 20.5,
+     "pts": 12.0,
+     "reb": 3.0,
+     "ast": 5.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 18.0,
+     "fg3m": 2.0,
+     "fg3a": 5,
+     "fg3p": 40.0,
+     "fgp": 33.3,
+     "fta": 6.0,
+     "tags": [
+      "3-pt threat",
+      "Gets to the line"
+     ]
+    },
+    {
+     "name": "Cedi Osman",
+     "no": "6",
+     "gp": 1,
+     "min": 29.1,
+     "pts": 18.0,
+     "reb": 3.0,
+     "ast": 2.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 0.0,
+     "pir": 17.0,
+     "fg3m": 3.0,
+     "fg3a": 8,
+     "fg3p": 37.5,
+     "fgp": 50.0,
+     "fta": 6.0,
+     "tags": [
+      "Top scorer",
+      "3-pt threat",
+      "Gets to the line"
+     ]
+    },
+    {
+     "name": "Nick Calathes",
+     "no": "33",
+     "gp": 1,
+     "min": 24.5,
+     "pts": 12.0,
+     "reb": 3.0,
+     "ast": 7.0,
+     "stl": 1.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 16.0,
+     "fg3m": 2.0,
+     "fg3a": 6,
+     "fg3p": 33.3,
+     "fgp": 55.6,
+     "fta": 2.0,
+     "tags": [
+      "Playmaker"
+     ]
+    },
+    {
+     "name": "Naz Mitrou-Long",
+     "no": "1",
+     "gp": 1,
+     "min": 26.1,
+     "pts": 14.0,
+     "reb": 4.0,
+     "ast": 4.0,
+     "stl": 0.0,
+     "blk": 0.0,
+     "tov": 1.0,
+     "pir": 15.0,
+     "fg3m": 2.0,
+     "fg3a": 6,
+     "fg3p": 33.3,
+     "fgp": 40.0,
+     "fta": 4.0,
+     "tags": [
+      "Gets to the line"
+     ]
+    },
+    {
+     "name": "Kyle Alexander",
+     "no": "8",
+     "gp": 1,
+     "min": 19.4,
+     "pts": 11.0,
+     "reb": 6.0,
+     "ast": 0.0,
+     "stl": 0.0,
+     "blk": 2.0,
+     "tov": 1.0,
+     "pir": 14.0,
+     "fg3m": 0.0,
+     "fg3a": 0,
+     "fg3p": null,
+     "fgp": 66.7,
+     "fta": 4.0,
+     "tags": [
+      "Rebounder",
+      "Gets to the line",
+      "Disruptor"
+     ]
+    }
+   ],
+   "projection": {
+    "paok": {
+     "score": 85.8,
+     "players": [
+      {
+       "name": "Cedi Osman",
+       "no": "6",
+       "min": 32,
+       "pts": 17.6,
+       "reb": 5.3,
+       "ast": 2.0,
+       "pir": 17.3
+      },
+      {
+       "name": "Kyle Alexander",
+       "no": "8",
+       "min": 21,
+       "pts": 11.4,
+       "reb": 5.7,
+       "ast": 0.5,
+       "pir": 16.5
+      },
+      {
+       "name": "Nick Calathes",
+       "no": "33",
+       "min": 27,
+       "pts": 10.2,
+       "reb": 4.0,
+       "ast": 6.0,
+       "pir": 15.5
+      },
+      {
+       "name": "Marcus Foster",
+       "no": "17",
+       "min": 25,
+       "pts": 11.6,
+       "reb": 2.0,
+       "ast": 4.0,
+       "pir": 10.7
+      },
+      {
+       "name": "Trevor Hudgins",
+       "no": "12",
+       "min": 19,
+       "pts": 8.3,
+       "reb": 2.5,
+       "ast": 3.2,
+       "pir": 10.0
+      },
+      {
+       "name": "Ben Moore",
+       "no": "26",
+       "min": 19,
+       "pts": 5.2,
+       "reb": 5.3,
+       "ast": 0.8,
+       "pir": 8.8
+      },
+      {
+       "name": "Naz Mitrou Long",
+       "no": "1",
+       "min": 17,
+       "pts": 8.3,
+       "reb": 3.0,
+       "ast": 1.5,
+       "pir": 7.2
+      },
+      {
+       "name": "Breein Tyree",
+       "no": "5",
+       "min": 9,
+       "pts": 7.6,
+       "reb": 0.0,
+       "ast": 0.3,
+       "pir": 6.5
+      },
+      {
+       "name": "Nikolaos Persidis",
+       "no": "18",
+       "min": 16,
+       "pts": 2.8,
+       "reb": 3.2,
+       "ast": 0.5,
+       "pir": 4.0
+      },
+      {
+       "name": "Nikos Chougkaz",
+       "no": "9",
+       "min": 5,
+       "pts": 1.2,
+       "reb": 0.2,
+       "ast": 0.2,
+       "pir": 0.7
+      },
+      {
+       "name": "Giorgos Fillios",
+       "no": "25",
+       "min": 1,
+       "pts": 0.0,
+       "reb": 0.0,
+       "ast": 0.0,
+       "pir": 0.0
+      },
+      {
+       "name": "Raiquan Gray",
+       "no": "0",
+       "min": 7,
+       "pts": 1.0,
+       "reb": 0.8,
+       "ast": 0.0,
+       "pir": -0.3
+      },
+      {
+       "name": "Athanasios Bazinas",
+       "no": "77",
+       "min": 4,
+       "pts": 0.5,
+       "reb": 0.0,
+       "ast": 0.3,
+       "pir": -0.5
+      },
+      {
+       "name": "Dimitris Kaklamanakis",
+       "no": "14",
+       "min": 1,
+       "pts": 0.0,
+       "reb": 0.0,
+       "ast": 0.0,
+       "pir": -0.5
+      }
+     ],
+     "missing": []
+    },
+    "opp": {
+     "score": 79.7,
+     "players": [
+      {
+       "name": "De’Vion Harmon",
+       "no": "2",
+       "min": 37,
+       "pts": 22.3,
+       "reb": 3.0,
+       "ast": 6.0,
+       "pir": 23.0
+      },
+      {
+       "name": "Jakeenan Gant",
+       "no": "23",
+       "min": 27,
+       "pts": 14.9,
+       "reb": 5.0,
+       "ast": 0.0,
+       "pir": 16.0
+      },
+      {
+       "name": "Josh Sharma",
+       "no": "20",
+       "min": 26,
+       "pts": 10.6,
+       "reb": 10.0,
+       "ast": 0.0,
+       "pir": 12.0
+      },
+      {
+       "name": "Giannis Chatzinikolas",
+       "no": "11",
+       "min": 26,
+       "pts": 8.5,
+       "reb": 6.0,
+       "ast": 2.0,
+       "pir": 12.0
+      },
+      {
+       "name": "Michalis Tsairelis",
+       "no": "6",
+       "min": 15,
+       "pts": 7.5,
+       "reb": 0.0,
+       "ast": 0.0,
+       "pir": 5.0
+      },
+      {
+       "name": "Trey Robinson",
+       "no": "1",
+       "min": 27,
+       "pts": 6.4,
+       "reb": 4.0,
+       "ast": 1.0,
+       "pir": 1.0
+      },
+      {
+       "name": "Micah Parrish",
+       "no": "3",
+       "min": 15,
+       "pts": 3.2,
+       "reb": 1.0,
+       "ast": 1.0,
+       "pir": 1.0
+      },
+      {
+       "name": "Marios Poulianitis",
+       "no": "8",
+       "min": 4,
+       "pts": 0.0,
+       "reb": 0.0,
+       "ast": 0.0,
+       "pir": 0.0
+      },
+      {
+       "name": "Denver Jones",
+       "no": "0",
+       "min": 25,
+       "pts": 6.4,
+       "reb": 1.0,
+       "ast": 1.0,
+       "pir": -1.0
+      }
+     ],
+     "missing": []
+    },
+    "winProb": 71,
+    "lineupSource": "assumed",
+    "note": ""
+   }
+  }
+ ]
+}
