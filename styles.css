@@ -219,3 +219,8 @@ tr.hl td.pos-text, tr.hl td.neg-text { color: inherit; }
 .standings-key .note { margin-top: 10px; }
 .standings-key .info { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--muted); color: var(--muted); font: 700 12px Inter, sans-serif; margin-right: 8px; }
 tr.hl .pos-text, tr.hl .neg-text { color: inherit; }
+.cutline td { padding: 4px 10px; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; text-align: left; }
+.cutline.up td { color: #1f4e8c; background: #eaf0f8; border-top: 2px dashed #1f4e8c; border-bottom: 2px dashed #1f4e8c; }
+.cutline.down td { color: #c62828; background: #fdecec; border-top: 2px dashed #c62828; border-bottom: 2px dashed #c62828; }
+.standings-sub { display: flex; align-items: center; gap: 8px; margin: -4px 0 10px; }
+.standings-sub .pos { display: inline-grid; place-items: center; min-width: 24px; height: 22px; border-radius: 5px; font-weight: 700; font-size: 12px; }
