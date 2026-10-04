@@ -238,6 +238,20 @@ const VIEWS = {
       ['Fouls', avg(us, 'pf'), avg(them, 'pf'), 'pf', -1],
       ['PIR', avg(us, 'pir'), avg(them, 'pir'), 'pir', 1],
     ];
+    // pace & efficiency rows (same numbers as the tiles below)
+    const ps = paceStats(games);
+    if (ps) {
+      const net = ps.us.rating - ps.them.rating;
+      const signed = (x) => `<span class="${x > 0 ? 'pos-text' : x < 0 ? 'neg-text' : ''}">${x > 0 ? '+' : ''}${f1(x)}</span>`;
+      cmp.push(
+        ['<span class="section-row">Pace &amp; efficiency</span>', '', '', null, 0],
+        ['Possessions', f1(ps.poss), f1(ps.poss), 'poss', 1],
+        ['Pace (poss. per 40 min)', f1(ps.pace), f1(ps.pace), 'pace', 1],
+        ['Offensive rating (pts per 100 poss)', f1(ps.us.rating), f1(ps.them.rating), 'ortg', 1],
+        ['Defensive rating (allowed per 100 poss)', f1(ps.them.rating), f1(ps.us.rating), 'drtg', -1],
+        ['Net rating', signed(net), signed(-net), 'net', 1],
+      );
+    }
     const hasLg = !!leagueOf(comp);
     const me = hasLg ? leagueTeam(comp, 'PAOK') : null;
     const log = games.map((g) => `<tr class="click" onclick="openBox('${g.code}')">
@@ -254,7 +268,8 @@ const VIEWS = {
       <h2>PAOK vs opponents (per game)</h2>
       <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
         <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? `<th>${esc(compName(comp))} avg</th><th>PAOK rank</th>` : ''}</tr></thead>
-        <tbody>${cmp.map(([l, a, b, k, dir]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td>${hasLg ? `<td>${lgVal(comp, k)}</td><td>${rankBadge(rankIn(comp, me, k, dir))}</td>` : ''}</tr>`).join('')}</tbody>
+        <tbody>${cmp.map(([l, a, b, k, dir]) => (k === null ? `<tr class="section"><td class="l" colspan="${hasLg ? 5 : 3}">${l}</td></tr>`
+          : `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td>${hasLg ? `<td>${lgVal(comp, k)}</td><td>${rankBadge(rankIn(comp, me, k, dir))}</td>` : ''}</tr>`)).join('')}</tbody>
       </table></div>
       ${hasLg ? `<p class="note">League average = the average team per game across every ${esc(compName(comp))} game this season. Rank: 1st = best in the league (for turnovers, fouls and points allowed, fewest is best). Green = top third, red = bottom third.</p>` : `<p class="note">Pick Greek League or EuroCup above to compare with the league average and see PAOK's rank.</p>`}
       ${paceSection(games, comp)}

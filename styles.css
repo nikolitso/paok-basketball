@@ -233,3 +233,5 @@ tr.hl .neg-text { color: #ff8a8a; }
 table.league td, table.league th { padding: 8px 8px; font-size: 13px; }
 tr.next-opp td { background: #f2f2f2; font-weight: 600; }
 tr.avg-row td { border-top: 2px solid var(--black); font-weight: 700; background: var(--soft); }
+
+tr.section td { background: var(--soft); font: 600 12px Inter, sans-serif; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-top: 12px; }
