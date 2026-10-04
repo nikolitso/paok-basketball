@@ -22,7 +22,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 CACHE = os.path.join(DATA, "scout_cache")
 
-LEAGUE_AVG = {"EuroCup": 82.0, "GBL": 80.0}  # points per team per game, typical recent seasons
+LEAGUE_AVG = {"EuroCup": 82.0, "GBL": 80.0}  # fallback points per team per game when league.json is missing
+LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
 HOME_EDGE = 1.5      # points added to the home team (and taken from the away team)
 SPREAD_SD = 11.0     # typical spread of final margins around the projection
@@ -149,12 +150,18 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home):
         scale = 200 / sum(mins.values())
         mins = {k: min(38.0, v * scale) for k, v in mins.items()}
     lineup_pts = sum(p["_rate"]["pts"] * mins[p["name"]] for p in avail)
-    avg = LEAGUE_AVG[comp]
-    wt = team_stats["gp"] / (team_stats["gp"] + PRIOR_GAMES)
-    w_opp = opp_stats["gp"] / (opp_stats["gp"] + PRIOR_GAMES)
-    offense = wt * lineup_pts + (1 - wt) * avg
-    opp_defense = w_opp * opp_stats["allowed"] + (1 - w_opp) * avg
-    score = (offense + opp_defense) / 2 + (HOME_EDGE if home else -HOME_EDGE)
+    lg = LEAGUE.get(comp) or {}
+    lg_pace, lg_ortg = lg.get("pace") or 74.0, lg.get("ortg") or 108.0
+    # early-season numbers are pulled toward the league average (PRIOR_GAMES worth of league-average games)
+    reg = lambda x, gp, base: (gp * x + PRIOR_GAMES * base) / (gp + PRIOR_GAMES) if x is not None else base
+    pace = reg(team_stats.get("pace"), team_stats["gp"], lg_pace) * reg(opp_stats.get("pace"), opp_stats["gp"], lg_pace) / lg_pace
+    ortg = reg(team_stats.get("ortg"), team_stats["gp"], lg_ortg)
+    opp_drtg = reg(opp_stats.get("drtg"), opp_stats["gp"], lg_ortg)
+    # missing players: scale the attack by how much of the usual scoring is still available
+    full = team_stats.get("pts") or lineup_pts
+    availability = max(0.8, min(1.05, lineup_pts / full)) if full else 1
+    points_per_100 = ortg * opp_drtg / lg_ortg * availability
+    score = pace * points_per_100 / 100 + (HOME_EDGE if home else -HOME_EDGE)
     k = score / lineup_pts if lineup_pts else 1
     rows = []
     for p in avail:
@@ -165,7 +172,7 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home):
             "ast": round(p["_rate"]["ast"] * m, 1), "pir": round(p["_rate"]["pir"] * m, 1),
         })
     rows.sort(key=lambda r: -r["pir"])
-    return {"score": round(score, 1), "players": rows, "missing": missing}
+    return {"score": round(score, 1), "players": rows, "missing": missing, "pace": round(pace, 1)}
 
 
 def win_prob(margin):
@@ -254,6 +261,8 @@ def gbl_scout(next_game, gbl_data):
 
 def main():
     ecd, gbld = load("eurocup.json"), load("gbl.json")
+    if os.path.exists(os.path.join(DATA, "league.json")):
+        LEAGUE.update({c: v["avg"] for c, v in load("league.json")["comps"].items() if v.get("avg")})
     lineups_path = os.path.join(DATA, "lineups.json")
     lineups = load("lineups.json") if os.path.exists(lineups_path) else {}
     now = datetime.now(timezone.utc)
@@ -280,7 +289,7 @@ def main():
         report = {
             "comp": comp, "code": nxt["code"], "date": nxt["date"], "round": nxt["round"], "home": nxt["home"],
             "opp": nxt["opp"], "venue": nxt["venue"], "url": nxt.get("url"),
-            "paokTeam": paok_team, "oppTeam": opp_team,
+            "paokTeam": paok_team, "oppTeam": opp_team, "league": LEAGUE.get(comp),
             "impact": impact(opp_players, opp_team["gp"]) if opp_team else [],
             "paokImpact": impact(paok_players, paok_team["gp"]) if paok_team else [],
             # full opponent player list + registered roster, for the Player Profiles page
@@ -308,7 +317,7 @@ def main():
             them = project_side(opp_players, opp_out, opp_team, season_team, comp, not nxt["home"])
             if us and them:
                 report["projection"] = {
-                    "paok": us, "opp": them, "winProb": win_prob(us["score"] - them["score"]),
+                    "paok": us, "opp": them, "winProb": win_prob(us["score"] - them["score"]), "pace": us["pace"],
                     "lineupSource": source or "assumed", "note": lu.get("note", ""),
                 }
         reports.append(report)

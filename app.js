@@ -1,7 +1,7 @@
 /* PAOK Basketball 2026-27 — static site reading data/eurocup.json and data/gbl.json */
 const TZ = 'Europe/Athens';
 const COMPS = { GBL: 'Greek League', EuroCup: 'EuroCup', 'Greek Super Cup': 'Super Cup', 'Greek Cup': 'Greek Cup' };
-const state = { ec: null, gbl: null, games: [], filters: { profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
+const state = { ec: null, gbl: null, games: [], filters: { league: 'GBL', leagueSort: 'net', profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -28,8 +28,8 @@ async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
   let additions;
-  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({}))]);
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} }))]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
@@ -221,22 +221,25 @@ const VIEWS = {
     const fgm = (o) => o.fg2m + o.fg3m, fga = (o) => o.fg2a + o.fg3a;
     const tile = (v, s) => `<div class="tile"><div class="v">${v}</div><div class="s">${s}</div></div>`;
     const cmp = [
-      ['Points', avg(us, 'pts'), avg(them, 'pts')],
-      ['FG%', pct(fgm(us), fga(us)), pct(fgm(them), fga(them))],
-      ['2P%', pct(us.fg2m, us.fg2a), pct(them.fg2m, them.fg2a)],
-      ['3P%', pct(us.fg3m, us.fg3a), pct(them.fg3m, them.fg3a)],
-      ['3PA', avg(us, 'fg3a'), avg(them, 'fg3a')],
-      ['FT%', pct(us.ftm, us.fta), pct(them.ftm, them.fta)],
-      ['FTA', avg(us, 'fta'), avg(them, 'fta')],
-      ['Rebounds', avg(us, 'reb'), avg(them, 'reb')],
-      ['Off. rebounds', avg(us, 'oreb'), avg(them, 'oreb')],
-      ['Assists', avg(us, 'ast'), avg(them, 'ast')],
-      ['Steals', avg(us, 'stl'), avg(them, 'stl')],
-      ['Turnovers', avg(us, 'tov'), avg(them, 'tov')],
-      ['Blocks', avg(us, 'blk'), avg(them, 'blk')],
-      ['Fouls', avg(us, 'pf'), avg(them, 'pf')],
-      ['PIR', avg(us, 'pir'), avg(them, 'pir')],
+      ['Points', avg(us, 'pts'), avg(them, 'pts'), 'pts', 1],
+      ['Points allowed', avg(them, 'pts'), avg(us, 'pts'), 'allowed', -1],
+      ['FG%', pct(fgm(us), fga(us)), pct(fgm(them), fga(them)), 'fgp', 1],
+      ['2P%', pct(us.fg2m, us.fg2a), pct(them.fg2m, them.fg2a), 'fg2p', 1],
+      ['3P%', pct(us.fg3m, us.fg3a), pct(them.fg3m, them.fg3a), 'fg3p', 1],
+      ['3PA', avg(us, 'fg3a'), avg(them, 'fg3a'), 'fg3a', 1],
+      ['FT%', pct(us.ftm, us.fta), pct(them.ftm, them.fta), 'ftp', 1],
+      ['FTA', avg(us, 'fta'), avg(them, 'fta'), 'fta', 1],
+      ['Rebounds', avg(us, 'reb'), avg(them, 'reb'), 'reb', 1],
+      ['Off. rebounds', avg(us, 'oreb'), avg(them, 'oreb'), 'oreb', 1],
+      ['Assists', avg(us, 'ast'), avg(them, 'ast'), 'ast', 1],
+      ['Steals', avg(us, 'stl'), avg(them, 'stl'), 'stl', 1],
+      ['Turnovers', avg(us, 'tov'), avg(them, 'tov'), 'tov', -1],
+      ['Blocks', avg(us, 'blk'), avg(them, 'blk'), 'blk', 1],
+      ['Fouls', avg(us, 'pf'), avg(them, 'pf'), 'pf', -1],
+      ['PIR', avg(us, 'pir'), avg(them, 'pir'), 'pir', 1],
     ];
+    const hasLg = !!leagueOf(comp);
+    const me = hasLg ? leagueTeam(comp, 'PAOK') : null;
     const log = games.map((g) => `<tr class="click" onclick="openBox('${g.code}')">
       <td class="l">${fmtDate(g.date)}</td><td class="l">${esc(compName(g.comp))}</td><td class="l">${vsAt(g)} ${esc(g.opp)}</td>
       <td><span class="wl ${result(g)}">${result(g)}</span></td><td><b>${g.us}–${g.them}</b></td>
@@ -249,11 +252,12 @@ const VIEWS = {
         ${tile(pct(us.fg3m, us.fg3a) + '%', '3-point %')}${tile(avg(us, 'ast'), 'Assists / game')}
       </div>
       <h2>PAOK vs opponents (per game)</h2>
-      <div class="table-wrap" style="max-width:640px"><table>
-        <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th></tr></thead>
-        <tbody>${cmp.map(([l, a, b]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td></tr>`).join('')}</tbody>
+      <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
+        <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? `<th>${esc(compName(comp))} avg</th><th>PAOK rank</th>` : ''}</tr></thead>
+        <tbody>${cmp.map(([l, a, b, k, dir]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td>${hasLg ? `<td>${lgVal(comp, k)}</td><td>${rankBadge(rankIn(comp, me, k, dir))}</td>` : ''}</tr>`).join('')}</tbody>
       </table></div>
-      ${paceSection(games)}
+      ${hasLg ? `<p class="note">League average = the average team per game across every ${esc(compName(comp))} game this season. Rank: 1st = best in the league (for turnovers, fouls and points allowed, fewest is best). Green = top third, red = bottom third.</p>` : `<p class="note">Pick Greek League or EuroCup above to compare with the league average and see PAOK's rank.</p>`}
+      ${paceSection(games, comp)}
       ${extrasSection(games)}
       <h2>Game log</h2>
       <div class="table-wrap"><table>
@@ -343,15 +347,18 @@ VIEWS.scout = function scout() {
   const o = pick.oppTeam, p = pick.paokTeam;
   const v = (x, suf = '') => (x === null || x === undefined ? '–' : x + suf);
   const rows = [
-    ['Record', p ? `${p.w}–${p.l}` : '–', o ? `${o.w}–${o.l}` : '–'],
-    ['Points scored', v(p?.pts), v(o?.pts)], ['Points allowed', v(p?.allowed), v(o?.allowed)],
-    ['FG%', v(p?.fgp), v(o?.fgp)], ['3P%', v(p?.fg3p), v(o?.fg3p)], ['3PA', v(p?.fg3a), v(o?.fg3a)],
-    ['FT%', v(p?.ftp), v(o?.ftp)], ['Rebounds', v(p?.reb), v(o?.reb)], ['Off. rebounds', v(p?.oreb), v(o?.oreb)],
-    ['Assists', v(p?.ast), v(o?.ast)], ['Turnovers', v(p?.tov), v(o?.tov)], ['Steals', v(p?.stl), v(o?.stl)],
-    ['PIR', v(p?.pir), v(o?.pir)], ['Opponents’ FG%', v(p?.opp_fgp), v(o?.opp_fgp)],
-    ['Pace (poss. per 40 min)', v(p?.pace), v(o?.pace)], ['Offensive rating', v(p?.ortg), v(o?.ortg)],
-    ['Defensive rating', v(p?.drtg), v(o?.drtg)],
+    ['Record', p ? `${p.w}–${p.l}` : '–', o ? `${o.w}–${o.l}` : '–', null],
+    ['Points scored', v(p?.pts), v(o?.pts), 'pts', 1], ['Points allowed', v(p?.allowed), v(o?.allowed), 'allowed', -1],
+    ['Pace (poss. per 40 min)', v(p?.pace), v(o?.pace), 'pace', 1], ['Offensive rating', v(p?.ortg), v(o?.ortg), 'ortg', 1],
+    ['Defensive rating', v(p?.drtg), v(o?.drtg), 'drtg', -1],
+    ['FG%', v(p?.fgp), v(o?.fgp), 'fgp', 1], ['3P%', v(p?.fg3p), v(o?.fg3p), 'fg3p', 1], ['3PA', v(p?.fg3a), v(o?.fg3a), 'fg3a', 1],
+    ['FT%', v(p?.ftp), v(o?.ftp), 'ftp', 1], ['Rebounds', v(p?.reb), v(o?.reb), 'reb', 1], ['Off. rebounds', v(p?.oreb), v(o?.oreb), 'oreb', 1],
+    ['Assists', v(p?.ast), v(o?.ast), 'ast', 1], ['Turnovers', v(p?.tov), v(o?.tov), 'tov', -1], ['Steals', v(p?.stl), v(o?.stl), 'stl', 1],
+    ['PIR', v(p?.pir), v(o?.pir), 'pir', 1], ['Opponents’ FG%', v(p?.opp_fgp), v(o?.opp_fgp), 'opp_fgp', -1],
   ];
+  const hasLg = !!leagueOf(pick.comp);
+  const meL = hasLg ? leagueTeam(pick.comp, 'PAOK') : null, oppL = hasLg ? leagueTeam(pick.comp, pick.opp) : null;
+  const withRank = (val, team, k, dir) => (hasLg && k ? `${val} <span class="rk">${rankBadge(rankIn(pick.comp, team, k, dir))}</span>` : val);
   const sample = o && o.gp < 3 ? `<p class="note">Early season: ${esc(pick.opp)} ${o.gp === 1 ? 'has played 1 game' : `have played ${o.gp} games`} in the ${esc(compName(pick.comp))}, so treat these numbers as a first look.</p>` : '';
   const card = (pl) => `<div class="card impact">
       <div class="impact-head"><span class="num">${esc(pl.no || '–')}</span><div><b>${esc(pl.name)}</b><div class="muted" style="font-size:12px">${pl.gp} game${pl.gp > 1 ? 's' : ''} · ${pl.min} min</div></div><div class="pir-badge">${pl.pir}<span>PIR</span></div></div>
@@ -378,11 +385,12 @@ VIEWS.scout = function scout() {
         <div class="label">Projected score</div>
         <div class="big">${esc(hn)} ${Math.round(hs)} – ${Math.round(as)} ${esc(an)}</div>
         <div class="winbar"><div style="width:${pr.winProb}%"></div></div>
-        <div class="muted">PAOK win chance: <b style="color:#fff">${pr.winProb}%</b> · ${esc(src)}${pr.note ? ' · ' + esc(pr.note) : ''}</div>
+        <div class="muted">PAOK win chance: <b style="color:#fff">${pr.winProb}%</b> · expected pace ${pr.pace ? f1(pr.pace) : '–'} possessions · ${esc(src)}${pr.note ? ' · ' + esc(pr.note) : ''}</div>
       </div>
       <div class="grid two" style="margin-top:16px">${ptable(us, 'PAOK')}${ptable(them, pick.opp)}</div>
-      <p class="note">How it works: each player's per-minute production this season × expected minutes (shared out among the available players when someone is missing).
-        Team totals blend PAOK's attack with the opponent's defence and vice versa, pulled toward the league average early in the season, with a small home-court edge.</p>`;
+      <p class="note">How it works: expected possessions = both teams' pace relative to the league's pace. Points per 100 possessions = a team's offensive rating × the opponent's defensive rating ÷ the league average,
+        reduced if key scorers are missing. Early-season numbers are pulled toward the league average, plus a small home-court edge.
+        Player lines: per-minute production this season × expected minutes (shared out among the available players when someone is out).</p>`;
   }
   return `<h2>Next Game</h2>${tabs}
     <div class="card dark" style="margin-bottom:8px">
@@ -395,10 +403,11 @@ VIEWS.scout = function scout() {
     ${pick.impact.length ? `<div class="grid three">${pick.impact.map(card).join('')}</div>` : '<p class="empty">They haven\'t played yet this season.</p>'}
     ${sample}
     <h2>Team comparison (${esc(compName(pick.comp))}, per game)</h2>
-    <div class="table-wrap" style="max-width:640px"><table>
-      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th></tr></thead>
-      <tbody>${rows.map(([l, a, b]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td></tr>`).join('')}</tbody>
+    <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
+      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th>${hasLg ? `<th>${esc(compName(pick.comp))} avg</th>` : ''}</tr></thead>
+      <tbody>${rows.map(([l, a, b, k, dir]) => `<tr><td class="l">${l}</td><td><b>${withRank(a, meL, k, dir)}</b></td><td>${withRank(b, oppL, k, dir)}</td>${hasLg ? `<td>${k ? lgVal(pick.comp, k) : '–'}</td>` : ''}</tr>`).join('')}</tbody>
     </table></div>
+    ${hasLg ? `<p class="note">Rank among all ${leagueOf(pick.comp).teams.length} ${esc(compName(pick.comp))} teams (1st = best). <a href="#league" onclick="state.filters.league='${pick.comp}'">Full league table →</a></p>` : ''}
     ${pick.paokImpact.length ? `<h2>PAOK's key players (${esc(compName(pick.comp))})</h2><div class="grid three">${pick.paokImpact.slice(0, 3).map(card).join('')}</div>` : ''}`;
 };
 
@@ -536,27 +545,30 @@ function paceStats(games) {
   };
   return { n, poss: poss / n, pace: (poss * 40) / mins, us: side('team', 'opp'), them: side('opp', 'team') };
 }
-function paceSection(games) {
+function paceSection(games, comp) {
   const st = paceStats(games);
   if (!st) return '';
   const net = st.us.rating - st.them.rating;
-  const tile = (v, s, cls = '') => `<div class="tile"><div class="v ${cls}">${v}</div><div class="s">${s}</div></div>`;
+  const hasLg = !!leagueOf(comp);
+  const me = hasLg ? leagueTeam(comp, 'PAOK') : null;
+  const lgLine = (key, dir) => (hasLg ? `<div class="lg">League ${lgVal(comp, key)} · ${rankBadge(rankIn(comp, me, key, dir))}</div>` : '');
+  const tile = (v, s, cls = '', key = null, dir = 1) => `<div class="tile"><div class="v ${cls}">${v}</div><div class="s">${s}</div>${key ? lgLine(key, dir) : ''}</div>`;
   const pctRow = (l, k, betterHigh = true) => {
     const a = st.us[k], b = st.them[k];
     const win = a !== null && b !== null && (betterHigh ? a > b : a < b);
-    return `<tr><td class="l">${l}</td><td><b class="${win ? 'pos-text' : ''}">${f1(a)}%</b></td><td>${f1(b)}%</td></tr>`;
+    return `<tr><td class="l">${l}</td><td><b class="${win ? 'pos-text' : ''}">${f1(a)}%</b></td><td>${f1(b)}%</td>${hasLg ? `<td>${lgVal(comp, k, '%')}</td><td>${rankBadge(rankIn(comp, me, k, betterHigh ? 1 : -1))}</td>` : ''}</tr>`;
   };
   return `<h2>Pace &amp; efficiency</h2>
     <div class="tiles">
-      ${tile(f1(st.poss), 'Possessions / game')}
-      ${tile(f1(st.pace), 'Pace (possessions per 40 min)')}
-      ${tile(f1(st.us.rating), 'Offensive rating (pts per 100 poss)')}
-      ${tile(f1(st.them.rating), 'Defensive rating (allowed per 100 poss)')}
-      ${tile((net > 0 ? '+' : '') + f1(net), 'Net rating', net > 0 ? 'pos-text' : net < 0 ? 'neg-text' : '')}
+      ${tile(f1(st.poss), 'Possessions / game', '', 'poss', 1)}
+      ${tile(f1(st.pace), 'Pace (possessions per 40 min)', '', 'pace', 1)}
+      ${tile(f1(st.us.rating), 'Offensive rating (pts per 100 poss)', '', 'ortg', 1)}
+      ${tile(f1(st.them.rating), 'Defensive rating (allowed per 100 poss)', '', 'drtg', -1)}
+      ${tile((net > 0 ? '+' : '') + f1(net), 'Net rating', net > 0 ? 'pos-text' : net < 0 ? 'neg-text' : '', 'net', 1)}
     </div>
     <h3 style="margin-top:20px">Four factors &amp; shooting efficiency</h3>
-    <div class="table-wrap" style="max-width:640px"><table>
-      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th></tr></thead>
+    <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
+      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? '<th>League avg</th><th>PAOK rank</th>' : ''}</tr></thead>
       <tbody>
         ${pctRow('Effective FG% (eFG%)', 'efg')}
         ${pctRow('True shooting % (TS%)', 'ts')}
@@ -578,6 +590,64 @@ function paceSection(games) {
     </div>
 `;
 }
+
+/* ---------- league table: every team, every stat ---------- */
+const LEAGUE_COLS = [
+  ['gp', 'GP', 1], ['w', 'W', 1], ['pts', 'PTS', 1], ['allowed', 'OPP', -1], ['net', 'Net', 1], ['pace', 'Pace', 1],
+  ['ortg', 'ORtg', 1], ['drtg', 'DRtg', -1], ['efg', 'eFG%', 1], ['ts', 'TS%', 1], ['fg3p', '3P%', 1], ['fg3a', '3PA', 1],
+  ['ftp', 'FT%', 1], ['reb', 'REB', 1], ['orebPct', 'OREB%', 1], ['ast', 'AST', 1], ['tovPct', 'TOV%', -1], ['stl', 'STL', 1],
+  ['blk', 'BLK', 1], ['pir', 'PIR', 1],
+];
+VIEWS.league = function league() {
+  const comps = ['GBL', 'EuroCup'].filter((c) => leagueOf(c));
+  if (!comps.length) return '<h2>League</h2><p class="empty">League stats not available yet.</p>';
+  const comp = comps.includes(state.filters.league) ? state.filters.league : comps[0];
+  state.filters.league = comp;
+  const lg = leagueOf(comp);
+  const next = new Set(state.scout.reports.filter((r) => r.comp === comp).map((r) => nameKey(r.opp)));
+  const isNext = (t) => [...next].some((k) => nameKey(t.team) === k || nameKey(t.team).includes(k) || k.includes(nameKey(t.team)));
+  const sortKey = state.filters.leagueSort || 'net';
+  const dir = (LEAGUE_COLS.find(([k]) => k === sortKey) || [0, 0, 1])[2];
+  const teams = [...lg.teams].sort((a, b) => dir * ((b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9)));
+  const cell = (t, k) => { const v = t[k]; if (v === null || v === undefined) return '–'; return ['gp', 'w'].includes(k) ? v : k === 'net' ? `<span class="${v > 0 ? 'pos-text' : v < 0 ? 'neg-text' : ''}">${v > 0 ? '+' : ''}${f1(v)}</span>` : f1(v); };
+  const avg = lg.avg;
+  return `<h2>League stats</h2>
+    ${seg('league', comps.map((c) => [c, compName(c)]))}
+    <p class="muted">${lg.teams.length} teams · ${lg.games} games played · per game. Click a column to sort; the line at the bottom is the league average.${comp === 'EuroCup' ? ' All four EuroCup groups.' : ''}</p>
+    <div class="table-wrap"><table class="league">
+      <thead><tr><th>#</th><th class="l">Team</th>${LEAGUE_COLS.map(([k, l]) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" onclick="state.filters.leagueSort='${k}';rerender()">${l}</th>`).join('')}</tr></thead>
+      <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : isNext(t) ? 'next-opp' : ''}"><td>${i + 1}</td><td class="l">${esc(t.team)}${t.group ? ` <span class="muted" style="font-size:11px">${esc(t.group.replace('Group ', ''))}</span>` : ''}${isNext(t) && !t.paok ? ' <span class="pill">Next opponent</span>' : ''}</td>${LEAGUE_COLS.map(([k]) => `<td>${cell(t, k)}</td>`).join('')}</tr>`).join('')}
+      <tr class="avg-row"><td></td><td class="l">League average</td>${LEAGUE_COLS.map(([k]) => `<td>${['gp', 'w'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
+    </table></div>
+    <div class="card" style="max-width:760px;margin-top:16px"><h3>Columns</h3>
+      <p class="muted" style="margin:0">PTS / OPP: points scored / allowed per game · Net: points per 100 possessions better than opponents · Pace: possessions per 40 min ·
+      ORtg / DRtg: points scored / allowed per 100 possessions · eFG% / TS%: shooting efficiency · OREB%: share of own misses rebounded · TOV%: share of possessions lost to turnovers.</p></div>`;
+};
+
+/* ---------- league averages and ranks ---------- */
+const leagueOf = (comp) => (state.league.comps || {})[comp];
+const nameKey = (n) => n.toLowerCase().replace(/[^a-z]/g, '');
+function leagueTeam(comp, name) {
+  const lg = leagueOf(comp);
+  if (!lg) return null;
+  if (name === 'PAOK') return lg.teams.find((t) => t.paok);
+  const k = nameKey(name);
+  return lg.teams.find((t) => nameKey(t.team) === k) || lg.teams.find((t) => nameKey(t.team).includes(k) || k.includes(nameKey(t.team)));
+}
+// rank of a team for one stat: dir 1 = higher is better, -1 = lower is better
+function rankIn(comp, team, key, dir = 1) {
+  const lg = leagueOf(comp);
+  if (!lg || !team || team[key] === null || team[key] === undefined) return null;
+  const vals = lg.teams.map((t) => t[key]).filter((v) => v !== null && v !== undefined);
+  const better = vals.filter((v) => (dir > 0 ? v > team[key] : v < team[key])).length;
+  return { rank: better + 1, of: vals.length };
+}
+function rankBadge(r) {
+  if (!r) return '<span class="muted">–</span>';
+  const cls = r.rank <= Math.ceil(r.of / 3) ? 'pos-text' : r.rank > Math.floor((2 * r.of) / 3) ? 'neg-text' : '';
+  return `<span class="${cls}">${ordinal(r.rank)}</span><span class="muted"> / ${r.of}</span>`;
+}
+const lgVal = (comp, key, suffix = '') => { const lg = leagueOf(comp); const v = lg && lg.avg ? lg.avg[key] : null; return v === null || v === undefined ? '–' : f1(v) + suffix; };
 
 /* ---------- pieces ---------- */
 const EXTRAS = [

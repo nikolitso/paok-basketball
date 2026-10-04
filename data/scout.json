@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T17:24:05Z",
+ "updated": "2026-10-04T18:40:09Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -55,6 +55,44 @@
     "pace": 72.5,
     "ortg": 99.3,
     "drtg": 103.4
+   },
+   "league": {
+    "pts": 80.9,
+    "fg2m": 20.1,
+    "fg2a": 39.0,
+    "fg3m": 8.4,
+    "fg3a": 25.9,
+    "ftm": 15.7,
+    "fta": 21.5,
+    "oreb": 12.8,
+    "dreb": 25.7,
+    "reb": 38.5,
+    "ast": 17.1,
+    "stl": 7.4,
+    "tov": 14.3,
+    "blk": 2.7,
+    "pf": 22.3,
+    "pir": 86.9,
+    "gp": 32,
+    "w": 16,
+    "allowed": 80.9,
+    "fgp": 43.8,
+    "fg2p": 51.4,
+    "fg3p": 32.4,
+    "ftp": 72.7,
+    "opp_fgp": 43.8,
+    "poss": 75.9,
+    "pace": 75.9,
+    "ortg": 106.5,
+    "drtg": 106.5,
+    "efg": 50.3,
+    "ts": 54.4,
+    "tovPct": 18.9,
+    "orebPct": 33.1,
+    "ftr": 24.1,
+    "astPct": 60.1,
+    "l": 16,
+    "net": 0.0
    },
    "impact": [
     {
@@ -631,13 +669,13 @@
    ],
    "projection": {
     "paok": {
-     "score": 82.0,
+     "score": 83.2,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 32,
-       "pts": 16.8,
+       "pts": 17.1,
        "reb": 5.3,
        "ast": 2.0,
        "pir": 17.3
@@ -646,7 +684,7 @@
        "name": "Kyle Alexander",
        "no": "8",
        "min": 21,
-       "pts": 10.9,
+       "pts": 11.1,
        "reb": 5.7,
        "ast": 0.5,
        "pir": 16.5
@@ -655,7 +693,7 @@
        "name": "Nick Calathes",
        "no": "33",
        "min": 27,
-       "pts": 9.8,
+       "pts": 9.9,
        "reb": 4.0,
        "ast": 6.0,
        "pir": 15.5
@@ -664,7 +702,7 @@
        "name": "Marcus Foster",
        "no": "17",
        "min": 25,
-       "pts": 11.1,
+       "pts": 11.3,
        "reb": 2.0,
        "ast": 4.0,
        "pir": 10.7
@@ -673,7 +711,7 @@
        "name": "Trevor Hudgins",
        "no": "12",
        "min": 19,
-       "pts": 7.9,
+       "pts": 8.1,
        "reb": 2.5,
        "ast": 3.2,
        "pir": 10.0
@@ -682,7 +720,7 @@
        "name": "Ben Moore",
        "no": "26",
        "min": 19,
-       "pts": 5.0,
+       "pts": 5.1,
        "reb": 5.3,
        "ast": 0.8,
        "pir": 8.8
@@ -691,7 +729,7 @@
        "name": "Naz Mitrou Long",
        "no": "1",
        "min": 17,
-       "pts": 7.9,
+       "pts": 8.1,
        "reb": 3.0,
        "ast": 1.5,
        "pir": 7.2
@@ -700,7 +738,7 @@
        "name": "Breein Tyree",
        "no": "5",
        "min": 9,
-       "pts": 7.3,
+       "pts": 7.4,
        "reb": 0.0,
        "ast": 0.3,
        "pir": 6.5
@@ -709,7 +747,7 @@
        "name": "Nikolaos Persidis",
        "no": "18",
        "min": 16,
-       "pts": 2.7,
+       "pts": 2.8,
        "reb": 3.2,
        "ast": 0.5,
        "pir": 4.0
@@ -718,7 +756,7 @@
        "name": "Nikos Chougkaz",
        "no": "9",
        "min": 5,
-       "pts": 1.1,
+       "pts": 1.2,
        "reb": 0.2,
        "ast": 0.2,
        "pir": 0.7
@@ -760,16 +798,17 @@
        "pir": -0.5
       }
      ],
-     "missing": []
+     "missing": [],
+     "pace": 73.9
     },
     "opp": {
-     "score": 83.5,
+     "score": 83.3,
      "players": [
       {
        "name": "Reginald Perry",
        "no": "11",
        "min": 22,
-       "pts": 16.3,
+       "pts": 16.2,
        "reb": 5.0,
        "ast": 1.0,
        "pir": 16.0
@@ -805,7 +844,7 @@
        "name": "Deandre Gholston",
        "no": "4",
        "min": 24,
-       "pts": 10.5,
+       "pts": 10.4,
        "reb": 5.0,
        "ast": 1.0,
        "pir": 8.0
@@ -856,9 +895,11 @@
        "pir": 0.0
       }
      ],
-     "missing": []
+     "missing": [],
+     "pace": 73.9
     },
-    "winProb": 45,
+    "winProb": 50,
+    "pace": 73.9,
     "lineupSource": "assumed",
     "note": ""
    }
@@ -917,6 +958,44 @@
     "pace": 74.1,
     "ortg": 101.2,
     "drtg": 122.7
+   },
+   "league": {
+    "pts": 81.9,
+    "fg2m": 18.9,
+    "fg2a": 36.0,
+    "fg3m": 9.1,
+    "fg3a": 25.4,
+    "ftm": 17.0,
+    "fta": 23.1,
+    "oreb": 9.5,
+    "dreb": 25.1,
+    "reb": 34.6,
+    "ast": 17.9,
+    "stl": 6.8,
+    "tov": 12.8,
+    "blk": 2.6,
+    "pf": 21.9,
+    "pir": 87.7,
+    "gp": 14,
+    "w": 7,
+    "allowed": 81.9,
+    "fgp": 45.5,
+    "fg2p": 52.4,
+    "fg3p": 35.8,
+    "ftp": 73.7,
+    "opp_fgp": 45.5,
+    "poss": 74.8,
+    "pace": 74.8,
+    "ortg": 109.5,
+    "drtg": 109.5,
+    "efg": 52.9,
+    "ts": 57.3,
+    "tovPct": 17.1,
+    "orebPct": 27.4,
+    "ftr": 27.7,
+    "astPct": 64.2,
+    "l": 7,
+    "net": 0.0
    },
    "impact": [
     {
@@ -1481,13 +1560,13 @@
    ],
    "projection": {
     "paok": {
-     "score": 85.8,
+     "score": 90.7,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 32,
-       "pts": 17.6,
+       "pts": 18.6,
        "reb": 5.3,
        "ast": 2.0,
        "pir": 17.3
@@ -1496,7 +1575,7 @@
        "name": "Kyle Alexander",
        "no": "8",
        "min": 21,
-       "pts": 11.4,
+       "pts": 12.0,
        "reb": 5.7,
        "ast": 0.5,
        "pir": 16.5
@@ -1505,7 +1584,7 @@
        "name": "Nick Calathes",
        "no": "33",
        "min": 27,
-       "pts": 10.2,
+       "pts": 10.8,
        "reb": 4.0,
        "ast": 6.0,
        "pir": 15.5
@@ -1514,7 +1593,7 @@
        "name": "Marcus Foster",
        "no": "17",
        "min": 25,
-       "pts": 11.6,
+       "pts": 12.3,
        "reb": 2.0,
        "ast": 4.0,
        "pir": 10.7
@@ -1523,7 +1602,7 @@
        "name": "Trevor Hudgins",
        "no": "12",
        "min": 19,
-       "pts": 8.3,
+       "pts": 8.8,
        "reb": 2.5,
        "ast": 3.2,
        "pir": 10.0
@@ -1532,7 +1611,7 @@
        "name": "Ben Moore",
        "no": "26",
        "min": 19,
-       "pts": 5.2,
+       "pts": 5.5,
        "reb": 5.3,
        "ast": 0.8,
        "pir": 8.8
@@ -1541,7 +1620,7 @@
        "name": "Naz Mitrou Long",
        "no": "1",
        "min": 17,
-       "pts": 8.3,
+       "pts": 8.8,
        "reb": 3.0,
        "ast": 1.5,
        "pir": 7.2
@@ -1550,7 +1629,7 @@
        "name": "Breein Tyree",
        "no": "5",
        "min": 9,
-       "pts": 7.6,
+       "pts": 8.0,
        "reb": 0.0,
        "ast": 0.3,
        "pir": 6.5
@@ -1559,7 +1638,7 @@
        "name": "Nikolaos Persidis",
        "no": "18",
        "min": 16,
-       "pts": 2.8,
+       "pts": 3.0,
        "reb": 3.2,
        "ast": 0.5,
        "pir": 4.0
@@ -1568,7 +1647,7 @@
        "name": "Nikos Chougkaz",
        "no": "9",
        "min": 5,
-       "pts": 1.2,
+       "pts": 1.3,
        "reb": 0.2,
        "ast": 0.2,
        "pir": 0.7
@@ -1610,16 +1689,17 @@
        "pir": -0.5
       }
      ],
-     "missing": []
+     "missing": [],
+     "pace": 74.1
     },
     "opp": {
-     "score": 79.7,
+     "score": 81.2,
      "players": [
       {
        "name": "De’Vion Harmon",
        "no": "2",
        "min": 37,
-       "pts": 22.3,
+       "pts": 22.8,
        "reb": 3.0,
        "ast": 6.0,
        "pir": 23.0
@@ -1628,7 +1708,7 @@
        "name": "Jakeenan Gant",
        "no": "23",
        "min": 27,
-       "pts": 14.9,
+       "pts": 15.2,
        "reb": 5.0,
        "ast": 0.0,
        "pir": 16.0
@@ -1637,7 +1717,7 @@
        "name": "Josh Sharma",
        "no": "20",
        "min": 26,
-       "pts": 10.6,
+       "pts": 10.8,
        "reb": 10.0,
        "ast": 0.0,
        "pir": 12.0
@@ -1646,7 +1726,7 @@
        "name": "Giannis Chatzinikolas",
        "no": "11",
        "min": 26,
-       "pts": 8.5,
+       "pts": 8.7,
        "reb": 6.0,
        "ast": 2.0,
        "pir": 12.0
@@ -1655,7 +1735,7 @@
        "name": "Michalis Tsairelis",
        "no": "6",
        "min": 15,
-       "pts": 7.5,
+       "pts": 7.6,
        "reb": 0.0,
        "ast": 0.0,
        "pir": 5.0
@@ -1664,7 +1744,7 @@
        "name": "Trey Robinson",
        "no": "1",
        "min": 27,
-       "pts": 6.4,
+       "pts": 6.5,
        "reb": 4.0,
        "ast": 1.0,
        "pir": 1.0
@@ -1691,15 +1771,17 @@
        "name": "Denver Jones",
        "no": "0",
        "min": 25,
-       "pts": 6.4,
+       "pts": 6.5,
        "reb": 1.0,
        "ast": 1.0,
        "pir": -1.0
       }
      ],
-     "missing": []
+     "missing": [],
+     "pace": 74.1
     },
-    "winProb": 71,
+    "winProb": 81,
+    "pace": 74.1,
     "lineupSource": "assumed",
     "note": ""
    }

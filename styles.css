@@ -226,3 +226,10 @@ main { padding-bottom: 48px; }
 /* green/red stay readable on the black PAOK row */
 tr.hl .pos-text { color: #6ee59a; }
 tr.hl .neg-text { color: #ff8a8a; }
+
+/* league averages / ranks */
+.tile .lg { font-size: 12px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); }
+.rk { font-size: 11px; font-weight: 600; margin-left: 4px; }
+table.league td, table.league th { padding: 8px 8px; font-size: 13px; }
+tr.next-opp td { background: #f2f2f2; font-weight: 600; }
+tr.avg-row td { border-top: 2px solid var(--black); font-weight: 700; background: var(--soft); }
