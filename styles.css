@@ -78,7 +78,7 @@ h3 { font-size: 18px; margin: 0 0 10px; }
 /* tables */
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
-th, td { padding: 9px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+th, td { padding: 9px 8px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
 th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--soft); position: sticky; top: 0; }
 th.sortable { cursor: pointer; user-select: none; }
 th.sortable:hover { color: var(--ink); }
@@ -242,3 +242,9 @@ table.league th.grp { text-align: center; font-size: 11px; color: var(--ink); bo
 table.league th.ff { background: #f0f0f0; }
 .btn-toggle { font: 600 13px Inter, sans-serif; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--black); background: var(--white); cursor: pointer; margin-top: 10px; }
 .btn-toggle:hover { background: var(--black); color: var(--white); }
+
+/* league table: fit the compact view without sideways scrolling */
+table.league th, table.league td { padding: 7px 5px; font-size: 12.5px; }
+table.league thead tr:not(.groups) th { white-space: normal; line-height: 1.2; vertical-align: bottom; max-width: 58px; }
+table.league td.l, table.league th.l { padding-left: 8px; }
+table.league td:first-child, table.league th:first-child { padding-left: 8px; }
