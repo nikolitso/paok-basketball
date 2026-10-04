@@ -267,11 +267,11 @@ const VIEWS = {
       </div>
       <h2>PAOK vs opponents (per game)</h2>
       <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
-        <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? `<th>${esc(compName(comp))} avg</th><th>PAOK rank</th>` : ''}</tr></thead>
+        <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? `<th>${esc(avgLabel(comp))}</th><th>PAOK rank</th>` : ''}</tr></thead>
         <tbody>${cmp.map(([l, a, b, k, dir]) => (k === null ? `<tr class="section"><td class="l" colspan="${hasLg ? 5 : 3}">${l}</td></tr>`
           : `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td>${hasLg ? `<td>${lgVal(comp, k)}</td><td>${rankBadge(rankIn(comp, me, k, dir))}</td>` : ''}</tr>`)).join('')}</tbody>
       </table></div>
-      ${hasLg ? `<p class="note">League average = the average team per game across every ${esc(compName(comp))} game this season. Rank: 1st = best in the league (for turnovers, fouls and points allowed, fewest is best). Green = top third, red = bottom third.</p>` : `<p class="note">Pick Greek League or EuroCup above to compare with the league average and see PAOK's rank.</p>`}
+      ${hasLg ? `<p class="note">${leagueOf(comp).group ? `${esc(leagueOf(comp).group)} average = the average team per game across every game in PAOK's EuroCup group; ranks are among the ${leagueOf(comp).teams.length} ${esc(leagueOf(comp).group)} teams.` : `League average = the average team per game across every ${esc(compName(comp))} game this season; ranks are among all ${leagueOf(comp).teams.length} teams.`} 1st = best (for turnovers, fouls and points allowed, fewest is best). Green = top third, red = bottom third.</p>` : `<p class="note">Pick Greek League or EuroCup above to compare with the league average and see PAOK's rank.</p>`}
       ${paceSection(games, comp)}
       ${extrasSection(games)}
       <h2>Game log</h2>
@@ -419,10 +419,10 @@ VIEWS.scout = function scout() {
     ${sample}
     <h2>Team comparison (${esc(compName(pick.comp))}, per game)</h2>
     <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
-      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th>${hasLg ? `<th>${esc(compName(pick.comp))} avg</th>` : ''}</tr></thead>
+      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th>${hasLg ? `<th>${esc(avgLabel(pick.comp))}</th>` : ''}</tr></thead>
       <tbody>${rows.map(([l, a, b, k, dir]) => `<tr><td class="l">${l}</td><td><b>${withRank(a, meL, k, dir)}</b></td><td>${withRank(b, oppL, k, dir)}</td>${hasLg ? `<td>${k ? lgVal(pick.comp, k) : '–'}</td>` : ''}</tr>`).join('')}</tbody>
     </table></div>
-    ${hasLg ? `<p class="note">Rank among all ${leagueOf(pick.comp).teams.length} ${esc(compName(pick.comp))} teams (1st = best). <a href="#league" onclick="state.filters.league='${pick.comp}'">Full league table →</a></p>` : ''}
+    ${hasLg ? `<p class="note">Rank among the ${leagueOf(pick.comp).teams.length} ${esc(scopeLabel(pick.comp))} (1st = best). <a href="#league" onclick="state.filters.league='${pick.comp}'">Full league table →</a></p>` : ''}
     ${pick.paokImpact.length ? `<h2>PAOK's key players (${esc(compName(pick.comp))})</h2><div class="grid three">${pick.paokImpact.slice(0, 3).map(card).join('')}</div>` : ''}`;
 };
 
@@ -566,7 +566,7 @@ function paceSection(games, comp) {
   const net = st.us.rating - st.them.rating;
   const hasLg = !!leagueOf(comp);
   const me = hasLg ? leagueTeam(comp, 'PAOK') : null;
-  const lgLine = (key, dir) => (hasLg ? `<div class="lg">League ${lgVal(comp, key)} · ${rankBadge(rankIn(comp, me, key, dir))}</div>` : '');
+  const lgLine = (key, dir) => (hasLg ? `<div class="lg">${esc(avgLabel(comp))} ${lgVal(comp, key)} · ${rankBadge(rankIn(comp, me, key, dir))}</div>` : '');
   const tile = (v, s, cls = '', key = null, dir = 1) => `<div class="tile"><div class="v ${cls}">${v}</div><div class="s">${s}</div>${key ? lgLine(key, dir) : ''}</div>`;
   const pctRow = (l, k, betterHigh = true) => {
     const a = st.us[k], b = st.them[k];
@@ -575,7 +575,7 @@ function paceSection(games, comp) {
   };
   return `<h2>Four factors &amp; shooting efficiency</h2>
     <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
-      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? '<th>League avg</th><th>PAOK rank</th>' : ''}</tr></thead>
+      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? `<th>${esc(avgLabel(comp))}</th><th>PAOK rank</th>` : ''}</tr></thead>
       <tbody>
         ${pctRow('Effective FG% (eFG%)', 'efg')}
         ${pctRow('True shooting % (TS%)', 'ts')}
@@ -635,7 +635,16 @@ VIEWS.league = function league() {
 };
 
 /* ---------- league averages and ranks ---------- */
-const leagueOf = (comp) => (state.league.comps || {})[comp];
+// for the EuroCup, comparisons are within PAOK's group: only those teams, and the group's own average
+function leagueOf(comp) {
+  const lg = (state.league.comps || {})[comp];
+  if (!lg || comp !== 'EuroCup') return lg;
+  const group = (lg.teams.find((t) => t.paok) || {}).group;
+  if (!group || !lg.groupAvg || !lg.groupAvg[group]) return lg;
+  return { ...lg, teams: lg.teams.filter((t) => t.group === group), avg: lg.groupAvg[group], group };
+}
+const avgLabel = (comp) => { const lg = leagueOf(comp); return lg && lg.group ? `${lg.group} avg` : `${compName(comp)} avg`; };
+const scopeLabel = (comp) => { const lg = leagueOf(comp); return lg && lg.group ? `${lg.group} teams` : `${compName(comp)} teams`; };
 const nameKey = (n) => n.toLowerCase().replace(/[^a-z]/g, '');
 function leagueTeam(comp, name) {
   const lg = leagueOf(comp);
