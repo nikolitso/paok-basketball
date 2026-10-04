@@ -573,15 +573,7 @@ function paceSection(games, comp) {
     const win = a !== null && b !== null && (betterHigh ? a > b : a < b);
     return `<tr><td class="l">${l}</td><td><b class="${win ? 'pos-text' : ''}">${f1(a)}%</b></td><td>${f1(b)}%</td>${hasLg ? `<td>${lgVal(comp, k, '%')}</td><td>${rankBadge(rankIn(comp, me, k, betterHigh ? 1 : -1))}</td>` : ''}</tr>`;
   };
-  return `<h2>Pace &amp; efficiency</h2>
-    <div class="tiles">
-      ${tile(f1(st.poss), 'Possessions / game', '', 'poss', 1)}
-      ${tile(f1(st.pace), 'Pace (possessions per 40 min)', '', 'pace', 1)}
-      ${tile(f1(st.us.rating), 'Offensive rating (pts per 100 poss)', '', 'ortg', 1)}
-      ${tile(f1(st.them.rating), 'Defensive rating (allowed per 100 poss)', '', 'drtg', -1)}
-      ${tile((net > 0 ? '+' : '') + f1(net), 'Net rating', net > 0 ? 'pos-text' : net < 0 ? 'neg-text' : '', 'net', 1)}
-    </div>
-    <h3 style="margin-top:20px">Four factors &amp; shooting efficiency</h3>
+  return `<h2>Four factors &amp; shooting efficiency</h2>
     <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
       <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? '<th>League avg</th><th>PAOK rank</th>' : ''}</tr></thead>
       <tbody>
