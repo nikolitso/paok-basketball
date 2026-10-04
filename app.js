@@ -234,7 +234,7 @@ const VIEWS = {
       <td class="l">${fmtDate(g.date)}</td><td class="l">${esc(compName(g.comp))}</td><td class="l">${vsAt(g)} ${esc(g.opp)}</td>
       <td><span class="wl ${result(g)}">${result(g)}</span></td><td><b>${g.us}–${g.them}</b></td>
       <td>${pct(g.box.team.fg2m + g.box.team.fg3m, g.box.team.fg2a + g.box.team.fg3a)}</td><td>${pct(g.box.team.fg3m, g.box.team.fg3a)}</td>
-      <td>${g.box.team.reb}</td><td>${g.box.team.ast}</td><td>${g.box.team.tov}</td><td>${g.box.team.pir}</td></tr>`).join('');
+      <td>${g.box.team.reb}</td><td>${g.box.team.ast}</td><td>${g.box.team.tov}</td><td>${g.box.team.pir}</td><td>${f1(gamePoss(g))}</td><td>${f1((gamePoss(g) * 40) / gameMinutes(g))}</td><td>${f1((100 * g.us) / gamePoss(g))}</td><td>${f1((100 * g.them) / gamePoss(g))}</td></tr>`).join('');
     return `<h2>Team Stats</h2>${seg('team', opts)}
       <div class="tiles">
         ${tile(`${r.w}–${r.l}`, 'Record')}${tile(avg(us, 'pts'), 'Points scored / game')}${tile(avg(them, 'pts'), 'Points allowed / game')}
@@ -246,10 +246,11 @@ const VIEWS = {
         <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th></tr></thead>
         <tbody>${cmp.map(([l, a, b]) => `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td></tr>`).join('')}</tbody>
       </table></div>
+      ${paceSection(games)}
       ${extrasSection(games)}
       <h2>Game log</h2>
       <div class="table-wrap"><table>
-        <thead><tr><th class="l">Date</th><th class="l">Comp</th><th class="l">Opponent</th><th></th><th>Score</th><th>FG%</th><th>3P%</th><th>REB</th><th>AST</th><th>TO</th><th>PIR</th></tr></thead>
+        <thead><tr><th class="l">Date</th><th class="l">Comp</th><th class="l">Opponent</th><th></th><th>Score</th><th>FG%</th><th>3P%</th><th>REB</th><th>AST</th><th>TO</th><th>PIR</th><th>Poss</th><th>Pace</th><th>ORtg</th><th>DRtg</th></tr></thead>
         <tbody>${log}</tbody></table></div>`;
   },
 
@@ -313,6 +314,8 @@ VIEWS.scout = function scout() {
     ['FT%', v(p?.ftp), v(o?.ftp)], ['Rebounds', v(p?.reb), v(o?.reb)], ['Off. rebounds', v(p?.oreb), v(o?.oreb)],
     ['Assists', v(p?.ast), v(o?.ast)], ['Turnovers', v(p?.tov), v(o?.tov)], ['Steals', v(p?.stl), v(o?.stl)],
     ['PIR', v(p?.pir), v(o?.pir)], ['Opponents’ FG%', v(p?.opp_fgp), v(o?.opp_fgp)],
+    ['Pace (poss. per 40 min)', v(p?.pace), v(o?.pace)], ['Offensive rating', v(p?.ortg), v(o?.ortg)],
+    ['Defensive rating', v(p?.drtg), v(o?.drtg)],
   ];
   const sample = o && o.gp < 3 ? `<p class="note">Early season: ${esc(pick.opp)} ${o.gp === 1 ? 'has played 1 game' : `have played ${o.gp} games`} in the ${esc(compName(pick.comp))}, so treat these numbers as a first look.</p>` : '';
   const card = (pl) => `<div class="card impact">
@@ -472,6 +475,75 @@ VIEWS.profiles = function profiles() {
       Plus/minus comes from the EuroCup and FIBA LiveStats; ESAKE's own pages don't publish it, so it can be missing for some Greek League games.</p>`;
 };
 
+/* ---------- possessions, pace and efficiency ---------- */
+// possessions estimate (standard box-score formula), averaged over both teams
+const possOf = (t) => t.fg2a + t.fg3a - t.oreb + t.tov + 0.44 * t.fta;
+const gamePoss = (g) => (possOf(g.box.team) + possOf(g.box.opp)) / 2;
+// game length from players' minutes (200 player-minutes = 40 game minutes); catches overtime
+const gameMinutes = (g) => Math.max(40, Math.round(g.box.players.reduce((s, p) => s + (p.sec || 0), 0) / 300 / 5) * 5);
+function paceStats(games) {
+  const n = games.length;
+  if (!n) return null;
+  const poss = games.reduce((s, g) => s + gamePoss(g), 0);
+  const mins = games.reduce((s, g) => s + gameMinutes(g), 0);
+  const sum = (side, k) => games.reduce((s, g) => s + (g.box[side][k] || 0), 0);
+  const side = (a, b) => {
+    const fga = sum(a, 'fg2a') + sum(a, 'fg3a'), fgm = sum(a, 'fg2m') + sum(a, 'fg3m');
+    return {
+      rating: (100 * sum(a, 'pts')) / poss,
+      efg: fga ? (100 * (fgm + 0.5 * sum(a, 'fg3m'))) / fga : null,
+      ts: (100 * sum(a, 'pts')) / (2 * (fga + 0.44 * sum(a, 'fta'))),
+      tovPct: (100 * sum(a, 'tov')) / poss,
+      orebPct: (100 * sum(a, 'oreb')) / (sum(a, 'oreb') + sum(b, 'dreb') || 1),
+      ftr: fga ? (100 * sum(a, 'ftm')) / fga : null,
+      astPct: fgm ? (100 * sum(a, 'ast')) / fgm : null,
+    };
+  };
+  return { n, poss: poss / n, pace: (poss * 40) / mins, us: side('team', 'opp'), them: side('opp', 'team') };
+}
+function paceSection(games) {
+  const st = paceStats(games);
+  if (!st) return '';
+  const net = st.us.rating - st.them.rating;
+  const tile = (v, s, cls = '') => `<div class="tile"><div class="v ${cls}">${v}</div><div class="s">${s}</div></div>`;
+  const pctRow = (l, k, betterHigh = true) => {
+    const a = st.us[k], b = st.them[k];
+    const win = a !== null && b !== null && (betterHigh ? a > b : a < b);
+    return `<tr><td class="l">${l}</td><td><b class="${win ? 'pos-text' : ''}">${f1(a)}%</b></td><td>${f1(b)}%</td></tr>`;
+  };
+  return `<h2>Pace &amp; efficiency</h2>
+    <div class="tiles">
+      ${tile(f1(st.poss), 'Possessions / game')}
+      ${tile(f1(st.pace), 'Pace (possessions per 40 min)')}
+      ${tile(f1(st.us.rating), 'Offensive rating (pts per 100 poss)')}
+      ${tile(f1(st.them.rating), 'Defensive rating (allowed per 100 poss)')}
+      ${tile((net > 0 ? '+' : '') + f1(net), 'Net rating', net > 0 ? 'pos-text' : net < 0 ? 'neg-text' : '')}
+    </div>
+    <h3 style="margin-top:20px">Four factors &amp; shooting efficiency</h3>
+    <div class="table-wrap" style="max-width:640px"><table>
+      <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th></tr></thead>
+      <tbody>
+        ${pctRow('Effective FG% (eFG%)', 'efg')}
+        ${pctRow('True shooting % (TS%)', 'ts')}
+        ${pctRow('Turnover % (TOV%)', 'tovPct', false)}
+        ${pctRow('Offensive rebound % (OREB%)', 'orebPct')}
+        ${pctRow('Free throw rate (FTM per 100 FGA)', 'ftr')}
+        ${pctRow('Assisted baskets (AST / FGM)', 'astPct')}
+      </tbody></table></div>
+    <div class="card" style="max-width:760px;margin-top:16px">
+      <h3>How to read these</h3>
+      <ul class="legend">
+        <li><b>Possessions</b><span class="muted">How many times a team had the ball: shots + turnovers + trips to the line − offensive rebounds (each one keeps the same possession alive). Both teams get roughly the same number.</span></li>
+        <li><b>Pace / tempo</b><span class="muted">Possessions per 40 minutes. Higher = faster game. EuroCup and Greek League games usually sit around 70–76.</span></li>
+        <li><b>Off. / Def. rating</b><span class="muted">Points scored / allowed per 100 possessions. Removes the effect of tempo, so a slow and a fast team can be compared fairly.</span></li>
+        <li><b>Net rating</b><span class="muted">Offensive minus defensive rating: how many points per 100 possessions PAOK outscore opponents by.</span></li>
+        <li><b>eFG% / TS%</b><span class="muted">Shooting efficiency that counts a three as worth more (eFG%), and also free throws (TS%).</span></li>
+        <li><b>TOV% / OREB%</b><span class="muted">Share of possessions lost to turnovers; share of own missed shots rebounded. Green = PAOK better than opponents.</span></li>
+      </ul>
+    </div>
+`;
+}
+
 /* ---------- pieces ---------- */
 const EXTRAS = [
   ['tovPts', 'Points from turnovers'], ['paint', 'Points in the paint'], ['second', 'Second chance points'],
@@ -554,7 +626,8 @@ function openBox(code) {
   const tot = (t, label) => `<tr class="hl"><td></td><td class="l">${label}</td><td></td><td>${t.pts}</td><td>${t.fg2m}/${t.fg2a}</td><td>${t.fg3m}/${t.fg3a}</td><td>${t.ftm}/${t.fta}</td>
     <td>${t.oreb}</td><td>${t.dreb}</td><td>${t.reb}</td><td>${t.ast}</td><td>${t.stl}</td><td>${t.tov}</td><td>${t.blk}</td><td>${t.pf}</td><td>${t.pir}</td>${hasPm ? '<td></td>' : ''}</tr>`;
   $('#box-title').textContent = `PAOK ${g.us}–${g.them} ${g.opp} · ${compName(g.comp)} ${g.round}`;
-  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Official match report ↗</a>` : ''}</p>
+  const gp = gamePoss(g);
+  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)} · ${f1(gp)} possessions · pace ${f1((gp * 40) / gameMinutes(g))} · PAOK ${f1((100 * g.us) / gp)} pts per 100 poss vs ${f1((100 * g.them) / gp)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Official match report ↗</a>` : ''}</p>
     <div class="table-wrap"><table>
     <thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>2P</th><th>3P</th><th>FT</th><th>OR</th><th>DR</th><th>REB</th><th>AST</th><th>STL</th><th>TO</th><th>BLK</th><th>PF</th><th>PIR</th>${hasPm ? '<th>+/-</th>' : ''}</tr></thead>
     <tbody>${rows}${tot(g.box.team, 'PAOK')}${tot(g.box.opp, esc(g.opp)).replace('class="hl"', '')}</tbody></table></div>

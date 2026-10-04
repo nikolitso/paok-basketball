@@ -70,6 +70,13 @@ def aggregate(boxes):
         "stl": round(tot("team", "stl") / n, 1), "pir": round(tot("team", "pir") / n, 1),
         "opp_fgp": pct(*fg("opp")), "opp_fg3p": pct(tot("opp", "fg3m"), tot("opp", "fg3a")),
     }
+    # possessions (standard estimate, averaged over both teams), pace per 40 minutes, ratings per 100 possessions
+    poss_of = lambda t: t["fg2a"] + t["fg3a"] - t["oreb"] + t["tov"] + 0.44 * t["fta"]
+    poss = sum((poss_of(b["team"]) + poss_of(b["opp"])) / 2 for b in boxes)
+    minutes = sum(max(40, round(sum(p.get("sec") or 0 for p in b["players"]) / 300 / 5) * 5) for b in boxes)
+    if poss:
+        team.update({"poss": round(poss / n, 1), "pace": round(poss * 40 / minutes, 1),
+                     "ortg": round(100 * tot("team", "pts") / poss, 1), "drtg": round(100 * tot("opp", "pts") / poss, 1)})
     players = {}
     for b in boxes:
         for p in b["players"]:

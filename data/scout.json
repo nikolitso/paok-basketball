@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T13:19:44Z",
+ "updated": "2026-10-04T17:24:05Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -27,7 +27,11 @@
     "stl": 6.0,
     "pir": 106.0,
     "opp_fgp": 41.8,
-    "opp_fg3p": 18.5
+    "opp_fg3p": 18.5,
+    "poss": 78.7,
+    "pace": 78.7,
+    "ortg": 118.1,
+    "drtg": 99.1
    },
    "oppTeam": {
     "gp": 1,
@@ -46,7 +50,11 @@
     "stl": 5.0,
     "pir": 73.0,
     "opp_fgp": 41.3,
-    "opp_fg3p": 32.1
+    "opp_fg3p": 32.1,
+    "poss": 72.5,
+    "pace": 72.5,
+    "ortg": 99.3,
+    "drtg": 103.4
    },
    "impact": [
     {
@@ -881,7 +889,11 @@
     "stl": 5.0,
     "pir": 94.0,
     "opp_fgp": 51.9,
-    "opp_fg3p": 47.6
+    "opp_fg3p": 47.6,
+    "poss": 70.0,
+    "pace": 70.0,
+    "ortg": 125.6,
+    "drtg": 121.4
    },
    "oppTeam": {
     "gp": 1,
@@ -900,7 +912,11 @@
     "stl": 6.0,
     "pir": 69.0,
     "opp_fgp": 52.6,
-    "opp_fg3p": 50.0
+    "opp_fg3p": 50.0,
+    "poss": 74.1,
+    "pace": 74.1,
+    "ortg": 101.2,
+    "drtg": 122.7
    },
    "impact": [
     {
