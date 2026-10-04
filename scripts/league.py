@@ -109,7 +109,7 @@ def summarize(rows):
 
 
 def build(games):
-    per_team, groups, all_rows = {}, {}, []
+    per_team, groups, all_rows, group_rows = {}, {}, [], {}
     for g in games:
         a, b = g["sides"]
         minutes = max(40, round(max(a["sec"], b["sec"]) / 300 / 5) * 5)
@@ -119,6 +119,7 @@ def build(games):
             all_rows.append(row)
             if g["group"]:
                 groups[me["team"]] = g["group"]
+                group_rows.setdefault(g["group"], []).append(row)
     teams = []
     for name, rows in per_team.items():
         t = summarize(rows)
@@ -128,7 +129,9 @@ def build(games):
             t["group"] = groups[name]
         teams.append(t)
     teams.sort(key=lambda t: (-t["net"], t["team"]))
-    return {"games": len(games), "teams": teams, "avg": summarize(all_rows) if all_rows else None}
+    return {"games": len(games), "teams": teams, "avg": summarize(all_rows) if all_rows else None,
+            # per-group averages (EuroCup): every team-game played in that group
+            "groupAvg": {grp: summarize(rows) for grp, rows in group_rows.items()}}
 
 
 def main():
