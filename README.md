@@ -7,7 +7,7 @@ It's a static site (`index.html`, `styles.css`, `app.js`) that reads JSON files 
 
 ## How the data updates
 
-A GitHub Action (`.github/workflows/update-data.yml`) runs every 2 hours and:
+A GitHub Action (`.github/workflows/update-data.yml`) runs once a day at 23:59 Greek time and:
 
 | Script | Source | What it gets |
 |---|---|---|

@@ -2,14 +2,36 @@ name: Update stats
 
 on:
   schedule:
-    - cron: "15 */2 * * *"   # every 2 hours
+    # once a day at 23:59 Greek time. GitHub cron runs in UTC, so both slots are listed
+    # and the "Greek time check" step below lets only the one matching 23:59 in Athens go ahead.
+    - cron: "59 20 * * *"   # 23:59 in Greek summer time (UTC+3)
+    - cron: "59 21 * * *"   # 23:59 in Greek winter time (UTC+2)
   workflow_dispatch:          # "Run workflow" button in the Actions tab
 
 permissions:
   contents: write
 
 jobs:
+  greek-time:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.when.outputs.go }}
+    steps:
+      - name: Is it 23:59 in Greece for this slot?
+        id: when
+        run: |
+          offset=$(TZ=Europe/Athens date +%z)
+          slot="${{ github.event.schedule }}"
+          if [ -z "$slot" ] || { [ "$slot" = "59 20 * * *" ] && [ "$offset" = "+0300" ]; } || { [ "$slot" = "59 21 * * *" ] && [ "$offset" = "+0200" ]; }; then
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Not 23:59 in Greece for this slot (Athens offset $offset), skipping."
+            echo "go=false" >> "$GITHUB_OUTPUT"
+          fi
+
   update:
+    needs: greek-time
+    if: needs.greek-time.outputs.go == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
