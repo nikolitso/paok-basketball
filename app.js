@@ -27,13 +27,20 @@ const vsAt = (g) => (g.neutral ? 'vs' : g.home ? 'vs' : '@');
 async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
-  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({}))]);
+  let additions;
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({}))]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
   const waiting = new Set((hidden.until_played || []).map((n) => n.toLowerCase()).filter((n) => !played.has(n)));
   for (const d of [state.ec, state.gbl]) d.roster = d.roster.filter((r) => !waiting.has(surnameOf(r.name)));
+  // new signings the official feeds don't list yet
+  for (const a of (additions && additions.players) || []) {
+    for (const [comp, d] of [['EuroCup', state.ec], ['GBL', state.gbl]]) {
+      if ((a.comps || []).includes(comp) && !d.roster.some((r) => surnameOf(r.name) === surnameOf(a.name))) d.roster.push({ ...a });
+    }
+  }
   state.games = [...state.ec.games, ...state.gbl.games].filter((g) => g.date).sort((a, b) => toDate(a.date) - toDate(b.date));
   window.addEventListener('hashchange', render);
   render();

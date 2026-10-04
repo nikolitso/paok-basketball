@@ -1,0 +1,6 @@
+{
+ "_note": "New signings not yet in the EuroCup/ESAKE roster feeds. Dropped automatically once a feed lists the player (matched by surname). comps: which roster tabs to show him in.",
+ "players": [
+  {"name": "Donatas Motiejunas", "no": "", "pos": "Center", "posCode": "C", "height": 213, "nat": "LTU", "born": "1990-09-20", "from": "Crvena Zvezda", "comps": ["GBL", "EuroCup"]}
+ ]
+}

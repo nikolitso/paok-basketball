@@ -1,19 +1,94 @@
 {
  "_note": "Hand-maintained player details (keyed by surname). prev = club before joining PAOK; joined = when he arrived at PAOK; until = contract end (summer of that year). Sources: paokbc.gr, eurohoops.net, foxbet.gr contracts list, Wikipedia, iefimerida.gr. Researched 4 Oct 2026.",
- "gray":          {"prev": "AEK",                "joined": "2026",     "until": "2028"},
- "mitroulong":    {"prev": "Napoli Basket",      "joined": "2026",     "until": "2029"},
- "tyree":         {"prev": "Igokea",             "joined": "Dec 2025", "until": "2027"},
- "osman":         {"prev": "Panathinaikos",      "joined": "2026",     "until": "2029"},
- "alexander":     {"prev": "Türk Telekom",       "joined": "Jun 2026", "until": "2028", "birthplace": "Scarborough, Ontario"},
- "chougkaz":      {"prev": "MoraBanc Andorra",   "joined": "2025",     "until": "2028", "birthplace": "Athens"},
- "hudgins":       {"prev": "Le Mans",            "joined": "2026",     "until": "2028"},
- "kaklamanakis":  {"prev": "Peristeri",          "joined": "Jun 2026", "until": "2028", "birthplace": "Athens", "note": "3rd spell at PAOK (also 2020-21 and 2023)"},
- "foster":        {"prev": "Alvark Tokyo",       "joined": "Jun 2026", "until": "2028"},
- "persidis":      {"prev": "Aris",               "joined": "Jul 2024", "until": "2028"},
- "fillios":       {"prev": "Aris",               "joined": "Sep 2025", "until": "2027"},
- "moore":         {"prev": "Hapoel Gilboa Galil","joined": "2025",     "until": "2028", "birthplace": "Bolingbrook, Illinois"},
- "calathes":      {"prev": "Partizan",           "joined": "2026",     "until": "2028", "birthplace": "Casselberry, Florida"},
- "bazinas":       {"prev": "Promitheas Patras",  "joined": "2026",     "until": "2030"},
- "spanos":        {"prev": "Deka",                                     "until": "2032"},
- "charalampidis": {"prev": "GBA",                                      "until": "2032"}
+ "gray": {
+  "prev": "AEK",
+  "joined": "2026",
+  "until": "2028"
+ },
+ "mitroulong": {
+  "prev": "Napoli Basket",
+  "joined": "2026",
+  "until": "2029"
+ },
+ "tyree": {
+  "prev": "Igokea",
+  "joined": "Dec 2025",
+  "until": "2027"
+ },
+ "osman": {
+  "prev": "Panathinaikos",
+  "joined": "2026",
+  "until": "2029"
+ },
+ "alexander": {
+  "prev": "Türk Telekom",
+  "joined": "Jun 2026",
+  "until": "2028",
+  "birthplace": "Scarborough, Ontario"
+ },
+ "chougkaz": {
+  "prev": "MoraBanc Andorra",
+  "joined": "2025",
+  "until": "2028",
+  "birthplace": "Athens"
+ },
+ "hudgins": {
+  "prev": "Le Mans",
+  "joined": "2026",
+  "until": "2028"
+ },
+ "kaklamanakis": {
+  "prev": "Peristeri",
+  "joined": "Jun 2026",
+  "until": "2028",
+  "birthplace": "Athens",
+  "note": "3rd spell at PAOK (also 2020-21 and 2023)"
+ },
+ "foster": {
+  "prev": "Alvark Tokyo",
+  "joined": "Jun 2026",
+  "until": "2028"
+ },
+ "persidis": {
+  "prev": "Aris",
+  "joined": "Jul 2024",
+  "until": "2028"
+ },
+ "fillios": {
+  "prev": "Aris",
+  "joined": "Sep 2025",
+  "until": "2027"
+ },
+ "moore": {
+  "prev": "Hapoel Gilboa Galil",
+  "joined": "2025",
+  "until": "2028",
+  "birthplace": "Bolingbrook, Illinois"
+ },
+ "calathes": {
+  "prev": "Partizan",
+  "joined": "2026",
+  "until": "2028",
+  "birthplace": "Casselberry, Florida"
+ },
+ "bazinas": {
+  "prev": "Promitheas Patras",
+  "joined": "2026",
+  "until": "2030"
+ },
+ "spanos": {
+  "prev": "Deka",
+  "until": "2032"
+ },
+ "charalampidis": {
+  "prev": "GBA",
+  "until": "2032"
+ },
+ "motiejunas": {
+  "prev": "Crvena Zvezda",
+  "joined": "Oct 2026",
+  "until": "2027",
+  "birthplace": "Kaunas, Lithuania",
+  "note": "Ex-NBA (Rockets, Pelicans, Spurs); 2x French champion with Monaco"
+ }
 }
