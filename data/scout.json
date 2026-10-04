@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T18:40:09Z",
+ "updated": "2026-10-04T21:55:10Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -57,41 +57,41 @@
     "drtg": 103.4
    },
    "league": {
-    "pts": 80.9,
-    "fg2m": 20.1,
-    "fg2a": 39.0,
-    "fg3m": 8.4,
+    "pts": 83.6,
+    "fg2m": 23.0,
+    "fg2a": 38.6,
+    "fg3m": 8.2,
     "fg3a": 25.9,
-    "ftm": 15.7,
-    "fta": 21.5,
-    "oreb": 12.8,
-    "dreb": 25.7,
-    "reb": 38.5,
-    "ast": 17.1,
-    "stl": 7.4,
-    "tov": 14.3,
-    "blk": 2.7,
-    "pf": 22.3,
-    "pir": 86.9,
-    "gp": 32,
-    "w": 16,
-    "allowed": 80.9,
-    "fgp": 43.8,
-    "fg2p": 51.4,
-    "fg3p": 32.4,
-    "ftp": 72.7,
-    "opp_fgp": 43.8,
+    "ftm": 12.9,
+    "fta": 18.9,
+    "oreb": 11.4,
+    "dreb": 24.8,
+    "reb": 36.1,
+    "ast": 17.2,
+    "stl": 7.5,
+    "tov": 14.5,
+    "blk": 2.4,
+    "pf": 20.9,
+    "pir": 90.6,
+    "gp": 8,
+    "w": 4,
+    "allowed": 83.6,
+    "fgp": 48.4,
+    "fg2p": 59.5,
+    "fg3p": 31.9,
+    "ftp": 68.2,
+    "opp_fgp": 48.4,
     "poss": 75.9,
     "pace": 75.9,
-    "ortg": 106.5,
-    "drtg": 106.5,
-    "efg": 50.3,
-    "ts": 54.4,
-    "tovPct": 18.9,
-    "orebPct": 33.1,
-    "ftr": 24.1,
-    "astPct": 60.1,
-    "l": 16,
+    "ortg": 110.1,
+    "drtg": 110.1,
+    "efg": 54.8,
+    "ts": 57.4,
+    "tovPct": 19.1,
+    "orebPct": 31.5,
+    "ftr": 20.0,
+    "astPct": 55.2,
+    "l": 4,
     "net": 0.0
    },
    "impact": [
@@ -669,13 +669,13 @@
    ],
    "projection": {
     "paok": {
-     "score": 83.2,
+     "score": 83.7,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 32,
-       "pts": 17.1,
+       "pts": 17.2,
        "reb": 5.3,
        "ast": 2.0,
        "pir": 17.3
@@ -693,7 +693,7 @@
        "name": "Nick Calathes",
        "no": "33",
        "min": 27,
-       "pts": 9.9,
+       "pts": 10.0,
        "reb": 4.0,
        "ast": 6.0,
        "pir": 15.5
@@ -702,7 +702,7 @@
        "name": "Marcus Foster",
        "no": "17",
        "min": 25,
-       "pts": 11.3,
+       "pts": 11.4,
        "reb": 2.0,
        "ast": 4.0,
        "pir": 10.7
@@ -802,13 +802,13 @@
      "pace": 73.9
     },
     "opp": {
-     "score": 83.3,
+     "score": 83.7,
      "players": [
       {
        "name": "Reginald Perry",
        "no": "11",
        "min": 22,
-       "pts": 16.2,
+       "pts": 16.3,
        "reb": 5.0,
        "ast": 1.0,
        "pir": 16.0
@@ -826,7 +826,7 @@
        "name": "Shawn Pipes Jr",
        "no": "2",
        "min": 20,
-       "pts": 12.7,
+       "pts": 12.8,
        "reb": 3.0,
        "ast": 2.0,
        "pir": 10.0
@@ -835,7 +835,7 @@
        "name": "Marcus Domask",
        "no": "3",
        "min": 20,
-       "pts": 8.1,
+       "pts": 8.2,
        "reb": 5.0,
        "ast": 3.0,
        "pir": 9.0
@@ -844,7 +844,7 @@
        "name": "Deandre Gholston",
        "no": "4",
        "min": 24,
-       "pts": 10.4,
+       "pts": 10.5,
        "reb": 5.0,
        "ast": 1.0,
        "pir": 8.0
@@ -853,7 +853,7 @@
        "name": "Darko Talic",
        "no": "19",
        "min": 28,
-       "pts": 4.6,
+       "pts": 4.7,
        "reb": 3.0,
        "ast": 3.0,
        "pir": 8.0
@@ -862,7 +862,7 @@
        "name": "Nikola Popovic",
        "no": "21",
        "min": 18,
-       "pts": 6.9,
+       "pts": 7.0,
        "reb": 5.0,
        "ast": 1.0,
        "pir": 4.0
@@ -871,7 +871,7 @@
        "name": "Adin Vrabac",
        "no": "7",
        "min": 17,
-       "pts": 4.6,
+       "pts": 4.7,
        "reb": 0.0,
        "ast": 1.0,
        "pir": 4.0

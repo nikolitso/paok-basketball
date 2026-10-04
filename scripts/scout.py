@@ -262,7 +262,12 @@ def gbl_scout(next_game, gbl_data):
 def main():
     ecd, gbld = load("eurocup.json"), load("gbl.json")
     if os.path.exists(os.path.join(DATA, "league.json")):
-        LEAGUE.update({c: v["avg"] for c, v in load("league.json")["comps"].items() if v.get("avg")})
+        for c, v in load("league.json")["comps"].items():
+            if not v.get("avg"):
+                continue
+            # EuroCup: baseline is PAOK's group (its own games), like the comparisons on the site
+            group = next((t.get("group") for t in v["teams"] if t.get("paok")), None)
+            LEAGUE[c] = (v.get("groupAvg") or {}).get(group) or v["avg"]
     lineups_path = os.path.join(DATA, "lineups.json")
     lineups = load("lineups.json") if os.path.exists(lineups_path) else {}
     now = datetime.now(timezone.utc)
