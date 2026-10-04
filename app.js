@@ -615,16 +615,19 @@ VIEWS.league = function league() {
   const isNext = (t) => [...next].some((k) => nameKey(t.team) === k || nameKey(t.team).includes(k) || k.includes(nameKey(t.team)));
   const sortKey = state.filters.leagueSort || 'net';
   const dir = (LEAGUE_COLS.find(([k]) => k === sortKey) || [0, 0, 1])[2];
-  const teams = [...lg.teams].sort((a, b) => dir * ((b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9)));
+  // EuroCup: only PAOK's group (the league average row still covers the whole EuroCup)
+  const group = comp === 'EuroCup' ? (lg.teams.find((t) => t.paok) || {}).group : null;
+  const pool = group ? lg.teams.filter((t) => t.group === group) : lg.teams;
+  const teams = [...pool].sort((a, b) => dir * ((b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9)));
   const cell = (t, k) => { const v = t[k]; if (v === null || v === undefined) return '–'; return ['gp', 'w'].includes(k) ? v : k === 'net' ? `<span class="${v > 0 ? 'pos-text' : v < 0 ? 'neg-text' : ''}">${v > 0 ? '+' : ''}${f1(v)}</span>` : f1(v); };
   const avg = lg.avg;
   return `<h2>League stats</h2>
-    ${seg('league', comps.map((c) => [c, compName(c)]))}
-    <p class="muted">${lg.teams.length} teams · ${lg.games} games played · per game. Click a column to sort; the line at the bottom is the league average.${comp === 'EuroCup' ? ' All four EuroCup groups.' : ''}</p>
+    ${seg('league', comps.map((c) => { const g = c === 'EuroCup' ? (leagueOf(c).teams.find((t) => t.paok) || {}).group : null; return [c, g ? `EuroCup · ${g}` : compName(c)]; }))}
+    <p class="muted">${group ? `${esc(group)} (PAOK's group) · ${teams.length} teams` : `${teams.length} teams · ${lg.games} games played`} · per game. Click a column to sort; the line at the bottom is the ${group ? 'average of all 32 EuroCup teams' : 'league average'}.</p>
     <div class="table-wrap"><table class="league">
       <thead><tr><th>#</th><th class="l">Team</th>${LEAGUE_COLS.map(([k, l]) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" onclick="state.filters.leagueSort='${k}';rerender()">${l}</th>`).join('')}</tr></thead>
-      <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : isNext(t) ? 'next-opp' : ''}"><td>${i + 1}</td><td class="l">${esc(t.team)}${t.group ? ` <span class="muted" style="font-size:11px">${esc(t.group.replace('Group ', ''))}</span>` : ''}${isNext(t) && !t.paok ? ' <span class="pill">Next opponent</span>' : ''}</td>${LEAGUE_COLS.map(([k]) => `<td>${cell(t, k)}</td>`).join('')}</tr>`).join('')}
-      <tr class="avg-row"><td></td><td class="l">League average</td>${LEAGUE_COLS.map(([k]) => `<td>${['gp', 'w'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
+      <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : isNext(t) ? 'next-opp' : ''}"><td>${i + 1}</td><td class="l">${esc(t.team)}${isNext(t) && !t.paok ? ' <span class="pill">Next opponent</span>' : ''}</td>${LEAGUE_COLS.map(([k]) => `<td>${cell(t, k)}</td>`).join('')}</tr>`).join('')}
+      <tr class="avg-row"><td></td><td class="l">${group ? 'EuroCup average' : 'League average'}</td>${LEAGUE_COLS.map(([k]) => `<td>${['gp', 'w'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
     </table></div>
     <div class="card" style="max-width:760px;margin-top:16px"><h3>Columns</h3>
       <p class="muted" style="margin:0">PTS / OPP: points scored / allowed per game · Net: points per 100 possessions better than opponents · Pace: possessions per 40 min ·
