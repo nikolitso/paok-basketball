@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-04T13:19:42Z",
+ "updated": "2026-10-04T18:31:10Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -1716,6 +1716,18 @@
   },
   {
    "pos": 9,
+   "team": "Iraklis",
+   "paok": false,
+   "pts": 1,
+   "gp": 1,
+   "w": 0,
+   "l": 1,
+   "pf": 68,
+   "pa": 78,
+   "diff": -10
+  },
+  {
+   "pos": 10,
    "team": "Doxa Lefkadas",
    "paok": false,
    "pts": 1,
@@ -1727,7 +1739,7 @@
    "diff": -16
   },
   {
-   "pos": 10,
+   "pos": 11,
    "team": "Maroussi",
    "paok": false,
    "pts": 1,
@@ -1739,7 +1751,7 @@
    "diff": -21
   },
   {
-   "pos": 11,
+   "pos": 12,
    "team": "Vikos Falcons",
    "paok": false,
    "pts": 1,
@@ -1751,7 +1763,7 @@
    "diff": -29
   },
   {
-   "pos": 12,
+   "pos": 13,
    "team": "Panathinaikos",
    "paok": false,
    "pts": 0,
@@ -1761,6 +1773,18 @@
    "pf": 103,
    "pa": 74,
    "diff": 29
+  },
+  {
+   "pos": 14,
+   "team": "Olympiacos",
+   "paok": false,
+   "pts": 0,
+   "gp": 1,
+   "w": 1,
+   "l": 0,
+   "pf": 78,
+   "pa": 68,
+   "diff": 10
   }
  ]
 }

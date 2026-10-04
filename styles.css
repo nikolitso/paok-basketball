@@ -207,3 +207,15 @@ tr.hl td.pos-text, tr.hl td.neg-text { color: inherit; }
 .coach.head .label, .coach.head p { color: #bbb; }
 .coach.head p { font-size: 14px; }
 @media (max-width: 480px) { .coach.head { grid-template-columns: 96px 1fr; } .coach.head .coach-photo { width: 96px; height: 120px; } }
+
+/* standings */
+.standings .pos { display: inline-grid; place-items: center; min-width: 26px; height: 24px; border-radius: 5px; font-weight: 700; font-size: 13px; }
+.pos.up { background: #1f4e8c; color: #fff; }
+.pos.down { background: #c62828; color: #fff; }
+.standings-key .pos { display: inline-grid; place-items: center; min-width: 24px; height: 22px; border-radius: 5px; font-weight: 700; font-size: 12px; margin-right: 8px; }
+.deducted { text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+.standings-key { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; margin-top: 12px; }
+.standings-key .key { display: flex; align-items: center; font-size: 14px; padding: 3px 0; }
+.standings-key .note { margin-top: 10px; }
+.standings-key .info { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--muted); color: var(--muted); font: 700 12px Inter, sans-serif; margin-right: 8px; }
+tr.hl .pos-text, tr.hl .neg-text { color: inherit; }

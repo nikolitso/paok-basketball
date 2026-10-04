@@ -293,14 +293,35 @@ const VIEWS = {
 
   standings() {
     const gbl = state.gbl.standings, ec = state.ec.standings;
-    const tbl = (rows, withPts) => `<div class="table-wrap"><table>
+    // zone by position: GBL top 8 -> play-offs (quarter-finals), last place -> relegation; EuroCup group top 4 -> play-offs
+    const zone = (pos, n, comp) => (comp === 'GBL' ? (pos <= 8 ? 'up' : pos === n ? 'down' : '') : pos <= 4 ? 'up' : '');
+    // points deducted = what the record is worth (2 per win, 1 per loss) minus the points shown
+    const deduction = (s) => (s.pts == null ? 0 : 2 * s.w + s.l - s.pts);
+    const tbl = (rows, comp) => {
+      const withPts = comp === 'GBL';
+      return `<div class="table-wrap"><table class="standings">
       <thead><tr><th>#</th><th class="l">Team</th><th>GP</th><th>W</th><th>L</th>${withPts ? '<th>Pts</th>' : ''}<th>PF</th><th>PA</th><th>+/-</th></tr></thead>
-      <tbody>${rows.map((s) => `<tr class="${s.paok ? 'hl' : ''}"><td>${s.pos}</td><td class="l">${esc(s.team)}</td><td>${s.gp}</td><td>${s.w}</td><td>${s.l}</td>${withPts ? `<td><b>${s.pts}</b></td>` : ''}<td>${s.pf ?? '–'}</td><td>${s.pa ?? '–'}</td><td>${s.pf != null ? (s.pf - s.pa > 0 ? '+' : '') + (s.pf - s.pa) : s.diff ?? '–'}</td></tr>`).join('')}</tbody>
+      <tbody>${rows.map((s) => {
+        const ded = withPts && deduction(s) > 0;
+        const diff = s.pf != null ? s.pf - s.pa : s.diff;
+        return `<tr class="${s.paok ? 'hl' : ''}"><td><span class="pos ${zone(s.pos, rows.length, comp)}">${s.pos}</span></td><td class="l">${esc(s.team)}</td><td>${s.gp}</td><td>${s.w}</td><td>${s.l}</td>
+          ${withPts ? `<td><b class="${ded ? 'deducted' : ''}" ${ded ? `title="${deduction(s)} point${deduction(s) > 1 ? 's' : ''} deducted"` : ''}>${s.pts}${ded ? '*' : ''}</b></td>` : ''}
+          <td>${s.pf ?? '–'}</td><td>${s.pa ?? '–'}</td><td class="${diff > 0 ? 'pos-text' : diff < 0 ? 'neg-text' : ''}">${diff == null ? '–' : (diff > 0 ? '+' : '') + diff}</td></tr>`;
+      }).join('')}</tbody>
     </table></div>`;
-    return `<h2>Stoiximan GBL</h2>${tbl(gbl, true)}
-      <p class="note">2 points for a win, 1 for a loss. Negative points are league penalties. Top 8 go to the play-offs.</p>
-      <h2>EuroCup · ${esc(state.ec.group)}</h2>${tbl(ec, false)}
-      <p class="note">Top 4 of the group go to the play-offs.</p>`;
+    };
+    const deductions = gbl.filter((s) => deduction(s) > 0);
+    return `<h2>Stoiximan GBL</h2>${tbl(gbl, 'GBL')}
+      <div class="card standings-key">
+        <div>
+          <div class="key"><span class="pos up">1</span> Play-offs · quarter-finals (places 1–8)</div>
+          <div class="key"><span class="pos down">14</span> Relegation · Elite League</div>
+          <p class="note">2 points for a win, 1 for a loss. If teams finish level on points, head-to-head games are the tie-breaker.</p>
+        </div>
+        ${deductions.length ? `<div>${deductions.map((s) => `<div class="key"><span class="info">i</span> ${esc(s.team)}: −${deduction(s)} point${deduction(s) > 1 ? 's' : ''} (Federation decision)</div>`).join('')}</div>` : ''}
+      </div>
+      <h2>EuroCup · ${esc(state.ec.group)}</h2>${tbl(ec, 'EuroCup')}
+      <div class="card standings-key"><div class="key"><span class="pos up">1</span> Play-offs (top 4 of the group)</div></div>`;
   },
 };
 
