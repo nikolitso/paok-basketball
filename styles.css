@@ -235,3 +235,10 @@ tr.next-opp td { background: #f2f2f2; font-weight: 600; }
 tr.avg-row td { border-top: 2px solid var(--black); font-weight: 700; background: var(--soft); }
 
 tr.section td { background: var(--soft); font: 600 12px Inter, sans-serif; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-top: 12px; }
+
+/* league table groups */
+table.league tr.groups th { background: var(--white); border-bottom: 0; padding-bottom: 0; }
+table.league th.grp { text-align: center; font-size: 11px; color: var(--ink); border-bottom: 2px solid var(--black); }
+table.league th.ff { background: #f0f0f0; }
+.btn-toggle { font: 600 13px Inter, sans-serif; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--black); background: var(--white); cursor: pointer; margin-top: 10px; }
+.btn-toggle:hover { background: var(--black); color: var(--white); }

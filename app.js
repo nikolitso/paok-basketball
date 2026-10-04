@@ -599,11 +599,18 @@ function paceSection(games, comp) {
 }
 
 /* ---------- league table: every team, every stat ---------- */
+// [key, header, direction (1 = higher is better), group, shown in the compact view]
 const LEAGUE_COLS = [
-  ['gp', 'GP', 1], ['w', 'W', 1], ['pts', 'PTS', 1], ['allowed', 'OPP', -1], ['net', 'Net', 1], ['pace', 'Pace', 1],
-  ['ortg', 'ORtg', 1], ['drtg', 'DRtg', -1], ['efg', 'eFG%', 1], ['ts', 'TS%', 1], ['fg3p', '3P%', 1], ['fg3a', '3PA', 1],
-  ['ftp', 'FT%', 1], ['reb', 'REB', 1], ['orebPct', 'OREB%', 1], ['ast', 'AST', 1], ['tovPct', 'TOV%', -1], ['stl', 'STL', 1],
-  ['blk', 'BLK', 1], ['pir', 'PIR', 1],
+  ['w', 'W–L', 1, 'Overall', true], ['net', 'Net', 1, 'Overall', true], ['ortg', 'ORtg', 1, 'Overall', true],
+  ['drtg', 'DRtg', -1, 'Overall', true], ['pace', 'Pace', 1, 'Overall', true],
+  ['efg', 'eFG%', 1, 'Offence', true], ['tovPct', 'TOV%', -1, 'Offence', true], ['orebPct', 'OREB%', 1, 'Offence', true],
+  ['ftr', 'FT rate', 1, 'Offence', true], ['par3', '3PA rate', 1, 'Offence', true],
+  ['opp_efg', 'Opp eFG%', -1, 'Defence', true], ['forcedTov', 'Forced TOV%', 1, 'Defence', true],
+  ['drebPct', 'DREB%', 1, 'Defence', true], ['opp_ftr', 'Opp FT rate', -1, 'Defence', true],
+  ['pts', 'PTS', 1, 'Per game', false], ['allowed', 'OPP', -1, 'Per game', false], ['ts', 'TS%', 1, 'Per game', false],
+  ['fg3p', '3P%', 1, 'Per game', false], ['ftp', 'FT%', 1, 'Per game', false], ['reb', 'REB', 1, 'Per game', false],
+  ['ast', 'AST', 1, 'Per game', false], ['stl', 'STL', 1, 'Per game', false], ['blk', 'BLK', 1, 'Per game', false],
+  ['pir', 'PIR', 1, 'Per game', false],
 ];
 VIEWS.league = function league() {
   const comps = ['GBL', 'EuroCup'].filter((c) => leagueOf(c));
@@ -613,25 +620,39 @@ VIEWS.league = function league() {
   const lg = leagueOf(comp);
   const next = new Set(state.scout.reports.filter((r) => r.comp === comp).map((r) => nameKey(r.opp)));
   const isNext = (t) => [...next].some((k) => nameKey(t.team) === k || nameKey(t.team).includes(k) || k.includes(nameKey(t.team)));
-  const sortKey = state.filters.leagueSort || 'net';
+  const cols = LEAGUE_COLS.filter((c) => state.filters.leagueAll || c[4]);
+  const sortKey = cols.some(([k]) => k === state.filters.leagueSort) ? state.filters.leagueSort : 'net';
   const dir = (LEAGUE_COLS.find(([k]) => k === sortKey) || [0, 0, 1])[2];
   // EuroCup: only PAOK's group (the league average row still covers the whole EuroCup)
   const group = comp === 'EuroCup' ? (lg.teams.find((t) => t.paok) || {}).group : null;
   const pool = group ? lg.teams.filter((t) => t.group === group) : lg.teams;
   const teams = [...pool].sort((a, b) => dir * ((b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9)));
-  const cell = (t, k) => { const v = t[k]; if (v === null || v === undefined) return '–'; return ['gp', 'w'].includes(k) ? v : k === 'net' ? `<span class="${v > 0 ? 'pos-text' : v < 0 ? 'neg-text' : ''}">${v > 0 ? '+' : ''}${f1(v)}</span>` : f1(v); };
+  const cell = (t, k) => { const v = t[k]; if (v === null || v === undefined) return '–'; return k === 'w' ? `${t.w}–${t.l}` : k === 'net' ? `<span class="${v > 0 ? 'pos-text' : v < 0 ? 'neg-text' : ''}">${v > 0 ? '+' : ''}${f1(v)}</span>` : f1(v); };
+  // header bands: Overall / Offence / Defence / Per game
+  const groups = cols.reduce((acc, c) => { const last = acc[acc.length - 1]; if (last && last.name === c[3]) last.n++; else acc.push({ name: c[3], n: 1 }); return acc; }, []);
   const avg = group && lg.groupAvg && lg.groupAvg[group] ? lg.groupAvg[group] : lg.avg;
   return `<h2>League stats</h2>
     ${seg('league', comps.map((c) => { const g = c === 'EuroCup' ? (leagueOf(c).teams.find((t) => t.paok) || {}).group : null; return [c, g ? `EuroCup · ${g}` : compName(c)]; }))}
     <p class="muted">${group ? `${esc(group)} (PAOK's group) · ${teams.length} teams` : `${teams.length} teams · ${lg.games} games played`} · per game. Click a column to sort; the line at the bottom is the ${group ? `${esc(group)} average` : 'league average'}.</p>
     <div class="table-wrap"><table class="league">
-      <thead><tr><th>#</th><th class="l">Team</th>${LEAGUE_COLS.map(([k, l]) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" onclick="state.filters.leagueSort='${k}';rerender()">${l}</th>`).join('')}</tr></thead>
-      <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : isNext(t) ? 'next-opp' : ''}"><td>${i + 1}</td><td class="l">${esc(t.team)}${isNext(t) && !t.paok ? ' <span class="pill">Next opponent</span>' : ''}</td>${LEAGUE_COLS.map(([k]) => `<td>${cell(t, k)}</td>`).join('')}</tr>`).join('')}
-      <tr class="avg-row"><td></td><td class="l">${group ? `${esc(group)} average` : 'League average'}</td>${LEAGUE_COLS.map(([k]) => `<td>${['gp', 'w'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
+      <thead><tr class="groups"><th colspan="2"></th>${groups.map((g) => `<th colspan="${g.n}" class="grp">${g.name}${g.name === 'Offence' || g.name === 'Defence' ? ' · four factors' : ''}</th>`).join('')}</tr>
+        <tr><th>#</th><th class="l">Team</th>${cols.map(([k, l, d, g]) => `<th class="sortable ${sortKey === k ? 'sorted' : ''} ${g === 'Defence' || g === 'Offence' ? 'ff' : ''}" title="${d < 0 ? 'Lower is better' : 'Higher is better'}" onclick="state.filters.leagueSort='${k}';rerender()">${l}</th>`).join('')}</tr></thead>
+      <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : isNext(t) ? 'next-opp' : ''}"><td>${i + 1}</td><td class="l">${esc(t.team)}${isNext(t) && !t.paok ? ' <span class="pill">Next opponent</span>' : ''}</td>${cols.map(([k]) => `<td>${cell(t, k)}</td>`).join('')}</tr>`).join('')}
+      <tr class="avg-row"><td></td><td class="l">${group ? `${esc(group)} average` : 'League average'}</td>${cols.map(([k]) => `<td>${['gp', 'w', 'net'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
     </table></div>
-    <div class="card" style="max-width:760px;margin-top:16px"><h3>Columns</h3>
-      <p class="muted" style="margin:0">PTS / OPP: points scored / allowed per game · Net: points per 100 possessions better than opponents · Pace: possessions per 40 min ·
-      ORtg / DRtg: points scored / allowed per 100 possessions · eFG% / TS%: shooting efficiency · OREB%: share of own misses rebounded · TOV%: share of possessions lost to turnovers.</p></div>`;
+    <p><button class="btn-toggle" onclick="state.filters.leagueAll=!state.filters.leagueAll;rerender()">${state.filters.leagueAll ? 'Show key columns only' : 'Show all columns'}</button></p>
+    <div class="card" style="max-width:860px;margin-top:8px"><h3>Columns</h3>
+      <ul class="legend">
+        <li><b>Net</b><span class="muted">Points per 100 possessions better (or worse) than opponents. The single best indicator of team strength; sorted by this by default.</span></li>
+        <li><b>ORtg / DRtg</b><span class="muted">Points scored / allowed per 100 possessions. Lower DRtg = better defence.</span></li>
+        <li><b>Pace</b><span class="muted">Possessions per 40 minutes: how fast a team plays. Not good or bad, but it sets how many points a game will have.</span></li>
+        <li><b>eFG% / Opp eFG%</b><span class="muted">Shooting efficiency (a three counts 1.5×), own and allowed. The most important of the four factors.</span></li>
+        <li><b>TOV% / Forced TOV%</b><span class="muted">Out of 100 possessions, how many end in a turnover: own (lower = better) and opponents' (higher = better defence).</span></li>
+        <li><b>OREB% / DREB%</b><span class="muted">Share of own misses rebounded (second chances) and of opponents' misses secured (no second chances).</span></li>
+        <li><b>FT rate / Opp FT rate</b><span class="muted">Free throws made per 100 shots: getting to the line, and fouling (lower = better defence).</span></li>
+        <li><b>3PA rate</b><span class="muted">Share of shots that are threes: playing style.</span></li>
+      </ul>
+      <p class="note">Hover a column title to see whether higher or lower is better. Early in the season one game can swing every number a lot.</p></div>`;
 };
 
 /* ---------- league averages and ranks ---------- */

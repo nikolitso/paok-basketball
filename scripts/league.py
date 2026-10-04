@@ -102,6 +102,15 @@ def summarize(rows):
         "efg": pct(fgm + 0.5 * tot(0, "fg3m"), fga), "ts": pct(tot(0, "pts"), 2 * (fga + 0.44 * tot(0, "fta"))),
         "tovPct": round(100 * tot(0, "tov") / poss, 1), "orebPct": pct(tot(0, "oreb"), tot(0, "oreb") + tot(1, "dreb")),
         "ftr": pct(tot(0, "ftm"), fga), "astPct": pct(tot(0, "ast"), fgm),
+        "par3": pct(tot(0, "fg3a"), fga),  # share of shots that are threes
+    })
+    # defensive four factors: what opponents managed against this team
+    ofga, ofgm = tot(1, "fg2a") + tot(1, "fg3a"), tot(1, "fg2m") + tot(1, "fg3m")
+    s.update({
+        "opp_efg": pct(ofgm + 0.5 * tot(1, "fg3m"), ofga),
+        "forcedTov": round(100 * tot(1, "tov") / poss, 1),
+        "drebPct": pct(tot(0, "dreb"), tot(0, "dreb") + tot(1, "oreb")),
+        "opp_ftr": pct(tot(1, "ftm"), ofga),
     })
     s["l"] = n - s["w"]
     s["net"] = round(s["ortg"] - s["drtg"], 1)
