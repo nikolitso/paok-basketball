@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-03T22:17:13Z",
+ "updated": "2026-10-04T13:19:42Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -1737,6 +1737,30 @@
    "pf": 70,
    "pa": 91,
    "diff": -21
+  },
+  {
+   "pos": 11,
+   "team": "Vikos Falcons",
+   "paok": false,
+   "pts": 1,
+   "gp": 1,
+   "w": 0,
+   "l": 1,
+   "pf": 74,
+   "pa": 103,
+   "diff": -29
+  },
+  {
+   "pos": 12,
+   "team": "Panathinaikos",
+   "paok": false,
+   "pts": 0,
+   "gp": 1,
+   "w": 1,
+   "l": 0,
+   "pf": 103,
+   "pa": 74,
+   "diff": 29
   }
  ]
 }
