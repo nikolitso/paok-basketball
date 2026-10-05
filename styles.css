@@ -248,3 +248,7 @@ table.league th, table.league td { padding: 7px 5px; font-size: 12.5px; }
 table.league thead tr:not(.groups) th { white-space: normal; line-height: 1.2; vertical-align: bottom; max-width: 58px; }
 table.league td.l, table.league th.l { padding-left: 8px; }
 table.league td:first-child, table.league th:first-child { padding-left: 8px; }
+
+tr.sub td { font-size: 13px; color: var(--muted); padding-top: 4px; }
+tr.sub td.l { padding-left: 22px; }
+tr.sub td b { color: var(--ink); font-weight: 600; }

@@ -219,16 +219,19 @@ const VIEWS = {
     const r = record(games);
     const avg = (o, k) => f1(o[k] / n);
     const fgm = (o) => o.fg2m + o.fg3m, fga = (o) => o.fg2a + o.fg3a;
+    const ma = (m, a) => `${f1(m / n)} – ${f1(a / n)}`; // made – attempted per game
     const tile = (v, s) => `<div class="tile"><div class="v">${v}</div><div class="s">${s}</div></div>`;
     const cmp = [
       ['Points', avg(us, 'pts'), avg(them, 'pts'), 'pts', 1],
       ['Points allowed', avg(them, 'pts'), avg(us, 'pts'), 'allowed', -1],
       ['FG%', pct(fgm(us), fga(us)), pct(fgm(them), fga(them)), 'fgp', 1],
+      ['FG made – attempted', ma(fgm(us), fga(us)), ma(fgm(them), fga(them)), 'fgm', 1, lgMA(comp, 'fgm', 'fga')],
       ['2P%', pct(us.fg2m, us.fg2a), pct(them.fg2m, them.fg2a), 'fg2p', 1],
+      ['2P made – attempted', ma(us.fg2m, us.fg2a), ma(them.fg2m, them.fg2a), 'fg2m', 1, lgMA(comp, 'fg2m', 'fg2a')],
       ['3P%', pct(us.fg3m, us.fg3a), pct(them.fg3m, them.fg3a), 'fg3p', 1],
-      ['3PA', avg(us, 'fg3a'), avg(them, 'fg3a'), 'fg3a', 1],
+      ['3P made – attempted', ma(us.fg3m, us.fg3a), ma(them.fg3m, them.fg3a), 'fg3m', 1, lgMA(comp, 'fg3m', 'fg3a')],
       ['FT%', pct(us.ftm, us.fta), pct(them.ftm, them.fta), 'ftp', 1],
-      ['FTA', avg(us, 'fta'), avg(them, 'fta'), 'fta', 1],
+      ['FT made – attempted', ma(us.ftm, us.fta), ma(them.ftm, them.fta), 'ftm', 1, lgMA(comp, 'ftm', 'fta')],
       ['Rebounds', avg(us, 'reb'), avg(them, 'reb'), 'reb', 1],
       ['Off. rebounds', avg(us, 'oreb'), avg(them, 'oreb'), 'oreb', 1],
       ['Assists', avg(us, 'ast'), avg(them, 'ast'), 'ast', 1],
@@ -268,8 +271,8 @@ const VIEWS = {
       <h2>PAOK vs opponents (per game)</h2>
       <div class="table-wrap" style="max-width:${hasLg ? 860 : 640}px"><table>
         <thead><tr><th class="l">Stat</th><th>PAOK</th><th>Opponents</th>${hasLg ? `<th>${esc(avgLabel(comp))}</th><th>PAOK rank</th>` : ''}</tr></thead>
-        <tbody>${cmp.map(([l, a, b, k, dir]) => (k === null ? `<tr class="section"><td class="l" colspan="${hasLg ? 5 : 3}">${l}</td></tr>`
-          : `<tr><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td>${hasLg ? `<td>${lgVal(comp, k)}</td><td>${rankBadge(rankIn(comp, me, k, dir))}</td>` : ''}</tr>`)).join('')}</tbody>
+        <tbody>${cmp.map(([l, a, b, k, dir, lgText]) => (k === null ? `<tr class="section"><td class="l" colspan="${hasLg ? 5 : 3}">${l}</td></tr>`
+          : `<tr class="${lgText !== undefined ? 'sub' : ''}"><td class="l">${l}</td><td><b>${a}</b></td><td>${b}</td>${hasLg ? `<td>${lgText ?? lgVal(comp, k)}</td><td>${rankBadge(rankIn(comp, me, k, dir))}</td>` : ''}</tr>`)).join('')}</tbody>
       </table></div>
       ${hasLg ? `<p class="note">${leagueOf(comp).group ? `${esc(leagueOf(comp).group)} average = the average team per game across every game in PAOK's EuroCup group; ranks are among the ${leagueOf(comp).teams.length} ${esc(leagueOf(comp).group)} teams.` : `League average = the average team per game across every ${esc(compName(comp))} game this season; ranks are among all ${leagueOf(comp).teams.length} teams.`} 1st = best (for turnovers, fouls and points allowed, fewest is best). Green = top third, red = bottom third.</p>` : `<p class="note">Pick Greek League or EuroCup above to compare with the league average and see PAOK's rank.</p>`}
       ${paceSection(games, comp)}
@@ -687,6 +690,7 @@ function rankBadge(r) {
   const cls = r.rank <= Math.ceil(r.of / 3) ? 'pos-text' : r.rank > Math.floor((2 * r.of) / 3) ? 'neg-text' : '';
   return `<span class="${cls}">${ordinal(r.rank)}</span><span class="muted"> / ${r.of}</span>`;
 }
+const lgMA = (comp, made, att) => { const lg = leagueOf(comp); return lg && lg.avg && lg.avg[made] != null ? `${f1(lg.avg[made])} – ${f1(lg.avg[att])}` : '–'; };
 const lgVal = (comp, key, suffix = '') => { const lg = leagueOf(comp); const v = lg && lg.avg ? lg.avg[key] : null; return v === null || v === undefined ? '–' : f1(v) + suffix; };
 
 /* ---------- pieces ---------- */

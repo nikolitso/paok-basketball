@@ -103,6 +103,7 @@ def summarize(rows):
         "tovPct": round(100 * tot(0, "tov") / poss, 1), "orebPct": pct(tot(0, "oreb"), tot(0, "oreb") + tot(1, "dreb")),
         "ftr": pct(tot(0, "ftm"), fga), "astPct": pct(tot(0, "ast"), fgm),
         "par3": pct(tot(0, "fg3a"), fga),  # share of shots that are threes
+        "fgm": round(fgm / n, 1), "fga": round(fga / n, 1),
     })
     # defensive four factors: what opponents managed against this team
     ofga, ofgm = tot(1, "fg2a") + tot(1, "fg3a"), tot(1, "fg2m") + tot(1, "fg3m")
