@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-04T18:31:10Z",
+ "updated": "2026-10-06T21:06:47Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -25,17 +25,6 @@
    "born": "1993-07-29",
    "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/46759f73-26e4-46cd-b82e-0556661e2cbe.png",
    "from": "Napoli Basket"
-  },
-  {
-   "no": "2",
-   "name": "Giorgos Charalampidis",
-   "pos": "Guard",
-   "posCode": "PG",
-   "nat": "GRE",
-   "height": 185,
-   "born": "2011-01-14",
-   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/bf894341-0192-4b80-ad80-3ddd7431b337.png",
-   "from": "Gba"
   },
   {
    "no": "5",
@@ -80,17 +69,6 @@
    "born": "2000-10-04",
    "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/284fa91a-ea18-4d06-a28b-1796f8ba58df.png",
    "from": "PAOK BC"
-  },
-  {
-   "no": "10",
-   "name": "Giannis Spanos",
-   "pos": "Forward",
-   "posCode": "PF",
-   "nat": "GRE",
-   "height": 202,
-   "born": "2010-01-26",
-   "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/44cd5736-f6b8-4cfd-b2f7-33af1d0e0605.png",
-   "from": "Deka"
   },
   {
    "no": "12",
@@ -188,15 +166,6 @@
    "born": "2003-10-18",
    "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/9099376a-f35a-4f76-8170-1b8025a33145.png",
    "from": "Promitheas Patras"
-  },
-  {
-   "no": "",
-   "name": "Manolis Manis",
-   "pos": "Guard",
-   "posCode": "SG",
-   "nat": "GRE",
-   "height": 191,
-   "born": "2009-09-30"
   }
  ],
  "games": [
@@ -1225,7 +1194,7 @@
    "home": true,
    "opp": "Doxa Lefkadas",
    "oppCrest": null,
-   "venue": "Paok Sports Ar. Κεκλεισμενων Θυρων",
+   "venue": "Paok Sports Arena ",
    "tv": "SPORT FM TV",
    "played": false,
    "us": null,
