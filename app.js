@@ -725,7 +725,7 @@ function onOffSection(comp) {
   const rows = onOffRows(comp);
   if (!rows.length) return `<h2>On / off court</h2><p class="empty">No ${comp === 'All' ? '' : esc(compName(comp)) + ' '}games with plus/minus data yet.</p>`;
   const games = gamesWithBox(comp).filter((g) => g.box.players.some((p) => p.pm !== null && p.pm !== undefined)).length;
-  const sortKey = state.filters.onoffSort || 'diff';
+  const sortKey = ['on40', 'off40'].includes(state.filters.onoffSort) ? 'diff' : state.filters.onoffSort || 'diff';
   rows.sort((a, b) => (b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9));
   const sg = (v) => (v === null || v === undefined ? '–' : `<span class="${pmClass(v)}">${v > 0 ? '+' : ''}${Number.isInteger(v) ? v : f1(v)}</span>`);
   const th = (k, l, title) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" title="${title}" onclick="state.filters.onoffSort='${k}';rerender()">${l}</th>`;
@@ -733,14 +733,14 @@ function onOffSection(comp) {
     <p class="muted">How PAOK do with each player on the floor vs on the bench · ${games} game${games > 1 ? 's' : ''} with plus/minus data.</p>
     <div class="table-wrap"><table>
       <thead>
-        <tr class="groups"><th colspan="3"></th><th colspan="3" class="grp">On court</th><th colspan="3" class="grp">Off court</th><th class="grp">Difference</th></tr>
+        <tr class="groups"><th colspan="3"></th><th colspan="2" class="grp">On court</th><th colspan="2" class="grp">Off court</th><th class="grp">Difference</th></tr>
         <tr><th class="l">#</th><th class="l">Player</th><th>GP</th>
-          ${th('onMin', 'MIN', 'Minutes on court')}${th('on', '+/-', 'Points PAOK outscored opponents by while he played')}${th('on40', 'Per 40', 'On-court +/- per 40 minutes')}
-          ${th('offMin', 'MIN', 'Minutes on the bench')}${th('off', '+/-', 'Points PAOK outscored opponents by while he sat')}${th('off40', 'Per 40', 'Off-court +/- per 40 minutes')}
+          ${th('onMin', 'MIN', 'Minutes on court')}${th('on', '+/-', 'Points PAOK outscored opponents by while he played')}
+          ${th('offMin', 'MIN', 'Minutes on the bench')}${th('off', '+/-', 'Points PAOK outscored opponents by while he sat')}
           ${th('diff', 'On − off per 40', 'How much better PAOK are with him on the floor, per 40 minutes')}</tr></thead>
       <tbody>${rows.map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.gp}</td>
-        <td>${Math.round(r.onMin)}</td><td>${sg(r.on)}</td><td>${sg(r.on40)}</td>
-        <td>${Math.round(r.offMin)}</td><td>${sg(r.off)}</td><td>${sg(r.off40)}</td>
+        <td>${Math.round(r.onMin)}</td><td>${sg(r.on)}</td>
+        <td>${Math.round(r.offMin)}</td><td>${sg(r.off)}</td>
         <td><b>${sg(r.diff)}</b></td></tr>`).join('')}</tbody>
     </table></div>
     <p class="note">Off-court +/- = PAOK's final margin minus the player's own +/- (every minute he isn't playing, he's on the bench), so it's exact.
