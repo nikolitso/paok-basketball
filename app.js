@@ -183,8 +183,7 @@ const VIEWS = {
     return `<h2>Roster</h2>
       ${seg('roster', [['GBL', `Greek League (${gbl.length})`], ['EuroCup', `EuroCup (${ec.length})`]])}
       <div class="grid roster-grid">${cards}</div>
-      <p class="note">Registered roster from ${comp === 'EuroCup' ? 'the EuroCup' : 'ESAKE (Greek League)'}. The two leagues have different rules on foreign players, so the lists differ.
-        Photos and profiles: PAOK BC. Contracts and transfer dates from club announcements and press reports.</p>
+      <p class="note">Registered ${comp === 'EuroCup' ? 'EuroCup' : 'Greek League'} roster. The two competitions have different rules on foreign players, so the lists differ.</p>
       <h2>Coaching staff</h2>
       <div class="grid staff-grid">${staff}</div>`;
   },
@@ -534,8 +533,7 @@ VIEWS.profiles = function profiles() {
     <h2>What the badges mean</h2>
     <div class="grid two">${legend('Offence &amp; all-round', TAG_RULES, '')}${legend('Defence', DEF_RULES, 'def')}</div>
     ${PIR_EXPLAINER}
-    <p class="note">"Leads the team" counts players who've played at least half of the games. Box scores only capture part of defence: steals, blocks, defensive rebounds, fouls and plus/minus.
-      Plus/minus comes from the EuroCup and FIBA LiveStats; ESAKE's own pages don't publish it, so it can be missing for some Greek League games.</p>`;
+    <p class="note">"Leads the team" counts players who've played at least half of the games. Box scores only capture part of defence: steals, blocks, defensive rebounds, fouls and plus/minus.</p>`;
 };
 
 /* ---------- possessions, pace and efficiency ---------- */
@@ -748,8 +746,7 @@ function onOffSection(comp) {
         <td><b>${sg(r.diff)}</b></td></tr>`).join('')}</tbody>
     </table></div>
     <p class="note">Off-court +/- = PAOK's final margin minus the player's own +/- (every minute he isn't playing, he's on the bench), so it's exact.
-      Per 40 makes players with very different minutes comparable. Plus/minus also reflects teammates and opponents on the floor, so read it over many games: a few games can swing it a lot.
-      Available for EuroCup games and Greek League games with a LiveStats box score; ESAKE's own pages don't publish +/-.</p>`;
+      Plus/minus also reflects teammates and opponents on the floor, so read it over many games: a few games can swing it a lot.</p>`;
 }
 
 /* ---------- pieces ---------- */
@@ -835,7 +832,7 @@ function openBox(code) {
     <td>${t.oreb}</td><td>${t.dreb}</td><td>${t.reb}</td><td>${t.ast}</td><td>${t.stl}</td><td>${t.tov}</td><td>${t.blk}</td><td>${t.pf}</td><td>${t.pir}</td>${hasPm ? '<td></td>' : ''}</tr>`;
   $('#box-title').textContent = `PAOK ${g.us}–${g.them} ${g.opp} · ${compName(g.comp)} ${g.round}`;
   const gp = gamePoss(g);
-  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)} · ${f1(gp)} possessions · pace ${f1((gp * 40) / gameMinutes(g))} · PAOK ${f1((100 * g.us) / gp)} pts per 100 poss vs ${f1((100 * g.them) / gp)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Official match report ↗</a>` : ''}</p>
+  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)} · ${f1(gp)} possessions · pace ${f1((gp * 40) / gameMinutes(g))} · PAOK ${f1((100 * g.us) / gp)} pts per 100 poss vs ${f1((100 * g.them) / gp)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Match report ↗</a>` : ''}</p>
     <div class="table-wrap"><table>
     <thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>2P</th><th>3P</th><th>FT</th><th>OR</th><th>DR</th><th>REB</th><th>AST</th><th>STL</th><th>TO</th><th>BLK</th><th>PF</th><th>PIR</th>${hasPm ? '<th>+/-</th>' : ''}</tr></thead>
     <tbody>${rows}${tot(g.box.team, 'PAOK')}${tot(g.box.opp, esc(g.opp)).replace('class="hl"', '')}</tbody></table></div>
