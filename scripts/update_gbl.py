@@ -163,16 +163,57 @@ def parse_game(idgame):
             "venue": venue.title() if date else "", "teams": teams}
 
 
+PBP_WIDGET = ("https://widgets.baskethotel.com/widget-service/show?api=55b4cf328e78a7a16e07aefd9518ccb2fb1afa29&lang=en"
+              "&request[0][container]=x&request[0][widget]=400&request[0][param][game_id]={ext}"
+              "&request[0][param][show_tabs][0]=play_by_play&request[0][param][use_external_game_ids]=1"
+              "&request[0][param][show_export_link]=1")
+PBP_EXPORT = ("https://widgets.baskethotel.com/widget-service/export/view/play_by_play"
+              "?api=55b4cf328e78a7a16e07aefd9518ccb2fb1afa29&game_id={internal}")
+
+
+def add_plus_minus(idgame, box):
+    """Box scores from ESAKE's pages have no +/-. Rebuild it from the game's play-by-play export
+    (same sheet as the site's own 'Export' button), replaying substitutions and score changes."""
+    import import_pbp  # needs openpyxl
+    pbp_dir = os.path.join(DATA, "pbp")
+    os.makedirs(pbp_dir, exist_ok=True)
+    xlsx = os.path.join(pbp_dir, f"{idgame}.xlsx")
+    if not os.path.exists(xlsx):
+        headers = {"User-Agent": "Mozilla/5.0", "Referer": "https://www.esake.gr/"}
+        req = urllib.request.Request(PBP_WIDGET.format(ext=int(idgame, 16)), headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as r:
+            m = re.search(r'game_id=\\?" \+ (\d+)', r.read().decode("utf-8", errors="replace"))
+        if not m:
+            return False
+        req = urllib.request.Request(PBP_EXPORT.format(internal=m.group(1)), headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as r, open(xlsx, "wb") as f:
+            f.write(r.read())
+    pm, final = import_pbp.plus_minus(xlsx)
+    if final != (box["team"]["pts"], box["opp"]["pts"]):
+        os.remove(xlsx)  # incomplete or mismatched sheet: try again next run
+        return False
+    for p in box["players"]:
+        p["pm"] = pm.get(import_pbp.surname(p["name"]), p.get("pm"))
+    box["pmFrom"] = "pbp"
+    return True
+
+
 def box_score(idgame):
     os.makedirs(BOX_DIR, exist_ok=True)
     path = os.path.join(BOX_DIR, f"{idgame}.json")
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    g = parse_game(idgame)
-    us = next(t for t in g["teams"] if "ΠΑΟΚ" in plain(t["name"]))
-    them = next(t for t in g["teams"] if t is not us)
-    box = {"players": us["players"], "team": us["total"], "opp": them["total"]}
+            box = json.load(f)
+    else:
+        g = parse_game(idgame)
+        us = next(t for t in g["teams"] if "ΠΑΟΚ" in plain(t["name"]))
+        them = next(t for t in g["teams"] if t is not us)
+        box = {"players": us["players"], "team": us["total"], "opp": them["total"]}
+    if not any(p.get("pm") is not None for p in box["players"]):
+        try:
+            add_plus_minus(idgame, box)
+        except Exception as e:  # play-by-play not published yet: retried next run
+            print("plus/minus unavailable for", idgame, e)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(box, f, ensure_ascii=False, indent=1)
     return box

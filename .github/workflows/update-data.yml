@@ -38,6 +38,8 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+      - name: Install Excel reader (play-by-play sheets for plus/minus)
+        run: pip install openpyxl
       - name: EuroCup
         run: python scripts/update_eurocup.py
       - name: Greek League (ESAKE)
