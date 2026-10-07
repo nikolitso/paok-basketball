@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-06T21:06:47Z",
+ "updated": "2026-10-07T18:56:04Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -207,7 +207,7 @@
       "no": "1",
       "name": "Naz Mitrou-Long",
       "start": false,
-      "pm": null
+      "pm": 1
      },
      {
       "pts": 10,
@@ -230,7 +230,7 @@
       "no": "5",
       "name": "Breein Tyree",
       "start": false,
-      "pm": null
+      "pm": 7
      },
      {
       "pts": 18,
@@ -253,7 +253,7 @@
       "no": "6",
       "name": "Cedi Osman",
       "start": false,
-      "pm": null
+      "pm": 6
      },
      {
       "pts": 15,
@@ -276,7 +276,7 @@
       "no": "8",
       "name": "Kyle Alexander",
       "start": false,
-      "pm": null
+      "pm": 9
      },
      {
       "pts": 5,
@@ -299,7 +299,7 @@
       "no": "9",
       "name": "Nikos Chougkaz",
       "start": false,
-      "pm": null
+      "pm": 4
      },
      {
       "pts": 3,
@@ -322,7 +322,7 @@
       "no": "12",
       "name": "Trevor Hudgins",
       "start": false,
-      "pm": null
+      "pm": 0
      },
      {
       "pts": 0,
@@ -368,7 +368,7 @@
       "no": "17",
       "name": "Marcus Foster",
       "start": false,
-      "pm": null
+      "pm": -8
      },
      {
       "pts": 0,
@@ -391,7 +391,7 @@
       "no": "18",
       "name": "Nikos Persidis",
       "start": false,
-      "pm": null
+      "pm": -3
      },
      {
       "pts": 0,
@@ -437,7 +437,7 @@
       "no": "26",
       "name": "Ben Moore",
       "start": false,
-      "pm": null
+      "pm": -12
      },
      {
       "pts": 7,
@@ -460,7 +460,7 @@
       "no": "33",
       "name": "Nick Calathes",
       "start": false,
-      "pm": null
+      "pm": 6
      }
     ],
     "team": {
@@ -539,7 +539,7 @@
       "no": "1",
       "name": "Naz Mitrou-Long",
       "start": false,
-      "pm": null
+      "pm": -9
      },
      {
       "pts": 2,
@@ -562,7 +562,7 @@
       "no": "5",
       "name": "Breein Tyree",
       "start": false,
-      "pm": null
+      "pm": -3
      },
      {
       "pts": 15,
@@ -585,7 +585,7 @@
       "no": "6",
       "name": "Cedi Osman",
       "start": false,
-      "pm": null
+      "pm": -7
      },
      {
       "pts": 15,
@@ -608,7 +608,7 @@
       "no": "8",
       "name": "Kyle Alexander",
       "start": false,
-      "pm": null
+      "pm": 2
      },
      {
       "pts": 11,
@@ -631,7 +631,7 @@
       "no": "12",
       "name": "Trevor Hudgins",
       "start": false,
-      "pm": null
+      "pm": 3
      },
      {
       "pts": 0,
@@ -677,7 +677,7 @@
       "no": "17",
       "name": "Marcus Foster",
       "start": false,
-      "pm": null
+      "pm": 0
      },
      {
       "pts": 10,
@@ -700,7 +700,7 @@
       "no": "18",
       "name": "Nikos Persidis",
       "start": false,
-      "pm": null
+      "pm": -6
      },
      {
       "pts": 0,
@@ -746,7 +746,7 @@
       "no": "26",
       "name": "Ben Moore",
       "start": false,
-      "pm": null
+      "pm": -11
      },
      {
       "pts": 11,
@@ -769,7 +769,7 @@
       "no": "33",
       "name": "Nick Calathes",
       "start": false,
-      "pm": null
+      "pm": 6
      },
      {
       "pts": 0,

@@ -21,7 +21,7 @@
    "no": "1",
    "name": "Naz Mitrou-Long",
    "start": false,
-   "pm": null
+   "pm": -9
   },
   {
    "pts": 2,
@@ -44,7 +44,7 @@
    "no": "5",
    "name": "Breein Tyree",
    "start": false,
-   "pm": null
+   "pm": -3
   },
   {
    "pts": 15,
@@ -67,7 +67,7 @@
    "no": "6",
    "name": "Cedi Osman",
    "start": false,
-   "pm": null
+   "pm": -7
   },
   {
    "pts": 15,
@@ -90,7 +90,7 @@
    "no": "8",
    "name": "Kyle Alexander",
    "start": false,
-   "pm": null
+   "pm": 2
   },
   {
    "pts": 11,
@@ -113,7 +113,7 @@
    "no": "12",
    "name": "Trevor Hudgins",
    "start": false,
-   "pm": null
+   "pm": 3
   },
   {
    "pts": 0,
@@ -159,7 +159,7 @@
    "no": "17",
    "name": "Marcus Foster",
    "start": false,
-   "pm": null
+   "pm": 0
   },
   {
    "pts": 10,
@@ -182,7 +182,7 @@
    "no": "18",
    "name": "Nikos Persidis",
    "start": false,
-   "pm": null
+   "pm": -6
   },
   {
    "pts": 0,
@@ -228,7 +228,7 @@
    "no": "26",
    "name": "Ben Moore",
    "start": false,
-   "pm": null
+   "pm": -11
   },
   {
    "pts": 11,
@@ -251,7 +251,7 @@
    "no": "33",
    "name": "Nick Calathes",
    "start": false,
-   "pm": null
+   "pm": 6
   },
   {
    "pts": 0,
