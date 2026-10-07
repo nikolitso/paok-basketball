@@ -725,12 +725,16 @@ function onOffSection(comp) {
   const rows = onOffRows(comp);
   if (!rows.length) return `<h2>On / off court</h2><p class="empty">No ${comp === 'All' ? '' : esc(compName(comp)) + ' '}games with plus/minus data yet.</p>`;
   const games = gamesWithBox(comp).filter((g) => g.box.players.some((p) => p.pm !== null && p.pm !== undefined)).length;
+  // regulars only: more than 10 minutes per game on average over the games with +/- data (e.g. 50+ minutes in 5 games)
+  const MIN_PER_GAME = 10;
+  const hiddenCount = rows.filter((r) => r.onMin / games <= MIN_PER_GAME).length;
+  rows.splice(0, rows.length, ...rows.filter((r) => r.onMin / games > MIN_PER_GAME));
   const sortKey = ['on40', 'off40'].includes(state.filters.onoffSort) ? 'diff' : state.filters.onoffSort || 'diff';
   rows.sort((a, b) => (b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9));
   const sg = (v) => (v === null || v === undefined ? '–' : `<span class="${pmClass(v)}">${v > 0 ? '+' : ''}${Number.isInteger(v) ? v : f1(v)}</span>`);
   const th = (k, l, title) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" title="${title}" onclick="state.filters.onoffSort='${k}';rerender()">${l}</th>`;
   return `<h2>On / off court</h2>
-    <p class="muted">How PAOK do with each player on the floor vs on the bench · ${games} game${games > 1 ? 's' : ''} with plus/minus data.</p>
+    <p class="muted">How PAOK do with each player on the floor vs on the bench · ${games} game${games > 1 ? 's' : ''} with plus/minus data · players averaging more than ${MIN_PER_GAME} minutes per game (over ${games * MIN_PER_GAME} minutes in total)${hiddenCount ? ` · ${hiddenCount} player${hiddenCount > 1 ? 's' : ''} below that not shown` : ''}.</p>
     <div class="table-wrap"><table>
       <thead>
         <tr class="groups"><th colspan="3"></th><th colspan="2" class="grp">On court</th><th colspan="2" class="grp">Off court</th><th class="grp">Difference</th></tr>
