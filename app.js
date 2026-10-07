@@ -1,7 +1,7 @@
 /* PAOK Basketball 2026-27 — static site reading data/eurocup.json and data/gbl.json */
 const TZ = 'Europe/Athens';
 const COMPS = { GBL: 'Greek League', EuroCup: 'EuroCup', 'Greek Super Cup': 'Super Cup', 'Greek Cup': 'Greek Cup' };
-const state = { ec: null, gbl: null, games: [], filters: { league: 'GBL', leagueSort: 'net', profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
+const state = { ec: null, gbl: null, games: [], filters: { onoffSort: 'diff', league: 'GBL', leagueSort: 'net', profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -310,6 +310,7 @@ const VIEWS = {
         <tbody>${ps.map((p) => `<tr><td class="l">${esc(p.no)}</td><td class="l"><b>${esc(p.name)}</b></td>${cols.map(([, , f]) => `<td>${f(p)}</td>`).join('')}</tr>`).join('')}</tbody>
       </table></div>
       <p class="note">Click a column to sort.${showPm ? '' : ' Plus/minus isn\'t available for these games.'}</p>
+      ${onOffSection(comp)}
       ${PIR_EXPLAINER}`;
   },
 
@@ -692,6 +693,60 @@ function rankBadge(r) {
 }
 const lgMA = (comp, made, att) => { const lg = leagueOf(comp); return lg && lg.avg && lg.avg[made] != null ? `${f1(lg.avg[made])} – ${f1(lg.avg[att])}` : '–'; };
 const lgVal = (comp, key, suffix = '') => { const lg = leagueOf(comp); const v = lg && lg.avg ? lg.avg[key] : null; return v === null || v === undefined ? '–' : f1(v) + suffix; };
+
+/* ---------- on / off court plus-minus ---------- */
+// For a game with +/- data: on-court +/- is the player's own; off-court = team margin − on-court (exact, since every
+// minute is either with him on or off the floor). Minutes off = game minutes − his minutes.
+function onOffRows(comp) {
+  const map = new Map();
+  for (const g of gamesWithBox(comp)) {
+    if (!g.box.players.some((p) => p.pm !== null && p.pm !== undefined)) continue; // source without +/-
+    const margin = g.us - g.them;
+    const gameMin = gameMinutes(g);
+    for (const p of g.box.players) {
+      if (!p.sec || p.pm === null || p.pm === undefined) continue;
+      const key = p.name.toLowerCase().replace(/-/g, ' ').split(' ').pop();
+      const t = map.get(key) || { name: p.name, no: p.no, gp: 0, onMin: 0, offMin: 0, on: 0, off: 0 };
+      t.gp++;
+      t.onMin += p.sec / 60;
+      t.offMin += Math.max(0, gameMin - p.sec / 60);
+      t.on += p.pm;
+      t.off += margin - p.pm;
+      map.set(key, t);
+    }
+  }
+  return [...map.values()].map((t) => {
+    const on40 = t.onMin ? (40 * t.on) / t.onMin : null;
+    const off40 = t.offMin >= 1 ? (40 * t.off) / t.offMin : null;
+    return { ...t, on40, off40, diff: on40 !== null && off40 !== null ? on40 - off40 : null };
+  });
+}
+function onOffSection(comp) {
+  const rows = onOffRows(comp);
+  if (!rows.length) return `<h2>On / off court</h2><p class="empty">No ${comp === 'All' ? '' : esc(compName(comp)) + ' '}games with plus/minus data yet.</p>`;
+  const games = gamesWithBox(comp).filter((g) => g.box.players.some((p) => p.pm !== null && p.pm !== undefined)).length;
+  const sortKey = state.filters.onoffSort || 'diff';
+  rows.sort((a, b) => (b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9));
+  const sg = (v) => (v === null || v === undefined ? '–' : `<span class="${pmClass(v)}">${v > 0 ? '+' : ''}${Number.isInteger(v) ? v : f1(v)}</span>`);
+  const th = (k, l, title) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" title="${title}" onclick="state.filters.onoffSort='${k}';rerender()">${l}</th>`;
+  return `<h2>On / off court</h2>
+    <p class="muted">How PAOK do with each player on the floor vs on the bench · ${games} game${games > 1 ? 's' : ''} with plus/minus data.</p>
+    <div class="table-wrap"><table>
+      <thead>
+        <tr class="groups"><th colspan="3"></th><th colspan="3" class="grp">On court</th><th colspan="3" class="grp">Off court</th><th class="grp">Difference</th></tr>
+        <tr><th class="l">#</th><th class="l">Player</th><th>GP</th>
+          ${th('onMin', 'MIN', 'Minutes on court')}${th('on', '+/-', 'Points PAOK outscored opponents by while he played')}${th('on40', 'Per 40', 'On-court +/- per 40 minutes')}
+          ${th('offMin', 'MIN', 'Minutes on the bench')}${th('off', '+/-', 'Points PAOK outscored opponents by while he sat')}${th('off40', 'Per 40', 'Off-court +/- per 40 minutes')}
+          ${th('diff', 'On − off per 40', 'How much better PAOK are with him on the floor, per 40 minutes')}</tr></thead>
+      <tbody>${rows.map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.gp}</td>
+        <td>${Math.round(r.onMin)}</td><td>${sg(r.on)}</td><td>${sg(r.on40)}</td>
+        <td>${Math.round(r.offMin)}</td><td>${sg(r.off)}</td><td>${sg(r.off40)}</td>
+        <td><b>${sg(r.diff)}</b></td></tr>`).join('')}</tbody>
+    </table></div>
+    <p class="note">Off-court +/- = PAOK's final margin minus the player's own +/- (every minute he isn't playing, he's on the bench), so it's exact.
+      Per 40 makes players with very different minutes comparable. Plus/minus also reflects teammates and opponents on the floor, so read it over many games: a few games can swing it a lot.
+      Available for EuroCup games and Greek League games with a LiveStats box score; ESAKE's own pages don't publish +/-.</p>`;
+}
 
 /* ---------- pieces ---------- */
 const EXTRAS = [
