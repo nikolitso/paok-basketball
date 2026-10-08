@@ -369,7 +369,12 @@ VIEWS.standings = function standings() {
     const shade = Math.round(Math.min(100, v) * 0.55);
     return `<td class="pct" style="--p:${shade}%"><b>${pctLabel(v)}%</b></td>`;
   };
-  const sortKey = ['power', 'net', 'expW', 'luck', 'sosPlayed', 'sosLeft'].includes(state.filters.powerSort) ? state.filters.powerSort : 'power';
+  const sortKey = ['power', 'net', 'expW', 'luck', 'poss', 'sosPlayed', 'sosLeft'].includes(state.filters.powerSort) ? state.filters.powerSort : 'power';
+  // tempo: possessions per game (overtime included) from the league table
+  const possOf = (t) => { const lt = leagueTeam(comp, t.paok ? 'PAOK' : t.team); return lt ? lt.poss : null; };
+  pw.teams.forEach((t) => { t.poss = possOf(t); });
+  const lgPoss = (leagueOf(comp) || {}).avg ? leagueOf(comp).avg.poss : null;
+  const tempo = (v) => (v === null || v === undefined ? '–' : `${f1(v)}${lgPoss ? ` <span class="rk muted">${v >= lgPoss + 2 ? 'fast' : v <= lgPoss - 2 ? 'slow' : 'avg'}</span>` : ''}`);
   const teams = [...pw.teams].sort((a, b) => (b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9));
   const th = (k, l, title) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" title="${title}" onclick="state.filters.powerSort='${k}';rerender()">${l}</th>`;
   // season projections (pw.teams[].projW, pPlayoffs, ...) are computed but not shown for now
@@ -378,23 +383,25 @@ VIEWS.standings = function standings() {
     <h3 style="margin-top:22px">Power ranking</h3>
     <div class="table-wrap"><table class="power">
       <thead>
-        <tr class="groups"><th colspan="3"></th><th colspan="4" class="grp">How good they really are</th><th colspan="2" class="grp">Schedule strength</th></tr>
+        <tr class="groups"><th colspan="3"></th><th colspan="4" class="grp">How good they really are</th><th class="grp">Tempo</th><th colspan="2" class="grp">Schedule strength</th></tr>
         <tr><th>#</th><th class="l">Team</th><th>W–L</th>
           ${th('power', 'Power', 'Opponent- and home-adjusted net rating: points per 100 possessions better than an average team (this season, plus last season as a starting point early on)')}
           ${th('net', 'Net', 'Raw net rating this season: points per 100 possessions better than opponents')}
           ${th('expW', 'Exp. W', 'Wins a team "deserves" from points scored and allowed')}
           ${th('luck', 'Luck', 'Actual wins minus expected wins: teams well above 0 usually come back down')}
+          ${th('poss', 'Poss', 'Possessions per game, overtime included: how fast a team plays')}
           ${th('sosPlayed', 'Played', 'Average power of opponents already played (higher = harder)')}
           ${th('sosLeft', 'Ahead', 'Average power of opponents still to play (higher = harder)')}
 </tr></thead>
       <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : ''}"><td>${sortKey === 'power' ? t.rank : i + 1}</td><td class="l">${esc(t.team)}</td><td>${t.w}–${t.l}</td>
         <td><b>${signed(t.power)}</b></td><td>${signed(t.net)}</td><td>${f1(t.expW)}</td><td>${signed(t.luck)}</td>
-        <td>${signed(t.sosPlayed, false)}</td><td>${signed(t.sosLeft, false)}</td></tr>`).join('')}</tbody>
+        <td>${tempo(t.poss)}</td><td>${signed(t.sosPlayed, false)}</td><td>${signed(t.sosLeft, false)}</td></tr>`).join('')}</tbody>
     </table></div>
     <div class="card" style="max-width:900px;margin-top:14px"><h3>How to read it</h3>
       <ul class="legend">
         <li><b>Power</b><span class="muted">How good a team really is: points per 100 possessions better than an average team, corrected for the opponents it has faced and home court. Ranked by this. Early in the season last season's level counts as a starting point; it fades as games are played.</span></li>
         <li><b>Exp. W / Luck</b><span class="muted">Wins a team "deserves" from points scored and allowed, and how many more (or fewer) it actually has. Close wins are often luck and don't repeat.</span></li>
+        <li><b>Poss</b><span class="muted">Possessions per game, overtime included: how fast a team plays. "Fast" / "slow" = at least 2 possessions above / below the ${comp === 'EuroCup' ? 'group' : 'league'} average (${lgPoss ? f1(lgPoss) : '–'}).</span></li>
         <li><b>Schedule</b><span class="muted">Average power of opponents faced so far and still to come: above 0 = tougher than average.</span></li>
       </ul></div>
     ${comp === 'GBL' ? VIEWS.standingsOfficial().split('<h3 class="official-h">EuroCup')[0] : '<h3 class="official-h">EuroCup' + VIEWS.standingsOfficial().split('<h3 class="official-h">EuroCup')[1]}`;
