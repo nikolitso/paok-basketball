@@ -321,9 +321,9 @@ const VIEWS = {
     const tbl = (rows, comp) => {
       const withPts = comp === 'GBL';
       return `<div class="table-wrap"><table class="standings">
-      <thead><tr><th>#</th><th class="l">Team</th><th>GP</th><th>W</th><th>L</th>${withPts ? '<th>Pts</th>' : ''}<th>PF</th><th>PA</th><th>+/-</th></tr></thead>
+      <thead><tr><th>#</th><th class="l">Team</th><th>GP</th><th>W</th><th>L</th>${withPts ? '<th>Pts</th>' : ''}<th>PF</th><th>PA</th><th>+/-</th><th title="Possessions per game (overtime included)">Poss</th></tr></thead>
       <tbody>${rows.map((s, i) => {
-        const cols = withPts ? 9 : 8;
+        const cols = withPts ? 10 : 9;
         const cut = comp === 'GBL' ? 8 : 4;
         // labelled dividers: play-off line after the last qualifying place, relegation line above last place
         const before = comp === 'GBL' && i === rows.length - 1
@@ -334,7 +334,8 @@ const VIEWS = {
         const diff = s.pf != null ? s.pf - s.pa : s.diff;
         return `<tr class="${s.paok ? 'hl' : ''}"><td><span class="pos ${zone(s.pos, rows.length, comp)}">${s.pos}</span></td><td class="l">${esc(s.team)}</td><td>${s.gp}</td><td>${s.w}</td><td>${s.l}</td>
           ${withPts ? `<td><b class="${ded ? 'deducted' : ''}" ${ded ? `title="${deduction(s)} point${deduction(s) > 1 ? 's' : ''} deducted"` : ''}>${s.pts}${ded ? '*' : ''}</b></td>` : ''}
-          <td>${s.pf ?? '–'}</td><td>${s.pa ?? '–'}</td><td class="${diff > 0 ? 'pos-text' : diff < 0 ? 'neg-text' : ''}">${diff == null ? '–' : (diff > 0 ? '+' : '') + diff}</td></tr>`.replace(/^/, before) + after;
+          <td>${s.pf ?? '–'}</td><td>${s.pa ?? '–'}</td><td class="${diff > 0 ? 'pos-text' : diff < 0 ? 'neg-text' : ''}">${diff == null ? '–' : (diff > 0 ? '+' : '') + diff}</td>
+          <td>${(() => { const lt = leagueTeam(comp, s.paok ? 'PAOK' : s.team); return lt && lt.poss != null ? f1(lt.poss) : '–'; })()}</td></tr>`.replace(/^/, before) + after;
       }).join('')}</tbody>
     </table></div>`;
     };
