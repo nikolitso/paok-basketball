@@ -252,3 +252,18 @@ table.league td:first-child, table.league th:first-child { padding-left: 8px; }
 tr.sub td { font-size: 13px; color: var(--muted); padding-top: 4px; }
 tr.sub td.l { padding-left: 22px; }
 tr.sub td b { color: var(--ink); font-weight: 600; }
+
+/* standings that matter */
+.race { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 18px; align-items: center; margin-top: 14px; }
+.race .big { font-size: 32px; }
+.race-odds { display: flex; gap: 18px; }
+.race-odds b { display: block; font: 700 30px/1 Oswald, sans-serif; }
+.race-odds span { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #aaa; }
+.finish-bars { display: flex; align-items: flex-end; gap: 3px; height: 80px; }
+.finish-bars div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+.finish-bars i { display: block; width: 100%; background: var(--white); border-radius: 2px 2px 0 0; }
+.finish-bars span { font-size: 10px; color: #aaa; margin-top: 3px; }
+@media (max-width: 760px) { .race { grid-template-columns: 1fr; } }
+table.power td.pct { background: linear-gradient(90deg, rgba(31, 78, 140, .18) var(--p), transparent var(--p)); }
+tr.hl td.pct { background: linear-gradient(90deg, rgba(255, 255, 255, .25) var(--p), transparent var(--p)); }
+h3.official-h { margin-top: 30px; }

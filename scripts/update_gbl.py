@@ -310,7 +310,7 @@ def league_games():
             ids = re.findall(r"idgame=([0-9A-F]+)&mode=3", block)
             info = re.findall(r'esake-program-game-info[^>]*>(?:<img[^>]*>)?([^<]*)<', block)
             score_box = block.split("esake-program-game-final-score row", 1)[-1].split("esake-program-game-hidden-row")[0]
-            cols = re.split(r'<div class="col-lg-\d', score_box)[1:4]
+            cols = [c.split(">", 1)[-1] for c in re.split(r'<div class="col-lg-\d', score_box)[1:4]]  # drop the tag's own attributes (they contain digits)
             spans = [" ".join(cells(col)).replace("\xa0", " ").strip(' ">') for col in cols]
             if not ids or len(spans) < 3:
                 continue
