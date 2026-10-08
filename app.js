@@ -775,8 +775,7 @@ function linkFor(g) {
 const PIR_EXPLAINER = `
   <div class="card pir">
     <h3>What is PIR?</h3>
-    <p><b>Performance Index Rating</b> is the one-number score the EuroLeague, EuroCup and Greek League use to rate a player's game
-      (in Greek: <i>Αξιολόγηση</i> or "Ranking").</p>
+    <p><b>Performance Index Rating</b> is the one-number score the EuroLeague, EuroCup and Greek League use to rate a player's game.</p>
     <div class="formula">
       <div><span class="label">Adds</span>Points + Rebounds + Assists + Steals + Blocks + Fouls drawn</div>
       <div><span class="label">Subtracts</span>Missed shots + Missed free throws + Turnovers + Shots blocked + Fouls committed</div>
