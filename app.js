@@ -240,15 +240,14 @@ const VIEWS = {
       ['Fouls', avg(us, 'pf'), avg(them, 'pf'), 'pf', -1],
       ['PIR', avg(us, 'pir'), avg(them, 'pir'), 'pir', 1],
     ];
-    // pace & efficiency rows (same numbers as the tiles below)
+    // possessions & efficiency rows
     const ps = paceStats(games);
     if (ps) {
       const net = ps.us.rating - ps.them.rating;
       const signed = (x) => `<span class="${x > 0 ? 'pos-text' : x < 0 ? 'neg-text' : ''}">${x > 0 ? '+' : ''}${f1(x)}</span>`;
       cmp.push(
-        ['<span class="section-row">Pace &amp; efficiency</span>', '', '', null, 0],
-        ['Possessions', f1(ps.poss), f1(ps.poss), 'poss', 1],
-        ['Pace (poss. per 40 min)', f1(ps.pace), f1(ps.pace), 'pace', 1],
+        ['<span class="section-row">Possessions &amp; efficiency</span>', '', '', null, 0],
+        ['Possessions per game', f1(ps.poss), f1(ps.poss), 'poss', 1],
         ['Offensive rating (pts per 100 poss)', f1(ps.us.rating), f1(ps.them.rating), 'ortg', 1],
         ['Defensive rating (allowed per 100 poss)', f1(ps.them.rating), f1(ps.us.rating), 'drtg', -1],
         ['Net rating', signed(net), signed(-net), 'net', 1],
@@ -260,7 +259,7 @@ const VIEWS = {
       <td class="l">${fmtDate(g.date)}</td><td class="l">${esc(compName(g.comp))}</td><td class="l">${vsAt(g)} ${esc(g.opp)}</td>
       <td><span class="wl ${result(g)}">${result(g)}</span></td><td><b>${g.us}–${g.them}</b></td>
       <td>${pct(g.box.team.fg2m + g.box.team.fg3m, g.box.team.fg2a + g.box.team.fg3a)}</td><td>${pct(g.box.team.fg3m, g.box.team.fg3a)}</td>
-      <td>${g.box.team.reb}</td><td>${g.box.team.ast}</td><td>${g.box.team.tov}</td><td>${g.box.team.pir}</td><td>${f1(gamePoss(g))}</td><td>${f1((gamePoss(g) * 40) / gameMinutes(g))}</td><td>${f1((100 * g.us) / gamePoss(g))}</td><td>${f1((100 * g.them) / gamePoss(g))}</td></tr>`).join('');
+      <td>${g.box.team.reb}</td><td>${g.box.team.ast}</td><td>${g.box.team.tov}</td><td>${g.box.team.pir}</td><td>${f1(gamePoss(g))}</td><td>${f1((100 * g.us) / gamePoss(g))}</td><td>${f1((100 * g.them) / gamePoss(g))}</td></tr>`).join('');
     return `<h2>Team Stats</h2>${seg('team', opts)}
       <div class="tiles">
         ${tile(`${r.w}–${r.l}`, 'Record')}${tile(avg(us, 'pts'), 'Points scored / game')}${tile(avg(them, 'pts'), 'Points allowed / game')}
@@ -278,7 +277,7 @@ const VIEWS = {
       ${extrasSection(games)}
       <h2>Game log</h2>
       <div class="table-wrap"><table>
-        <thead><tr><th class="l">Date</th><th class="l">Comp</th><th class="l">Opponent</th><th></th><th>Score</th><th>FG%</th><th>3P%</th><th>REB</th><th>AST</th><th>TO</th><th>PIR</th><th>Poss</th><th>Pace</th><th>ORtg</th><th>DRtg</th></tr></thead>
+        <thead><tr><th class="l">Date</th><th class="l">Comp</th><th class="l">Opponent</th><th></th><th>Score</th><th>FG%</th><th>3P%</th><th>REB</th><th>AST</th><th>TO</th><th>PIR</th><th>Poss</th><th>ORtg</th><th>DRtg</th></tr></thead>
         <tbody>${log}</tbody></table></div>`;
   },
 
@@ -367,7 +366,7 @@ VIEWS.scout = function scout() {
   const rows = [
     ['Record', p ? `${p.w}–${p.l}` : '–', o ? `${o.w}–${o.l}` : '–', null],
     ['Points scored', v(p?.pts), v(o?.pts), 'pts', 1], ['Points allowed', v(p?.allowed), v(o?.allowed), 'allowed', -1],
-    ['Pace (poss. per 40 min)', v(p?.pace), v(o?.pace), 'pace', 1], ['Offensive rating', v(p?.ortg), v(o?.ortg), 'ortg', 1],
+    ['Possessions per game', v(p?.poss), v(o?.poss), 'poss', 1], ['Offensive rating', v(p?.ortg), v(o?.ortg), 'ortg', 1],
     ['Defensive rating', v(p?.drtg), v(o?.drtg), 'drtg', -1],
     ['FG%', v(p?.fgp), v(o?.fgp), 'fgp', 1], ['3P%', v(p?.fg3p), v(o?.fg3p), 'fg3p', 1], ['3PA', v(p?.fg3a), v(o?.fg3a), 'fg3a', 1],
     ['FT%', v(p?.ftp), v(o?.ftp), 'ftp', 1], ['Rebounds', v(p?.reb), v(o?.reb), 'reb', 1], ['Off. rebounds', v(p?.oreb), v(o?.oreb), 'oreb', 1],
@@ -403,10 +402,10 @@ VIEWS.scout = function scout() {
         <div class="label">Projected score</div>
         <div class="big">${esc(hn)} ${Math.round(hs)} – ${Math.round(as)} ${esc(an)}</div>
         <div class="winbar"><div style="width:${pr.winProb}%"></div></div>
-        <div class="muted">PAOK win chance: <b style="color:#fff">${pr.winProb}%</b> · expected pace ${pr.pace ? f1(pr.pace) : '–'} possessions · ${esc(src)}${pr.note ? ' · ' + esc(pr.note) : ''}</div>
+        <div class="muted">PAOK win chance: <b style="color:#fff">${pr.winProb}%</b> · expected ${pr.pace ? f1(pr.pace) : '–'} possessions · ${esc(src)}${pr.note ? ' · ' + esc(pr.note) : ''}</div>
       </div>
       <div class="grid two" style="margin-top:16px">${ptable(us, 'PAOK')}${ptable(them, pick.opp)}</div>
-      <p class="note">How it works: expected possessions = both teams' pace relative to the league's pace. Points per 100 possessions = a team's offensive rating × the opponent's defensive rating ÷ the league average,
+      <p class="note">How it works: expected possessions = both teams' possessions per game relative to the league average. Points per 100 possessions = a team's offensive rating × the opponent's defensive rating ÷ the league average,
         reduced if key scorers are missing. Early-season numbers are pulled toward the league average, plus a small home-court edge.
         Player lines: per-minute production this season × expected minutes (shared out among the available players when someone is out).</p>`;
   }
@@ -590,7 +589,6 @@ function paceSection(games, comp) {
       <h3>How to read these</h3>
       <ul class="legend">
         <li><b>Possessions</b><span class="muted">How many times a team had the ball: shots + turnovers + trips to the line − offensive rebounds (each one keeps the same possession alive). Both teams get roughly the same number.</span></li>
-        <li><b>Pace / tempo</b><span class="muted">Possessions per 40 minutes. Higher = faster game. EuroCup and Greek League games usually sit around 70–76.</span></li>
         <li><b>Off. / Def. rating</b><span class="muted">Points scored / allowed per 100 possessions. Removes the effect of tempo, so a slow and a fast team can be compared fairly.</span></li>
         <li><b>Net rating</b><span class="muted">Offensive minus defensive rating: how many points per 100 possessions PAOK outscore opponents by.</span></li>
         <li><b>eFG% / TS%</b><span class="muted">Shooting efficiency that counts a three as worth more (eFG%), and also free throws (TS%).</span></li>
@@ -604,7 +602,7 @@ function paceSection(games, comp) {
 // [key, header, direction (1 = higher is better), group, shown in the compact view]
 const LEAGUE_COLS = [
   ['w', 'W–L', 1, 'Overall', true], ['net', 'Net', 1, 'Overall', true], ['ortg', 'ORtg', 1, 'Overall', true],
-  ['drtg', 'DRtg', -1, 'Overall', true], ['pace', 'Pace', 1, 'Overall', true],
+  ['drtg', 'DRtg', -1, 'Overall', true], ['poss', 'Poss', 1, 'Overall', true],
   ['efg', 'eFG%', 1, 'Offence', true], ['tovPct', 'TOV%', -1, 'Offence', true], ['orebPct', 'OREB%', 1, 'Offence', true],
   ['ftr', 'FT rate', 1, 'Offence', true], ['par3', '3PA rate', 1, 'Offence', true],
   ['opp_efg', 'Opp eFG%', -1, 'Defence', true], ['forcedTov', 'Forced TOV%', 1, 'Defence', true],
@@ -647,7 +645,7 @@ VIEWS.league = function league() {
       <ul class="legend">
         <li><b>Net</b><span class="muted">Points per 100 possessions better (or worse) than opponents. The single best indicator of team strength; sorted by this by default.</span></li>
         <li><b>ORtg / DRtg</b><span class="muted">Points scored / allowed per 100 possessions. Lower DRtg = better defence.</span></li>
-        <li><b>Pace</b><span class="muted">Possessions per 40 minutes: how fast a team plays. Not good or bad, but it sets how many points a game will have.</span></li>
+        <li><b>Poss</b><span class="muted">Possessions per game, overtime included: how fast a team plays. Not good or bad, but it sets how many points a game will have.</span></li>
         <li><b>eFG% / Opp eFG%</b><span class="muted">Shooting efficiency (a three counts 1.5×), own and allowed. The most important of the four factors.</span></li>
         <li><b>TOV% / Forced TOV%</b><span class="muted">Out of 100 possessions, how many end in a turnover: own (lower = better) and opponents' (higher = better defence).</span></li>
         <li><b>OREB% / DREB%</b><span class="muted">Share of own misses rebounded (second chances) and of opponents' misses secured (no second chances).</span></li>
@@ -832,7 +830,7 @@ function openBox(code) {
     <td>${t.oreb}</td><td>${t.dreb}</td><td>${t.reb}</td><td>${t.ast}</td><td>${t.stl}</td><td>${t.tov}</td><td>${t.blk}</td><td>${t.pf}</td><td>${t.pir}</td>${hasPm ? '<td></td>' : ''}</tr>`;
   $('#box-title').textContent = `PAOK ${g.us}–${g.them} ${g.opp} · ${compName(g.comp)} ${g.round}`;
   const gp = gamePoss(g);
-  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)} · ${f1(gp)} possessions · pace ${f1((gp * 40) / gameMinutes(g))} · PAOK ${f1((100 * g.us) / gp)} pts per 100 poss vs ${f1((100 * g.them) / gp)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Match report ↗</a>` : ''}</p>
+  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)} · ${f1(gp)} possessions · PAOK ${f1((100 * g.us) / gp)} pts per 100 poss vs ${f1((100 * g.them) / gp)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Match report ↗</a>` : ''}</p>
     <div class="table-wrap"><table>
     <thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>2P</th><th>3P</th><th>FT</th><th>OR</th><th>DR</th><th>REB</th><th>AST</th><th>STL</th><th>TO</th><th>BLK</th><th>PF</th><th>PIR</th>${hasPm ? '<th>+/-</th>' : ''}</tr></thead>
     <tbody>${rows}${tot(g.box.team, 'PAOK')}${tot(g.box.opp, esc(g.opp)).replace('class="hl"', '')}</tbody></table></div>
