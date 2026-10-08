@@ -402,7 +402,18 @@ VIEWS.standings = function standings() {
         <li><b>Power</b><span class="muted">How good a team really is: points per 100 possessions better than an average team, corrected for the opponents it has faced and home court. Ranked by this. Early in the season last season's level counts as a starting point; it fades as games are played.</span></li>
         <li><b>Exp. W / Luck</b><span class="muted">Wins a team "deserves" from points scored and allowed, and how many more (or fewer) it actually has. Close wins are often luck and don't repeat.</span></li>
         <li><b>Poss</b><span class="muted">Possessions per game, overtime included: how fast a team plays. "Fast" / "slow" = at least 2 possessions above / below the ${comp === 'EuroCup' ? 'group' : 'league'} average (${lgPoss ? f1(lgPoss) : '–'}).</span></li>
-        <li><b>Schedule</b><span class="muted">Average power of opponents faced so far and still to come: above 0 = tougher than average.</span></li>
+        <li><b>Schedule strength</b><span class="muted">How tough a team's opponents are, using the same Power rating.
+          <b>Played</b> = average Power of the opponents already faced; <b>Ahead</b> = average Power of the opponents still to play.
+          0 = an average schedule, above 0 = tougher, below 0 = easier.${(() => {
+            const me = pw.teams.find((t) => t.paok);
+            if (!me || me.sosPlayed == null || me.sosLeft == null) return '';
+            const word = (v) => (v > 1 ? 'tougher than average' : v < -1 ? 'easier than average' : 'about average');
+            return ` For example, PAOK's games so far have been ${word(me.sosPlayed)} (${me.sosPlayed > 0 ? '+' : ''}${f1(me.sosPlayed)}) and the rest of their season is ${word(me.sosLeft)} (${me.sosLeft > 0 ? '+' : ''}${f1(me.sosLeft)}).`;
+          })()}
+          <br><b>Why it matters:</b> Played shows how much a record flatters a team: a strong start against weak opponents means less than a mixed start against the top teams.
+          Ahead shows who has the easier or harder road left: two teams on the same record can go in different directions.
+          Power already corrects for opponents; these two columns show how hard each schedule has been and will be.
+          Early in the season Played rests on only one or two games, while Ahead already covers almost the whole season.</span></li>
       </ul></div>
     ${comp === 'GBL' ? VIEWS.standingsOfficial().split('<h3 class="official-h">EuroCup')[0] : '<h3 class="official-h">EuroCup' + VIEWS.standingsOfficial().split('<h3 class="official-h">EuroCup')[1]}`;
 };
