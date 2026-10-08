@@ -369,30 +369,16 @@ VIEWS.standings = function standings() {
     const shade = Math.round(Math.min(100, v) * 0.55);
     return `<td class="pct" style="--p:${shade}%"><b>${pctLabel(v)}%</b></td>`;
   };
-  const sortKey = state.filters.powerSort || 'power';
+  const sortKey = ['power', 'net', 'expW', 'luck', 'sosPlayed', 'sosLeft'].includes(state.filters.powerSort) ? state.filters.powerSort : 'power';
   const teams = [...pw.teams].sort((a, b) => (b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9));
   const th = (k, l, title) => `<th class="sortable ${sortKey === k ? 'sorted' : ''}" title="${title}" onclick="state.filters.powerSort='${k}';rerender()">${l}</th>`;
-  const paok = pw.teams.find((t) => t.paok);
-  const place = paok ? paok.positions.indexOf(Math.max(...paok.positions)) + 1 : null;
-  const label = comp === 'EuroCup' ? `EuroCup · ${esc(pw.group || state.ec.group)}` : 'Greek League';
-  const box = paok ? `<div class="card dark race">
-      <div><div class="label">PAOK's race · ${label}</div>
-        <div class="big">Projected ${f1(paok.projW)}–${f1(paok.projL)}</div>
-        <div class="muted">Strength: ${ordinal(paok.rank)} of ${pw.teams.length} · most likely finish: ${ordinal(place)}</div></div>
-      <div class="race-odds">
-        <div><b>${pctLabel(paok.pPlayoffs)}%</b><span>Play-offs (top ${pw.playoffSpots})</span></div>
-        <div><b>${pctLabel(paok.pFirst)}%</b><span>Finish 1st</span></div>
-        ${pw.relegation ? `<div><b>${pctLabel(paok.pRelegation)}%</b><span>Relegation</span></div>` : ''}
-      </div>
-      <div class="finish-bars">${paok.positions.map((v, i) => `<div title="${ordinal(i + 1)}: ${f1(v)}%"><i style="height:${Math.max(2, v)}%"></i><span>${i + 1}</span></div>`).join('')}</div>
-    </div>` : '';
+  // season projections (pw.teams[].projW, pPlayoffs, ...) are computed but not shown for now
   return `<h2>Standings that matter</h2>
     ${seg('standings', comps.map((c) => [c, c === 'EuroCup' ? `EuroCup · ${pw.group || state.ec.group}` : 'Greek League']))}
-    ${box}
-    <h3 style="margin-top:22px">Power ranking &amp; season projection</h3>
+    <h3 style="margin-top:22px">Power ranking</h3>
     <div class="table-wrap"><table class="power">
       <thead>
-        <tr class="groups"><th colspan="3"></th><th colspan="4" class="grp">How good they really are</th><th colspan="2" class="grp">Schedule strength</th><th colspan="${pw.relegation ? 4 : 3}" class="grp">Season projection</th></tr>
+        <tr class="groups"><th colspan="3"></th><th colspan="4" class="grp">How good they really are</th><th colspan="2" class="grp">Schedule strength</th></tr>
         <tr><th>#</th><th class="l">Team</th><th>W–L</th>
           ${th('power', 'Power', 'Opponent- and home-adjusted net rating: points per 100 possessions better than an average team (this season, plus last season as a starting point early on)')}
           ${th('net', 'Net', 'Raw net rating this season: points per 100 possessions better than opponents')}
@@ -400,21 +386,16 @@ VIEWS.standings = function standings() {
           ${th('luck', 'Luck', 'Actual wins minus expected wins: teams well above 0 usually come back down')}
           ${th('sosPlayed', 'Played', 'Average power of opponents already played (higher = harder)')}
           ${th('sosLeft', 'Ahead', 'Average power of opponents still to play (higher = harder)')}
-          ${th('projW', 'Proj. W–L', 'Average final record over 10,000 simulations of the remaining games')}
-          ${th('pPlayoffs', `Top ${pw.playoffSpots}`, comp === 'EuroCup' ? 'Chance of a top-4 finish in the group (play-offs)' : 'Chance of a top-8 finish (play-offs)')}
-          ${th('pFirst', '1st', 'Chance of finishing first')}
-          ${pw.relegation ? th('pRelegation', 'Releg.', 'Chance of finishing last (relegation)') : ''}</tr></thead>
+</tr></thead>
       <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : ''}"><td>${sortKey === 'power' ? t.rank : i + 1}</td><td class="l">${esc(t.team)}</td><td>${t.w}–${t.l}</td>
         <td><b>${signed(t.power)}</b></td><td>${signed(t.net)}</td><td>${f1(t.expW)}</td><td>${signed(t.luck)}</td>
-        <td>${signed(t.sosPlayed, false)}</td><td>${signed(t.sosLeft, false)}</td>
-        <td><b>${f1(t.projW)}–${f1(t.projL)}</b></td>${pctCell(t.pPlayoffs)}${pctCell(t.pFirst)}${pw.relegation ? pctCell(t.pRelegation) : ''}</tr>`).join('')}</tbody>
+        <td>${signed(t.sosPlayed, false)}</td><td>${signed(t.sosLeft, false)}</td></tr>`).join('')}</tbody>
     </table></div>
     <div class="card" style="max-width:900px;margin-top:14px"><h3>How to read it</h3>
       <ul class="legend">
         <li><b>Power</b><span class="muted">How good a team really is: points per 100 possessions better than an average team, corrected for the opponents it has faced and home court. Ranked by this. Early in the season last season's level counts as a starting point; it fades as games are played.</span></li>
         <li><b>Exp. W / Luck</b><span class="muted">Wins a team "deserves" from points scored and allowed, and how many more (or fewer) it actually has. Close wins are often luck and don't repeat.</span></li>
         <li><b>Schedule</b><span class="muted">Average power of opponents faced so far and still to come: above 0 = tougher than average.</span></li>
-        <li><b>Projection</b><span class="muted">The remaining schedule is played out 10,000 times with each team's power and home court; the record and percentages are the averages.${comp === 'GBL' ? ' Points deductions are included.' : ''}</span></li>
       </ul></div>
     ${comp === 'GBL' ? VIEWS.standingsOfficial().split('<h3 class="official-h">EuroCup')[0] : '<h3 class="official-h">EuroCup' + VIEWS.standingsOfficial().split('<h3 class="official-h">EuroCup')[1]}`;
 };
