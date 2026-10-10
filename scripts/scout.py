@@ -235,10 +235,16 @@ def gbl_scout(next_game, gbl_data):
     boxes = []
     for r in sorted(set(done_rounds)):
         page = gbl.fetch(f"EsakeResults?idchampionship={gbl.CHAMPIONSHIP}&idteam={tid}&idseason=00000001&series={r:02d}")
-        ids = re.findall(r"idgame=([0-9A-F]+)&mode=3", page.split("esake-news-box")[0])
-        if not ids:
+        block = page.split("esake-news-box")[0]
+        ids = re.findall(r"idgame=([0-9A-F]+)&mode=3", block)
+        info = re.findall(r'esake-program-game-info[^>]*>(?:<img[^>]*>)?([^<]*)<', block)
+        if not ids or not info or not gbl.finished(gbl.parse_date(info[0])):
+            continue  # this team's game in that round isn't over yet (or was moved)
+        try:
+            g = cached(f"GBL_{ids[0]}", lambda gid=ids[0]: gbl.parse_game(gid))
+        except Exception as e:
+            print("opponent game not readable yet:", ids[0], e)
             continue
-        g = cached(f"GBL_{ids[0]}", lambda gid=ids[0]: gbl.parse_game(gid))
         if not (g["hs"] or g["as"]):
             os.remove(os.path.join(CACHE, f"GBL_{ids[0]}.json"))  # not played yet; look again next run
             continue

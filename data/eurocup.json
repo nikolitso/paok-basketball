@@ -1,7 +1,7 @@
 {
  "competition": "BKT EuroCup",
  "season": "2026-27",
- "updated": "2026-10-08T21:08:05Z",
+ "updated": "2026-10-10T19:07:18Z",
  "source": "https://www.euroleaguebasketball.net/eurocup/",
  "group": "Group D",
  "staff": [
@@ -146,6 +146,16 @@
    "born": "1995-09-08",
    "from": "PAOK BC",
    "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/b0278278-1368-4b8a-8523-b8eb0b193410.png"
+  },
+  {
+   "no": "20",
+   "name": "Donatas Motiejunas",
+   "pos": "Center",
+   "nat": "LTU",
+   "height": 213,
+   "born": "1990-09-20",
+   "from": "Crvena Zvezda Meridianbet Belgrade",
+   "photo": null
   },
   {
    "no": "25",
