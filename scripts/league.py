@@ -63,13 +63,22 @@ def gbl_games():
     out = []
     for r in rounds:
         page = gbl.fetch(f"EsakeResults?idchampionship={gbl.CHAMPIONSHIP}&idseason=00000001&series={r:02d}")
-        for gid in dict.fromkeys(re.findall(r"idgame=([0-9A-F]+)&mode=3", page.split("esake-news-box")[0])):
+        for block in page.split("esake-news-box")[0].split('class="esake-program-game"')[1:]:
+            ids = re.findall(r"idgame=([0-9A-F]+)&mode=3", block)
+            info = re.findall(r'esake-program-game-info[^>]*>(?:<img[^>]*>)?([^<]*)<', block)
+            if not ids or not info or not gbl.finished(gbl.parse_date(info[0])):
+                continue  # not started, or still being played
+            gid = ids[0]
             path = os.path.join(CACHE, f"GBL_{gid}.json")
             if os.path.exists(path):
                 with open(path, encoding="utf-8") as f:
                     out.append(json.load(f))
                 continue
-            g = gbl.parse_game(gid)
+            try:
+                g = gbl.parse_game(gid)
+            except Exception as e:
+                print("GBL game not readable yet:", gid, e)
+                continue
             if not (g["hs"] or g["as"]) or len(g["teams"]) < 2:
                 continue  # not played yet
             game = {"group": "", "sides": [side(gbl.team_name(t["name"]), t["total"], t["players"]) for t in g["teams"]]}

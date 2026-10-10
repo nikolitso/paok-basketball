@@ -71,7 +71,8 @@ def plain(s):
 
 
 def team_name(greek):
-    g = plain(greek)
+    greek = greek.split("<")[0].strip()
+    g = plain(greek).replace("Φ", "F")  # e.g. "VIKOS ΦALCONS"
     for key, eng in TEAM_NAMES.items():
         if key in g:
             return eng
@@ -87,6 +88,14 @@ def athens_to_utc(day, month, hh, mm):
         return d - timedelta(days=(d.weekday() + 1) % 7)
     offset = 3 if last_sunday(3) <= local < last_sunday(10) else 2
     return (local - timedelta(hours=offset)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def finished(date_iso, hours=2.5):
+    """A game counts as finished only well after tip-off: ESAKE shows scores (and partial stats) while it's live."""
+    if not date_iso or not date_iso.endswith("Z"):
+        return False
+    tip = datetime.fromisoformat(date_iso.replace("Z", "+00:00"))
+    return datetime.now(timezone.utc) > tip + timedelta(hours=hours)
 
 
 def parse_date(s):
@@ -317,7 +326,7 @@ def league_games():
             home, score, away = spans[0], spans[1], spans[2]
             sc = re.findall(r"\d+", score)
             is_home = "ΠΑΟΚ" in plain(home)
-            played = len(sc) == 2
+            played = len(sc) == 2 and finished(parse_date(info[0]) if info else None)
             game = {
                 "comp": "GBL", "code": ids[0], "round": f"Round {r}", "phase": "Regular Season",
                 "date": parse_date(info[0]) if info else None, "home": is_home,

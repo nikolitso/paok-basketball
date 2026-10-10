@@ -83,8 +83,10 @@ def gbl_remaining():
             if len(cols) < 3:
                 continue
             home, score, away = [" ".join(gbl.cells(c)).replace("\xa0", " ").strip(' ">') for c in cols]
+            info = re.findall(r'esake-program-game-info[^>]*>(?:<img[^>]*>)?([^<]*)<', block)
+            done = gbl.finished(gbl.parse_date(info[0])) if info else False
             games.append({"home": gbl.team_name(home), "away": gbl.team_name(away),
-                          "played": len(re.findall(r"\d+", score)) == 2})
+                          "played": len(re.findall(r"\d+", score)) == 2 and done})
         sched[key] = games
     with open(path, "w", encoding="utf-8") as f:
         json.dump(sched, f, ensure_ascii=False)
