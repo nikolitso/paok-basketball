@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T21:10:27Z",
+ "updated": "2026-10-10T12:59:44Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -1568,111 +1568,93 @@
    ],
    "projection": {
     "paok": {
-     "score": 89.2,
+     "score": 85.5,
      "players": [
-      {
-       "name": "Cedi Osman",
-       "no": "6",
-       "min": 32,
-       "pts": 18.6,
-       "reb": 5.6,
-       "ast": 2.0,
-       "pir": 17.2
-      },
       {
        "name": "Kyle Alexander",
        "no": "8",
-       "min": 22,
-       "pts": 11.0,
-       "reb": 5.8,
-       "ast": 0.8,
-       "pir": 15.8
-      },
-      {
-       "name": "Nick Calathes",
-       "no": "33",
-       "min": 25,
-       "pts": 9.6,
-       "reb": 3.4,
-       "ast": 6.2,
-       "pir": 14.0
+       "min": 30,
+       "pts": 15.5,
+       "reb": 8.1,
+       "ast": 1.1,
+       "pir": 22.1
       },
       {
        "name": "Marcus Foster",
        "no": "17",
-       "min": 24,
-       "pts": 12.3,
-       "reb": 2.6,
-       "ast": 3.4,
-       "pir": 10.8
+       "min": 34,
+       "pts": 17.2,
+       "reb": 3.7,
+       "ast": 4.8,
+       "pir": 15.2
       },
       {
        "name": "Trevor Hudgins",
        "no": "12",
-       "min": 19,
-       "pts": 9.2,
-       "reb": 2.2,
-       "ast": 3.0,
-       "pir": 9.2
+       "min": 27,
+       "pts": 12.9,
+       "reb": 3.1,
+       "ast": 4.2,
+       "pir": 12.9
       },
       {
        "name": "Ben Moore",
        "no": "26",
-       "min": 18,
-       "pts": 6.1,
-       "reb": 4.8,
-       "ast": 0.6,
-       "pir": 9.2
+       "min": 26,
+       "pts": 8.6,
+       "reb": 6.7,
+       "ast": 0.8,
+       "pir": 12.9
       },
       {
        "name": "Breein Tyree",
        "no": "5",
-       "min": 10,
-       "pts": 9.4,
-       "reb": 0.8,
-       "ast": 0.4,
-       "pir": 7.4
+       "min": 14,
+       "pts": 13.2,
+       "reb": 1.1,
+       "ast": 0.6,
+       "pir": 10.4
       },
       {
        "name": "Naz Mitrou Long",
        "no": "1",
-       "min": 18,
-       "pts": 7.2,
-       "reb": 2.6,
-       "ast": 1.2,
-       "pir": 5.6
+       "min": 25,
+       "pts": 10.1,
+       "reb": 3.6,
+       "ast": 1.7,
+       "pir": 7.9
       },
       {
        "name": "Nikolaos Persidis",
        "no": "18",
-       "min": 13,
-       "pts": 2.5,
-       "reb": 2.6,
-       "ast": 0.4,
-       "pir": 3.0
+       "min": 18,
+       "pts": 3.5,
+       "reb": 3.7,
+       "ast": 0.6,
+       "pir": 4.2
       },
       {
        "name": "Nikos Chougkaz",
        "no": "9",
-       "min": 4,
-       "pts": 1.0,
-       "reb": 0.2,
-       "ast": 0.2,
-       "pir": 0.6
+       "min": 5,
+       "pts": 1.4,
+       "reb": 0.3,
+       "ast": 0.3,
+       "pir": 0.8
       },
       {
        "name": "Raiquan Gray",
        "no": "0",
-       "min": 10,
-       "pts": 1.8,
-       "reb": 1.0,
-       "ast": 0.2,
+       "min": 14,
+       "pts": 2.6,
+       "reb": 1.4,
+       "ast": 0.3,
        "pir": 0.0
       },
       {
        "name": "Giorgos Fillios",
        "no": "25",
-       "min": 0,
+       "min": 1,
        "pts": 0.0,
        "reb": 0.0,
        "ast": 0.0,
@@ -1681,11 +1663,11 @@
       {
        "name": "Athanasios Bazinas",
        "no": "77",
-       "min": 3,
-       "pts": 0.4,
+       "min": 4,
+       "pts": 0.6,
        "reb": 0.0,
-       "ast": 0.2,
-       "pir": -0.4
+       "ast": 0.3,
+       "pir": -0.6
       },
       {
        "name": "Dimitris Kaklamanakis",
@@ -1694,10 +1676,13 @@
        "pts": 0.0,
        "reb": 0.0,
        "ast": 0.0,
-       "pir": -0.4
+       "pir": -0.6
       }
      ],
-     "missing": [],
+     "missing": [
+      "Cedi Osman",
+      "Nick Calathes"
+     ],
      "pace": 73.0
     },
     "opp": {
@@ -1788,10 +1773,10 @@
      "missing": [],
      "pace": 73.0
     },
-    "winProb": 80,
+    "winProb": 70,
     "pace": 73.0,
-    "lineupSource": "assumed",
-    "note": ""
+    "lineupSource": "manual",
+    "note": "PAOK's official 12: Calathes rested, Osman and Omoruyi left out, Motiejunas not yet registered."
    }
   }
  ]
