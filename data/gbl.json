@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-11T16:01:00Z",
+ "updated": "2026-10-12T21:09:21Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -1961,30 +1961,6 @@
   },
   {
    "pos": 4,
-   "team": "Kolossos",
-   "paok": false,
-   "pts": 3,
-   "gp": 2,
-   "w": 1,
-   "l": 1,
-   "pf": 174,
-   "pa": 174,
-   "diff": 0
-  },
-  {
-   "pos": 5,
-   "team": "Mykonos",
-   "paok": false,
-   "pts": 3,
-   "gp": 2,
-   "w": 1,
-   "l": 1,
-   "pf": 167,
-   "pa": 167,
-   "diff": 0
-  },
-  {
-   "pos": 6,
    "team": "Aris",
    "paok": false,
    "pts": 3,
@@ -1996,7 +1972,7 @@
    "diff": 24
   },
   {
-   "pos": 7,
+   "pos": 5,
    "team": "AEK",
    "paok": false,
    "pts": 3,
@@ -2008,31 +1984,31 @@
    "diff": -9
   },
   {
+   "pos": 6,
+   "team": "Kolossos",
+   "paok": false,
+   "pts": 3,
+   "gp": 2,
+   "w": 1,
+   "l": 1,
+   "pf": 174,
+   "pa": 174,
+   "diff": 0
+  },
+  {
+   "pos": 7,
+   "team": "Mykonos",
+   "paok": false,
+   "pts": 3,
+   "gp": 2,
+   "w": 1,
+   "l": 1,
+   "pf": 167,
+   "pa": 167,
+   "diff": 0
+  },
+  {
    "pos": 8,
-   "team": "Maroussi",
-   "paok": false,
-   "pts": 2,
-   "gp": 2,
-   "w": 0,
-   "l": 2,
-   "pf": 149,
-   "pa": 173,
-   "diff": -24
-  },
-  {
-   "pos": 9,
-   "team": "Doxa Lefkadas",
-   "paok": false,
-   "pts": 2,
-   "gp": 2,
-   "w": 0,
-   "l": 2,
-   "pf": 148,
-   "pa": 177,
-   "diff": -29
-  },
-  {
-   "pos": 10,
    "team": "Panathinaikos",
    "paok": false,
    "pts": 2,
@@ -2044,7 +2020,7 @@
    "diff": 54
   },
   {
-   "pos": 11,
+   "pos": 9,
    "team": "Olympiacos",
    "paok": false,
    "pts": 2,
@@ -2056,7 +2032,7 @@
    "diff": 26
   },
   {
-   "pos": 12,
+   "pos": 10,
    "team": "Iraklis",
    "paok": false,
    "pts": 2,
@@ -2068,7 +2044,7 @@
    "diff": -12
   },
   {
-   "pos": 13,
+   "pos": 11,
    "team": "Promitheas",
    "paok": false,
    "pts": 2,
@@ -2080,7 +2056,7 @@
    "diff": -31
   },
   {
-   "pos": 14,
+   "pos": 12,
    "team": "Vikos Falcons",
    "paok": false,
    "pts": 2,
@@ -2090,6 +2066,30 @@
    "pf": 148,
    "pa": 188,
    "diff": -40
+  },
+  {
+   "pos": 13,
+   "team": "Maroussi",
+   "paok": false,
+   "pts": 2,
+   "gp": 2,
+   "w": 0,
+   "l": 2,
+   "pf": 149,
+   "pa": 173,
+   "diff": -24
+  },
+  {
+   "pos": 14,
+   "team": "Doxa Lefkadas",
+   "paok": false,
+   "pts": 2,
+   "gp": 2,
+   "w": 0,
+   "l": 2,
+   "pf": 148,
+   "pa": 177,
+   "diff": -29
   }
  ]
 }
