@@ -5,6 +5,7 @@ Box scores of finished games are cached in data/eurocup_box/ so each is download
 """
 import json
 import os
+import time
 import urllib.request
 from datetime import datetime, timezone
 
@@ -17,11 +18,18 @@ DATA = os.path.join(ROOT, "data")
 BOX_DIR = os.path.join(DATA, "eurocup_box")
 
 
-def get(path):
+def get(path, tries=4):
     url = API.format(season=SEASON) + path
     req = urllib.request.Request(url, headers={"User-Agent": "paok-basketball-site"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)
+    for attempt in range(tries):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.load(r)
+        except (OSError, ValueError) as e:  # dropped connections, timeouts, truncated responses
+            if attempt == tries - 1:
+                raise
+            print(f"EuroCup feed: {e}; retrying in {5 * 2 ** attempt}s")
+            time.sleep(5 * 2 ** attempt)
 
 
 

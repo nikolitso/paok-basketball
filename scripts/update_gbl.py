@@ -9,6 +9,7 @@ import html
 import json
 import os
 import re
+import time
 import unicodedata
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -52,10 +53,21 @@ def is_excluded(name, names):
     return name.lower().replace("-", " ").split()[-1] in names
 
 
-def fetch(path):
+def fetch(path, tries=4):
+    """GET a page from esake.gr. Its server sometimes drops connections, so retry with growing pauses,
+    and pause briefly between requests so a full update doesn't hammer it."""
     req = urllib.request.Request(BASE + path, headers={"User-Agent": "Mozilla/5.0 (paok-basketball-site)"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return r.read().decode("utf-8", errors="replace")
+    for attempt in range(tries):
+        try:
+            time.sleep(0.4)
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.read().decode("utf-8", errors="replace")
+        except (OSError, ValueError) as e:  # URLError, connection reset, timeouts, incomplete reads
+            if attempt == tries - 1:
+                raise
+            wait = 5 * 2 ** attempt
+            print(f"esake.gr: {e}; retrying in {wait}s")
+            time.sleep(wait)
 
 
 def cells(page):

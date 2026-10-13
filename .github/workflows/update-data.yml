@@ -41,14 +41,24 @@ jobs:
       - name: Install Excel reader (play-by-play sheets for plus/minus)
         run: pip install openpyxl
       - name: EuroCup
+        id: eurocup
+        continue-on-error: true
         run: python scripts/update_eurocup.py
       - name: Greek League (ESAKE)
+        id: gbl
+        continue-on-error: true
         run: python scripts/update_gbl.py
       - name: League-wide team stats and averages
+        id: league
+        continue-on-error: true
         run: python scripts/league.py
       - name: Power ratings and season projections
+        id: power
+        continue-on-error: true
         run: python scripts/power.py
       - name: Next-game scouting and projections
+        id: scout
+        continue-on-error: true
         run: python scripts/scout.py
       - name: Highlight videos
         run: python scripts/highlights.py || echo "highlights unavailable, keeping previous links"
@@ -66,3 +76,9 @@ jobs:
           git commit -m "Update stats $(date -u +'%Y-%m-%d %H:%M')"
           git pull --rebase
           git push
+      - name: Report any step that failed (its data was kept from the last good run)
+        if: steps.eurocup.outcome == 'failure' || steps.gbl.outcome == 'failure' || steps.league.outcome == 'failure' || steps.power.outcome == 'failure' || steps.scout.outcome == 'failure'
+        run: |
+          echo "EuroCup: ${{ steps.eurocup.outcome }} | Greek League: ${{ steps.gbl.outcome }} | League: ${{ steps.league.outcome }} | Power: ${{ steps.power.outcome }} | Scouting: ${{ steps.scout.outcome }}"
+          echo "Everything that succeeded has been saved. Re-run to retry the failed part."
+          exit 1
