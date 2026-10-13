@@ -277,3 +277,5 @@ h3.official-h { margin-top: 30px; }
 .profile-grid > .impact > .impact-line { margin: 12px 0 10px; }
 .profile-grid > .impact > .def-line { margin: 10px 0 8px; align-self: start; }
 .profile-grid > .impact > .tags { align-content: flex-start; align-self: start; }
+
+.pname { display: block; font: 700 21px/1.15 Oswald, Impact, sans-serif; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 2px; }
