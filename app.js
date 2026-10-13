@@ -542,8 +542,10 @@ function profileTags(p, regulars) {
 const sname = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
 const yearsOld = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
 
+const surnameOnly = (name) => name.split(' ').slice(1).join(' ') || name;
+const cardName = (name) => ((state.sharedSurnames || new Set()).has(surnameOnly(name)) ? `${name[0]}. ${surnameOnly(name)}` : surnameOnly(name));
 function profileCard(r, p, regulars, emptyText) {
-  const head = (extra) => `<div class="impact-head"><div><b class="pname">${esc(r.name)}</b>${extra}</div>${p ? `<div class="pir-badge">${f1(p.pir)}<span>PIR</span></div>` : ''}</div>`;
+  const head = (extra) => `<div class="impact-head"><div><b class="pname" title="${esc(r.name)}">${esc(cardName(r.name))}</b>${extra}</div>${p ? `<div class="pir-badge">${f1(p.pir)}<span>PIR</span></div>` : ''}</div>`;
   if (!p) return `<div class="card impact muted-card">${head('')}<p class="muted" style="margin:14px 0 0">${esc(emptyText)}</p></div>`;
   const { off, def } = profileTags(p, regulars);
   const pill = (t, cls = '') => `<span class="pill ${cls}" title="${esc(RULE_TEXT[t])}">${esc(t)}</span>`;
@@ -588,6 +590,10 @@ VIEWS.profiles = function profiles() {
       <a href="#scout" onclick="state.filters.scout='${rep.comp}'">Scouting report →</a></p>`;
   }
   items.sort((a, b) => (b.p ? b.p.pir : -99) - (a.p ? a.p.pir : -99));
+  // cards show surnames only; teammates who share one get their first initial too
+  const count = {};
+  items.forEach(({ r }) => { const k = surnameOnly(r.name); count[k] = (count[k] || 0) + 1; });
+  state.sharedSurnames = new Set(Object.keys(count).filter((k) => count[k] > 1));
   const legend = (title, rules, cls) => `<div class="card"><h3>${title}</h3><ul class="legend">${rules.map(([n, d]) => `<li><span class="pill ${{ 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[n] || cls}">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul></div>`;
   return `<h2>Player Profiles</h2>${seg('profTeam', teams)}${intro}
     <div class="grid three profile-grid">${items.map(({ r, p }) => profileCard(r, p, regulars, emptyText)).join('')}</div>
