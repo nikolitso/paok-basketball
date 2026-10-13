@@ -545,7 +545,7 @@ const yearsOld = (b) => { if (!b) return null; const d = new Date(b), n = new Da
 function profileCard(r, p, regulars, emptyText) {
   const h = r.height && r.height >= 160 ? (r.height / 100).toFixed(2) + ' m' : ''; // feeds sometimes carry placeholder heights
   const bio = [r.posCode || r.pos, h].filter(Boolean).map(esc).join(' · ');
-  const head = (extra) => `<div class="impact-head"><span class="num">${esc(r.no || (p && p.no) || '–')}</span><div><b>${esc(r.name)}</b><div class="muted" style="font-size:12px">${bio}</div>${extra}</div>${p ? `<div class="pir-badge">${f1(p.pir)}<span>PIR</span></div>` : ''}</div>`;
+  const head = (extra) => `<div class="impact-head"><div><b>${esc(r.name)}</b><div class="muted" style="font-size:12px">${bio}</div>${extra}</div>${p ? `<div class="pir-badge">${f1(p.pir)}<span>PIR</span></div>` : ''}</div>`;
   if (!p) return `<div class="card impact muted-card">${head('')}<p class="muted" style="margin:14px 0 0">${esc(emptyText)}</p></div>`;
   const { off, def } = profileTags(p, regulars);
   const pill = (t, cls = '') => `<span class="pill ${cls}" title="${esc(RULE_TEXT[t])}">${esc(t)}</span>`;
