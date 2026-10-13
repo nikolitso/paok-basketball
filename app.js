@@ -554,10 +554,10 @@ function profileCard(r, p, regulars, emptyText) {
   return `<div class="card impact">
     ${head(`<div class="muted" style="font-size:12px">${p.gp} game${p.gp > 1 ? 's' : ''} · ${f1(p.min)} min</div>`)}
     <div class="impact-line"><div><b>${f1(p.pts)}</b><span>PTS</span></div><div><b>${f1(p.reb)}</b><span>REB</span></div><div><b>${f1(p.ast)}</b><span>AST</span></div><div><b>${p.fg3p === null || p.fg3p === undefined ? '–' : f1(p.fg3p) + '%'}</b><span>3P</span></div></div>
-    ${off.length ? `<div class="tags">${off.map((t) => pill(t)).join('')}</div>` : ''}
+    <div class="tags">${off.map((t) => pill(t)).join('')}</div>
     <div class="def-line"><span class="label">Defence</span>
       <div><b>${f1(p.stl)}</b><span>STL</span></div><div><b>${f1(p.blk)}</b><span>BLK</span></div><div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b class="${pmClass(p.pm)}">${pm}</b><span>+/-</span></div></div>
-    ${def.length ? `<div class="tags">${def.map((t) => pill(t, { 'Foul trouble': '', 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[t] ?? 'def')).join('')}</div>` : ''}
+    <div class="tags">${def.map((t) => pill(t, { 'Foul trouble': '', 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[t] ?? 'def')).join('')}</div>
   </div>`;
 }
 
@@ -593,7 +593,7 @@ VIEWS.profiles = function profiles() {
   items.sort((a, b) => (b.p ? b.p.pir : -99) - (a.p ? a.p.pir : -99));
   const legend = (title, rules, cls) => `<div class="card"><h3>${title}</h3><ul class="legend">${rules.map(([n, d]) => `<li><span class="pill ${{ 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[n] || cls}">${esc(n)}</span><span class="muted">${esc(d)}</span></li>`).join('')}</ul></div>`;
   return `<h2>Player Profiles</h2>${seg('profTeam', teams)}${intro}
-    <div class="grid three">${items.map(({ r, p }) => profileCard(r, p, regulars, emptyText)).join('')}</div>
+    <div class="grid three profile-grid">${items.map(({ r, p }) => profileCard(r, p, regulars, emptyText)).join('')}</div>
     <h2>What the badges mean</h2>
     <div class="grid two">${legend('Offence &amp; all-round', TAG_RULES, '')}${legend('Defence', DEF_RULES, 'def')}</div>
     ${PIR_EXPLAINER}

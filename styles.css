@@ -270,3 +270,10 @@ h3.official-h { margin-top: 30px; }
 
 .links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .report.hl-link { color: #c62828; }
+
+/* player profiles: cards in the same row share row heights, so badges and the defence line line up */
+.profile-grid > .impact { display: grid; grid-template-rows: subgrid; grid-row: span 5; row-gap: 0; align-content: start; }
+.profile-grid > .impact > * { margin-top: 0; margin-bottom: 0; }
+.profile-grid > .impact > .impact-line { margin: 12px 0 10px; }
+.profile-grid > .impact > .def-line { margin: 10px 0 8px; align-self: start; }
+.profile-grid > .impact > .tags { align-content: flex-start; align-self: start; }
