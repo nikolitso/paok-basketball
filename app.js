@@ -552,7 +552,7 @@ function profileCard(r, p, regulars, emptyText) {
   const pm = p.pm === null || p.pm === undefined ? '–' : (p.pm > 0 ? '+' : '') + f1(p.pm);
   return `<div class="card impact">
     ${head(`<div class="muted" style="font-size:12px">${p.gp} game${p.gp > 1 ? 's' : ''} · ${f1(p.min)} min</div>`)}
-    <div class="impact-line"><div><b>${f1(p.pts)}</b><span>PTS</span></div><div><b>${f1(p.reb)}</b><span>REB</span></div><div><b>${f1(p.ast)}</b><span>AST</span></div><div><b>${p.fg3p === null || p.fg3p === undefined ? '–' : f1(p.fg3p) + '%'}</b><span>3P</span></div></div>
+    <div class="impact-line"><div><b>${f1(p.pts)}</b><span>PTS</span></div><div><b>${f1(p.reb)}</b><span>REB</span></div>${p.ast > 1 ? `<div><b>${f1(p.ast)}</b><span>AST</span></div>` : '<div aria-hidden="true"></div>'}<div><b>${p.fg3p === null || p.fg3p === undefined ? '–' : f1(p.fg3p) + '%'}</b><span>3P</span></div></div>
     <div class="tags">${off.map((t) => pill(t)).join('')}</div>
     <div class="def-line"><span class="label">Defence</span>
       ${p.stl > 0.5 ? `<div><b>${f1(p.stl)}</b><span>STL</span></div>` : '<div aria-hidden="true"></div>'}${p.blk > 0.5 ? `<div><b>${f1(p.blk)}</b><span>BLK</span></div>` : '<div aria-hidden="true"></div>'}<div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b class="${pmClass(p.pm)}">${pm}</b><span>+/-</span></div></div>
