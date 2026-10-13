@@ -50,6 +50,8 @@ jobs:
         run: python scripts/power.py
       - name: Next-game scouting and projections
         run: python scripts/scout.py
+      - name: Highlight videos
+        run: python scripts/highlights.py || echo "highlights unavailable, keeping previous links"
       - name: Player photos and profiles (paokbc.gr)
         run: python scripts/update_paokbc.py || echo "paokbc.gr unavailable, keeping previous data"
       - name: Commit if anything changed
