@@ -543,7 +543,12 @@ const sname = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
 const yearsOld = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
 
 // short position next to the name: PG/SG/SF/PF/C when known, else G/F/C
-const posLabel = (r) => r.posCode || ({ Guard: 'G', Forward: 'F', Center: 'C' }[r.pos] || r.pos || '');
+const infoFor = (name) => {
+  const parts = name.toLowerCase().split(' ').slice(1).join(' ');
+  return [parts.replace(/[^a-z]/g, ''), ...parts.split(/[\s-]+/)].map((k) => (state.info || {})[k]).find(Boolean) || {};
+};
+// all positions a PAOK player plays (from the player details file), else the single listed one
+const posLabel = (r) => (((state.filters.profTeam === 'PAOK') && infoFor(r.name).positions) || r.posCode || ({ Guard: 'G', Forward: 'F', Center: 'C' }[r.pos] || r.pos || '')).replace(/\//g, ' / ');
 const surnameOnly = (name) => name.split(' ').slice(1).join(' ') || name;
 const cardName = (name) => ((state.sharedSurnames || new Set()).has(surnameOnly(name)) ? `${name[0]}. ${surnameOnly(name)}` : surnameOnly(name));
 function profileCard(r, p, regulars, emptyText) {

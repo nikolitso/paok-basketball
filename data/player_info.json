@@ -1,80 +1,94 @@
 {
- "_note": "Hand-maintained player details (keyed by surname). prev = club before joining PAOK; joined = when he arrived at PAOK; until = contract end (summer of that year). Sources: paokbc.gr, eurohoops.net, foxbet.gr contracts list, Wikipedia, iefimerida.gr. Researched 4 Oct 2026.",
+ "_note": "Hand-maintained player details (keyed by surname). prev = club before joining PAOK; joined = when he arrived at PAOK; until = contract end (summer of that year); positions = all positions he plays (first = main). Sources: paokbc.gr, eurohoops.net, foxbet.gr contracts list, Wikipedia, iefimerida.gr. Researched 4 Oct 2026.",
  "gray": {
   "prev": "AEK",
   "joined": "2026",
-  "until": "2028"
+  "until": "2028",
+  "positions": "PF/SF"
  },
  "mitroulong": {
   "prev": "Napoli Basket",
   "joined": "2026",
-  "until": "2029"
+  "until": "2029",
+  "positions": "PG/SG"
  },
  "tyree": {
   "prev": "Igokea",
   "joined": "Dec 2025",
-  "until": "2027"
+  "until": "2027",
+  "positions": "PG/SG"
  },
  "osman": {
   "prev": "Panathinaikos",
   "joined": "2026",
-  "until": "2029"
+  "until": "2029",
+  "positions": "SF/PF"
  },
  "alexander": {
   "prev": "Türk Telekom",
   "joined": "Jun 2026",
   "until": "2028",
-  "birthplace": "Scarborough, Ontario"
+  "birthplace": "Scarborough, Ontario",
+  "positions": "C/PF"
  },
  "chougkaz": {
   "prev": "MoraBanc Andorra",
   "joined": "2025",
   "until": "2028",
-  "birthplace": "Athens"
+  "birthplace": "Athens",
+  "positions": "PF/C"
  },
  "hudgins": {
   "prev": "Le Mans",
   "joined": "2026",
-  "until": "2028"
+  "until": "2028",
+  "positions": "PG"
  },
  "kaklamanakis": {
   "prev": "Peristeri",
   "joined": "Jun 2026",
   "until": "2028",
   "birthplace": "Athens",
-  "note": "3rd spell at PAOK (also 2020-21 and 2023)"
+  "note": "3rd spell at PAOK (also 2020-21 and 2023)",
+  "positions": "C"
  },
  "foster": {
   "prev": "Alvark Tokyo",
   "joined": "Jun 2026",
-  "until": "2028"
+  "until": "2028",
+  "positions": "SG/PG"
  },
  "persidis": {
   "prev": "Aris",
   "joined": "Jul 2024",
-  "until": "2028"
+  "until": "2028",
+  "positions": "PF/SF"
  },
  "fillios": {
   "prev": "Aris",
   "joined": "Sep 2025",
-  "until": "2027"
+  "until": "2027",
+  "positions": "SG/PG"
  },
  "moore": {
   "prev": "Hapoel Gilboa Galil",
   "joined": "2025",
   "until": "2028",
-  "birthplace": "Bolingbrook, Illinois"
+  "birthplace": "Bolingbrook, Illinois",
+  "positions": "PF/C"
  },
  "calathes": {
   "prev": "Partizan",
   "joined": "2026",
   "until": "2028",
-  "birthplace": "Casselberry, Florida"
+  "birthplace": "Casselberry, Florida",
+  "positions": "PG"
  },
  "bazinas": {
   "prev": "Promitheas Patras",
   "joined": "2026",
-  "until": "2030"
+  "until": "2030",
+  "positions": "PG/SG"
  },
  "spanos": {
   "prev": "Deka",
@@ -89,6 +103,7 @@
   "joined": "Oct 2026",
   "until": "2027",
   "birthplace": "Kaunas, Lithuania",
-  "note": "Ex-NBA (Rockets, Pelicans, Spurs); 2x French champion with Monaco"
+  "note": "Ex-NBA (Rockets, Pelicans, Spurs); 2x French champion with Monaco",
+  "positions": "PF/C"
  }
 }
