@@ -159,13 +159,13 @@ main { padding-bottom: 48px; }
 .winbar { height: 8px; background: #444; border-radius: 99px; overflow: hidden; margin: 12px 0 8px; max-width: 420px; }
 .winbar div { height: 100%; background: var(--white); }
 .muted-card { opacity: .6; }
-.def-line { display: grid; grid-template-columns: auto repeat(5, 1fr); gap: 6px; align-items: center; text-align: center; margin: 12px 0 8px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.def-line { display: grid; grid-template-columns: auto repeat(4, 1fr); gap: 6px; align-items: center; text-align: center; margin: 12px 0 8px; padding-top: 10px; border-top: 1px dashed var(--line); }
 .def-line .label { text-align: left; }
 .def-line b { display: block; font: 700 16px Oswald, sans-serif; }
 .def-line span:not(.label) { font-size: 10px; color: var(--muted); letter-spacing: .06em; }
 .pill.def { background: var(--soft); border-style: dashed; }
 .tags { margin-top: 4px; }
-@media (max-width: 400px) { .def-line { grid-template-columns: repeat(5, 1fr); } .def-line .label { grid-column: 1 / -1; } }
+@media (max-width: 400px) { .def-line { grid-template-columns: repeat(4, 1fr); } .def-line .label { grid-column: 1 / -1; } }
 
 /* plus/minus colours */
 .pos-text { color: #157f3b; font-weight: 700; }
@@ -272,10 +272,15 @@ h3.official-h { margin-top: 30px; }
 .report.hl-link { color: #c62828; }
 
 /* player profiles: cards in the same row share row heights, so badges and the defence line line up */
-.profile-grid > .impact { display: grid; grid-template-rows: subgrid; grid-row: span 5; row-gap: 0; align-content: start; }
+.profile-grid > .impact { display: grid; grid-template-rows: subgrid; grid-row: span 6; row-gap: 0; align-content: start; }
 .profile-grid > .impact > * { margin-top: 0; margin-bottom: 0; }
 .profile-grid > .impact > .impact-line { margin: 12px 0 10px; }
 .profile-grid > .impact > .def-line { margin: 10px 0 8px; align-self: start; }
 .profile-grid > .impact > .tags { align-content: flex-start; align-self: start; }
 
 .pname { display: block; font: 700 21px/1.15 Oswald, Impact, sans-serif; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 2px; }
+
+.pm-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.pm-row:empty { margin-top: 0; }
+.pm-row b { font: 700 18px Oswald, sans-serif; }
+.pm-row .muted { font-size: 12px; }

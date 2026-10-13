@@ -501,13 +501,13 @@ const TAG_RULES = [
   ['3-pt threat', '1.5+ threes made per game at 35%+'],
   ['Gets to the line', '4+ free-throw attempts per game'],
   ['Disruptor', '2+ steals and blocks combined per game'],
+  ['Positive +/-', 'His team outscores opponents while he is on court, at both ends (plus/minus above 0)'],
+  ['Negative +/-', 'His team is outscored while he is on court, at both ends (plus/minus below 0)'],
 ];
 const DEF_RULES = [
   ['Ball hawk', '1.5+ steals per game'],
   ['Rim protector', '1+ blocks per game'],
   ['Defensive glass', 'Leads the team in defensive rebounds, or 5+ per game'],
-  ['Positive +/-', 'PAOK outscore opponents while he is on court (plus/minus above 0)'],
-  ['Negative +/-', 'PAOK are outscored while he is on court (plus/minus below 0)'],
   ['Foul trouble', '3.5+ personal fouls per game'],
 ];
 const RULE_TEXT = Object.fromEntries([...TAG_RULES, ...DEF_RULES]);
@@ -555,8 +555,13 @@ function profileCard(r, p, regulars, emptyText) {
     <div class="impact-line"><div><b>${f1(p.pts)}</b><span>PTS</span></div><div><b>${f1(p.reb)}</b><span>REB</span></div>${p.ast > 1 ? `<div><b>${f1(p.ast)}</b><span>AST</span></div>` : '<div aria-hidden="true"></div>'}<div><b>${p.fg3p === null || p.fg3p === undefined ? '–' : f1(p.fg3p) + '%'}</b><span>3P</span></div></div>
     <div class="tags">${off.map((t) => pill(t)).join('')}</div>
     <div class="def-line"><span class="label">Defence</span>
-      ${p.stl > 0.5 ? `<div><b>${f1(p.stl)}</b><span>STL</span></div>` : '<div aria-hidden="true"></div>'}${p.blk > 0.5 ? `<div><b>${f1(p.blk)}</b><span>BLK</span></div>` : '<div aria-hidden="true"></div>'}<div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b class="${pmClass(p.pm)}">${pm}</b><span>+/-</span></div></div>
-    <div class="tags">${def.map((t) => pill(t, { 'Foul trouble': '', 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[t] ?? 'def')).join('')}</div>
+      ${p.stl > 0.5 ? `<div><b>${f1(p.stl)}</b><span>STL</span></div>` : '<div aria-hidden="true"></div>'}${p.blk > 0.5 ? `<div><b>${f1(p.blk)}</b><span>BLK</span></div>` : '<div aria-hidden="true"></div>'}<div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div></div>
+    <div class="tags">${def.filter((t) => !t.endsWith('+/-')).map((t) => pill(t, t === 'Foul trouble' ? '' : 'def')).join('')}</div>
+    <div class="pm-row">${(() => {
+      // plus/minus covers the whole game (offence and defence), so it sits on its own row
+      const t = def.find((x) => x.endsWith('+/-'));
+      return t ? `${pill(t, t.startsWith('Positive') ? 'pos' : 'neg')}<b class="${pmClass(p.pm)}">${pm}</b><span class="muted">per game</span>` : '';
+    })()}</div>
   </div>`;
 }
 
