@@ -553,7 +553,7 @@ function profileCard(r, p, regulars, emptyText) {
     <div class="impact-line"><div><b>${f1(p.pts)}</b><span>PTS</span></div><div><b>${f1(p.reb)}</b><span>REB</span></div><div><b>${f1(p.ast)}</b><span>AST</span></div><div><b>${p.fg3p === null || p.fg3p === undefined ? '–' : f1(p.fg3p) + '%'}</b><span>3P</span></div></div>
     <div class="tags">${off.map((t) => pill(t)).join('')}</div>
     <div class="def-line"><span class="label">Defence</span>
-      <div><b>${f1(p.stl)}</b><span>STL</span></div><div><b>${f1(p.blk)}</b><span>BLK</span></div><div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b class="${pmClass(p.pm)}">${pm}</b><span>+/-</span></div></div>
+      <div><b>${f1(p.stl)}</b><span>STL</span></div>${p.blk > 0.5 ? `<div><b>${f1(p.blk)}</b><span>BLK</span></div>` : '<div aria-hidden="true"></div>'}<div><b>${f1(p.dreb)}</b><span>DREB</span></div><div><b>${f1(p.pf)}</b><span>PF</span></div><div><b class="${pmClass(p.pm)}">${pm}</b><span>+/-</span></div></div>
     <div class="tags">${def.map((t) => pill(t, { 'Foul trouble': '', 'Positive +/-': 'pos', 'Negative +/-': 'neg' }[t] ?? 'def')).join('')}</div>
   </div>`;
 }
