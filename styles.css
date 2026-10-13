@@ -267,3 +267,6 @@ tr.sub td b { color: var(--ink); font-weight: 600; }
 table.power td.pct { background: linear-gradient(90deg, rgba(31, 78, 140, .18) var(--p), transparent var(--p)); }
 tr.hl td.pct { background: linear-gradient(90deg, rgba(255, 255, 255, .25) var(--p), transparent var(--p)); }
 h3.official-h { margin-top: 30px; }
+
+.links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.report.hl-link { color: #c62828; }

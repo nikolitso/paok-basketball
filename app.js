@@ -28,8 +28,8 @@ async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
   let additions;
-  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} }))]);
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power, state.highlights] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} })), get('highlights.json').catch(() => ({}))]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
@@ -831,10 +831,13 @@ function extrasSection(games) {
     </table></div>
     ${n < games.length ? `<p class="note">Based on ${n} of ${games.length} games (not published for the others).</p>` : ''}`;
 }
+const highlightFor = (g) => (state.highlights || {})[String(g.code)];
 function linkFor(g) {
-  if (!g.url) return '';
-  const label = g.played ? 'Match report' : 'Game page';
-  return `<a class="report" href="${esc(g.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${label} ↗</a>`;
+  const links = [];
+  if (g.url) links.push(`<a class="report" href="${esc(g.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${g.played ? 'Match report' : 'Game page'} ↗</a>`);
+  const hl = highlightFor(g);
+  if (hl) links.push(`<a class="report hl-link" href="${esc(hl)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Highlights ▶</a>`);
+  return links.length ? `<div class="links">${links.join('')}</div>` : '';
 }
 const PIR_EXPLAINER = `
   <div class="card pir">
@@ -894,7 +897,7 @@ function openBox(code) {
     <td>${t.oreb}</td><td>${t.dreb}</td><td>${t.reb}</td><td>${t.ast}</td><td>${t.stl}</td><td>${t.tov}</td><td>${t.blk}</td><td>${t.pf}</td><td>${t.pir}</td>${hasPm ? '<td></td>' : ''}</tr>`;
   $('#box-title').textContent = `PAOK ${g.us}–${g.them} ${g.opp} · ${compName(g.comp)} ${g.round}`;
   const gp = gamePoss(g);
-  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)} · ${f1(gp)} possessions · PAOK ${f1((100 * g.us) / gp)} pts per 100 poss vs ${f1((100 * g.them) / gp)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Match report ↗</a>` : ''}</p>
+  $('#box-body').innerHTML = `<p class="muted" style="margin-top:0">${fmtDate(g.date, { year: 'numeric' })} · ${esc(g.venue)} · ${f1(gp)} possessions · PAOK ${f1((100 * g.us) / gp)} pts per 100 poss vs ${f1((100 * g.them) / gp)}${g.url ? ` · <a href="${esc(g.url)}" target="_blank" rel="noopener">Match report ↗</a>` : ''}${highlightFor(g) ? ` · <a href="${esc(highlightFor(g))}" target="_blank" rel="noopener">Highlights ▶</a>` : ''}</p>
     <div class="table-wrap"><table>
     <thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>2P</th><th>3P</th><th>FT</th><th>OR</th><th>DR</th><th>REB</th><th>AST</th><th>STL</th><th>TO</th><th>BLK</th><th>PF</th><th>PIR</th>${hasPm ? '<th>+/-</th>' : ''}</tr></thead>
     <tbody>${rows}${tot(g.box.team, 'PAOK')}${tot(g.box.opp, esc(g.opp)).replace('class="hl"', '')}</tbody></table></div>
