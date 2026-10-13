@@ -14,6 +14,7 @@ The **Update stats** GitHub Action runs at **23:59 Greek time** and refreshes, i
 - [ ] Power ratings (Standings page)
 - [ ] Next-game scouting and match-day projections
 - [ ] Player photos and staff (club site)
+- [ ] Highlight videos: found on the EuroCup and Greek League YouTube channels and linked on each game
 
 **Check it ran (once a week is enough):** GitHub → *Actions* → *Update stats*: the latest run is green.
 If a run is red or missing: open it, click **Re-run all jobs**, or use **Run workflow** for a fresh run. A one-off red run is usually GitHub having no free server; just run it again.
@@ -42,6 +43,7 @@ If a run is red or missing: open it, click **Re-run all jobs**, or use **Run wor
 
 ### Quick check after the update
 - [ ] Schedule: result and W/L, "Match report" link, box score opens
+- [ ] Highlights ▶ link on the game (automatic; if missing after two days or from another channel, send Claude the YouTube link)
 - [ ] Home: last result, records, form
 - [ ] Team Stats / Player Stats / Player Profiles include the game; on/off table updated
 - [ ] Standings (power + official) and League page show the new round
