@@ -542,10 +542,12 @@ function profileTags(p, regulars) {
 const sname = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
 const yearsOld = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
 
+// short position next to the name: PG/SG/SF/PF/C when known, else G/F/C
+const posLabel = (r) => r.posCode || ({ Guard: 'G', Forward: 'F', Center: 'C' }[r.pos] || r.pos || '');
 const surnameOnly = (name) => name.split(' ').slice(1).join(' ') || name;
 const cardName = (name) => ((state.sharedSurnames || new Set()).has(surnameOnly(name)) ? `${name[0]}. ${surnameOnly(name)}` : surnameOnly(name));
 function profileCard(r, p, regulars, emptyText) {
-  const head = (extra) => `<div class="impact-head"><div><b class="pname" title="${esc(r.name)}">${esc(cardName(r.name))}</b>${extra}</div>${p ? `<div class="pir-badge">${f1(p.pir)}<span>PIR</span></div>` : ''}</div>`;
+  const head = (extra) => `<div class="impact-head"><div><div class="pname-row"><b class="pname" title="${esc(r.name)}">${esc(cardName(r.name))}</b>${posLabel(r) ? `<span class="ppos">${esc(posLabel(r))}</span>` : ''}</div>${extra}</div>${p ? `<div class="pir-badge">${f1(p.pir)}<span>PIR</span></div>` : ''}</div>`;
   if (!p) return `<div class="card impact muted-card">${head('')}<p class="muted" style="margin:14px 0 0">${esc(emptyText)}</p></div>`;
   const { off, def } = profileTags(p, regulars);
   const pill = (t, cls = '') => `<span class="pill ${cls}" title="${esc(RULE_TEXT[t])}">${esc(t)}</span>`;
