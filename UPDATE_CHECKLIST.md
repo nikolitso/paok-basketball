@@ -6,7 +6,9 @@ Site: https://antonisnikolitsopoulos.com/paok-basketball/ · Repo: `nikolitso/pa
 
 ## 1. Every night: automatic (nothing to do)
 
-The **Update stats** GitHub Action runs at **23:59 Greek time** and refreshes, in order:
+The **Update stats** GitHub Action runs at **23:59 Greek time** and follows the calendar (`scripts/plan.py`):
+EuroCup only after a EuroCup matchday, Greek League only after a league round or while a PAOK result is still missing,
+nothing on days without games; Mondays and manual runs refresh everything. What it can refresh, in order:
 
 - [ ] EuroCup: roster, schedule, results, box scores, Group D table
 - [ ] Greek League: roster, schedule, results, box scores, +/- (from the play-by-play), table
@@ -15,6 +17,8 @@ The **Update stats** GitHub Action runs at **23:59 Greek time** and refreshes, i
 - [ ] Next-game scouting and match-day projections
 - [ ] Player photos and staff (club site)
 - [ ] Highlight videos: found on the EuroCup and Greek League YouTube channels and linked on each game
+
+**Update now:** https://github.com/nikolitso/paok-basketball/actions/workflows/update-data.yml → **Run workflow ▾** → green **Run workflow** (refreshes everything).
 
 **Check it ran (once a week is enough):** GitHub → *Actions* → *Update stats*: the latest run is green.
 If a run is red or missing: open it, click **Re-run all jobs**, or use **Run workflow** for a fresh run. A one-off red run is usually GitHub having no free server; just run it again.

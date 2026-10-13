@@ -86,6 +86,7 @@ def gbl_remaining():
             info = re.findall(r'esake-program-game-info[^>]*>(?:<img[^>]*>)?([^<]*)<', block)
             done = gbl.finished(gbl.parse_date(info[0])) if info else False
             games.append({"home": gbl.team_name(home), "away": gbl.team_name(away),
+                          "date": gbl.parse_date(info[0]) if info else None,
                           "played": len(re.findall(r"\d+", score)) == 2 and done})
         sched[key] = games
     with open(path, "w", encoding="utf-8") as f:
@@ -222,10 +223,31 @@ def project(comp, games, remaining, teams, record, points_fn, cut, relegate, pri
     return {"teams": out, "playoffSpots": cut, "relegation": relegate, "gamesPlayed": len(games), "gamesLeft": len(remaining)}
 
 
+def only_comps():
+    """Competitions named on the command line (e.g. `python scripts/x.py EuroCup`); none = all."""
+    import sys
+    return set(sys.argv[1:]) or {"EuroCup", "GBL"}
+
+
 def main():
+    wanted = only_comps()
     out = {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "comps": {}}
+    if os.path.exists(os.path.join(DATA, "power.json")):  # keep competitions not updated this time
+        out["comps"] = load("power.json").get("comps", {})
 
     # Greek League: 2 points a win, 1 a loss, minus any deductions; top 8 to the play-offs, last place relegated
+    if "GBL" in wanted:
+        project_gbl(out)
+    if "EuroCup" in wanted:
+        project_eurocup(out)
+    with open(os.path.join(DATA, "power.json"), "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1)
+    for c, v in out["comps"].items():
+        print(c, v["gamesPlayed"], "played,", v["gamesLeft"], "left;",
+              [(t["team"], t["power"], t["projW"], t["pPlayoffs"]) for t in v["teams"][:4]])
+
+
+def project_gbl(out):
     gbld = load("gbl.json")
     teams = [s["team"] for s in gbld["standings"]]
     record = {s["team"]: (s["w"], s["l"]) for s in gbld["standings"]}
@@ -239,6 +261,9 @@ def main():
                                   lambda t, w, l: 2 * w + l - deduction.get(t, 0), cut=8, relegate=True,
                                   prior=gbl_prior())
 
+
+
+def project_eurocup(out):
     # EuroCup: PAOK's group; ranked by wins; top 4 to the play-offs
     ecd = load("eurocup.json")
     group = ecd.get("group")
@@ -249,12 +274,6 @@ def main():
                                       lambda t, w, l: w, cut=4, relegate=False, prior=eurocup_prior(),
                                       new_team_below_avg=False)  # new EuroCup teams come from other leagues, not from below
     out["comps"]["EuroCup"]["group"] = group
-
-    with open(os.path.join(DATA, "power.json"), "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=1)
-    for c, v in out["comps"].items():
-        print(c, v["gamesPlayed"], "played,", v["gamesLeft"], "left;",
-              [(t["team"], t["power"], t["projW"], t["pPlayoffs"]) for t in v["teams"][:4]])
 
 
 if __name__ == "__main__":

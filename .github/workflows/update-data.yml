@@ -40,29 +40,39 @@ jobs:
           python-version: "3.12"
       - name: Install Excel reader (play-by-play sheets for plus/minus)
         run: pip install openpyxl
+      - name: Plan tonight's update from the schedules
+        id: plan
+        run: python scripts/plan.py
       - name: EuroCup
         id: eurocup
+        if: steps.plan.outputs.eurocup == 'true'
         continue-on-error: true
         run: python scripts/update_eurocup.py
       - name: Greek League (ESAKE)
         id: gbl
+        if: steps.plan.outputs.gbl == 'true'
         continue-on-error: true
         run: python scripts/update_gbl.py
       - name: League-wide team stats and averages
         id: league
+        if: steps.plan.outputs.comps != ''
         continue-on-error: true
-        run: python scripts/league.py
+        run: python scripts/league.py ${{ steps.plan.outputs.comps }}
       - name: Power ratings and season projections
         id: power
+        if: steps.plan.outputs.comps != ''
         continue-on-error: true
-        run: python scripts/power.py
+        run: python scripts/power.py ${{ steps.plan.outputs.comps }}
       - name: Next-game scouting and projections
         id: scout
+        if: steps.plan.outputs.comps != ''
         continue-on-error: true
-        run: python scripts/scout.py
+        run: python scripts/scout.py ${{ steps.plan.outputs.comps }}
       - name: Highlight videos
-        run: python scripts/highlights.py || echo "highlights unavailable, keeping previous links"
+        if: steps.plan.outputs.comps != ''
+        run: python scripts/highlights.py ${{ steps.plan.outputs.comps }} || echo "highlights unavailable, keeping previous links"
       - name: Player photos and profiles (paokbc.gr)
+        if: steps.plan.outputs.full == 'true'
         run: python scripts/update_paokbc.py || echo "paokbc.gr unavailable, keeping previous data"
       - name: Commit if anything changed
         run: |

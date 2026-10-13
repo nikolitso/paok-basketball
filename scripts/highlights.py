@@ -106,7 +106,11 @@ def main():
         with open(OUT, encoding="utf-8") as f:
             highlights = json.load(f)
     added = 0
+    import sys
+    wanted = set(sys.argv[1:]) or {"EuroCup", "GBL"}
     for handle, comps in CHANNELS:
+        if not comps & (wanted | ({"Greek Cup", "Greek Super Cup"} if "GBL" in wanted else set())):
+            continue
         try:
             # latest uploads plus a channel search for PAOK (busy channels push older highlights off the first page)
             videos = latest_videos(handle) + latest_videos(handle, search="ΠΑΟΚ")

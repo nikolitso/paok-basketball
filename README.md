@@ -7,7 +7,7 @@ It's a static site (`index.html`, `styles.css`, `app.js`) that reads JSON files 
 
 ## How the data updates
 
-A GitHub Action (`.github/workflows/update-data.yml`) runs once a day at 23:59 Greek time and:
+A GitHub Action (`.github/workflows/update-data.yml`) runs once a day at 23:59 Greek time. `scripts/plan.py` first checks the schedules and only updates the competitions that played in the last 30 hours (everything on Mondays and on manual runs). The scripts take the competitions as arguments, e.g. `python scripts/league.py EuroCup`. It runs:
 
 | Script | Source | What it gets |
 |---|---|---|

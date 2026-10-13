@@ -278,7 +278,13 @@ def main():
     lineups = load("lineups.json") if os.path.exists(lineups_path) else {}
     now = datetime.now(timezone.utc)
     reports = []
+    import sys
+    wanted = set(sys.argv[1:]) or {"EuroCup", "GBL"}
+    if os.path.exists(os.path.join(DATA, "scout.json")):  # reports for competitions not updated this time
+        reports += [r for r in load("scout.json").get("reports", []) if r["comp"] not in wanted]
     for comp, data in (("EuroCup", ecd), ("GBL", gbld)):
+        if comp not in wanted:
+            continue
         upcoming = [g for g in data["games"] if g["comp"] == comp and not g["played"] and g["date"]
                     and datetime.fromisoformat(g["date"].replace("Z", "+00:00") if g["date"].endswith("Z") else g["date"] + "+00:00")
                     > now - timedelta(hours=3)]

@@ -153,9 +153,22 @@ def build(games):
             "groupAvg": {grp: summarize(rows) for grp, rows in group_rows.items()}}
 
 
+def only_comps():
+    """Competitions named on the command line (e.g. `python scripts/x.py EuroCup`); none = all."""
+    import sys
+    return set(sys.argv[1:]) or {"EuroCup", "GBL"}
+
+
 def main():
+    wanted = only_comps()
     out = {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "comps": {}}
+    path = os.path.join(DATA, "league.json")
+    if os.path.exists(path):  # competitions not updated this time keep their last numbers
+        with open(path, encoding="utf-8") as f:
+            out["comps"] = json.load(f).get("comps", {})
     for comp, fetch in (("EuroCup", eurocup_games), ("GBL", gbl_games)):
+        if comp not in wanted:
+            continue
         try:
             games = fetch()
             out["comps"][comp] = build(games)
