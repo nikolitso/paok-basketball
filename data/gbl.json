@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-13T20:04:50Z",
+ "updated": "2026-10-15T14:57:35Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -113,6 +113,17 @@
    "born": "1995-09-08",
    "photo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOO0/b0278278-1368-4b8a-8523-b8eb0b193410.png",
    "from": "PAOK BC"
+  },
+  {
+   "no": "20",
+   "name": "Donatas Motiejunas",
+   "pos": "Center",
+   "posCode": "C",
+   "nat": "Λιθουανια",
+   "height": 213,
+   "born": "1990-09-20",
+   "photo": null,
+   "from": "Crvena Zvezda Meridianbet Belgrade"
   },
   {
    "no": "25",
@@ -1882,7 +1893,7 @@
    "home": false,
    "opp": "Vikos Falcons",
    "oppCrest": null,
-   "venue": "Πεακ Πατρας \"Δημ. Τοφαλος\"",
+   "venue": "Κ.Γ. Ιωαννινων «Σιδερης Καραδημας»",
    "tv": "",
    "played": false,
    "us": null,
