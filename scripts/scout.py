@@ -294,8 +294,8 @@ def main():
     reports = []
     import sys
     wanted = set(sys.argv[1:]) or {"EuroCup", "GBL"}
-    if os.path.exists(os.path.join(DATA, "scout.json")):  # reports for competitions not updated this time
-        reports += [r for r in load("scout.json").get("reports", []) if r["comp"] not in wanted]
+    previous = load("scout.json").get("reports", []) if os.path.exists(os.path.join(DATA, "scout.json")) else []
+    reports += [r for r in previous if r["comp"] not in wanted]  # reports for competitions not updated this time
     for comp, data in (("EuroCup", ecd), ("GBL", gbld)):
         if comp not in wanted:
             continue
@@ -313,7 +313,8 @@ def main():
             else:
                 opp_boxes, opp_name, dressed, opp_bios = gbl_scout(nxt, gbld)
         except Exception as e:
-            print(f"{comp}: scouting failed ({e})")
+            print(f"{comp}: scouting failed ({e}), keeping the previous report")
+            reports += [r for r in previous if r["comp"] == comp and r["code"] == nxt["code"]]
             continue
         paok_team, paok_players = aggregate(paok_boxes)
         opp_team, opp_players = aggregate(opp_boxes)
