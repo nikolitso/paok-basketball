@@ -20,8 +20,10 @@
    "Calathes",
    "Alexander"
   ],
-  "opp_out": [],
-  "note": "PAOK's 13 for Rhodes: without Calathes (rested, minor knock) and Alexander (finger injury, saved for Ulm on 21 Oct). Motiejunas travels and is expected to make his league debut; one of the seven other foreign players will be left out of the 12.",
+  "opp_out": [
+   "Eustathiadis"
+  ],
+  "note": "PAOK's 13 for Rhodes: without Calathes (rested, minor knock) and Alexander (finger injury, saved for Ulm on 21 Oct). Motiejunas travels and is expected to make his league debut; one of the seven other foreign players will be left out of the 12. Kolossos without Eustathiadis and likely with 11 (only six foreign players allowed, so one American sits out); they are back from a long trip to Azerbaijan (won 80-62 at Gence), unbeaten at home, three wins in four games so far.",
   "minutes": {
    "Motiejunas": 18
   }
