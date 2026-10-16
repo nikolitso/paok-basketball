@@ -5,6 +5,7 @@ Writes data/scout.json. Opponent box scores are cached in data/scout_cache/.
 
 Who's out on match day comes from (first that applies):
   1. data/lineups.json, e.g. {"EuroCup:32": {"paok_out": ["Calathes"], "opp_out": ["Smith"]}}
+     optional "minutes": {"Motiejunas": 18} fixes a PAOK player's expected minutes
      (surnames are enough), filled in on match day;
   2. the official game roster in the EuroCup feed, when published before tip-off;
   3. otherwise everyone who has played this season is assumed available.
@@ -24,6 +25,7 @@ CACHE = os.path.join(DATA, "scout_cache")
 
 LEAGUE_AVG = {"EuroCup": 82.0, "GBL": 80.0}  # fallback points per team per game when league.json is missing
 LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
+RATE_PRIOR_MIN = 40
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
 HOME_EDGE = 1.5      # points added to the home team (and taken from the away team)
 SPREAD_SD = 11.0     # typical spread of final margins around the projection
@@ -108,6 +110,15 @@ def aggregate(boxes):
             # per-minute rates for projections
             "_rate": {k: t[k] / (t["sec"] / 60) for k in ("pts", "reb", "ast", "pir")} if t["sec"] else {},
         })
+    # small samples: per-minute rates are pulled toward the team's per-player average (worth RATE_PRIOR_MIN minutes),
+    # so a new signing with a few minutes isn't projected from that cameo alone
+    tot = {k: sum(p["_rate"][k] * p["min"] * p["gp"] for p in out if p["_rate"]) for k in ("pts", "reb", "ast", "pir")}
+    tot_min = sum(p["min"] * p["gp"] for p in out if p["_rate"])
+    if tot_min:
+        for p in out:
+            if p["_rate"]:
+                m = p["min"] * p["gp"]
+                p["_rate"] = {k: (v * m + tot[k] / tot_min * RATE_PRIOR_MIN) / (m + RATE_PRIOR_MIN) for k, v in p["_rate"].items()}
     out.sort(key=lambda p: (-p["pir"], -p["pts"]))
     return team, out
 
@@ -137,7 +148,7 @@ def impact(players, team_gp):
 
 # ---------- projections ----------
 
-def project_side(players, out_names, team_stats, opp_stats, comp, home):
+def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=None):
     out = {surname(n) for n in out_names}
     avail = [p for p in players if surname(p["name"]) not in out and p["_rate"]]
     missing = [p["name"] for p in players if surname(p["name"]) in out]
@@ -146,9 +157,12 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home):
     # expected minutes: season average, rescaled so the team plays 200, nobody above 38
     # minutes per *team* game, so someone who played 1 of 4 games isn't counted as a regular
     mins = {p["name"]: p["min"] * p["gp"] / team_stats["gp"] for p in avail}
+    # hand-set minutes from lineups.json ("minutes": {"Motiejunas": 18}), e.g. a new signing with no history
+    fixed = {p["name"]: float(m) for p in avail for k, m in (set_min or {}).items() if surname(p["name"]) == surname(k)}
     for _ in range(5):
-        scale = 200 / sum(mins.values())
-        mins = {k: min(38.0, v * scale) for k, v in mins.items()}
+        free = sum(v for k, v in mins.items() if k not in fixed)
+        scale = (200 - sum(fixed.values())) / free if free else 1
+        mins = {k: fixed.get(k, min(38.0, v * scale)) for k, v in mins.items()}
     lineup_pts = sum(p["_rate"]["pts"] * mins[p["name"]] for p in avail)
     lg = LEAGUE.get(comp) or {}
     lg_pace, lg_ortg = lg.get("pace") or 74.0, lg.get("ortg") or 108.0
@@ -330,7 +344,7 @@ def main():
             season_team, season_players = aggregate(all_boxes)
             registered = {surname(p["name"]) for p in data["roster"]}
             season_players = [p for p in season_players if surname(p["name"]) in registered]
-            us = project_side(season_players, paok_out, season_team, opp_team, comp, nxt["home"])
+            us = project_side(season_players, paok_out, season_team, opp_team, comp, nxt["home"], lu.get("minutes"))
             them = project_side(opp_players, opp_out, opp_team, season_team, comp, not nxt["home"])
             if us and them:
                 report["projection"] = {
