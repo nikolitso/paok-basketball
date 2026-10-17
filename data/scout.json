@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T09:47:21Z",
+ "updated": "2026-10-17T09:52:28Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -759,13 +759,13 @@
    ],
    "projection": {
     "paok": {
-     "score": 91.7,
+     "score": 92.8,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 27,
-       "pts": 15.4,
+       "pts": 15.5,
        "reb": 4.4,
        "ast": 1.7,
        "pir": 14.7
@@ -774,7 +774,7 @@
        "name": "Kyle Alexander",
        "no": "8",
        "min": 19,
-       "pts": 9.1,
+       "pts": 9.2,
        "reb": 4.3,
        "ast": 0.8,
        "pir": 12.0
@@ -783,7 +783,7 @@
        "name": "Nick Calathes",
        "no": "33",
        "min": 22,
-       "pts": 9.1,
+       "pts": 9.2,
        "reb": 3.3,
        "ast": 4.8,
        "pir": 11.4
@@ -792,7 +792,7 @@
        "name": "Marcus Foster",
        "no": "17",
        "min": 23,
-       "pts": 12.7,
+       "pts": 12.8,
        "reb": 2.8,
        "ast": 2.5,
        "pir": 11.1
@@ -801,7 +801,7 @@
        "name": "Naz Mitrou Long",
        "no": "1",
        "min": 19,
-       "pts": 8.9,
+       "pts": 9.1,
        "reb": 2.6,
        "ast": 1.7,
        "pir": 8.6
@@ -810,7 +810,7 @@
        "name": "Ben Moore",
        "no": "26",
        "min": 18,
-       "pts": 6.0,
+       "pts": 6.1,
        "reb": 3.9,
        "ast": 0.7,
        "pir": 8.2
@@ -819,7 +819,7 @@
        "name": "Trevor Hudgins",
        "no": "12",
        "min": 17,
-       "pts": 7.8,
+       "pts": 7.9,
        "reb": 2.1,
        "ast": 2.1,
        "pir": 7.8
@@ -828,7 +828,7 @@
        "name": "Breein Tyree",
        "no": "5",
        "min": 13,
-       "pts": 9.8,
+       "pts": 9.9,
        "reb": 1.2,
        "ast": 1.0,
        "pir": 7.7
@@ -837,7 +837,7 @@
        "name": "Raiquan Gray",
        "no": "0",
        "min": 16,
-       "pts": 4.4,
+       "pts": 4.5,
        "reb": 1.4,
        "ast": 1.2,
        "pir": 3.9
@@ -846,7 +846,7 @@
        "name": "Nikolaos Persidis",
        "no": "18",
        "min": 11,
-       "pts": 3.4,
+       "pts": 3.5,
        "reb": 2.1,
        "ast": 0.6,
        "pir": 3.5
@@ -873,7 +873,7 @@
        "name": "Nikos Chougkaz",
        "no": "9",
        "min": 4,
-       "pts": 1.4,
+       "pts": 1.5,
        "reb": 0.6,
        "ast": 0.3,
        "pir": 0.9
@@ -901,13 +901,13 @@
      "pace": 77.0
     },
     "opp": {
-     "score": 86.1,
+     "score": 85.0,
      "players": [
       {
        "name": "Simisola Shittu",
        "no": "45",
        "min": 23,
-       "pts": 12.8,
+       "pts": 12.6,
        "reb": 5.1,
        "ast": 1.8,
        "pir": 16.7
@@ -916,7 +916,7 @@
        "name": "Jaylen Sims",
        "no": "30",
        "min": 28,
-       "pts": 13.6,
+       "pts": 13.4,
        "reb": 4.5,
        "ast": 2.3,
        "pir": 16.1
@@ -925,7 +925,7 @@
        "name": "Ibi Watson",
        "no": "2",
        "min": 27,
-       "pts": 11.9,
+       "pts": 11.8,
        "reb": 3.1,
        "ast": 3.9,
        "pir": 12.2
@@ -934,7 +934,7 @@
        "name": "Armel Traore",
        "no": "94",
        "min": 22,
-       "pts": 9.1,
+       "pts": 8.9,
        "reb": 4.2,
        "ast": 2.0,
        "pir": 11.7
@@ -943,7 +943,7 @@
        "name": "Michael Rataj",
        "no": "12",
        "min": 20,
-       "pts": 9.4,
+       "pts": 9.3,
        "reb": 2.6,
        "ast": 1.5,
        "pir": 9.9
@@ -952,7 +952,7 @@
        "name": "Adam Atamna",
        "no": "0",
        "min": 22,
-       "pts": 7.0,
+       "pts": 6.9,
        "reb": 1.9,
        "ast": 4.0,
        "pir": 9.5
@@ -961,7 +961,7 @@
        "name": "Meissa Faye",
        "no": "11",
        "min": 17,
-       "pts": 5.5,
+       "pts": 5.4,
        "reb": 2.6,
        "ast": 1.9,
        "pir": 6.6
@@ -970,7 +970,7 @@
        "name": "Devin Schmidt",
        "no": "8",
        "min": 13,
-       "pts": 6.7,
+       "pts": 6.6,
        "reb": 2.3,
        "ast": 1.0,
        "pir": 5.6
@@ -997,7 +997,7 @@
        "name": "Dwayne Koroma",
        "no": "3",
        "min": 6,
-       "pts": 2.0,
+       "pts": 1.9,
        "reb": 1.2,
        "ast": 0.5,
        "pir": 1.8
@@ -1006,49 +1006,49 @@
      "missing": [],
      "pace": 77.0
     },
-    "winProb": 69,
+    "winProb": 76,
     "pace": 77.0,
     "lineupSource": "assumed",
     "note": "",
     "teamStats": {
      "pts": {
-      "paok": 91.7,
-      "opp": 86.1,
+      "paok": 92.8,
+      "opp": 85.0,
       "total": 177.8
      },
      "fg2m": {
-      "paok": 24.1,
-      "opp": 22.0,
+      "paok": 24.3,
+      "opp": 21.7,
       "total": 46.0
      },
      "fg3m": {
-      "paok": 9.1,
-      "opp": 8.7,
+      "paok": 9.2,
+      "opp": 8.6,
       "total": 17.9
      },
      "ftm": {
-      "paok": 16.3,
-      "opp": 15.9,
+      "paok": 16.4,
+      "opp": 15.7,
       "total": 32.2
      },
      "ast": {
-      "paok": 19.4,
-      "opp": 17.4,
-      "total": 36.8
+      "paok": 19.7,
+      "opp": 17.2,
+      "total": 36.9
      },
      "oreb": {
-      "paok": 11.7,
-      "opp": 10.5,
+      "paok": 11.6,
+      "opp": 10.7,
       "total": 22.2
      },
      "dreb": {
-      "paok": 23.4,
-      "opp": 23.0,
+      "paok": 23.7,
+      "opp": 22.7,
       "total": 46.4
      },
      "reb": {
-      "paok": 35.1,
-      "opp": 33.5,
+      "paok": 35.3,
+      "opp": 33.4,
       "total": 68.6
      }
     }
@@ -1817,13 +1817,13 @@
    ],
    "projection": {
     "paok": {
-     "score": 79.7,
+     "score": 82.1,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 31,
-       "pts": 14.1,
+       "pts": 14.5,
        "reb": 4.1,
        "ast": 2.4,
        "pir": 15.7
@@ -1832,7 +1832,7 @@
        "name": "Naz Mitrou-Long",
        "no": "1",
        "min": 22,
-       "pts": 10.1,
+       "pts": 10.3,
        "reb": 3.6,
        "ast": 3.0,
        "pir": 13.1
@@ -1841,7 +1841,7 @@
        "name": "Trevor Hudgins",
        "no": "12",
        "min": 19,
-       "pts": 8.4,
+       "pts": 8.7,
        "reb": 2.6,
        "ast": 2.4,
        "pir": 11.2
@@ -1850,7 +1850,7 @@
        "name": "Ben Moore",
        "no": "26",
        "min": 21,
-       "pts": 7.2,
+       "pts": 7.4,
        "reb": 4.8,
        "ast": 1.0,
        "pir": 11.0
@@ -1859,7 +1859,7 @@
        "name": "Donatas Motiejunas",
        "no": "20",
        "min": 18,
-       "pts": 6.6,
+       "pts": 6.8,
        "reb": 2.3,
        "ast": 1.4,
        "pir": 8.6
@@ -1868,7 +1868,7 @@
        "name": "Marcus Foster",
        "no": "17",
        "min": 27,
-       "pts": 10.4,
+       "pts": 10.7,
        "reb": 3.0,
        "ast": 2.1,
        "pir": 7.7
@@ -1877,7 +1877,7 @@
        "name": "Breein Tyree",
        "no": "5",
        "min": 15,
-       "pts": 7.4,
+       "pts": 7.7,
        "reb": 2.1,
        "ast": 1.1,
        "pir": 7.5
@@ -1886,7 +1886,7 @@
        "name": "Raiquan Gray",
        "no": "0",
        "min": 19,
-       "pts": 6.7,
+       "pts": 6.9,
        "reb": 2.0,
        "ast": 1.1,
        "pir": 5.5
@@ -1895,7 +1895,7 @@
        "name": "Nikos Persidis",
        "no": "18",
        "min": 13,
-       "pts": 4.1,
+       "pts": 4.2,
        "reb": 2.1,
        "ast": 1.0,
        "pir": 4.3
@@ -1922,7 +1922,7 @@
        "name": "Nikos Chougkaz",
        "no": "9",
        "min": 5,
-       "pts": 1.5,
+       "pts": 1.6,
        "reb": 0.8,
        "ast": 0.3,
        "pir": 1.2
@@ -1944,13 +1944,13 @@
      "pace": 71.9
     },
     "opp": {
-     "score": 85.0,
+     "score": 82.7,
      "players": [
       {
        "name": "Payton Willis",
        "no": "2",
        "min": 22,
-       "pts": 13.2,
+       "pts": 12.9,
        "reb": 2.4,
        "ast": 3.3,
        "pir": 13.6
@@ -1959,7 +1959,7 @@
        "name": "Jordan Barnett",
        "no": "33",
        "min": 26,
-       "pts": 12.0,
+       "pts": 11.6,
        "reb": 4.9,
        "ast": 1.5,
        "pir": 13.2
@@ -1968,7 +1968,7 @@
        "name": "Devonte Upson",
        "no": "0",
        "min": 26,
-       "pts": 8.9,
+       "pts": 8.6,
        "reb": 4.5,
        "ast": 1.5,
        "pir": 11.4
@@ -1977,7 +1977,7 @@
        "name": "Giorgos Kamperidis",
        "no": "21",
        "min": 19,
-       "pts": 9.9,
+       "pts": 9.6,
        "reb": 2.7,
        "ast": 1.0,
        "pir": 10.7
@@ -1986,7 +1986,7 @@
        "name": "Ezra Manjon",
        "no": "5",
        "min": 25,
-       "pts": 9.8,
+       "pts": 9.6,
        "reb": 2.0,
        "ast": 3.4,
        "pir": 10.4
@@ -1995,7 +1995,7 @@
        "name": "Jackson Kreuser",
        "no": "34",
        "min": 22,
-       "pts": 8.0,
+       "pts": 7.8,
        "reb": 2.6,
        "ast": 1.4,
        "pir": 8.3
@@ -2004,7 +2004,7 @@
        "name": "Nikos Tsiakmas",
        "no": "7",
        "min": 19,
-       "pts": 6.7,
+       "pts": 6.5,
        "reb": 1.5,
        "ast": 3.0,
        "pir": 8.0
@@ -2013,7 +2013,7 @@
        "name": "Cj Harris",
        "no": "22",
        "min": 15,
-       "pts": 6.8,
+       "pts": 6.6,
        "reb": 1.5,
        "ast": 2.0,
        "pir": 7.6
@@ -2022,7 +2022,7 @@
        "name": "Zois Karampelas",
        "no": "4",
        "min": 12,
-       "pts": 4.4,
+       "pts": 4.3,
        "reb": 1.5,
        "ast": 2.1,
        "pir": 6.4
@@ -2031,7 +2031,7 @@
        "name": "Vasilis Christidis",
        "no": "14",
        "min": 7,
-       "pts": 2.7,
+       "pts": 2.6,
        "reb": 0.9,
        "ast": 0.7,
        "pir": 3.4
@@ -2051,50 +2051,50 @@
      ],
      "pace": 71.9
     },
-    "winProb": 31,
+    "winProb": 48,
     "pace": 71.9,
     "lineupSource": "manual",
     "note": "PAOK's 13 for Rhodes: without Calathes (rested, minor knock) and Alexander (finger injury, saved for Ulm on 21 Oct). Motiejunas travels and is expected to make his league debut; one of the seven other foreign players will be left out of the 12. Kolossos without Eustathiadis and likely with 11 (only six foreign players allowed, so one American sits out); they are back from a long trip to Azerbaijan (won 80-62 at Gence), unbeaten at home, three wins in four games so far.",
     "teamStats": {
      "pts": {
-      "paok": 79.7,
-      "opp": 85.0,
-      "total": 164.7
+      "paok": 82.1,
+      "opp": 82.7,
+      "total": 164.8
      },
      "fg2m": {
-      "paok": 18.0,
-      "opp": 17.1,
-      "total": 35.1
+      "paok": 18.5,
+      "opp": 16.6,
+      "total": 35.2
      },
      "fg3m": {
-      "paok": 8.9,
-      "opp": 11.5,
+      "paok": 9.2,
+      "opp": 11.2,
       "total": 20.4
      },
      "ftm": {
-      "paok": 16.9,
-      "opp": 16.4,
-      "total": 33.3
-     },
-     "ast": {
-      "paok": 15.3,
-      "opp": 18.1,
+      "paok": 17.4,
+      "opp": 16.0,
       "total": 33.4
      },
+     "ast": {
+      "paok": 15.7,
+      "opp": 17.6,
+      "total": 33.3
+     },
      "oreb": {
-      "paok": 11.4,
-      "opp": 8.9,
-      "total": 20.4
+      "paok": 11.2,
+      "opp": 9.2,
+      "total": 20.3
      },
      "dreb": {
-      "paok": 23.0,
-      "opp": 24.1,
+      "paok": 23.6,
+      "opp": 23.5,
       "total": 47.1
      },
      "reb": {
-      "paok": 34.4,
-      "opp": 33.0,
-      "total": 67.5
+      "paok": 34.8,
+      "opp": 32.7,
+      "total": 67.4
      }
     }
    }

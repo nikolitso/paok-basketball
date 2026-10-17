@@ -25,7 +25,7 @@ DATA = os.path.join(ROOT, "data")
 CACHE = os.path.join(DATA, "league_cache")
 
 HOME_EDGE = 3.0      # points per 100 possessions for the home team
-PRIOR_GAMES = 4      # last season's rating counts like this many games of this season
+PRIOR_GAMES = 4      # the starting rating (pre-season odds or last season) counts like this many games
 PRIOR_KEEP = 0.5     # share of last season's margin carried over (rosters change over the summer)
 NEW_TEAM_PRIOR = -8  # Greek League teams without last-season data (promoted): slightly below average
 LAST_GBL = "44B80BEB"   # Stoiximan GBL 2025-26
@@ -140,6 +140,65 @@ def eurocup_prior():
 
 
 # ---------- ratings ----------
+
+def market_prior(comp, teams):
+    """Starting ratings implied by pre-season odds (data/market_odds.json): the ratings at which a simulated
+    full season gives each team the market's chances of a top-4, a 5th-8th and a bottom-2 finish.
+    Cached in data/market_prior.json until the odds change. Returns {} when there are no odds."""
+    path = os.path.join(DATA, "market_odds.json")
+    if not os.path.exists(path):
+        return {}
+    odds = load("market_odds.json").get(comp)
+    if not odds:
+        return {}
+    import hashlib
+    key = hashlib.sha1(json.dumps(odds, sort_keys=True).encode()).hexdigest()[:12]
+    cache_path = os.path.join(DATA, "market_prior.json")
+    cache = load("market_prior.json") if os.path.exists(cache_path) else {}
+    if cache.get(comp, {}).get("key") == key:
+        return cache[comp]["ratings"]
+
+    def implied(market, total):
+        # 1/odds, scaled so the market adds up to the places on offer (removes the bookmaker margin)
+        raw = {t: 1 / market[t] for t in teams if t in market}
+        k = total / sum(raw.values())
+        return {t: min(1.0, v * k) for t, v in raw.items()}
+    n = len(teams)
+    p4, p58, pb2 = implied(odds["top4"], 4), implied(odds["pos5to8"], 4), implied(odds["bottom2"], 2)
+    # the outright winner (play-offs included) stands in for finishing first: it separates the top teams,
+    # who are all near-certain of a top-4 place
+    p1 = implied(odds["winner"], 1) if odds.get("winner") else {}
+    target = {t: p4.get(t, 0) + 0.5 * p58.get(t, 0) - pb2.get(t, 0) + 2 * p1.get(t, 0) for t in teams}
+    schedule = [(h, a) for h in teams for a in teams if h != a]
+    rng = random.Random(7)
+
+    def simulate(r, sims):
+        score = {t: 0.0 for t in teams}
+        probs = [(h, a, win_prob(r[h], r[a], 74.0)) for h, a in schedule]
+        for _ in range(sims):
+            w = {t: 0 for t in teams}
+            for h, a, p in probs:
+                w[h if rng.random() < p else a] += 1
+            order = sorted(teams, key=lambda t: (w[t], rng.random()), reverse=True)
+            for i, t in enumerate(order):
+                score[t] += (1 if i < 4 else 0.5 if i < 8 else 0) - (1 if i >= n - 2 else 0) + (2 if i == 0 and p1 else 0)
+        return {t: v / sims for t, v in score.items()}
+
+    r = {t: 0.0 for t in teams}
+    avg = {t: 0.0 for t in teams}
+    for it in range(80):
+        sim = simulate(r, 1000)
+        r = {t: r[t] + 6 * (target[t] - sim[t]) for t in teams}
+        mean = sum(r.values()) / n
+        r = {t: v - mean for t, v in r.items()}
+        if it >= 40:  # average the last 40 rounds to smooth out simulation noise
+            avg = {t: avg[t] + r[t] / 40 for t in teams}
+    r = {t: round(v, 1) for t, v in avg.items()}
+    cache[comp] = {"key": key, "date": odds.get("date"), "ratings": r}
+    with open(cache_path, "w", encoding="utf-8") as f:
+        json.dump(cache, f, ensure_ascii=False, indent=1)
+    return r
+
 
 def ratings(games, teams, prior=None, weight=1.0):
     """Opponent- and home-adjusted net rating per 100 possessions.
@@ -259,7 +318,8 @@ def project_gbl(out):
         print("GBL: unknown team name", t)
     out["comps"]["GBL"] = project("GBL", games, remaining, teams, record,
                                   lambda t, w, l: 2 * w + l - deduction.get(t, 0), cut=8, relegate=True,
-                                  prior=gbl_prior())
+                                  # starting point: pre-season odds where entered, else last season's results
+                                  prior={**gbl_prior(), **market_prior("GBL", teams)})
 
 
 

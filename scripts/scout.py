@@ -24,6 +24,7 @@ DATA = os.path.join(ROOT, "data")
 CACHE = os.path.join(DATA, "scout_cache")
 
 LEAGUE_AVG = {"EuroCup": 82.0, "GBL": 80.0}  # fallback points per team per game when league.json is missing
+POWER = {}   # comp -> power.json teams (for each team's starting rating)
 ADJ = {}     # comp -> schedule-adjusted team ratings from data/league.json
 LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
 RATE_PRIOR_MIN = 40
@@ -181,8 +182,10 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
     # schedule-adjusted ratings when available (their own competition-wide average is the baseline)
     if team_stats.get("adjOrtg") is not None and opp_stats.get("adjDrtg") is not None:
         lg_ortg = ADJ[comp]["mean"]
-        ortg = reg(team_stats["adjOrtg"], team_stats["adjGp"], lg_ortg)
-        opp_drtg = reg(opp_stats["adjDrtg"], opp_stats["adjGp"], lg_ortg)
+        # early-season numbers are pulled toward each team's starting rating (pre-season odds or last season),
+        # split evenly between attack and defence
+        ortg = reg(team_stats["adjOrtg"], team_stats["adjGp"], lg_ortg + team_stats.get("prior", 0) / 2)
+        opp_drtg = reg(opp_stats["adjDrtg"], opp_stats["adjGp"], lg_ortg - opp_stats.get("prior", 0) / 2)
     else:
         ortg = reg(team_stats.get("ortg"), team_stats["gp"], lg_ortg)
         opp_drtg = reg(opp_stats.get("drtg"), opp_stats["gp"], lg_ortg)
@@ -354,6 +357,8 @@ def main():
             adj = [t for t in v["teams"] if t.get("adjOrtg") is not None]
             if adj:  # schedule-adjusted ratings, averaged over the whole competition
                 ADJ[c] = {"teams": adj, "mean": sum(t["adjOrtg"] for t in adj) / len(adj)}
+    if os.path.exists(os.path.join(DATA, "power.json")):
+        POWER.update({c: v["teams"] for c, v in load("power.json")["comps"].items()})
     lineups_path = os.path.join(DATA, "lineups.json")
     lineups = load("lineups.json") if os.path.exists(lineups_path) else {}
     now = datetime.now(timezone.utc)
@@ -427,7 +432,8 @@ def main():
                 key = re.sub(r"[^a-z]", "", name.lower())
                 t = next((t for t in ADJ.get(comp, {}).get("teams", [])
                           if (lambda k: k == key or k in key or key in k)(re.sub(r"[^a-z]", "", t["team"].lower()))), None)
-                return dict(stats, adjOrtg=t["adjOrtg"], adjDrtg=t["adjDrtg"], adjGp=t["gp"]) if t else stats
+                pw = next((x for x in POWER.get(comp, []) if x["team"] == t["team"]), {}) if t else {}
+                return dict(stats, adjOrtg=t["adjOrtg"], adjDrtg=t["adjDrtg"], adjGp=t["gp"], prior=pw.get("prior", 0)) if t else stats
             season_team, opp_team = with_adj(season_team, "PAOK"), with_adj(opp_team, nxt["opp"])
             us = project_side(season_players, paok_out, season_team, opp_team, comp, nxt["home"], lu.get("minutes"))
             them = project_side(opp_players, opp_out, opp_team, season_team, comp, not nxt["home"])

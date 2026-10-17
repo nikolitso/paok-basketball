@@ -385,7 +385,7 @@ VIEWS.standings = function standings() {
       <thead>
         <tr class="groups"><th colspan="3"></th><th colspan="4" class="grp">How good they really are</th><th class="grp">Tempo</th><th colspan="2" class="grp">Schedule strength</th></tr>
         <tr><th>#</th><th class="l">Team</th><th>W–L</th>
-          ${th('power', 'Power', 'Opponent- and home-adjusted net rating: points per 100 possessions better than an average team (this season, plus last season as a starting point early on)')}
+          ${th('power', 'Power', 'Opponent- and home-adjusted net rating: points per 100 possessions better than an average team (this season, plus a pre-season expectation as a starting point early on)')}
           ${th('net', 'Net', 'Raw net rating this season: points per 100 possessions better than opponents')}
           ${th('expW', 'Exp. W', 'Wins a team "deserves" from points scored and allowed')}
           ${th('luck', 'Luck', 'Actual wins minus expected wins: teams well above 0 usually come back down')}
@@ -399,7 +399,7 @@ VIEWS.standings = function standings() {
     </table></div>
     <div class="card" style="max-width:900px;margin-top:14px"><h3>How to read it</h3>
       <ul class="legend">
-        <li><b>Power</b><span class="muted">How good a team really is: points per 100 possessions better than an average team, corrected for the opponents it has faced and home court. Ranked by this. Early in the season last season's level counts as a starting point; it fades as games are played.</span></li>
+        <li><b>Power</b><span class="muted">How good a team really is: points per 100 possessions better than an average team, corrected for the opponents it has faced and home court. Ranked by this. Early in the season a pre-season expectation of each team's level counts as a starting point (worth about four games); it fades as games are played.</span></li>
         <li><b>Exp. W / Luck</b><span class="muted">Wins a team "deserves" from points scored and allowed, and how many more (or fewer) it actually has. Close wins are often luck and don't repeat.</span></li>
         <li><b>Poss</b><span class="muted">Possessions per game, overtime included: how fast a team plays. "Fast" / "slow" = at least 2 possessions above / below the ${comp === 'EuroCup' ? 'group' : 'league'} average (${lgPoss ? f1(lgPoss) : '–'}).</span></li>
         <li><b>Schedule strength</b><span class="muted">How tough a team's opponents are, using the same Power rating.
@@ -480,7 +480,7 @@ VIEWS.scout = function scout() {
       ${tstats}
       ${absent(us, 'PAOK')}${absent(them, pick.opp)}
       <p class="note">How it works: expected possessions = both teams' possessions per game relative to the league average. Points per 100 possessions = a team's schedule-adjusted offensive rating × the opponent's schedule-adjusted defensive rating ÷ the league average (adjusted = corrected for the strength of the opponents faced so far),
-        reduced if key scorers are missing. Early-season numbers are pulled toward the league average, plus a small home-court edge.
+        reduced if key scorers are missing. Early-season numbers are pulled toward each team's pre-season expectation, plus a small home-court edge.
         Team stats: each team's rate per 100 possessions × what the opponent allows ÷ the league average, over the expected possessions; made shots are scaled to add up to the projected score,
         and rebounds come from the expected misses and both teams' offensive and defensive rebounding rates.
         PAOK's ratings come from games in this competition only.

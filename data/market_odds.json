@@ -1,0 +1,10 @@
+{
+ "_note": "Pre-season decimal odds for the Greek League (hand-entered). power.py turns them into each team's starting rating. Team names as on the site.",
+ "GBL": {
+  "date": "2026-10-17",
+  "top4": {"Olympiacos": 1.001, "Panathinaikos": 1.001, "PAOK": 1.02, "Aris": 1.30, "AEK": 6.0, "Peristeri": 9.5, "Karditsa": 20.0, "Promitheas": 24.0, "Mykonos": 25.0, "Iraklis": 25.0, "Kolossos": 55.0, "Maroussi": 85.0, "Doxa Lefkadas": 150.0, "Vikos Falcons": 150.0},
+  "pos5to8": {"AEK": 1.45, "Peristeri": 1.65, "Karditsa": 2.15, "Mykonos": 2.25, "Promitheas": 2.25, "Iraklis": 2.35, "Aris": 3.5, "Kolossos": 3.5, "Maroussi": 4.25, "Vikos Falcons": 6.5, "Doxa Lefkadas": 7.5, "PAOK": 9.5, "Panathinaikos": 30.0, "Olympiacos": 35.0},
+  "bottom2": {"Doxa Lefkadas": 2.5, "Vikos Falcons": 2.6, "Maroussi": 3.0, "Kolossos": 3.25, "Iraklis": 4.75, "Mykonos": 5.0, "Promitheas": 5.0, "Karditsa": 5.5, "Peristeri": 10.0, "AEK": 22.0, "Aris": 100.0, "Olympiacos": 100.0, "Panathinaikos": 100.0, "PAOK": 100.0},
+  "winner": {"Olympiacos": 1.9, "Panathinaikos": 1.9, "PAOK": 16.0, "Aris": 35.0, "Doxa Lefkadas": 500.0, "AEK": 500.0, "Mykonos": 500.0, "Karditsa": 500.0, "Iraklis": 500.0, "Kolossos": 500.0, "Maroussi": 500.0, "Peristeri": 500.0, "Promitheas": 500.0, "Vikos Falcons": 500.0}
+ }
+}
