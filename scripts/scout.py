@@ -26,6 +26,7 @@ CACHE = os.path.join(DATA, "scout_cache")
 LEAGUE_AVG = {"EuroCup": 82.0, "GBL": 80.0}  # fallback points per team per game when league.json is missing
 LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
 RATE_PRIOR_MIN = 40
+RATE_KEYS = ("fg2m", "fg3m", "ftm", "ast", "fga", "oreb", "dreb")
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
 HOME_EDGE = 1.5      # points added to the home team (and taken from the away team)
 SPREAD_SD = 11.0     # typical spread of final margins around the projection
@@ -80,6 +81,12 @@ def aggregate(boxes):
     if poss:
         team.update({"poss": round(poss / n, 1), "pace": round(poss * 40 / minutes, 1),
                      "ortg": round(100 * tot("team", "pts") / poss, 1), "drtg": round(100 * tot("opp", "pts") / poss, 1)})
+        # per-100-possession rates, own and allowed, for the team-stat projections
+        per100 = lambda side, k: 100 * (tot(side, "fg2a") + tot(side, "fg3a") if k == "fga" else tot(side, k)) / poss
+        team["r100"] = {k: per100("team", k) for k in RATE_KEYS}
+        team["opp100"] = {k: per100("opp", k) for k in RATE_KEYS}
+        team["orebPct"] = pct(tot("team", "oreb"), tot("team", "oreb") + tot("opp", "dreb"))
+        team["drebPct"] = pct(tot("team", "dreb"), tot("team", "dreb") + tot("opp", "oreb"))
     players = {}
     for b in boxes:
         for p in b["players"]:
@@ -187,6 +194,51 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
         })
     rows.sort(key=lambda r: -r["pir"])
     return {"score": round(score, 1), "players": rows, "missing": missing, "pace": round(pace, 1)}
+
+
+def project_team_stats(a, b, a_score, b_score, poss, comp):
+    """Team totals for both sides: made 2s/3s/FTs, assists, rebounds (offensive/defensive) and points.
+    Each count = possessions x (own rate per 100 x opponent's allowed rate / league rate), early-season numbers
+    pulled toward the league; the scoring lines are then scaled to add up to the projected score."""
+    lg = LEAGUE.get(comp) or {}
+    if not lg.get("poss"):
+        return None
+    lg_r = {k: 100 * (lg.get(k) or 0) / lg["poss"] for k in RATE_KEYS}
+    reg = lambda x, gp, base: (gp * x + PRIOR_GAMES * base) / (gp + PRIOR_GAMES) if x is not None else base
+
+    def counts(off, de, score):
+        if "r100" not in off or "opp100" not in de:
+            return None
+        c = {}
+        for k in ("fg2m", "fg3m", "ftm", "ast", "fga"):
+            own, allow = reg(off["r100"][k], off["gp"], lg_r[k]), reg(de["opp100"][k], de["gp"], lg_r[k])
+            c[k] = poss / 100 * own * allow / lg_r[k] if lg_r[k] else 0
+        raw = 2 * c["fg2m"] + 3 * c["fg3m"] + c["ftm"]
+        f = score / raw if raw else 1
+        for k in ("fg2m", "fg3m", "ftm", "ast"):
+            c[k] *= f
+        c["pts"] = score
+        c["miss"] = max(0.0, c["fga"] - c["fg2m"] - c["fg3m"])
+        return c
+
+    ca, cb = counts(a, b, a_score), counts(b, a, b_score)
+    if not ca or not cb:
+        return None
+    lg_or = lg.get("orebPct") or 30.0
+    lg_miss = (lg.get("fga") or 0) - (lg.get("fgm") or 0)
+    for off, de, c, c_def in ((a, b, ca, cb), (b, a, cb, ca)):
+        # share of misses rebounded by the shooting side: own offensive % x opponent's allowed %, relative to the league
+        orb = reg(off.get("orebPct"), off["gp"], lg_or) * (100 - reg(de.get("drebPct"), de["gp"], 100 - lg_or)) / lg_or
+        orb = max(10.0, min(60.0, orb))
+        # calibrated so a league-average matchup reproduces the league's per-game offensive and defensive rebounds
+        scale = c["miss"] / lg_miss if lg_miss else 0
+        c["oreb"] = (lg.get("oreb") or 0) * scale * orb / lg_or
+        c_def["dreb"] = (lg.get("dreb") or 0) * scale * (100 - orb) / (100 - lg_or)
+    out = {}
+    for k in ("pts", "fg2m", "fg3m", "ftm", "ast", "oreb", "dreb"):
+        out[k] = {"paok": round(ca[k], 1), "opp": round(cb[k], 1), "total": round(ca[k] + cb[k], 1)}
+    out["reb"] = {s: round(out["oreb"][s] + out["dreb"][s], 1) for s in ("paok", "opp", "total")}
+    return out
 
 
 def win_prob(margin):
@@ -352,6 +404,9 @@ def main():
                     "paok": us, "opp": them, "winProb": win_prob(us["score"] - them["score"]), "pace": us["pace"],
                     "lineupSource": source or "assumed", "note": lu.get("note", ""),
                 }
+                stats = project_team_stats(season_team, opp_team, us["score"], them["score"], us["pace"], comp)
+                if stats:
+                    report["projection"]["teamStats"] = stats
         reports.append(report)
         print(f"{comp}: scouted {opp_name} ({len(opp_boxes)} games), PAOK {len(paok_boxes)} games"
               + (f", projection {report['projection']['paok']['score']}-{report['projection']['opp']['score']}" if "projection" in report else ""))

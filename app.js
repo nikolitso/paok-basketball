@@ -462,6 +462,12 @@ VIEWS.scout = function scout() {
     const ptable = (side, name) => `<div><h3>${esc(name)} <span class="muted" style="font:500 13px Inter">${side.missing.length ? 'Out: ' + side.missing.map(esc).join(', ') : 'No absences'}</span></h3>
       <div class="table-wrap"><table><thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>PIR</th></tr></thead>
       <tbody>${side.players.map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.min}</td><td><b>${f1(r.pts)}</b></td><td>${f1(r.reb)}</td><td>${f1(r.ast)}</td><td>${f1(r.pir)}</td></tr>`).join('')}</tbody></table></div></div>`;
+    const ts = pr.teamStats;
+    const tsRows = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
+      ['ast', 'Assists'], ['fg3m', 'Three-pointers made'], ['ftm', 'Free throws made']];
+    const tstats = ts ? `<h3 style="margin-top:20px">Projected team stats</h3>
+      <div class="table-wrap"><table><thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th><th>Total</th></tr></thead>
+      <tbody>${tsRows.filter(([k]) => ts[k]).map(([k, label]) => `<tr><td class="l">${label}</td><td><b>${f1(ts[k].paok)}</b></td><td><b>${f1(ts[k].opp)}</b></td><td>${f1(ts[k].total)}</td></tr>`).join('')}</tbody></table></div>` : '';
     const [hn, hs, an, as] = pick.home ? ['PAOK', us.score, pick.opp, them.score] : [pick.opp, them.score, 'PAOK', us.score];
     proj = `<div class="card dark proj">
         <div class="label">Projected score</div>
@@ -469,9 +475,12 @@ VIEWS.scout = function scout() {
         <div class="winbar"><div style="width:${pr.winProb}%"></div></div>
         <div class="muted">PAOK win chance: <b style="color:#fff">${pr.winProb}%</b> · expected ${pr.pace ? f1(pr.pace) : '–'} possessions · ${esc(src)}${pr.note ? ' · ' + esc(pr.note) : ''}</div>
       </div>
+      ${tstats}
       <div class="grid two" style="margin-top:16px">${ptable(us, 'PAOK')}${ptable(them, pick.opp)}</div>
       <p class="note">How it works: expected possessions = both teams' possessions per game relative to the league average. Points per 100 possessions = a team's offensive rating × the opponent's defensive rating ÷ the league average,
         reduced if key scorers are missing. Early-season numbers are pulled toward the league average, plus a small home-court edge.
+        Team stats: each team's rate per 100 possessions × what the opponent allows ÷ the league average, over the expected possessions; made shots are scaled to add up to the projected score,
+        and rebounds come from the expected misses and both teams' offensive and defensive rebounding rates.
         Player lines: per-minute production this season × expected minutes (shared out among the available players when someone is out).</p>`;
   }
   return `<h2>Next Game</h2>${tabs}
