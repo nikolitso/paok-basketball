@@ -1,7 +1,7 @@
 /* PAOK Basketball 2026-27 — static site reading data/eurocup.json and data/gbl.json */
 const TZ = 'Europe/Athens';
 const COMPS = { GBL: 'Greek League', EuroCup: 'EuroCup', 'Greek Super Cup': 'Super Cup', 'Greek Cup': 'Greek Cup' };
-const state = { ec: null, gbl: null, games: [], filters: { standings: 'GBL', powerSort: 'power', onoffSort: 'diff', league: 'GBL', leagueSort: 'net', profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
+const state = { ec: null, gbl: null, games: [], filters: { standings: 'GBL', powerSort: 'power', onoffSort: 'diff', league: 'GBL', leagueSort: 'net', rcMode: 'adj', profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -691,9 +691,14 @@ function paceSection(games, comp) {
 }
 
 /* offence vs defence scatter for the League page: right = better attack, up = better defence */
-function ratingChart(teams, avg, isNext, label) {
-  const pts = teams.filter((t) => t.ortg != null && t.drtg != null);
-  if (pts.length < 2 || !avg) return '';
+function ratingChart(teams, lgAvg, isNext, label) {
+  const adj = state.filters.rcMode !== 'raw' && teams.some((t) => t.adjOrtg != null);
+  // the chart reads t.ortg/t.drtg/t.net; for the adjusted view swap in the schedule-adjusted numbers
+  const pts = teams.filter((t) => t.ortg != null && t.drtg != null)
+    .map((t) => (adj ? { ...t, ortg: t.adjOrtg, drtg: t.adjDrtg, net: t.adjNet } : t));
+  if (pts.length < 2 || !lgAvg) return '';
+  const mean = (k) => pts.reduce((a, t) => a + t[k], 0) / pts.length;
+  const avg = adj ? { ortg: mean('ortg'), drtg: mean('drtg') } : lgAvg;
   const W = 760, H = 460, L = 64, R = 24, T = 28, B = 52;
   const xs = pts.map((t) => t.ortg).concat(avg.ortg), ys = pts.map((t) => t.drtg).concat(avg.drtg);
   const pad = (a) => { const lo = Math.min(...a), hi = Math.max(...a), m = Math.max(2, (hi - lo) * 0.08); return [Math.floor((lo - m) / 5) * 5, Math.ceil((hi + m) / 5) * 5]; };
@@ -734,19 +739,21 @@ function ratingChart(teams, avg, isNext, label) {
       <text x="${cx + (lb.right ? 12 : -12)}" y="${lb.y}" class="rc-label${t.paok ? ' paok' : ''}" text-anchor="${lb.right ? 'start' : 'end'}">${esc(lb.name)}</text></g>`;
   }).join('');
   return `<h2>Attack vs defence</h2>
+    ${teams.some((t) => t.adjOrtg != null) ? seg('rcMode', [['adj', 'Schedule-adjusted'], ['raw', 'Raw']]) : ''}
     <div class="card rc-card"><div class="rc-scroll"><svg viewBox="0 0 ${W} ${H}" class="rating-chart" role="img" aria-label="Offensive rating against defensive rating for every team">
       ${grid}${avgLines}${corners}${dots}
       <text x="${(L + W - R) / 2}" y="${H - 10}" class="rc-axis" text-anchor="middle">Offensive rating: points scored per 100 possessions →</text>
       <text transform="translate(18 ${(T + H - B) / 2}) rotate(-90)" class="rc-axis" text-anchor="middle">Defensive rating (better ↑)</text>
     </svg></div>
-    <p class="note" style="margin:6px 0 0">Dashed lines = ${esc(label)} (${f1(avg.ortg)}). Top right is where you want to be; the further a team sits from the bottom-left to top-right diagonal, the bigger its net rating. Hover a dot for the numbers.</p></div>`;
+    <p class="note" style="margin:6px 0 0">${adj ? 'Schedule-adjusted: every game is corrected for how good that opponent is and for home court, so scoring 110 against a top defence counts for more than 110 against a weak one. ' : 'Raw: points per 100 possessions as they happened, whoever the opponent was. '}Dashed lines = ${adj ? 'average' : esc(label)} (${f1(avg.ortg)}). Top right is where you want to be; the further a team sits from the bottom-left to top-right diagonal, the bigger its net rating. Hover a dot for the numbers.</p></div>`;
 }
 
 /* ---------- league table: every team, every stat ---------- */
 // [key, header, direction (1 = higher is better), group, shown in the compact view]
 const LEAGUE_COLS = [
   ['w', 'W–L', 1, 'Overall', true], ['net', 'Net', 1, 'Overall', true], ['ortg', 'ORtg', 1, 'Overall', true],
-  ['drtg', 'DRtg', -1, 'Overall', true], ['poss', 'Poss', 1, 'Overall', true],
+  ['drtg', 'DRtg', -1, 'Overall', true], ['adjNet', 'Adj Net', 1, 'Overall', true], ['sos', 'SOS', 1, 'Overall', true],
+  ['poss', 'Poss', 1, 'Overall', true],
   ['efg', 'eFG%', 1, 'Offence', true], ['tovPct', 'TOV%', -1, 'Offence', true], ['orebPct', 'OREB%', 1, 'Offence', true],
   ['ftr', 'FT rate', 1, 'Offence', true], ['par3', '3PA rate', 1, 'Offence', true],
   ['opp_efg', 'Opp eFG%', -1, 'Defence', true], ['forcedTov', 'Forced TOV%', 1, 'Defence', true],
@@ -771,7 +778,7 @@ VIEWS.league = function league() {
   const group = comp === 'EuroCup' ? (lg.teams.find((t) => t.paok) || {}).group : null;
   const pool = group ? lg.teams.filter((t) => t.group === group) : lg.teams;
   const teams = [...pool].sort((a, b) => dir * ((b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9)));
-  const cell = (t, k) => { const v = t[k]; if (v === null || v === undefined) return '–'; return k === 'w' ? `${t.w}–${t.l}` : k === 'net' ? `<span class="${v > 0 ? 'pos-text' : v < 0 ? 'neg-text' : ''}">${v > 0 ? '+' : ''}${f1(v)}</span>` : f1(v); };
+  const cell = (t, k) => { const v = t[k]; if (v === null || v === undefined) return '–'; return k === 'w' ? `${t.w}–${t.l}` : (k === 'net' || k === 'adjNet') ? `<span class="${v > 0 ? 'pos-text' : v < 0 ? 'neg-text' : ''}">${v > 0 ? '+' : ''}${f1(v)}</span>` : f1(v); };
   // header bands: Overall / Offence / Defence / Per game
   const groups = cols.reduce((acc, c) => { const last = acc[acc.length - 1]; if (last && last.name === c[3]) last.n++; else acc.push({ name: c[3], n: 1 }); return acc; }, []);
   const avg = group && lg.groupAvg && lg.groupAvg[group] ? lg.groupAvg[group] : lg.avg;
@@ -782,13 +789,15 @@ VIEWS.league = function league() {
       <thead><tr class="groups"><th colspan="2"></th>${groups.map((g) => `<th colspan="${g.n}" class="grp">${g.name}${g.name === 'Offence' || g.name === 'Defence' ? ' · four factors' : ''}</th>`).join('')}</tr>
         <tr><th>#</th><th class="l">Team</th>${cols.map(([k, l, d, g]) => `<th class="sortable ${sortKey === k ? 'sorted' : ''} ${g === 'Defence' || g === 'Offence' ? 'ff' : ''}" title="${d < 0 ? 'Lower is better' : 'Higher is better'}" onclick="state.filters.leagueSort='${k}';rerender()">${l}</th>`).join('')}</tr></thead>
       <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : isNext(t) ? 'next-opp' : ''}"><td>${i + 1}</td><td class="l">${esc(t.team)}${isNext(t) && !t.paok ? ' <span class="pill">Next opponent</span>' : ''}</td>${cols.map(([k]) => `<td>${cell(t, k)}</td>`).join('')}</tr>`).join('')}
-      <tr class="avg-row"><td></td><td class="l">${group ? `${esc(group)} average` : 'League average'}</td>${cols.map(([k]) => `<td>${['gp', 'w', 'net'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
+      <tr class="avg-row"><td></td><td class="l">${group ? `${esc(group)} average` : 'League average'}</td>${cols.map(([k]) => `<td>${['gp', 'w', 'net', 'adjNet', 'sos'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
     </table></div>
     <p><button class="btn-toggle" onclick="state.filters.leagueAll=!state.filters.leagueAll;rerender()">${state.filters.leagueAll ? 'Show key columns only' : 'Show all columns'}</button></p>
     ${ratingChart(pool, avg, isNext, group ? `${group} average` : 'league average')}
     <div class="card" style="max-width:860px;margin-top:8px"><h3>Columns</h3>
       <ul class="legend">
         <li><b>Net</b><span class="muted">Points per 100 possessions better (or worse) than opponents. The single best indicator of team strength; sorted by this by default.</span></li>
+        <li><b>Adj Net</b><span class="muted">Net rating corrected for the schedule: each game is weighed by how strong that opponent is, plus home court. Fairer than Net while teams have faced very different opponents.</span></li>
+        <li><b>SOS</b><span class="muted">Strength of schedule: how hard it has been so far: the average adjusted net rating of the opponents faced. Above 0 = tougher than average, below 0 = easier.</span></li>
         <li><b>ORtg / DRtg</b><span class="muted">Points scored / allowed per 100 possessions. Lower DRtg = better defence.</span></li>
         <li><b>Poss</b><span class="muted">Possessions per game, overtime included: how fast a team plays. Not good or bad, but it sets how many points a game will have.</span></li>
         <li><b>eFG% / Opp eFG%</b><span class="muted">Shooting efficiency (a three counts 1.5×), own and allowed. The most important of the four factors.</span></li>

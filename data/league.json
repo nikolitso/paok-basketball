@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16T23:11:45Z",
+ "updated": "2026-10-17T09:42:33Z",
  "comps": {
   "EuroCup": {
    "games": 48,
@@ -50,7 +50,11 @@
      "net": 29.5,
      "team": "Bahcesehir",
      "paok": false,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 128.0,
+     "adjDrtg": 108.3,
+     "adjNet": 19.7,
+     "sos": -6.1
     },
     {
      "pts": 89.3,
@@ -98,7 +102,11 @@
      "net": 19.9,
      "team": "Aris",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 111.4,
+     "adjDrtg": 96.5,
+     "adjNet": 14.9,
+     "sos": -1.7
     },
     {
      "pts": 90.3,
@@ -146,7 +154,11 @@
      "net": 16.0,
      "team": "Reyer Venice",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 119.1,
+     "adjDrtg": 107.6,
+     "adjNet": 11.5,
+     "sos": -1.3
     },
     {
      "pts": 84.7,
@@ -194,7 +206,11 @@
      "net": 15.0,
      "team": "Jerusalem",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 113.3,
+     "adjDrtg": 104.5,
+     "adjNet": 8.8,
+     "sos": -5.4
     },
     {
      "pts": 87.7,
@@ -242,7 +258,11 @@
      "net": 13.2,
      "team": "Napoli",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 111.8,
+     "adjDrtg": 100.2,
+     "adjNet": 11.6,
+     "sos": -0.6
     },
     {
      "pts": 87.0,
@@ -290,7 +310,11 @@
      "net": 10.6,
      "team": "Tofas",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 108.5,
+     "adjDrtg": 99.4,
+     "adjNet": 9.1,
+     "sos": 1.0
     },
     {
      "pts": 85.0,
@@ -338,7 +362,11 @@
      "net": 8.9,
      "team": "La Laguna Tenerife",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 115.7,
+     "adjDrtg": 108.2,
+     "adjNet": 7.5,
+     "sos": 1.3
     },
     {
      "pts": 87.0,
@@ -386,7 +414,11 @@
      "net": 4.8,
      "team": "Riga Zelli",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 112.5,
+     "adjDrtg": 114.5,
+     "adjNet": -2.1,
+     "sos": -6.4
     },
     {
      "pts": 96.3,
@@ -434,7 +466,11 @@
      "net": 4.4,
      "team": "Ulm",
      "paok": false,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 115.2,
+     "adjDrtg": 117.9,
+     "adjNet": -2.7,
+     "sos": -7.0
     },
     {
      "pts": 84.7,
@@ -482,7 +518,11 @@
      "net": 4.1,
      "team": "PAOK",
      "paok": true,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 116.2,
+     "adjDrtg": 112.4,
+     "adjNet": 3.8,
+     "sos": -0.5
     },
     {
      "pts": 85.7,
@@ -530,7 +570,11 @@
      "net": 3.1,
      "team": "Lietkabelis",
      "paok": false,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 114.5,
+     "adjDrtg": 113.0,
+     "adjNet": 1.5,
+     "sos": -0.5
     },
     {
      "pts": 78.7,
@@ -578,7 +622,11 @@
      "net": 1.8,
      "team": "London",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 108.3,
+     "adjDrtg": 111.5,
+     "adjNet": -3.2,
+     "sos": -4.4
     },
     {
      "pts": 83.3,
@@ -626,7 +674,11 @@
      "net": 1.7,
      "team": "Chemnitz",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 108.0,
+     "adjDrtg": 108.3,
+     "adjNet": -0.3,
+     "sos": -3.1
     },
     {
      "pts": 86.3,
@@ -674,7 +726,11 @@
      "net": 0.5,
      "team": "Buducnost",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 116.0,
+     "adjDrtg": 110.2,
+     "adjNet": 5.7,
+     "sos": 5.1
     },
     {
      "pts": 77.3,
@@ -722,7 +778,11 @@
      "net": -0.9,
      "team": "Turk Telekom",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 106.8,
+     "adjDrtg": 101.2,
+     "adjNet": 5.6,
+     "sos": 6.8
     },
     {
      "pts": 82.3,
@@ -770,7 +830,11 @@
      "net": -1.3,
      "team": "Roma",
      "paok": false,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 104.1,
+     "adjDrtg": 105.4,
+     "adjNet": -1.3,
+     "sos": 1.1
     },
     {
      "pts": 79.0,
@@ -818,7 +882,11 @@
      "net": -2.5,
      "team": "Maxima Roma",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 104.3,
+     "adjDrtg": 102.9,
+     "adjNet": 1.4,
+     "sos": 3.7
     },
     {
      "pts": 79.7,
@@ -866,7 +934,11 @@
      "net": -3.0,
      "team": "Le Mans Sarthe",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 102.7,
+     "adjDrtg": 105.5,
+     "adjNet": -2.8,
+     "sos": 0.8
     },
     {
      "pts": 83.3,
@@ -914,7 +986,11 @@
      "net": -3.5,
      "team": "Neptunas",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 107.8,
+     "adjDrtg": 115.4,
+     "adjNet": -7.6,
+     "sos": -4.5
     },
     {
      "pts": 82.3,
@@ -962,7 +1038,11 @@
      "net": -3.9,
      "team": "Cluj",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 108.8,
+     "adjDrtg": 110.9,
+     "adjNet": -2.0,
+     "sos": -0.1
     },
     {
      "pts": 83.0,
@@ -1010,7 +1090,11 @@
      "net": -4.6,
      "team": "Burgos",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 117.8,
+     "adjDrtg": 117.4,
+     "adjNet": 0.4,
+     "sos": 5.7
     },
     {
      "pts": 89.0,
@@ -1058,7 +1142,11 @@
      "net": -6.2,
      "team": "Manresa",
      "paok": false,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 106.3,
+     "adjDrtg": 105.4,
+     "adjNet": 1.0,
+     "sos": 6.9
     },
     {
      "pts": 83.7,
@@ -1106,7 +1194,11 @@
      "net": -6.5,
      "team": "Slask",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 111.5,
+     "adjDrtg": 116.8,
+     "adjNet": -5.3,
+     "sos": 2.2
     },
     {
      "pts": 79.0,
@@ -1154,7 +1246,11 @@
      "net": -6.7,
      "team": "Bosna",
      "paok": false,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 101.8,
+     "adjDrtg": 105.7,
+     "adjNet": -3.9,
+     "sos": 0.8
     },
     {
      "pts": 80.3,
@@ -1202,7 +1298,11 @@
      "net": -7.2,
      "team": "Derthona",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 111.3,
+     "adjDrtg": 114.0,
+     "adjNet": -2.7,
+     "sos": 3.3
     },
     {
      "pts": 79.0,
@@ -1250,7 +1350,11 @@
      "net": -7.4,
      "team": "Trento",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 95.4,
+     "adjDrtg": 106.3,
+     "adjNet": -10.9,
+     "sos": -4.4
     },
     {
      "pts": 82.3,
@@ -1298,7 +1402,11 @@
      "net": -8.1,
      "team": "Bourg",
      "paok": false,
-     "group": "Group C"
+     "group": "Group C",
+     "adjOrtg": 110.4,
+     "adjDrtg": 112.7,
+     "adjNet": -2.3,
+     "sos": 4.4
     },
     {
      "pts": 77.3,
@@ -1346,7 +1454,11 @@
      "net": -8.5,
      "team": "Skyliners",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 102.9,
+     "adjDrtg": 110.2,
+     "adjNet": -7.4,
+     "sos": -1.7
     },
     {
      "pts": 73.3,
@@ -1394,7 +1506,11 @@
      "net": -11.0,
      "team": "Siauliai",
      "paok": false,
-     "group": "Group B"
+     "group": "Group B",
+     "adjOrtg": 99.6,
+     "adjDrtg": 113.0,
+     "adjNet": -13.4,
+     "sos": -4.2
     },
     {
      "pts": 74.7,
@@ -1442,7 +1558,11 @@
      "net": -11.2,
      "team": "Cedevita Olimpija",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 99.8,
+     "adjDrtg": 106.5,
+     "adjNet": -6.7,
+     "sos": 2.4
     },
     {
      "pts": 76.7,
@@ -1490,7 +1610,11 @@
      "net": -13.3,
      "team": "Rostock",
      "paok": false,
-     "group": "Group A"
+     "group": "Group A",
+     "adjOrtg": 98.7,
+     "adjDrtg": 108.5,
+     "adjNet": -9.8,
+     "sos": 1.3
     },
     {
      "pts": 72.0,
@@ -1538,7 +1662,11 @@
      "net": -25.7,
      "team": "Balkan",
      "paok": false,
-     "group": "Group D"
+     "group": "Group D",
+     "adjOrtg": 93.9,
+     "adjDrtg": 111.8,
+     "adjNet": -17.9,
+     "sos": 5.2
     }
    ],
    "avg": {
@@ -1817,7 +1945,11 @@
      "l": 0,
      "net": 35.7,
      "team": "Panathinaikos",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 115.7,
+     "adjDrtg": 93.6,
+     "adjNet": 22.1,
+     "sos": -8.1
     },
     {
      "pts": 88.5,
@@ -1864,7 +1996,11 @@
      "l": 0,
      "net": 17.8,
      "team": "Olympiacos",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 119.7,
+     "adjDrtg": 105.7,
+     "adjNet": 14.0,
+     "sos": -0.5
     },
     {
      "pts": 78.0,
@@ -1911,7 +2047,11 @@
      "l": 1,
      "net": 15.4,
      "team": "Aris",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 104.5,
+     "adjDrtg": 89.6,
+     "adjNet": 14.8,
+     "sos": 2.5
     },
     {
      "pts": 87.0,
@@ -1958,7 +2098,11 @@
      "l": 0,
      "net": 11.4,
      "team": "PAOK",
-     "paok": true
+     "paok": true,
+     "adjOrtg": 118.1,
+     "adjDrtg": 117.2,
+     "adjNet": 0.9,
+     "sos": -10.3
     },
     {
      "pts": 79.5,
@@ -2005,7 +2149,11 @@
      "l": 0,
      "net": 11.3,
      "team": "Karditsa",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 108.8,
+     "adjDrtg": 98.5,
+     "adjNet": 10.3,
+     "sos": 4.4
     },
     {
      "pts": 92.5,
@@ -2052,7 +2200,11 @@
      "l": 0,
      "net": 4.9,
      "team": "Peristeri",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 116.3,
+     "adjDrtg": 116.6,
+     "adjNet": -0.4,
+     "sos": -5.5
     },
     {
      "pts": 87.0,
@@ -2099,7 +2251,11 @@
      "l": 1,
      "net": 0.0,
      "team": "Kolossos",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 118.5,
+     "adjDrtg": 118.6,
+     "adjNet": -0.2,
+     "sos": 0.3
     },
     {
      "pts": 83.5,
@@ -2146,7 +2302,11 @@
      "l": 1,
      "net": 0.0,
      "team": "Mykonos",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 106.8,
+     "adjDrtg": 114.0,
+     "adjNet": -7.2,
+     "sos": -8.9
     },
     {
      "pts": 74.5,
@@ -2193,7 +2353,11 @@
      "l": 1,
      "net": -6.2,
      "team": "AEK",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 108.6,
+     "adjDrtg": 113.9,
+     "adjNet": -5.3,
+     "sos": -1.9
     },
     {
      "pts": 78.5,
@@ -2240,7 +2404,11 @@
      "l": 2,
      "net": -7.5,
      "team": "Iraklis",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 98.1,
+     "adjDrtg": 98.9,
+     "adjNet": -0.8,
+     "sos": 6.8
     },
     {
      "pts": 74.5,
@@ -2287,7 +2455,11 @@
      "l": 2,
      "net": -16.5,
      "team": "Maroussi",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 100.0,
+     "adjDrtg": 118.6,
+     "adjNet": -18.7,
+     "sos": -6.3
     },
     {
      "pts": 74.0,
@@ -2334,7 +2506,11 @@
      "l": 2,
      "net": -20.1,
      "team": "Doxa Lefkadas",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 97.9,
+     "adjDrtg": 111.2,
+     "adjNet": -13.3,
+     "sos": 0.3
     },
     {
      "pts": 73.5,
@@ -2381,7 +2557,11 @@
      "l": 2,
      "net": -20.3,
      "team": "Promitheas",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 100.7,
+     "adjDrtg": 110.9,
+     "adjNet": -10.2,
+     "sos": 10.9
     },
     {
      "pts": 74.0,
@@ -2428,7 +2608,11 @@
      "l": 2,
      "net": -27.2,
      "team": "Vikos Falcons",
-     "paok": false
+     "paok": false,
+     "adjOrtg": 113.8,
+     "adjDrtg": 119.8,
+     "adjNet": -6.0,
+     "sos": 16.2
     }
    ],
    "avg": {

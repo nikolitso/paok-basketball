@@ -127,6 +127,49 @@ def summarize(rows):
     return s
 
 
+HOME_EDGE = 1.5   # points per 100 possessions a home team scores more (and allows fewer)
+ADJ_PRIOR = 0.5   # games' worth of league-average performance, keeps the adjustment stable early on
+
+
+def adjust(games):
+    """Schedule-adjusted offensive/defensive ratings: each game's rating corrected for how good that opponent's
+    defence/attack is (and for home court), solved for all teams at once. The first side of a game is the home team."""
+    rows = []  # (team, opp, ortg in that game, drtg in that game, home)
+    for g in games:
+        a, b = g["sides"]
+        poss = (poss_of(a["total"]) + poss_of(b["total"])) / 2
+        if not poss:
+            continue
+        pa, pb = 100 * a["total"]["pts"] / poss, 100 * b["total"]["pts"] / poss
+        rows += [(a["team"], b["team"], pa, pb, True), (b["team"], a["team"], pb, pa, False)]
+    if not rows:
+        return {}
+    lg = sum(r[2] for r in rows) / len(rows)
+    teams = {r[0] for r in rows}
+    off, de = {t: lg for t in teams}, {t: lg for t in teams}
+    for _ in range(200):
+        new_o, new_d = {}, {}
+        for t in teams:
+            mine = [r for r in rows if r[0] == t]
+            h = lambda home: HOME_EDGE if home else -HOME_EDGE
+            # scored against a defence that usually allows de[opp]: worth (lg - de[opp]) more than it looks
+            so = sum(o + (lg - de[opp]) - h(home) for _, opp, o, _, home in mine)
+            sd = sum(d + (lg - off[opp]) + h(home) for _, opp, _, d, home in mine)
+            n = len(mine)
+            new_o[t] = (so + ADJ_PRIOR * lg) / (n + ADJ_PRIOR)
+            new_d[t] = (sd + ADJ_PRIOR * lg) / (n + ADJ_PRIOR)
+        mo, md = sum(new_o.values()) / len(teams), sum(new_d.values()) / len(teams)
+        off = {t: 0.5 * off[t] + 0.5 * (new_o[t] - mo + lg) for t in teams}
+        de = {t: 0.5 * de[t] + 0.5 * (new_d[t] - md + lg) for t in teams}
+    out = {}
+    for t in teams:
+        opps = [r[1] for r in rows if r[0] == t]
+        out[t] = {"adjOrtg": round(off[t], 1), "adjDrtg": round(de[t], 1), "adjNet": round(off[t] - de[t], 1),
+                  # schedule strength: average adjusted net rating of the opponents faced (higher = harder)
+                  "sos": round(sum(off[o] - de[o] for o in opps) / len(opps), 1)}
+    return out
+
+
 def build(games):
     per_team, groups, all_rows, group_rows = {}, {}, [], {}
     for g in games:
@@ -147,6 +190,9 @@ def build(games):
         if name in groups:
             t["group"] = groups[name]
         teams.append(t)
+    adj = adjust(games)
+    for t in teams:
+        t.update(adj.get(t["team"], {}))
     teams.sort(key=lambda t: (-t["net"], t["team"]))
     return {"games": len(games), "teams": teams, "avg": summarize(all_rows) if all_rows else None,
             # per-group averages (EuroCup): every team-game played in that group
