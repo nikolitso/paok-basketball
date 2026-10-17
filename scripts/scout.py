@@ -24,6 +24,7 @@ DATA = os.path.join(ROOT, "data")
 CACHE = os.path.join(DATA, "scout_cache")
 
 LEAGUE_AVG = {"EuroCup": 82.0, "GBL": 80.0}  # fallback points per team per game when league.json is missing
+ADJ = {}     # comp -> schedule-adjusted team ratings from data/league.json
 LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
 RATE_PRIOR_MIN = 40
 REPLACEMENT_LOSS = 0.2  # share of a missing player's scoring the team doesn't make up
@@ -177,8 +178,14 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
     # early-season numbers are pulled toward the league average (PRIOR_GAMES worth of league-average games)
     reg = lambda x, gp, base: (gp * x + PRIOR_GAMES * base) / (gp + PRIOR_GAMES) if x is not None else base
     pace = reg(team_stats.get("pace"), team_stats["gp"], lg_pace) * reg(opp_stats.get("pace"), opp_stats["gp"], lg_pace) / lg_pace
-    ortg = reg(team_stats.get("ortg"), team_stats["gp"], lg_ortg)
-    opp_drtg = reg(opp_stats.get("drtg"), opp_stats["gp"], lg_ortg)
+    # schedule-adjusted ratings when available (their own competition-wide average is the baseline)
+    if team_stats.get("adjOrtg") is not None and opp_stats.get("adjDrtg") is not None:
+        lg_ortg = ADJ[comp]["mean"]
+        ortg = reg(team_stats["adjOrtg"], team_stats["adjGp"], lg_ortg)
+        opp_drtg = reg(opp_stats["adjDrtg"], opp_stats["adjGp"], lg_ortg)
+    else:
+        ortg = reg(team_stats.get("ortg"), team_stats["gp"], lg_ortg)
+        opp_drtg = reg(opp_stats.get("drtg"), opp_stats["gp"], lg_ortg)
     # missing players: scale the attack by how much of the usual scoring is still available
     full = team_stats.get("pts") or lineup_pts
     # the absent players' share of the team's scoring (points per team game); teammates make up most of it,
@@ -344,6 +351,9 @@ def main():
             # EuroCup: baseline is PAOK's group (its own games), like the comparisons on the site
             group = next((t.get("group") for t in v["teams"] if t.get("paok")), None)
             LEAGUE[c] = (v.get("groupAvg") or {}).get(group) or v["avg"]
+            adj = [t for t in v["teams"] if t.get("adjOrtg") is not None]
+            if adj:  # schedule-adjusted ratings, averaged over the whole competition
+                ADJ[c] = {"teams": adj, "mean": sum(t["adjOrtg"] for t in adj) / len(adj)}
     lineups_path = os.path.join(DATA, "lineups.json")
     lineups = load("lineups.json") if os.path.exists(lineups_path) else {}
     now = datetime.now(timezone.utc)
@@ -412,6 +422,13 @@ def main():
                 season_team, season_players = all_team, all_players
             registered = {surname(p["name"]) for p in data["roster"]}
             season_players = [p for p in season_players if surname(p["name"]) in registered]
+            # schedule-adjusted ratings from the league table (PAOK's are from this competition's games)
+            def with_adj(stats, name):
+                key = re.sub(r"[^a-z]", "", name.lower())
+                t = next((t for t in ADJ.get(comp, {}).get("teams", [])
+                          if (lambda k: k == key or k in key or key in k)(re.sub(r"[^a-z]", "", t["team"].lower()))), None)
+                return dict(stats, adjOrtg=t["adjOrtg"], adjDrtg=t["adjDrtg"], adjGp=t["gp"]) if t else stats
+            season_team, opp_team = with_adj(season_team, "PAOK"), with_adj(opp_team, nxt["opp"])
             us = project_side(season_players, paok_out, season_team, opp_team, comp, nxt["home"], lu.get("minutes"))
             them = project_side(opp_players, opp_out, opp_team, season_team, comp, not nxt["home"])
             if us and them:

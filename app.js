@@ -479,11 +479,11 @@ VIEWS.scout = function scout() {
       </div>
       ${tstats}
       ${absent(us, 'PAOK')}${absent(them, pick.opp)}
-      <p class="note">How it works: expected possessions = both teams' possessions per game relative to the league average. Points per 100 possessions = a team's offensive rating × the opponent's defensive rating ÷ the league average,
+      <p class="note">How it works: expected possessions = both teams' possessions per game relative to the league average. Points per 100 possessions = a team's schedule-adjusted offensive rating × the opponent's schedule-adjusted defensive rating ÷ the league average (adjusted = corrected for the strength of the opponents faced so far),
         reduced if key scorers are missing. Early-season numbers are pulled toward the league average, plus a small home-court edge.
         Team stats: each team's rate per 100 possessions × what the opponent allows ÷ the league average, over the expected possessions; made shots are scaled to add up to the projected score,
         and rebounds come from the expected misses and both teams' offensive and defensive rebounding rates.
-        In the Greek League, PAOK's numbers come from league games only.
+        PAOK's ratings come from games in this competition only.
 </p>`;
   }
   return `<h2>Next Game</h2>${tabs}
