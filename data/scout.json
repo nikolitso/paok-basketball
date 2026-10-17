@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T06:15:21Z",
+ "updated": "2026-10-17T06:16:18Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -1817,97 +1817,97 @@
    ],
    "projection": {
     "paok": {
-     "score": 82.8,
+     "score": 81.8,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 31,
-       "pts": 15.9,
-       "reb": 5.0,
-       "ast": 2.0,
-       "pir": 16.9
+       "pts": 14.5,
+       "reb": 4.1,
+       "ast": 2.4,
+       "pir": 15.7
       },
       {
-       "name": "Marcus Foster",
-       "no": "17",
-       "min": 27,
-       "pts": 13.1,
-       "reb": 3.2,
-       "ast": 2.9,
-       "pir": 12.7
-      },
-      {
-       "name": "Naz Mitrou Long",
+       "name": "Naz Mitrou-Long",
        "no": "1",
        "min": 22,
-       "pts": 9.3,
-       "reb": 3.0,
-       "ast": 2.0,
-       "pir": 9.9
-      },
-      {
-       "name": "Ben Moore",
-       "no": "26",
-       "min": 21,
-       "pts": 6.2,
-       "reb": 4.5,
-       "ast": 0.8,
-       "pir": 9.4
+       "pts": 10.3,
+       "reb": 3.6,
+       "ast": 3.0,
+       "pir": 13.1
       },
       {
        "name": "Trevor Hudgins",
        "no": "12",
        "min": 19,
-       "pts": 8.1,
-       "reb": 2.4,
+       "pts": 8.7,
+       "reb": 2.6,
        "ast": 2.4,
-       "pir": 9.0
+       "pir": 11.2
       },
       {
-       "name": "Breein Tyree",
-       "no": "5",
-       "min": 15,
-       "pts": 10.2,
-       "reb": 1.4,
-       "ast": 1.1,
-       "pir": 8.9
+       "name": "Ben Moore",
+       "no": "26",
+       "min": 21,
+       "pts": 7.4,
+       "reb": 4.8,
+       "ast": 1.0,
+       "pir": 11.0
       },
       {
        "name": "Donatas Motiejunas",
        "no": "20",
        "min": 18,
-       "pts": 7.0,
+       "pts": 6.8,
        "reb": 2.3,
        "ast": 1.4,
        "pir": 8.6
       },
       {
+       "name": "Marcus Foster",
+       "no": "17",
+       "min": 27,
+       "pts": 10.7,
+       "reb": 3.0,
+       "ast": 2.1,
+       "pir": 7.7
+      },
+      {
+       "name": "Breein Tyree",
+       "no": "5",
+       "min": 15,
+       "pts": 7.6,
+       "reb": 2.1,
+       "ast": 1.1,
+       "pir": 7.5
+      },
+      {
        "name": "Raiquan Gray",
        "no": "0",
        "min": 19,
-       "pts": 4.6,
-       "reb": 1.6,
-       "ast": 1.4,
-       "pir": 4.4
+       "pts": 6.9,
+       "reb": 2.0,
+       "ast": 1.1,
+       "pir": 5.5
       },
       {
-       "name": "Nikolaos Persidis",
+       "name": "Nikos Persidis",
        "no": "18",
        "min": 13,
-       "pts": 3.5,
-       "reb": 2.4,
-       "ast": 0.7,
-       "pir": 4.0
+       "pts": 4.2,
+       "reb": 2.1,
+       "ast": 1.0,
+       "pir": 4.3
       },
       {
-       "name": "Athanasios Bazinas",
+       "name": "Thanasis Bazinas",
        "no": "77",
        "min": 6,
        "pts": 1.9,
-       "reb": 0.7,
-       "ast": 0.6,
-       "pir": 2.2
+       "reb": 0.8,
+       "ast": 0.5,
+       "pir": 2.4
       },
       {
        "name": "Dimitris Kaklamanakis",
@@ -1922,10 +1922,10 @@
        "name": "Nikos Chougkaz",
        "no": "9",
        "min": 5,
-       "pts": 1.5,
-       "reb": 0.6,
+       "pts": 1.6,
+       "reb": 0.8,
        "ast": 0.3,
-       "pir": 1.0
+       "pir": 1.2
       },
       {
        "name": "Giorgos Fillios",
@@ -1941,16 +1941,16 @@
       "Nick Calathes",
       "Kyle Alexander"
      ],
-     "pace": 72.2
+     "pace": 71.9
     },
     "opp": {
-     "score": 87.0,
+     "score": 84.1,
      "players": [
       {
        "name": "Payton Willis",
        "no": "2",
        "min": 22,
-       "pts": 13.5,
+       "pts": 13.1,
        "reb": 2.4,
        "ast": 3.3,
        "pir": 13.6
@@ -1959,7 +1959,7 @@
        "name": "Jordan Barnett",
        "no": "33",
        "min": 26,
-       "pts": 12.3,
+       "pts": 11.8,
        "reb": 4.9,
        "ast": 1.5,
        "pir": 13.2
@@ -1968,7 +1968,7 @@
        "name": "Devonte Upson",
        "no": "0",
        "min": 26,
-       "pts": 9.1,
+       "pts": 8.8,
        "reb": 4.5,
        "ast": 1.5,
        "pir": 11.4
@@ -1977,7 +1977,7 @@
        "name": "Giorgos Kamperidis",
        "no": "21",
        "min": 19,
-       "pts": 10.1,
+       "pts": 9.8,
        "reb": 2.7,
        "ast": 1.0,
        "pir": 10.7
@@ -1986,7 +1986,7 @@
        "name": "Ezra Manjon",
        "no": "5",
        "min": 25,
-       "pts": 10.1,
+       "pts": 9.7,
        "reb": 2.0,
        "ast": 3.4,
        "pir": 10.4
@@ -1995,7 +1995,7 @@
        "name": "Jackson Kreuser",
        "no": "34",
        "min": 22,
-       "pts": 8.2,
+       "pts": 7.9,
        "reb": 2.6,
        "ast": 1.4,
        "pir": 8.3
@@ -2004,7 +2004,7 @@
        "name": "Nikos Tsiakmas",
        "no": "7",
        "min": 19,
-       "pts": 6.8,
+       "pts": 6.6,
        "reb": 1.5,
        "ast": 3.0,
        "pir": 8.0
@@ -2013,7 +2013,7 @@
        "name": "Cj Harris",
        "no": "22",
        "min": 15,
-       "pts": 6.9,
+       "pts": 6.7,
        "reb": 1.5,
        "ast": 2.0,
        "pir": 7.6
@@ -2022,7 +2022,7 @@
        "name": "Zois Karampelas",
        "no": "4",
        "min": 12,
-       "pts": 4.5,
+       "pts": 4.4,
        "reb": 1.5,
        "ast": 2.1,
        "pir": 6.4
@@ -2031,7 +2031,7 @@
        "name": "Vasilis Christidis",
        "no": "14",
        "min": 7,
-       "pts": 2.7,
+       "pts": 2.6,
        "reb": 0.9,
        "ast": 0.7,
        "pir": 3.4
@@ -2040,7 +2040,7 @@
        "name": "Alexandros Kalaitzakis",
        "no": "13",
        "min": 7,
-       "pts": 2.8,
+       "pts": 2.7,
        "reb": 0.9,
        "ast": 0.8,
        "pir": 3.2
@@ -2049,52 +2049,52 @@
      "missing": [
       "Giannis Eustathiadis"
      ],
-     "pace": 72.2
+     "pace": 71.9
     },
-    "winProb": 35,
-    "pace": 72.2,
+    "winProb": 42,
+    "pace": 71.9,
     "lineupSource": "manual",
     "note": "PAOK's 13 for Rhodes: without Calathes (rested, minor knock) and Alexander (finger injury, saved for Ulm on 21 Oct). Motiejunas travels and is expected to make his league debut; one of the seven other foreign players will be left out of the 12. Kolossos without Eustathiadis and likely with 11 (only six foreign players allowed, so one American sits out); they are back from a long trip to Azerbaijan (won 80-62 at Gence), unbeaten at home, three wins in four games so far.",
     "teamStats": {
      "pts": {
-      "paok": 82.8,
-      "opp": 87.0,
-      "total": 169.8
+      "paok": 81.8,
+      "opp": 84.1,
+      "total": 165.9
      },
      "fg2m": {
-      "paok": 19.6,
-      "opp": 18.7,
-      "total": 38.3
+      "paok": 18.5,
+      "opp": 16.9,
+      "total": 35.4
      },
      "fg3m": {
-      "paok": 9.8,
-      "opp": 10.8,
-      "total": 20.6
+      "paok": 9.2,
+      "opp": 11.4,
+      "total": 20.5
      },
      "ftm": {
-      "paok": 14.3,
-      "opp": 17.2,
-      "total": 31.5
+      "paok": 17.4,
+      "opp": 16.2,
+      "total": 33.6
      },
      "ast": {
-      "paok": 16.0,
-      "opp": 18.1,
-      "total": 34.1
+      "paok": 15.7,
+      "opp": 17.9,
+      "total": 33.6
      },
      "oreb": {
-      "paok": 11.5,
-      "opp": 8.3,
-      "total": 19.8
+      "paok": 11.2,
+      "opp": 9.0,
+      "total": 20.2
      },
      "dreb": {
-      "paok": 21.8,
-      "opp": 23.7,
-      "total": 45.5
+      "paok": 23.2,
+      "opp": 23.6,
+      "total": 46.8
      },
      "reb": {
-      "paok": 33.3,
-      "opp": 32.0,
-      "total": 65.3
+      "paok": 34.4,
+      "opp": 32.6,
+      "total": 67.0
      }
     }
    }

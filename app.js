@@ -481,6 +481,7 @@ VIEWS.scout = function scout() {
         reduced if key scorers are missing. Early-season numbers are pulled toward the league average, plus a small home-court edge.
         Team stats: each team's rate per 100 possessions × what the opponent allows ÷ the league average, over the expected possessions; made shots are scaled to add up to the projected score,
         and rebounds come from the expected misses and both teams' offensive and defensive rebounding rates.
+        In the Greek League, PAOK's team and player numbers come from league games only (expected minutes from all games this season).
         Player lines: per-minute production this season × expected minutes (shared out among the available players when someone is out).</p>`;
   }
   return `<h2>Next Game</h2>${tabs}

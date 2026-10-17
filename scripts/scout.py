@@ -164,7 +164,7 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
         return None
     # expected minutes: season average, rescaled so the team plays 200, nobody above 38
     # minutes per *team* game, so someone who played 1 of 4 games isn't counted as a regular
-    mins = {p["name"]: p["min"] * p["gp"] / team_stats["gp"] for p in avail}
+    mins = {p["name"]: p.get("_mpg") or p["min"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in avail}
     # hand-set minutes from lineups.json ("minutes": {"Motiejunas": 18}), e.g. a new signing with no history
     fixed = {p["name"]: float(m) for p in avail for k, m in (set_min or {}).items() if surname(p["name"]) == surname(k)}
     for _ in range(5):
@@ -183,7 +183,7 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
     full = team_stats.get("pts") or lineup_pts
     # the absent players' share of the team's scoring (points per team game); teammates make up most of it,
     # but less efficiently, so the attack loses REPLACEMENT_LOSS of that share. Absences can only lower it.
-    lost = sum(p["pts"] * p["gp"] / team_stats["gp"] for p in players if surname(p["name"]) in out)
+    lost = sum(p["pts"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in players if surname(p["name"]) in out)
     availability = max(0.8, 1 - REPLACEMENT_LOSS * lost / full) if full else 1
     points_per_100 = ortg * opp_drtg / lg_ortg * availability
     score = pace * points_per_100 / 100 + (HOME_EDGE if home else -HOME_EDGE)
@@ -395,10 +395,21 @@ def main():
             opp_out = [p["name"] for p in opp_players if surname(p["name"]) not in dressed_opp]
             source = "official"
         if paok_team and opp_team:
-            # PAOK's strength: every game this season (all competitions), but only players registered for this one
+            # PAOK's strength: EuroCup from every game this season (all competitions); Greek League from league games only.
+            # Only players registered for this competition; one with no minutes in it yet (a new signing)
+            # borrows his per-minute numbers from the other competitions.
             all_boxes = [{"players": g["box"]["players"], "team": g["box"]["team"], "opp": g["box"]["opp"], "won": g["us"] > g["them"]}
                          for d in (ecd, gbld) for g in d["games"] if g["played"] and g.get("box")]
-            season_team, season_players = aggregate(all_boxes)
+            all_team, all_players = aggregate(all_boxes)
+            if comp == "GBL":
+                season_team, season_players = paok_team, paok_players
+                have = {surname(p["name"]) for p in season_players}
+                season_players = season_players + [dict(p, _tgp=all_team["gp"]) for p in all_players if surname(p["name"]) not in have]
+                # expected minutes (the player's role) from every game this season: two league games are too few
+                role = {surname(p["name"]): p["min"] * p["gp"] / all_team["gp"] for p in all_players}
+                season_players = [dict(p, _mpg=role.get(surname(p["name"]))) for p in season_players]
+            else:
+                season_team, season_players = all_team, all_players
             registered = {surname(p["name"]) for p in data["roster"]}
             season_players = [p for p in season_players if surname(p["name"]) in registered]
             us = project_side(season_players, paok_out, season_team, opp_team, comp, nxt["home"], lu.get("minutes"))
