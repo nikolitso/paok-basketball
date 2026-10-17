@@ -462,6 +462,8 @@ VIEWS.scout = function scout() {
     const ptable = (side, name) => `<div><h3>${esc(name)} <span class="muted" style="font:500 13px Inter">${side.missing.length ? 'Out: ' + side.missing.map(esc).join(', ') : 'No absences'}</span></h3>
       <div class="table-wrap"><table><thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>PIR</th></tr></thead>
       <tbody>${side.players.map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.min}</td><td><b>${f1(r.pts)}</b></td><td>${f1(r.reb)}</td><td>${f1(r.ast)}</td><td>${f1(r.pir)}</td></tr>`).join('')}</tbody></table></div></div>`;
+    // player lines are computed but hidden until there's more data; just list who's out
+    const absent = (side, name) => side.missing.length ? `<p class="muted" style="margin:8px 0 0"><b>${esc(name)} out:</b> ${side.missing.map(esc).join(', ')}</p>` : '';
     const ts = pr.teamStats;
     const tsRows = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
       ['ast', 'Assists'], ['fg3m', 'Three-pointers made'], ['ftm', 'Free throws made']];
@@ -476,13 +478,13 @@ VIEWS.scout = function scout() {
         <div class="muted">PAOK win chance: <b style="color:#fff">${pr.winProb}%</b> · expected ${pr.pace ? f1(pr.pace) : '–'} possessions · ${esc(src)}${pr.note ? ' · ' + esc(pr.note) : ''}</div>
       </div>
       ${tstats}
-      <div class="grid two" style="margin-top:16px">${ptable(us, 'PAOK')}${ptable(them, pick.opp)}</div>
+      ${absent(us, 'PAOK')}${absent(them, pick.opp)}
       <p class="note">How it works: expected possessions = both teams' possessions per game relative to the league average. Points per 100 possessions = a team's offensive rating × the opponent's defensive rating ÷ the league average,
         reduced if key scorers are missing. Early-season numbers are pulled toward the league average, plus a small home-court edge.
         Team stats: each team's rate per 100 possessions × what the opponent allows ÷ the league average, over the expected possessions; made shots are scaled to add up to the projected score,
         and rebounds come from the expected misses and both teams' offensive and defensive rebounding rates.
-        In the Greek League, PAOK's team and player numbers come from league games only (expected minutes from all games this season).
-        Player lines: per-minute production this season × expected minutes (shared out among the available players when someone is out).</p>`;
+        In the Greek League, PAOK's numbers come from league games only.
+</p>`;
   }
   return `<h2>Next Game</h2>${tabs}
     <div class="card dark" style="margin-bottom:8px">
