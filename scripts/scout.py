@@ -26,6 +26,7 @@ CACHE = os.path.join(DATA, "scout_cache")
 LEAGUE_AVG = {"EuroCup": 82.0, "GBL": 80.0}  # fallback points per team per game when league.json is missing
 LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
 RATE_PRIOR_MIN = 40
+REPLACEMENT_LOSS = 0.2  # share of a missing player's scoring the team doesn't make up
 RATE_KEYS = ("fg2m", "fg3m", "ftm", "ast", "fga", "oreb", "dreb")
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
 HOME_EDGE = 1.5      # points added to the home team (and taken from the away team)
@@ -180,7 +181,10 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
     opp_drtg = reg(opp_stats.get("drtg"), opp_stats["gp"], lg_ortg)
     # missing players: scale the attack by how much of the usual scoring is still available
     full = team_stats.get("pts") or lineup_pts
-    availability = max(0.8, min(1.05, lineup_pts / full)) if full else 1
+    # the absent players' share of the team's scoring (points per team game); teammates make up most of it,
+    # but less efficiently, so the attack loses REPLACEMENT_LOSS of that share. Absences can only lower it.
+    lost = sum(p["pts"] * p["gp"] / team_stats["gp"] for p in players if surname(p["name"]) in out)
+    availability = max(0.8, 1 - REPLACEMENT_LOSS * lost / full) if full else 1
     points_per_100 = ortg * opp_drtg / lg_ortg * availability
     score = pace * points_per_100 / 100 + (HOME_EDGE if home else -HOME_EDGE)
     k = score / lineup_pts if lineup_pts else 1
