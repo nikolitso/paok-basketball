@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T15:13:57Z",
+ "updated": "2026-10-18T22:45:11Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -759,149 +759,149 @@
    ],
    "projection": {
     "paok": {
-     "score": 92.8,
+     "score": 92.3,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
-       "min": 27,
-       "pts": 15.5,
-       "reb": 4.4,
+       "min": 28,
+       "pts": 17.9,
+       "reb": 4.2,
        "ast": 1.7,
-       "pir": 14.7
-      },
-      {
-       "name": "Kyle Alexander",
-       "no": "8",
-       "min": 19,
-       "pts": 9.2,
-       "reb": 4.3,
-       "ast": 0.8,
-       "pir": 12.0
-      },
-      {
-       "name": "Nick Calathes",
-       "no": "33",
-       "min": 22,
-       "pts": 9.2,
-       "reb": 3.3,
-       "ast": 4.8,
-       "pir": 11.4
+       "pir": 17.0
       },
       {
        "name": "Marcus Foster",
        "no": "17",
-       "min": 23,
-       "pts": 12.8,
-       "reb": 2.8,
-       "ast": 2.5,
-       "pir": 11.1
+       "min": 24,
+       "pts": 13.2,
+       "reb": 2.7,
+       "ast": 3.1,
+       "pir": 11.4
       },
       {
-       "name": "Naz Mitrou Long",
-       "no": "1",
+       "name": "Kyle Alexander",
+       "no": "8",
+       "min": 17,
+       "pts": 8.0,
+       "reb": 3.8,
+       "ast": 0.7,
+       "pir": 10.5
+      },
+      {
+       "name": "Nick Calathes",
+       "no": "33",
        "min": 19,
-       "pts": 9.1,
-       "reb": 2.6,
-       "ast": 1.7,
-       "pir": 8.6
+       "pts": 7.9,
+       "reb": 2.9,
+       "ast": 4.2,
+       "pir": 10.0
       },
       {
        "name": "Ben Moore",
        "no": "26",
        "min": 18,
-       "pts": 6.1,
-       "reb": 3.9,
-       "ast": 0.7,
-       "pir": 8.2
+       "pts": 6.2,
+       "reb": 4.0,
+       "ast": 0.8,
+       "pir": 8.6
       },
       {
        "name": "Trevor Hudgins",
        "no": "12",
-       "min": 17,
-       "pts": 7.9,
-       "reb": 2.1,
-       "ast": 2.1,
-       "pir": 7.8
+       "min": 18,
+       "pts": 8.3,
+       "reb": 2.2,
+       "ast": 2.5,
+       "pir": 8.4
+      },
+      {
+       "name": "Naz Mitrou Long",
+       "no": "1",
+       "min": 18,
+       "pts": 8.7,
+       "reb": 2.3,
+       "ast": 1.6,
+       "pir": 8.1
       },
       {
        "name": "Breein Tyree",
        "no": "5",
-       "min": 13,
-       "pts": 9.9,
-       "reb": 1.2,
-       "ast": 1.0,
-       "pir": 7.7
+       "min": 12,
+       "pts": 8.6,
+       "reb": 1.0,
+       "ast": 0.8,
+       "pir": 6.8
       },
       {
        "name": "Raiquan Gray",
        "no": "0",
-       "min": 16,
-       "pts": 4.5,
-       "reb": 1.4,
+       "min": 18,
+       "pts": 4.6,
+       "reb": 2.2,
        "ast": 1.2,
-       "pir": 3.9
+       "pir": 4.3
       },
       {
        "name": "Nikolaos Persidis",
        "no": "18",
-       "min": 11,
-       "pts": 3.5,
-       "reb": 2.1,
+       "min": 10,
+       "pts": 3.0,
+       "reb": 1.8,
        "ast": 0.6,
-       "pir": 3.5
+       "pir": 3.1
       },
       {
        "name": "Athanasios Bazinas",
        "no": "77",
-       "min": 5,
+       "min": 6,
        "pts": 1.9,
-       "reb": 0.6,
-       "ast": 0.5,
-       "pir": 1.9
+       "reb": 0.7,
+       "ast": 0.6,
+       "pir": 2.2
       },
       {
        "name": "Dimitris Kaklamanakis",
        "no": "14",
-       "min": 2,
-       "pts": 0.8,
-       "reb": 0.5,
-       "ast": 0.1,
-       "pir": 1.1
+       "min": 3,
+       "pts": 0.9,
+       "reb": 0.6,
+       "ast": 0.2,
+       "pir": 1.3
       },
       {
        "name": "Nikos Chougkaz",
        "no": "9",
-       "min": 4,
-       "pts": 1.5,
-       "reb": 0.6,
+       "min": 6,
+       "pts": 1.8,
+       "reb": 0.7,
        "ast": 0.3,
-       "pir": 0.9
+       "pir": 1.3
       },
       {
        "name": "Donatas Motiejunas",
        "no": "20",
-       "min": 1,
-       "pts": 0.4,
-       "reb": 0.1,
+       "min": 2,
+       "pts": 0.8,
+       "reb": 0.4,
        "ast": 0.1,
-       "pir": 0.5
+       "pir": 0.9
       },
       {
        "name": "Giorgos Fillios",
        "no": "25",
        "min": 1,
-       "pts": 0.6,
-       "reb": 0.2,
+       "pts": 0.5,
+       "reb": 0.1,
        "ast": 0.1,
-       "pir": 0.5
+       "pir": 0.4
       }
      ],
      "missing": [],
-     "pace": 77.0
+     "pace": 76.5
     },
     "opp": {
-     "score": 85.0,
+     "score": 84.5,
      "players": [
       {
        "name": "Simisola Shittu",
@@ -916,7 +916,7 @@
        "name": "Jaylen Sims",
        "no": "30",
        "min": 28,
-       "pts": 13.4,
+       "pts": 13.3,
        "reb": 4.5,
        "ast": 2.3,
        "pir": 16.1
@@ -925,7 +925,7 @@
        "name": "Ibi Watson",
        "no": "2",
        "min": 27,
-       "pts": 11.8,
+       "pts": 11.7,
        "reb": 3.1,
        "ast": 3.9,
        "pir": 12.2
@@ -952,7 +952,7 @@
        "name": "Adam Atamna",
        "no": "0",
        "min": 22,
-       "pts": 6.9,
+       "pts": 6.8,
        "reb": 1.9,
        "ast": 4.0,
        "pir": 9.5
@@ -979,7 +979,7 @@
        "name": "Marvin Heckel",
        "no": "47",
        "min": 14,
-       "pts": 4.8,
+       "pts": 4.7,
        "reb": 1.0,
        "ast": 2.8,
        "pir": 5.3
@@ -1004,52 +1004,52 @@
       }
      ],
      "missing": [],
-     "pace": 77.0
+     "pace": 76.5
     },
     "winProb": 76,
-    "pace": 77.0,
+    "pace": 76.5,
     "lineupSource": "assumed",
     "note": "",
     "teamStats": {
      "pts": {
-      "paok": 92.8,
-      "opp": 85.0,
-      "total": 177.8
+      "paok": 92.3,
+      "opp": 84.5,
+      "total": 176.8
      },
      "fg2m": {
-      "paok": 24.3,
-      "opp": 21.7,
-      "total": 46.0
+      "paok": 23.4,
+      "opp": 21.3,
+      "total": 44.7
      },
      "fg3m": {
-      "paok": 9.2,
-      "opp": 8.6,
-      "total": 17.9
+      "paok": 9.5,
+      "opp": 8.7,
+      "total": 18.2
      },
      "ftm": {
-      "paok": 16.4,
+      "paok": 17.0,
       "opp": 15.7,
-      "total": 32.2
+      "total": 32.8
      },
      "ast": {
-      "paok": 19.7,
+      "paok": 19.9,
       "opp": 17.2,
-      "total": 36.9
+      "total": 37.1
      },
      "oreb": {
       "paok": 11.6,
-      "opp": 10.7,
-      "total": 22.2
+      "opp": 10.2,
+      "total": 21.7
      },
      "dreb": {
-      "paok": 23.7,
-      "opp": 22.7,
-      "total": 46.4
+      "paok": 23.8,
+      "opp": 22.2,
+      "total": 46.0
      },
      "reb": {
-      "paok": 35.3,
-      "opp": 33.4,
-      "total": 68.6
+      "paok": 35.4,
+      "opp": 32.4,
+      "total": 67.7
      }
     }
    }

@@ -87,7 +87,7 @@
   "nationality": "USA",
   "birthplace": "Manhattan, Kansas",
   "born": "23/03/1999",
-  "height": "1.80"
+  "height": "1.78"
  },
  "kaklamanakis": {
   "name": "Dimitris Kaklamanakis",
@@ -127,7 +127,7 @@
  },
  "motiejunas": {
   "name": "Donatas Motiejunas",
-  "photo": "https://paokbc.gr/images/players/2023-24/image.png",
+  "photo": null,
   "profile": "https://paokbc.gr/en/the-team/players/player/146",
   "nationality": "Lithuania",
   "birthplace": "Kaunas",
