@@ -1,7 +1,7 @@
 /* PAOK Basketball 2026-27 — static site reading data/eurocup.json and data/gbl.json */
 const TZ = 'Europe/Athens';
 const COMPS = { GBL: 'Greek League', EuroCup: 'EuroCup', 'Greek Super Cup': 'Super Cup', 'Greek Cup': 'Greek Cup' };
-const state = { ec: null, gbl: null, games: [], filters: { standings: 'GBL', powerSort: 'power', onoffSort: 'diff', league: 'GBL', leagueSort: 'net', rcMode: 'adj', profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
+const state = { ec: null, gbl: null, games: [], filters: { standings: 'GBL', powerSort: 'power', onoffSort: 'diff', profTeam: 'PAOK', profiles: 'All', scout: null, schedule: 'All', team: 'GBL', players: 'GBL', roster: 'GBL', mode: 'avg' }, sort: { key: 'pts', dir: -1 } };
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -501,7 +501,7 @@ VIEWS.scout = function scout() {
       <thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th>${hasLg ? `<th>${esc(avgLabel(pick.comp))}</th>` : ''}</tr></thead>
       <tbody>${rows.map(([l, a, b, k, dir]) => `<tr><td class="l">${l}</td><td><b>${withRank(a, meL, k, dir)}</b></td><td>${withRank(b, oppL, k, dir)}</td>${hasLg ? `<td>${k ? lgVal(pick.comp, k) : '–'}</td>` : ''}</tr>`).join('')}</tbody>
     </table></div>
-    ${hasLg ? `<p class="note">Rank among the ${leagueOf(pick.comp).teams.length} ${esc(scopeLabel(pick.comp))} (1st = best). <a href="#league" onclick="state.filters.league='${pick.comp}'">Full league table →</a></p>` : ''}
+    ${hasLg ? `<p class="note">Rank among the ${leagueOf(pick.comp).teams.length} ${esc(scopeLabel(pick.comp))} (1st = best).</p>` : ''}
     ${pick.paokImpact.length ? `<h2>PAOK's key players (${esc(compName(pick.comp))})</h2><div class="grid three">${pick.paokImpact.slice(0, 3).map(card).join('')}</div>` : ''}`;
 };
 
@@ -689,125 +689,6 @@ function paceSection(games, comp) {
     </div>
 `;
 }
-
-/* offence vs defence scatter for the League page: right = better attack, up = better defence */
-function ratingChart(teams, lgAvg, isNext, label) {
-  const adj = state.filters.rcMode !== 'raw' && teams.some((t) => t.adjOrtg != null);
-  // the chart reads t.ortg/t.drtg/t.net; for the adjusted view swap in the schedule-adjusted numbers
-  const pts = teams.filter((t) => t.ortg != null && t.drtg != null)
-    .map((t) => (adj ? { ...t, ortg: t.adjOrtg, drtg: t.adjDrtg, net: t.adjNet } : t));
-  if (pts.length < 2 || !lgAvg) return '';
-  const mean = (k) => pts.reduce((a, t) => a + t[k], 0) / pts.length;
-  const avg = adj ? { ortg: mean('ortg'), drtg: mean('drtg') } : lgAvg;
-  const W = 760, H = 460, L = 64, R = 24, T = 28, B = 52;
-  const xs = pts.map((t) => t.ortg).concat(avg.ortg), ys = pts.map((t) => t.drtg).concat(avg.drtg);
-  const pad = (a) => { const lo = Math.min(...a), hi = Math.max(...a), m = Math.max(2, (hi - lo) * 0.08); return [Math.floor((lo - m) / 5) * 5, Math.ceil((hi + m) / 5) * 5]; };
-  const [x0, x1] = pad(xs), [y0, y1] = pad(ys);
-  const X = (v) => L + ((v - x0) / (x1 - x0)) * (W - L - R);
-  const Y = (v) => T + ((v - y0) / (y1 - y0)) * (H - T - B); // low DRtg (good defence) at the top
-  const ticks = (a, b) => { const out = []; for (let v = a; v <= b; v += 5) out.push(v); return out; };
-  const short = (n) => n.replace(/^(Vikos|Doxa)\s+/i, '').split(/\s+/)[0].slice(0, 14);
-  const grid = ticks(x0, x1).map((v) => `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${H - B}" class="rc-grid"/><text x="${X(v)}" y="${H - B + 18}" class="rc-tick" text-anchor="middle">${v}</text>`).join('')
-    + ticks(y0, y1).map((v) => `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" class="rc-grid"/><text x="${L - 8}" y="${Y(v) + 4}" class="rc-tick" text-anchor="end">${v}</text>`).join('');
-  const avgLines = `<line x1="${X(avg.ortg)}" x2="${X(avg.ortg)}" y1="${T}" y2="${H - B}" class="rc-avg"/><line x1="${L}" x2="${W - R}" y1="${Y(avg.drtg)}" y2="${Y(avg.drtg)}" class="rc-avg"/>`;
-  const corners = `<text x="${W - R - 6}" y="${T + 14}" class="rc-corner" text-anchor="end">Good attack · good defence</text>
-    <text x="${L + 6}" y="${H - B - 8}" class="rc-corner">Weak attack · weak defence</text>`;
-  // labels: PAOK placed first, then each one nudged up/down until it doesn't overlap a label or dot already placed
-  const placed = pts.map((t) => ({ x0: X(t.ortg) - 9, x1: X(t.ortg) + 9, y0: Y(t.drtg) - 9, y1: Y(t.drtg) + 9 }));
-  const labels = {};
-  [...pts].sort((a, b) => (b.paok ? 1 : 0) - (a.paok ? 1 : 0)).forEach((t) => {
-    const name = t.paok ? 'PAOK' : short(t.team), w = name.length * 7 + 4;
-    const cx = X(t.ortg), cy = Y(t.drtg);
-    let best = null;
-    for (const dy of [0, -14, 14, -26, 26, -38, 38]) {
-      for (const right of cx < W - R - w - 14 ? [true, false] : [false, true]) {
-        const x0 = right ? cx + 12 : cx - 12 - w, box = { x0, x1: x0 + w, y0: cy + dy - 10, y1: cy + dy + 4 };
-        if (!placed.some((b) => box.x0 < b.x1 && box.x1 > b.x0 && box.y0 < b.y1 && box.y1 > b.y0)) { best = { right, dy, box }; break; }
-      }
-      if (best) break;
-    }
-    best = best || { right: cx < W - R - w - 14, dy: 0, box: null };
-    if (best.box) placed.push(best.box);
-    labels[t.team] = { name, right: best.right, y: cy + best.dy + 4 };
-  });
-  const order = [...pts].sort((a, b) => (a.paok ? 1 : 0) - (b.paok ? 1 : 0)); // PAOK drawn last, on top
-  const dots = order.map((t) => {
-    const cx = X(t.ortg), cy = Y(t.drtg), lb = labels[t.team];
-    const cls = t.paok ? 'rc-dot paok' : isNext(t) ? 'rc-dot next' : 'rc-dot';
-    return `<g><title>${esc(t.team)}: ORtg ${f1(t.ortg)}, DRtg ${f1(t.drtg)}, net ${t.net > 0 ? '+' : ''}${f1(t.net)}</title>
-      <circle cx="${cx}" cy="${cy}" r="${t.paok ? 9 : 7}" class="${cls}"/>
-      <text x="${cx + (lb.right ? 12 : -12)}" y="${lb.y}" class="rc-label${t.paok ? ' paok' : ''}" text-anchor="${lb.right ? 'start' : 'end'}">${esc(lb.name)}</text></g>`;
-  }).join('');
-  return `<h2>Attack vs defence</h2>
-    ${teams.some((t) => t.adjOrtg != null) ? seg('rcMode', [['adj', 'Schedule-adjusted'], ['raw', 'Raw']]) : ''}
-    <div class="card rc-card"><div class="rc-scroll"><svg viewBox="0 0 ${W} ${H}" class="rating-chart" role="img" aria-label="Offensive rating against defensive rating for every team">
-      ${grid}${avgLines}${corners}${dots}
-      <text x="${(L + W - R) / 2}" y="${H - 10}" class="rc-axis" text-anchor="middle">Offensive rating: points scored per 100 possessions →</text>
-      <text transform="translate(18 ${(T + H - B) / 2}) rotate(-90)" class="rc-axis" text-anchor="middle">Defensive rating (better ↑)</text>
-    </svg></div>
-    <p class="note" style="margin:6px 0 0">${adj ? 'Schedule-adjusted: every game is corrected for how good that opponent is and for home court, so scoring 110 against a top defence counts for more than 110 against a weak one. ' : 'Raw: points per 100 possessions as they happened, whoever the opponent was. '}Dashed lines = ${adj ? 'average' : esc(label)} (${f1(avg.ortg)}). Top right is where you want to be; the further a team sits from the bottom-left to top-right diagonal, the bigger its net rating. Hover a dot for the numbers.</p></div>`;
-}
-
-/* ---------- league table: every team, every stat ---------- */
-// [key, header, direction (1 = higher is better), group, shown in the compact view]
-const LEAGUE_COLS = [
-  ['w', 'W–L', 1, 'Overall', true], ['net', 'Net', 1, 'Overall', true], ['ortg', 'ORtg', 1, 'Overall', true],
-  ['drtg', 'DRtg', -1, 'Overall', true], ['adjNet', 'Adj Net', 1, 'Overall', true], ['sos', 'SOS', 1, 'Overall', true],
-  ['poss', 'Poss', 1, 'Overall', true],
-  ['efg', 'eFG%', 1, 'Offence', true], ['tovPct', 'TOV%', -1, 'Offence', true], ['orebPct', 'OREB%', 1, 'Offence', true],
-  ['ftr', 'FT rate', 1, 'Offence', true], ['par3', '3PA rate', 1, 'Offence', true],
-  ['opp_efg', 'Opp eFG%', -1, 'Defence', true], ['forcedTov', 'Forced TOV%', 1, 'Defence', true],
-  ['drebPct', 'DREB%', 1, 'Defence', true], ['opp_ftr', 'Opp FT rate', -1, 'Defence', true],
-  ['pts', 'PTS', 1, 'Per game', false], ['allowed', 'OPP', -1, 'Per game', false], ['ts', 'TS%', 1, 'Per game', false],
-  ['fg3p', '3P%', 1, 'Per game', false], ['ftp', 'FT%', 1, 'Per game', false], ['reb', 'REB', 1, 'Per game', false],
-  ['ast', 'AST', 1, 'Per game', false], ['stl', 'STL', 1, 'Per game', false], ['blk', 'BLK', 1, 'Per game', false],
-  ['pir', 'PIR', 1, 'Per game', false],
-];
-VIEWS.league = function league() {
-  const comps = ['GBL', 'EuroCup'].filter((c) => leagueOf(c));
-  if (!comps.length) return '<h2>League</h2><p class="empty">League stats not available yet.</p>';
-  const comp = comps.includes(state.filters.league) ? state.filters.league : comps[0];
-  state.filters.league = comp;
-  const lg = leagueOf(comp);
-  const next = new Set(state.scout.reports.filter((r) => r.comp === comp).map((r) => nameKey(r.opp)));
-  const isNext = (t) => [...next].some((k) => nameKey(t.team) === k || nameKey(t.team).includes(k) || k.includes(nameKey(t.team)));
-  const cols = LEAGUE_COLS.filter((c) => state.filters.leagueAll || c[4]);
-  const sortKey = cols.some(([k]) => k === state.filters.leagueSort) ? state.filters.leagueSort : 'net';
-  const dir = (LEAGUE_COLS.find(([k]) => k === sortKey) || [0, 0, 1])[2];
-  // EuroCup: only PAOK's group (the league average row still covers the whole EuroCup)
-  const group = comp === 'EuroCup' ? (lg.teams.find((t) => t.paok) || {}).group : null;
-  const pool = group ? lg.teams.filter((t) => t.group === group) : lg.teams;
-  const teams = [...pool].sort((a, b) => dir * ((b[sortKey] ?? -1e9) - (a[sortKey] ?? -1e9)));
-  const cell = (t, k) => { const v = t[k]; if (v === null || v === undefined) return '–'; return k === 'w' ? `${t.w}–${t.l}` : (k === 'net' || k === 'adjNet') ? `<span class="${v > 0 ? 'pos-text' : v < 0 ? 'neg-text' : ''}">${v > 0 ? '+' : ''}${f1(v)}</span>` : f1(v); };
-  // header bands: Overall / Offence / Defence / Per game
-  const groups = cols.reduce((acc, c) => { const last = acc[acc.length - 1]; if (last && last.name === c[3]) last.n++; else acc.push({ name: c[3], n: 1 }); return acc; }, []);
-  const avg = group && lg.groupAvg && lg.groupAvg[group] ? lg.groupAvg[group] : lg.avg;
-  return `<h2>League stats</h2>
-    ${seg('league', comps.map((c) => { const g = c === 'EuroCup' ? (leagueOf(c).teams.find((t) => t.paok) || {}).group : null; return [c, g ? `EuroCup · ${g}` : compName(c)]; }))}
-    <p class="muted">${group ? `${esc(group)} (PAOK's group) · ${teams.length} teams` : `${teams.length} teams · ${lg.games} games played`} · per game. Click a column to sort; the line at the bottom is the ${group ? `${esc(group)} average` : 'league average'}.</p>
-    <div class="table-wrap"><table class="league">
-      <thead><tr class="groups"><th colspan="2"></th>${groups.map((g) => `<th colspan="${g.n}" class="grp">${g.name}${g.name === 'Offence' || g.name === 'Defence' ? ' · four factors' : ''}</th>`).join('')}</tr>
-        <tr><th>#</th><th class="l">Team</th>${cols.map(([k, l, d, g]) => `<th class="sortable ${sortKey === k ? 'sorted' : ''} ${g === 'Defence' || g === 'Offence' ? 'ff' : ''}" title="${d < 0 ? 'Lower is better' : 'Higher is better'}" onclick="state.filters.leagueSort='${k}';rerender()">${l}</th>`).join('')}</tr></thead>
-      <tbody>${teams.map((t, i) => `<tr class="${t.paok ? 'hl' : isNext(t) ? 'next-opp' : ''}"><td>${i + 1}</td><td class="l">${esc(t.team)}${isNext(t) && !t.paok ? ' <span class="pill">Next opponent</span>' : ''}</td>${cols.map(([k]) => `<td>${cell(t, k)}</td>`).join('')}</tr>`).join('')}
-      <tr class="avg-row"><td></td><td class="l">${group ? `${esc(group)} average` : 'League average'}</td>${cols.map(([k]) => `<td>${['gp', 'w', 'net', 'adjNet', 'sos'].includes(k) ? '' : avg[k] === null || avg[k] === undefined ? '–' : f1(avg[k])}</td>`).join('')}</tr></tbody>
-    </table></div>
-    <p><button class="btn-toggle" onclick="state.filters.leagueAll=!state.filters.leagueAll;rerender()">${state.filters.leagueAll ? 'Show key columns only' : 'Show all columns'}</button></p>
-    ${ratingChart(pool, avg, isNext, group ? `${group} average` : 'league average')}
-    <div class="card" style="max-width:860px;margin-top:8px"><h3>Columns</h3>
-      <ul class="legend">
-        <li><b>Net</b><span class="muted">Points per 100 possessions better (or worse) than opponents. The single best indicator of team strength; sorted by this by default.</span></li>
-        <li><b>Adj Net</b><span class="muted">Net rating corrected for the schedule: each game is weighed by how strong that opponent is, plus home court. Fairer than Net while teams have faced very different opponents.</span></li>
-        <li><b>SOS</b><span class="muted">Strength of schedule: how hard it has been so far: the average adjusted net rating of the opponents faced. Above 0 = tougher than average, below 0 = easier.</span></li>
-        <li><b>ORtg / DRtg</b><span class="muted">Points scored / allowed per 100 possessions. Lower DRtg = better defence.</span></li>
-        <li><b>Poss</b><span class="muted">Possessions per game, overtime included: how fast a team plays. Not good or bad, but it sets how many points a game will have.</span></li>
-        <li><b>eFG% / Opp eFG%</b><span class="muted">Shooting efficiency (a three counts 1.5×), own and allowed. The most important of the four factors.</span></li>
-        <li><b>TOV% / Forced TOV%</b><span class="muted">Out of 100 possessions, how many end in a turnover: own (lower = better) and opponents' (higher = better defence).</span></li>
-        <li><b>OREB% / DREB%</b><span class="muted">Share of own misses rebounded (second chances) and of opponents' misses secured (no second chances).</span></li>
-        <li><b>FT rate / Opp FT rate</b><span class="muted">Free throws made per 100 shots: getting to the line, and fouling (lower = better defence).</span></li>
-        <li><b>3PA rate</b><span class="muted">Share of shots that are threes: playing style.</span></li>
-      </ul>
-      <p class="note">Hover a column title to see whether higher or lower is better. Early in the season one game can swing every number a lot.</p></div>`;
-};
 
 /* ---------- league averages and ranks ---------- */
 // for the EuroCup, comparisons are within PAOK's group: only those teams, and the group's own average
