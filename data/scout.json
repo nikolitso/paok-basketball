@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T19:42:26Z",
+ "updated": "2026-10-18T15:13:57Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -1151,47 +1151,47 @@
    },
    "league": {
     "pts": 79.6,
-    "fg2m": 18.2,
-    "fg2a": 35.2,
-    "fg3m": 8.9,
-    "fg3a": 25.6,
-    "ftm": 16.5,
-    "fta": 23.0,
-    "oreb": 10.5,
+    "fg2m": 18.3,
+    "fg2a": 35.5,
+    "fg3m": 9.0,
+    "fg3a": 26.0,
+    "ftm": 16.0,
+    "fta": 22.1,
+    "oreb": 10.8,
     "dreb": 24.8,
-    "reb": 35.3,
-    "ast": 17.1,
-    "stl": 7.4,
+    "reb": 35.6,
+    "ast": 17.3,
+    "stl": 7.5,
     "tov": 13.7,
     "blk": 3.0,
-    "pf": 22.2,
-    "pir": 85.2,
-    "gp": 38,
-    "w": 19,
+    "pf": 21.7,
+    "pir": 85.8,
+    "gp": 42,
+    "w": 21,
     "allowed": 79.6,
-    "fgp": 44.6,
-    "fg2p": 51.8,
+    "fgp": 44.4,
+    "fg2p": 51.5,
     "fg3p": 34.7,
-    "ftp": 71.6,
-    "opp_fgp": 44.6,
+    "ftp": 72.4,
+    "opp_fgp": 44.4,
     "poss": 74.1,
-    "pace": 73.6,
-    "ortg": 107.4,
-    "drtg": 107.4,
-    "efg": 51.9,
-    "ts": 56.1,
-    "tovPct": 18.4,
-    "orebPct": 29.8,
-    "ftr": 27.1,
-    "astPct": 62.9,
-    "par3": 42.1,
-    "fgm": 27.1,
-    "fga": 60.9,
-    "opp_efg": 51.9,
-    "forcedTov": 18.4,
-    "drebPct": 70.2,
-    "opp_ftr": 27.1,
-    "l": 19,
+    "pace": 73.7,
+    "ortg": 107.3,
+    "drtg": 107.3,
+    "efg": 51.7,
+    "ts": 55.9,
+    "tovPct": 18.5,
+    "orebPct": 30.3,
+    "ftr": 26.1,
+    "astPct": 63.4,
+    "par3": 42.2,
+    "fgm": 27.3,
+    "fga": 61.5,
+    "opp_efg": 51.7,
+    "forcedTov": 18.5,
+    "drebPct": 69.7,
+    "opp_ftr": 26.1,
+    "l": 21,
     "net": 0.0
    },
    "impact": [
@@ -1887,7 +1887,7 @@
    ],
    "projection": {
     "paok": {
-     "score": 85.4,
+     "score": 85.5,
      "players": [
       {
        "name": "Cedi Osman",
@@ -2029,7 +2029,7 @@
      "pace": 71.7
     },
     "opp": {
-     "score": 76.8,
+     "score": 77.0,
      "players": [
       {
        "name": "Nelly Joseph",
@@ -2062,7 +2062,7 @@
        "name": "Deandre Pinckney",
        "no": "0",
        "min": 20,
-       "pts": 6.6,
+       "pts": 6.7,
        "reb": 3.7,
        "ast": 1.4,
        "pir": 7.9
@@ -2176,9 +2176,9 @@
     "note": "",
     "teamStats": {
      "pts": {
-      "paok": 85.4,
-      "opp": 76.8,
-      "total": 162.2
+      "paok": 85.5,
+      "opp": 77.0,
+      "total": 162.5
      },
      "fg2m": {
       "paok": 19.0,
@@ -2192,28 +2192,28 @@
      },
      "ftm": {
       "paok": 19.1,
-      "opp": 18.1,
-      "total": 37.2
+      "opp": 18.2,
+      "total": 37.3
      },
      "ast": {
       "paok": 18.9,
-      "opp": 16.5,
+      "opp": 16.6,
       "total": 35.5
      },
      "oreb": {
-      "paok": 12.4,
+      "paok": 12.3,
       "opp": 9.2,
       "total": 21.6
      },
      "dreb": {
-      "paok": 23.5,
-      "opp": 20.8,
-      "total": 44.3
+      "paok": 23.4,
+      "opp": 20.7,
+      "total": 44.1
      },
      "reb": {
-      "paok": 35.9,
-      "opp": 30.0,
-      "total": 65.9
+      "paok": 35.7,
+      "opp": 29.9,
+      "total": 65.7
      }
     }
    }

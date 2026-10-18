@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-17T19:41:13Z",
+ "updated": "2026-10-18T15:12:34Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -2303,16 +2303,40 @@
    "pos": 5,
    "team": "Peristeri",
    "paok": false,
-   "pts": 4,
-   "gp": 2,
+   "pts": 5,
+   "gp": 3,
    "w": 2,
-   "l": 0,
-   "pf": 185,
-   "pa": 177,
-   "diff": 8
+   "l": 1,
+   "pf": 260,
+   "pa": 272,
+   "diff": -12
   },
   {
    "pos": 6,
+   "team": "Olympiacos",
+   "paok": false,
+   "pts": 4,
+   "gp": 3,
+   "w": 3,
+   "l": 0,
+   "pf": 256,
+   "pa": 219,
+   "diff": 37
+  },
+  {
+   "pos": 7,
+   "team": "Panathinaikos",
+   "paok": false,
+   "pts": 4,
+   "gp": 3,
+   "w": 3,
+   "l": 0,
+   "pf": 282,
+   "pa": 208,
+   "diff": 74
+  },
+  {
+   "pos": 8,
    "team": "Iraklis",
    "paok": false,
    "pts": 4,
@@ -2324,19 +2348,7 @@
    "diff": 6
   },
   {
-   "pos": 7,
-   "team": "Promitheas",
-   "paok": false,
-   "pts": 4,
-   "gp": 3,
-   "w": 1,
-   "l": 2,
-   "pf": 227,
-   "pa": 257,
-   "diff": -30
-  },
-  {
-   "pos": 8,
+   "pos": 9,
    "team": "Kolossos",
    "paok": false,
    "pts": 4,
@@ -2348,7 +2360,19 @@
    "diff": -4
   },
   {
-   "pos": 9,
+   "pos": 10,
+   "team": "Promitheas",
+   "paok": false,
+   "pts": 4,
+   "gp": 3,
+   "w": 1,
+   "l": 2,
+   "pf": 227,
+   "pa": 257,
+   "diff": -30
+  },
+  {
+   "pos": 11,
    "team": "Mykonos",
    "paok": false,
    "pts": 4,
@@ -2360,7 +2384,7 @@
    "diff": -5
   },
   {
-   "pos": 10,
+   "pos": 12,
    "team": "Doxa Lefkadas",
    "paok": false,
    "pts": 3,
@@ -2372,7 +2396,7 @@
    "diff": -30
   },
   {
-   "pos": 11,
+   "pos": 13,
    "team": "Maroussi",
    "paok": false,
    "pts": 3,
@@ -2384,40 +2408,16 @@
    "diff": -41
   },
   {
-   "pos": 12,
-   "team": "Panathinaikos",
-   "paok": false,
-   "pts": 2,
-   "gp": 2,
-   "w": 2,
-   "l": 0,
-   "pf": 187,
-   "pa": 133,
-   "diff": 54
-  },
-  {
-   "pos": 13,
+   "pos": 14,
    "team": "Vikos Falcons",
    "paok": false,
-   "pts": 2,
-   "gp": 2,
+   "pts": 3,
+   "gp": 3,
    "w": 0,
-   "l": 2,
-   "pf": 148,
-   "pa": 188,
-   "diff": -40
-  },
-  {
-   "pos": 14,
-   "team": "Olympiacos",
-   "paok": false,
-   "pts": 2,
-   "gp": 2,
-   "w": 2,
-   "l": 0,
-   "pf": 177,
-   "pa": 151,
-   "diff": 26
+   "l": 3,
+   "pf": 216,
+   "pa": 267,
+   "diff": -51
   }
  ]
 }
