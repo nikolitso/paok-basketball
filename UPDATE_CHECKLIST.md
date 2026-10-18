@@ -12,7 +12,7 @@ nothing on days without games; Mondays and manual runs refresh everything. What 
 
 - [ ] EuroCup: roster, schedule, results, box scores, Group D table
 - [ ] Greek League: roster, schedule, results, box scores, +/- (from the play-by-play), table
-- [ ] League stats for every team (League page, averages, ranks)
+- [ ] League stats for every team (averages and ranks on Team Stats and Next Game)
 - [ ] Power ratings (Standings page)
 - [ ] Next-game scouting and match-day projections
 - [ ] Player photos and staff (club site)
@@ -50,7 +50,7 @@ If a run is red or missing: open it, click **Re-run all jobs**, or use **Run wor
 - [ ] Highlights ▶ link on the game (automatic; if missing after two days or from another channel, send Claude the YouTube link)
 - [ ] Home: last result, records, form
 - [ ] Team Stats / Player Stats / Player Profiles include the game; on/off table updated
-- [ ] Standings (power + official) and League page show the new round
+- [ ] Standings (power + official) show the new round
 - [ ] Next Game has moved to the next opponent
 
 ---
@@ -82,7 +82,7 @@ New signings disappear from the manual list by themselves once an official roste
 - [ ] Roster page: photos present for everyone (new players appear once the club site adds them)
 - [ ] Contracts in `player_info.json` still correct after transfer windows
 - [ ] The automatic match-day lineup task still listed under **Scheduled** in the Claude app
-- [ ] Greek League team names: if ESAKE renames a team (new sponsor, Greek/Latin spelling), check the Standings / League pages for a team showing twice or with an odd name, and tell Claude
+- [ ] Greek League team names: if ESAKE renames a team (new sponsor, Greek/Latin spelling), check the Standings page for a team showing twice or with an odd name, and tell Claude
 
 ---
 
