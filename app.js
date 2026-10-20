@@ -155,6 +155,8 @@ const VIEWS = {
     const age = (b) => { if (!b) return null; const d = new Date(b), n = new Date(); return n.getFullYear() - d.getFullYear() - (n < new Date(n.getFullYear(), d.getMonth(), d.getDate()) ? 1 : 0); };
     const cards = list.map((p) => {
       const c = club(p.name);
+      // club photo first; a new signing the club site hasn't added yet falls back to his EuroCup photo
+      const photo = c.photo || ((state.ec.roster || []).find((e) => sur(e.name) === sur(p.name) && e.photo) || {}).photo;
       const parts = p.name.toLowerCase().split(' ').slice(1).join(' ');
       const info = [parts.replace(/[^a-z]/g, ''), ...parts.split(/[\s-]+/)].map((k) => state.info[k]).find(Boolean) || {};
       const prev = info.prev || (/paok/i.test(p.from || '') ? '' : p.from);
@@ -166,7 +168,7 @@ const VIEWS = {
         ['At PAOK since', info.joined], ['Contract until', info.until ? `${info.until} (summer)` : ''],
       ].filter(([, v]) => v);
       return `<div class="card player-card">
-        <div class="photo">${c.photo ? `<img src="${esc(c.photo)}" alt="${esc(p.name)}" loading="lazy">` : '<div class="no-photo">PAOK</div>'}
+        <div class="photo">${photo ? `<img src="${esc(photo)}" alt="${esc(p.name)}" loading="lazy">` : '<div class="no-photo">PAOK</div>'}
           <span class="num">${esc(p.no || '–')}</span></div>
         <div class="pc-body">
           <h3>${esc(p.name)}</h3>
