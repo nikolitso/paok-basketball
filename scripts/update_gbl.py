@@ -33,7 +33,57 @@ TEAM_NAMES = {  # accent-free Greek fragment -> English name
 COUNTRIES = {
     "ΕΛΛΑΔΑ": "GRE", "ΗΠΑ": "USA", "ΤΟΥΡΚΙΑ": "TUR", "ΚΑΝΑΔΑΣ": "CAN", "ΝΙΓΗΡΙΑ": "NGR",
     "ΣΕΡΒΙΑ": "SRB", "ΓΑΛΛΙΑ": "FRA", "ΙΤΑΛΙΑ": "ITA", "ΙΣΠΑΝΙΑ": "ESP", "ΓΕΡΜΑΝΙΑ": "GER",
+    "ΛΙΘΟΥΑΝΙΑ": "LTU", "ΛΕΤΟΝΙΑ": "LAT", "ΕΣΘΟΝΙΑ": "EST", "ΚΡΟΑΤΙΑ": "CRO", "ΣΛΟΒΕΝΙΑ": "SLO",
+    "ΜΑΥΡΟΒΟΥΝΙΟ": "MNE", "ΒΟΣΝΙΑ": "BIH", "ΒΟΣΝΙΑ ΕΡΖΕΓΟΒΙΝΗ": "BIH", "ΒΟΥΛΓΑΡΙΑ": "BUL", "ΡΟΥΜΑΝΙΑ": "ROU",
+    "ΚΥΠΡΟΣ": "CYP", "ΑΛΒΑΝΙΑ": "ALB", "ΒΟΡΕΙΑ ΜΑΚΕΔΟΝΙΑ": "MKD", "ΟΥΚΡΑΝΙΑ": "UKR", "ΡΩΣΙΑ": "RUS",
+    "ΓΕΩΡΓΙΑ": "GEO", "ΙΣΡΑΗΛ": "ISR", "ΠΟΛΩΝΙΑ": "POL", "ΤΣΕΧΙΑ": "CZE", "ΣΛΟΒΑΚΙΑ": "SVK",
+    "ΟΥΓΓΑΡΙΑ": "HUN", "ΑΥΣΤΡΙΑ": "AUT", "ΕΛΒΕΤΙΑ": "SUI", "ΒΕΛΓΙΟ": "BEL", "ΟΛΛΑΝΔΙΑ": "NED",
+    "ΔΑΝΙΑ": "DEN", "ΣΟΥΗΔΙΑ": "SWE", "ΝΟΡΒΗΓΙΑ": "NOR", "ΦΙΝΛΑΝΔΙΑ": "FIN", "ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ": "GBR",
+    "ΜΕΓΑΛΗ ΒΡΕΤΑΝΙΑ": "GBR", "ΙΡΛΑΝΔΙΑ": "IRL", "ΠΟΡΤΟΓΑΛΙΑ": "POR", "ΑΥΣΤΡΑΛΙΑ": "AUS", "ΝΕΑ ΖΗΛΑΝΔΙΑ": "NZL",
+    "ΒΡΑΖΙΛΙΑ": "BRA", "ΑΡΓΕΝΤΙΝΗ": "ARG", "ΔΟΜΙΝΙΚΑΝΗ ΔΗΜΟΚΡΑΤΙΑ": "DOM", "ΠΟΥΕΡΤΟ ΡΙΚΟ": "PUR",
+    "ΤΖΑΜΑΙΚΑ": "JAM", "ΜΠΑΧΑΜΕΣ": "BAH", "ΚΑΜΕΡΟΥΝ": "CMR", "ΣΕΝΕΓΑΛΗ": "SEN", "ΜΑΛΙ": "MLI",
+    "ΑΚΤΗ ΕΛΕΦΑΝΤΟΣΤΟΥ": "CIV", "ΚΟΝΓΚΟ": "COD", "ΑΓΚΟΛΑ": "ANG", "ΓΚΑΝΑ": "GHA", "ΝΟΤΙΑ ΣΟΥΔΑΝ": "SSD",
+    "ΑΙΓΥΠΤΟΣ": "EGY", "ΤΥΝΗΣΙΑ": "TUN", "ΙΑΠΩΝΙΑ": "JPN", "ΚΙΝΑ": "CHN", "ΦΙΛΙΠΠΙΝΕΣ": "PHI",
 }
+# Greek League arenas in English (the league lists them in Greek); unknown ones are transliterated
+VENUES = {
+    "ΑΛΕΞΑΝΔΡΕΙΟ": "Alexandreio Arena, Thessaloniki",
+    "ΙΒΑΝΩΦΕΙΟ": "Ivanofeio Arena, Thessaloniki",
+    "Κ. Γ. ΚΑΛΛΙΘΕΑΣ ΡΟΔΟΥ": "Kallithea Arena, Rhodes",
+    "Κ.Γ. «ΠΑΝ. ΧΑΝΙΩΤΗ» ΑΝΩ ΜΕΡΑ ΜΥΚΟΝΟΥ": "Pan. Chaniotis Arena, Mykonos",
+    "Κ.Γ. ΑΜΑΡΟΥΣΙΟΥ": "Maroussi Arena, Athens",
+    "Κ.Γ. ΙΩΑΝΝΙΝΩΝ «ΣΙΔΕΡΗΣ ΚΑΡΑΔΗΜΑΣ»": "Sideris Karadimas Arena, Ioannina",
+    'Κ.Γ. ΠΕΡΙΣΤΕΡΙΟΥ "ΑΝΔΡΕΑΣ ΠΑΠΑΝΔΡΕΟΥ"': "Andreas Papandreou Arena, Peristeri",
+    'Ν.Κ.Γ. "ΓΙΑΝΝΗΣ ΜΠΟΥΡΟΥΣΗΣ"': "Giannis Bourousis Arena, Karditsa",
+    'ΠΕΑΚ ΠΑΤΡΑΣ "ΔΗΜ. ΤΟΦΑΛΟΣ"': "Dimitris Tofalos Arena, Patras",
+    "ΣΚΑΪ": "SKAI", "ΣΚΑΙ": "SKAI", "ΕΡΤ": "ERT", "ΕΡΤ1": "ERT1", "ΕΡΤ2": "ERT2", "ΕΡΤ3": "ERT3",
+}
+GREEK_LATIN = dict(zip("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ",
+                       ["A", "V", "G", "D", "E", "Z", "I", "Th", "I", "K", "L", "M", "N", "X", "O", "P", "R", "S", "T", "Y", "F", "Ch", "Ps", "O"]))
+
+
+def venue_name(s):
+    s = (s or "").strip()
+    return english(s) if re.search("[\u0370-\u03ff]", s) else re.sub(r"\bPaok\b", "PAOK", s.title())
+
+
+def english(s):
+    """Venue / TV text in English: known names from VENUES, anything else Greek transliterated."""
+    s = (s or "").strip()
+    if not re.search("[\u0370-\u03ff]", s):
+        return s
+    parts = [english_part(p) for p in s.split("/")]
+    return "/".join(parts)
+
+
+def english_part(s):
+    if not re.search("[Ͱ-Ͽ]", s):
+        return s.strip()
+    key = plain(s.strip())
+    if key in VENUES:
+        return VENUES[key]
+    out = "".join(GREEK_LATIN.get(ch, ch) for ch in key)
+    return out.title()
 POSITIONS = {"PG": "Guard", "SG": "Guard", "SF": "Forward", "PF": "Forward", "C": "Center"}
 MONTHS = {"ΙΑΝ": 1, "ΦΕΒ": 2, "ΜΑΡ": 3, "ΑΠΡ": 4, "ΜΑΙ": 5, "ΙΟΥΝ": 6, "ΙΟΥΛ": 7,
           "ΑΥΓ": 8, "ΣΕΠ": 9, "ΟΚΤ": 10, "ΝΟΕ": 11, "ΔΕΚ": 12}
@@ -181,7 +231,7 @@ def parse_game(idgame):
             total.pop("sec")
             teams.append({"name": name, "players": players, "total": total})
     return {"home": home, "away": away, "hs": num(hs), "as": num(as_), "date": date,
-            "venue": venue.title() if date else "", "teams": teams}
+            "venue": english(venue).title() if date and not re.search("[Ͱ-Ͽ]", venue) else english(venue) if date else "", "teams": teams}
 
 
 PBP_WIDGET = ("https://widgets.baskethotel.com/widget-service/show?api=55b4cf328e78a7a16e07aefd9518ccb2fb1afa29&lang=en"
@@ -343,7 +393,7 @@ def league_games():
                 "comp": "GBL", "code": ids[0], "round": f"Round {r}", "phase": "Regular Season",
                 "date": parse_date(info[0]) if info else None, "home": is_home,
                 "opp": team_name(away if is_home else home), "oppCrest": None,
-                "venue": info[1].title() if len(info) > 1 else "", "tv": info[2] if len(info) > 2 else "",
+                "venue": venue_name(info[1]) if len(info) > 1 else "", "tv": english(info[2]) if len(info) > 2 else "",
                 "played": played,
                 "us": (int(sc[0]) if is_home else int(sc[1])) if played else None,
                 "them": (int(sc[1]) if is_home else int(sc[0])) if played else None,
@@ -398,7 +448,7 @@ def roster(team=TEAM):
             players.append({
                 "no": c[i + 1], "name": person(c[i + 2], c[i + 3]),
                 "pos": POSITIONS.get(c[i + 4], c[i + 4]), "posCode": c[i + 4],
-                "nat": COUNTRIES.get(plain(after("ΧΩΡΑ")), after("ΧΩΡΑ").title()),
+                "nat": COUNTRIES.get(plain(after("ΧΩΡΑ")), english(after("ΧΩΡΑ")).title()),
                 "height": int(height) if height.isdigit() else None,
                 # ESAKE uses a placeholder date for some new signings
                 "born": f"{y}-{m}-{d}" if y.isdigit() and int(y) < 2015 else "",

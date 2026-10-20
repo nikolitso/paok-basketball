@@ -54,7 +54,9 @@ def gbl_needed():
 
 def main():
     manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch" or not os.environ.get("GITHUB_ACTIONS")
-    monday = NOW.astimezone(timezone(timedelta(hours=3))).weekday() == 0
+    # GitHub often starts the 23:59 run a few hours late, after midnight: count those as the evening before
+    greek = NOW.astimezone(timezone(timedelta(hours=3)))
+    monday = (greek - timedelta(hours=12)).weekday() == 0
     plan = {}
     for comp, check in (("eurocup", eurocup_needed), ("gbl", gbl_needed)):
         if manual or monday:

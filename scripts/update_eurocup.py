@@ -5,6 +5,7 @@ Box scores of finished games are cached in data/eurocup_box/ so each is download
 """
 import json
 import os
+import re
 import time
 import urllib.request
 from datetime import datetime, timezone
@@ -197,7 +198,7 @@ def main():
             "home": is_home,
             "opp": club_name(opp["club"]),
             "oppCrest": opp["club"]["images"].get("crest"),
-            "venue": (g.get("venue") or {}).get("name", "").title(),
+            "venue": re.sub(r"\bPaok\b", "PAOK", (g.get("venue") or {}).get("name", "").strip().title()),
             "played": g["played"],
             "url": f"https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/{SEASON}/{g['gameCode']}/",
             "us": (home if is_home else away)["score"] if g["played"] else None,

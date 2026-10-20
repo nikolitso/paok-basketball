@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T22:45:11Z",
+ "updated": "2026-10-20T21:47:31Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -8,7 +8,7 @@
    "round": "Round 4",
    "home": true,
    "opp": "Ulm",
-   "venue": "Paok Sports Arena",
+   "venue": "PAOK Sports Arena",
    "url": "https://www.euroleaguebasketball.net/en/eurocup/game-center/2026-27/game/U2026/64/",
    "paokTeam": {
     "gp": 3,
@@ -97,48 +97,48 @@
     "drebPct": 69.2
    },
    "league": {
-    "pts": 85.8,
+    "pts": 84.9,
     "fg2m": 22.0,
-    "fg2a": 38.3,
-    "fg3m": 8.6,
-    "fg3a": 25.9,
-    "ftm": 15.8,
-    "fta": 21.2,
+    "fg2a": 38.1,
+    "fg3m": 8.4,
+    "fg3a": 25.6,
+    "ftm": 15.6,
+    "fta": 21.0,
     "oreb": 11.5,
-    "dreb": 23.8,
-    "reb": 35.2,
-    "ast": 18.1,
-    "stl": 7.8,
-    "tov": 15.0,
-    "blk": 2.7,
+    "dreb": 23.5,
+    "reb": 35.0,
+    "ast": 17.9,
+    "stl": 8.0,
+    "tov": 15.3,
+    "blk": 2.6,
     "pf": 22.7,
-    "pir": 92.6,
-    "gp": 24,
-    "w": 12,
-    "allowed": 85.8,
+    "pir": 91.3,
+    "gp": 28,
+    "w": 14,
+    "allowed": 84.9,
     "fgp": 47.7,
-    "fg2p": 57.5,
-    "fg3p": 33.3,
-    "ftp": 74.7,
+    "fg2p": 57.7,
+    "fg3p": 32.9,
+    "ftp": 74.1,
     "opp_fgp": 47.7,
-    "poss": 77.1,
-    "pace": 76.3,
-    "ortg": 111.2,
-    "drtg": 111.2,
-    "efg": 54.4,
-    "ts": 58.3,
-    "tovPct": 19.4,
-    "orebPct": 32.5,
-    "ftr": 24.6,
-    "astPct": 59.0,
-    "par3": 40.3,
-    "fgm": 30.7,
-    "fga": 64.2,
-    "opp_efg": 54.4,
-    "forcedTov": 19.4,
-    "drebPct": 67.5,
-    "opp_ftr": 24.6,
-    "l": 12,
+    "poss": 76.8,
+    "pace": 76.1,
+    "ortg": 110.5,
+    "drtg": 110.5,
+    "efg": 54.3,
+    "ts": 58.1,
+    "tovPct": 19.9,
+    "orebPct": 32.9,
+    "ftr": 24.4,
+    "astPct": 58.9,
+    "par3": 40.2,
+    "fgm": 30.4,
+    "fga": 63.8,
+    "opp_efg": 54.3,
+    "forcedTov": 19.9,
+    "drebPct": 67.1,
+    "opp_ftr": 24.4,
+    "l": 14,
     "net": 0.0
    },
    "impact": [
@@ -901,7 +901,7 @@
      "pace": 76.5
     },
     "opp": {
-     "score": 84.5,
+     "score": 84.8,
      "players": [
       {
        "name": "Simisola Shittu",
@@ -916,7 +916,7 @@
        "name": "Jaylen Sims",
        "no": "30",
        "min": 28,
-       "pts": 13.3,
+       "pts": 13.4,
        "reb": 4.5,
        "ast": 2.3,
        "pir": 16.1
@@ -925,7 +925,7 @@
        "name": "Ibi Watson",
        "no": "2",
        "min": 27,
-       "pts": 11.7,
+       "pts": 11.8,
        "reb": 3.1,
        "ast": 3.9,
        "pir": 12.2
@@ -979,7 +979,7 @@
        "name": "Marvin Heckel",
        "no": "47",
        "min": 14,
-       "pts": 4.7,
+       "pts": 4.8,
        "reb": 1.0,
        "ast": 2.8,
        "pir": 5.3
@@ -1006,30 +1006,30 @@
      "missing": [],
      "pace": 76.5
     },
-    "winProb": 76,
+    "winProb": 75,
     "pace": 76.5,
     "lineupSource": "assumed",
     "note": "",
     "teamStats": {
      "pts": {
       "paok": 92.3,
-      "opp": 84.5,
-      "total": 176.8
+      "opp": 84.8,
+      "total": 177.1
      },
      "fg2m": {
-      "paok": 23.4,
-      "opp": 21.3,
+      "paok": 23.3,
+      "opp": 21.4,
       "total": 44.7
      },
      "fg3m": {
       "paok": 9.5,
-      "opp": 8.7,
-      "total": 18.2
+      "opp": 8.8,
+      "total": 18.3
      },
      "ftm": {
-      "paok": 17.0,
-      "opp": 15.7,
-      "total": 32.8
+      "paok": 17.1,
+      "opp": 15.8,
+      "total": 32.9
      },
      "ast": {
       "paok": 19.9,
@@ -1037,19 +1037,19 @@
       "total": 37.1
      },
      "oreb": {
-      "paok": 11.6,
-      "opp": 10.2,
-      "total": 21.7
+      "paok": 11.4,
+      "opp": 10.0,
+      "total": 21.5
      },
      "dreb": {
-      "paok": 23.8,
+      "paok": 23.7,
       "opp": 22.2,
-      "total": 46.0
+      "total": 45.9
      },
      "reb": {
-      "paok": 35.4,
-      "opp": 32.4,
-      "total": 67.7
+      "paok": 35.1,
+      "opp": 32.2,
+      "total": 67.4
      }
     }
    }
@@ -1061,7 +1061,7 @@
    "round": "Round 4",
    "home": true,
    "opp": "AEK",
-   "venue": "Paok Sports Arena",
+   "venue": "PAOK Sports Arena",
    "url": "https://www.esake.gr/el/action/EsakegameView?idgame=BD2162B8&mode=3",
    "paokTeam": {
     "gp": 3,
@@ -1817,7 +1817,7 @@
      "name": "Lukas Lekavicius",
      "pos": "Guard",
      "posCode": "PG",
-     "nat": "Λιθουανια",
+     "nat": "LTU",
      "height": 180,
      "born": "1994-03-30"
     },
