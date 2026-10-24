@@ -52,6 +52,7 @@ If a run is red or missing: open it, click **Re-run all jobs**, or use **Run wor
 - [ ] Team Stats / Player Stats / Player Profiles include the game; on/off table updated
 - [ ] Standings (power + official) show the new round
 - [ ] Next Game has moved to the next opponent
+- [ ] Next Game → *Projections vs results* shows the game (the last pre-game projection is saved automatically in `data/projection_log.json`; record match-day team news before tip-off so it's the one saved)
 
 ---
 
