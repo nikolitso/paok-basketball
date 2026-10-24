@@ -468,7 +468,7 @@ VIEWS.scout = function scout() {
     const absent = (side, name) => side.missing.length ? `<p class="muted" style="margin:8px 0 0"><b>${esc(name)} out:</b> ${side.missing.map(esc).join(', ')}</p>` : '';
     const ts = pr.teamStats;
     const tsRows = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
-      ['ast', 'Assists'], ['fg3m', 'Three-pointers made'], ['ftm', 'Free throws made']];
+      ['ast', 'Assists'], ['tov', 'Turnovers'], ['fg3m', 'Three-pointers made'], ['ftm', 'Free throws made']];
     const tstats = ts ? `<h3 style="margin-top:20px">Projected team stats</h3>
       <div class="table-wrap"><table><thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th><th>Total</th></tr></thead>
       <tbody>${tsRows.filter(([k]) => ts[k]).map(([k, label]) => `<tr><td class="l">${label}</td><td><b>${f1(ts[k].paok)}</b></td><td><b>${f1(ts[k].opp)}</b></td><td>${f1(ts[k].total)}</td></tr>`).join('')}</tbody></table></div>` : '';

@@ -30,7 +30,7 @@ LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average st
 RATE_PRIOR_MIN = 40
 MAX_MIN = 36.0   # most minutes the projection gives any player
 REPLACEMENT_LOSS = 0.2  # share of a missing player's scoring the team doesn't make up
-RATE_KEYS = ("fg2m", "fg3m", "ftm", "ast", "fga", "oreb", "dreb")
+RATE_KEYS = ("fg2m", "fg3m", "ftm", "ast", "fga", "oreb", "dreb", "tov")
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
 HOME_EDGE = 1.5      # points added to the home team (and taken from the away team)
 SPREAD_SD = 11.0     # typical spread of final margins around the projection
@@ -230,7 +230,7 @@ def project_team_stats(a, b, a_score, b_score, poss, comp):
         if "r100" not in off or "opp100" not in de:
             return None
         c = {}
-        for k in ("fg2m", "fg3m", "ftm", "ast", "fga"):
+        for k in ("fg2m", "fg3m", "ftm", "ast", "fga", "tov"):
             own, allow = reg(off["r100"][k], off["gp"], lg_r[k]), reg(de["opp100"][k], de["gp"], lg_r[k])
             c[k] = poss / 100 * own * allow / lg_r[k] if lg_r[k] else 0
         raw = 2 * c["fg2m"] + 3 * c["fg3m"] + c["ftm"]
@@ -255,7 +255,7 @@ def project_team_stats(a, b, a_score, b_score, poss, comp):
         c["oreb"] = (lg.get("oreb") or 0) * scale * orb / lg_or
         c_def["dreb"] = (lg.get("dreb") or 0) * scale * (100 - orb) / (100 - lg_or)
     out = {}
-    for k in ("pts", "fg2m", "fg3m", "ftm", "ast", "oreb", "dreb"):
+    for k in ("pts", "fg2m", "fg3m", "ftm", "ast", "oreb", "dreb", "tov"):
         out[k] = {"paok": round(ca[k], 1), "opp": round(cb[k], 1), "total": round(ca[k] + cb[k], 1)}
     out["reb"] = {s: round(out["oreb"][s] + out["dreb"][s], 1) for s in ("paok", "opp", "total")}
     return out
