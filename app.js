@@ -28,8 +28,8 @@ async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
   let additions;
-  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power, state.highlights] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} })), get('highlights.json').catch(() => ({}))]);
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power, state.highlights, state.projLog] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} })), get('highlights.json').catch(() => ({})), get('projection_log.json').catch(() => ({}))]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
@@ -495,6 +495,7 @@ VIEWS.scout = function scout() {
       <div class="muted">${fmtDate(pick.date, { weekday: 'long', year: 'numeric' })} · ${fmtTime(pick.date)} · ${esc(pick.venue)}${pick.url ? ` · <a class="report" style="color:#fff" href="${esc(pick.url)}" target="_blank" rel="noopener">Game page ↗</a>` : ''}</div>
     </div>
     <h2>Match-day projections</h2>${proj}
+    ${projVsResults()}
     <h2>${esc(pick.opp)}: impact players</h2>
     ${pick.impact.length ? `<div class="grid three">${pick.impact.map(card).join('')}</div>` : '<p class="empty">They haven\'t played yet this season.</p>'}
     ${sample}
@@ -506,6 +507,49 @@ VIEWS.scout = function scout() {
     ${hasLg ? `<p class="note">Rank among the ${leagueOf(pick.comp).teams.length} ${esc(scopeLabel(pick.comp))} (1st = best).</p>` : ''}
     ${pick.paokImpact.length ? `<h2>PAOK's key players (${esc(compName(pick.comp))})</h2><div class="grid three">${pick.paokImpact.slice(0, 3).map(card).join('')}</div>` : ''}`;
 };
+
+/* ---------- projections vs results: each game's last pre-game projection against what happened ---------- */
+const PVR_STATS = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
+  ['ast', 'Assists'], ['tov', 'Turnovers'], ['fg3m', 'Three-pointers made'], ['ftm', 'Free throws made']];
+function projVsResults() {
+  const done = Object.values(state.projLog || {}).map((p) => {
+    const g = state.games.find((x) => x.comp === p.comp && String(x.code) === String(p.code) && x.played && x.box);
+    return g ? { p, g } : null;
+  }).filter(Boolean).sort((a, b) => toDate(b.g.date) - toDate(a.g.date));
+  if (!done.length) return '';
+  const sign = (x) => (x > 0 ? '+' : '') + f1(x);
+  const pickOk = ({ p, g }) => (p.winProb >= 50) === (g.us > g.them);
+  const right = done.filter(pickOk).length;
+  const avg = (f) => done.reduce((a, d) => a + f(d), 0) / done.length;
+  const marginErr = avg(({ p, g }) => Math.abs((g.us - g.them) - (p.paok - p.oppScore)));
+  const totalErr = avg(({ p, g }) => Math.abs((g.us + g.them) - (p.paok + p.oppScore)));
+  // latest game in detail
+  const { p, g } = done[0];
+  const ts = p.teamStats || {};
+  const act = (side, k) => (g.box[side] || {})[k];
+  const cell = (proj, actual) => `<td>${proj == null ? '–' : f1(proj)}</td><td><b>${actual == null ? '–' : actual}</b></td>`;
+  const detail = PVR_STATS.filter(([k]) => ts[k] || k === 'pts').map(([k, l]) => {
+    const pr = k === 'pts' ? { paok: p.paok, opp: p.oppScore, total: p.paok + p.oppScore } : ts[k];
+    const a = act('team', k), b = act('opp', k);
+    return `<tr><td class="l">${l}</td>${cell(pr.paok, a)}${cell(pr.opp, b)}${cell(pr.total, a != null && b != null ? a + b : null)}</tr>`;
+  }).join('');
+  const src = { manual: 'confirmed team news', official: 'official game roster', assumed: 'full squads assumed' }[p.lineupSource] || '';
+  const hist = done.map(({ p, g }) => `<tr><td class="l">${fmtDate(g.date)}</td><td class="l">${esc(compName(g.comp))} · PAOK ${g.home ? 'vs' : '@'} ${esc(g.opp)}</td>
+    <td>${Math.round(p.paok)}–${Math.round(p.oppScore)}</td><td><b>${g.us}–${g.them}</b></td><td>${p.winProb}%</td>
+    <td>${pickOk({ p, g }) ? '<span class="pos-text">✓</span>' : '<span class="neg-text">✗</span>'}</td>
+    <td>${sign((g.us - g.them) - (p.paok - p.oppScore))}</td><td>${sign((g.us + g.them) - (p.paok + p.oppScore))}</td></tr>`).join('');
+  return `<h2>Projections vs results</h2>
+    <h3>Last game: PAOK ${g.home ? 'vs' : '@'} ${esc(g.opp)}, ${g.us}–${g.them} <span class="muted" style="font:500 13px Inter">${esc(compName(g.comp))} · ${fmtDate(g.date)} · projected ${Math.round(p.paok)}–${Math.round(p.oppScore)}, PAOK win chance ${p.winProb}%${src ? ' · ' + src : ''}</span></h3>
+    <div class="table-wrap" style="max-width:860px"><table>
+      <thead><tr><th class="l">Stat</th><th>PAOK proj.</th><th>PAOK</th><th>${esc(g.opp)} proj.</th><th>${esc(g.opp)}</th><th>Total proj.</th><th>Total</th></tr></thead>
+      <tbody>${detail}</tbody></table></div>
+    <h3 style="margin-top:20px">Every game so far</h3>
+    <p class="muted" style="margin:0 0 8px">Winner picked right in <b>${right} of ${done.length}</b> · average miss: margin ${f1(marginErr)} pts, total points ${f1(totalErr)} pts</p>
+    <div class="table-wrap" style="max-width:860px"><table>
+      <thead><tr><th class="l">Date</th><th class="l">Game</th><th>Projected</th><th>Result</th><th>PAOK win %</th><th>Winner</th><th>Margin vs proj.</th><th>Total vs proj.</th></tr></thead>
+      <tbody>${hist}</tbody></table></div>
+    <p class="note">The projection as it stood just before tip-off, against the final box score (overtime included). Margin / total vs proj. = how many points PAOK's margin and the combined score came in above (+) or below (−) the projection.</p>`;
+}
 
 /* ---------- player profiles ---------- */
 const TAG_RULES = [
