@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T13:58:13Z",
+ "updated": "2026-10-24T14:04:13Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -1910,110 +1910,110 @@
       {
        "name": "Cedi Osman",
        "no": "6",
-       "min": 35,
-       "pts": 21.2,
-       "reb": 4.0,
-       "ast": 2.2,
-       "pir": 23.8
-      },
-      {
-       "name": "Ben Moore",
-       "no": "26",
-       "min": 22,
-       "pts": 8.0,
-       "reb": 5.4,
-       "ast": 1.5,
-       "pir": 12.9
+       "min": 31,
+       "pts": 19.4,
+       "reb": 3.6,
+       "ast": 2.0,
+       "pir": 21.2
       },
       {
        "name": "Nick Calathes",
        "no": "33",
-       "min": 21,
-       "pts": 8.3,
-       "reb": 2.9,
-       "ast": 3.4,
-       "pir": 11.0
+       "min": 25,
+       "pts": 10.1,
+       "reb": 3.5,
+       "ast": 4.1,
+       "pir": 13.1
+      },
+      {
+       "name": "Ben Moore",
+       "no": "26",
+       "min": 18,
+       "pts": 6.5,
+       "reb": 4.3,
+       "ast": 1.2,
+       "pir": 10.2
       },
       {
        "name": "Kyle Alexander",
        "no": "8",
-       "min": 20,
-       "pts": 7.6,
-       "reb": 4.0,
-       "ast": 1.0,
-       "pir": 10.5
-      },
-      {
-       "name": "Marcus Foster",
-       "no": "17",
-       "min": 30,
-       "pts": 12.0,
-       "reb": 2.9,
-       "ast": 3.8,
-       "pir": 10.0
+       "min": 18,
+       "pts": 6.9,
+       "reb": 3.6,
+       "ast": 0.9,
+       "pir": 9.4
       },
       {
        "name": "Breein Tyree",
        "no": "5",
-       "min": 16,
-       "pts": 7.7,
-       "reb": 2.1,
-       "ast": 1.2,
+       "min": 17,
+       "pts": 8.1,
+       "reb": 2.2,
+       "ast": 1.3,
+       "pir": 8.1
+      },
+      {
+       "name": "Marcus Foster",
+       "no": "17",
+       "min": 23,
+       "pts": 9.8,
+       "reb": 2.3,
+       "ast": 3.0,
        "pir": 8.0
       },
       {
        "name": "Raiquan Gray",
        "no": "0",
-       "min": 23,
-       "pts": 6.8,
-       "reb": 3.6,
+       "min": 24,
+       "pts": 7.1,
+       "reb": 3.7,
        "ast": 1.2,
-       "pir": 6.5
-      },
-      {
-       "name": "Nikos Persidis",
-       "no": "18",
-       "min": 11,
-       "pts": 3.4,
-       "reb": 1.7,
-       "ast": 0.9,
-       "pir": 3.7
+       "pir": 6.6
       },
       {
        "name": "Thanasis Bazinas",
        "no": "77",
-       "min": 9,
-       "pts": 2.5,
-       "reb": 1.2,
-       "ast": 1.0,
-       "pir": 3.6
+       "min": 11,
+       "pts": 3.0,
+       "reb": 1.5,
+       "ast": 1.2,
+       "pir": 4.3
       },
       {
-       "name": "Nikos Chougkaz",
-       "no": "9",
-       "min": 8,
-       "pts": 2.3,
-       "reb": 1.3,
-       "ast": 0.5,
-       "pir": 2.2
+       "name": "Nikos Persidis",
+       "no": "18",
+       "min": 12,
+       "pts": 3.5,
+       "reb": 1.8,
+       "ast": 0.9,
+       "pir": 3.7
       },
       {
        "name": "Dimitris Kaklamanakis",
        "no": "14",
-       "min": 3,
-       "pts": 0.9,
-       "reb": 0.7,
-       "ast": 0.2,
-       "pir": 1.4
+       "min": 8,
+       "pts": 2.1,
+       "reb": 1.6,
+       "ast": 0.4,
+       "pir": 3.3
+      },
+      {
+       "name": "Nikos Chougkaz",
+       "no": "9",
+       "min": 12,
+       "pts": 3.4,
+       "reb": 1.9,
+       "ast": 0.7,
+       "pir": 3.2
       },
       {
        "name": "Giorgos Fillios",
        "no": "25",
-       "min": 1,
-       "pts": 0.5,
-       "reb": 0.2,
-       "ast": 0.1,
-       "pir": 0.5
+       "min": 3,
+       "pts": 1.2,
+       "reb": 0.4,
+       "ast": 0.2,
+       "pir": 1.2
       }
      ],
      "missing": [
@@ -2029,110 +2029,110 @@
       {
        "name": "Nelly Joseph",
        "no": "23",
-       "min": 38,
-       "pts": 17.6,
-       "reb": 7.1,
-       "ast": 1.1,
-       "pir": 20.8
-      },
-      {
-       "name": "Landers Nolley II",
-       "no": "3",
-       "min": 24,
-       "pts": 9.7,
-       "reb": 3.4,
-       "ast": 2.2,
-       "pir": 11.8
+       "min": 30,
+       "pts": 13.7,
+       "reb": 5.6,
+       "ast": 0.9,
+       "pir": 16.2
       },
       {
        "name": "Dimitris Katsivelis",
        "no": "4",
-       "min": 19,
-       "pts": 7.4,
-       "reb": 4.3,
-       "ast": 1.1,
-       "pir": 9.8
+       "min": 22,
+       "pts": 8.7,
+       "reb": 5.1,
+       "ast": 1.2,
+       "pir": 11.5
       },
       {
-       "name": "Giannoulis Larentzakis",
-       "no": "5",
-       "min": 23,
-       "pts": 8.6,
+       "name": "Landers Nolley II",
+       "no": "3",
+       "min": 19,
+       "pts": 7.6,
        "reb": 2.6,
-       "ast": 2.9,
-       "pir": 9.1
-      },
-      {
-       "name": "Giorgos Tsalmpouris",
-       "no": "35",
-       "min": 19,
-       "pts": 6.6,
-       "reb": 2.3,
-       "ast": 1.5,
-       "pir": 7.1
-      },
-      {
-       "name": "Lukas Lekavicius",
-       "no": "9",
-       "min": 21,
-       "pts": 6.0,
-       "reb": 2.0,
-       "ast": 2.1,
-       "pir": 6.2
-      },
-      {
-       "name": "Dimitris Flionis",
-       "no": "7",
-       "min": 16,
-       "pts": 4.8,
-       "reb": 1.8,
-       "ast": 2.0,
-       "pir": 5.8
-      },
-      {
-       "name": "Frank Bartley",
-       "no": "24",
-       "min": 20,
-       "pts": 6.0,
-       "reb": 1.7,
-       "ast": 1.8,
-       "pir": 5.6
+       "ast": 1.7,
+       "pir": 9.2
       },
       {
        "name": "Derrick Williams",
        "no": "20",
-       "min": 10,
-       "pts": 3.7,
-       "reb": 1.2,
-       "ast": 0.6,
-       "pir": 3.5
+       "min": 24,
+       "pts": 8.6,
+       "reb": 2.8,
+       "ast": 1.4,
+       "pir": 8.2
+      },
+      {
+       "name": "Giannoulis Larentzakis",
+       "no": "5",
+       "min": 18,
+       "pts": 6.7,
+       "reb": 2.0,
+       "ast": 2.2,
+       "pir": 7.1
       },
       {
        "name": "Greg Brown III",
        "no": "0",
-       "min": 7,
-       "pts": 3.1,
-       "reb": 0.9,
-       "ast": 0.5,
-       "pir": 3.0
+       "min": 16,
+       "pts": 7.2,
+       "reb": 2.2,
+       "ast": 1.1,
+       "pir": 6.9
+      },
+      {
+       "name": "Frank Bartley",
+       "no": "24",
+       "min": 24,
+       "pts": 7.0,
+       "reb": 2.0,
+       "ast": 2.1,
+       "pir": 6.5
+      },
+      {
+       "name": "Giorgos Tsalmpouris",
+       "no": "35",
+       "min": 15,
+       "pts": 5.2,
+       "reb": 1.8,
+       "ast": 1.2,
+       "pir": 5.6
+      },
+      {
+       "name": "Lukas Lekavicius",
+       "no": "9",
+       "min": 17,
+       "pts": 4.6,
+       "reb": 1.6,
+       "ast": 1.6,
+       "pir": 4.8
+      },
+      {
+       "name": "Dimitris Flionis",
+       "no": "7",
+       "min": 13,
+       "pts": 3.8,
+       "reb": 1.4,
+       "ast": 1.6,
+       "pir": 4.6
+      },
+      {
+       "name": "Vasilis Chartonas",
+       "no": "17",
+       "min": 2,
+       "pts": 0.7,
+       "reb": 0.2,
+       "ast": 0.2,
+       "pir": 0.8
       },
       {
        "name": "Gaios Skordilis",
        "no": "1",
        "min": 2,
-       "pts": 0.7,
+       "pts": 0.8,
        "reb": 0.3,
        "ast": 0.2,
-       "pir": 0.7
-      },
-      {
-       "name": "Vasilis Chartonas",
-       "no": "17",
-       "min": 1,
-       "pts": 0.3,
-       "reb": 0.1,
-       "ast": 0.1,
-       "pir": 0.4
+       "pir": 0.8
       }
      ],
      "missing": [

@@ -28,6 +28,7 @@ POWER = {}   # comp -> power.json teams (for each team's starting rating)
 ADJ = {}     # comp -> schedule-adjusted team ratings from data/league.json
 LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
 RATE_PRIOR_MIN = 40
+MAX_MIN = 36.0   # most minutes the projection gives any player
 REPLACEMENT_LOSS = 0.2  # share of a missing player's scoring the team doesn't make up
 RATE_KEYS = ("fg2m", "fg3m", "ftm", "ast", "fga", "oreb", "dreb")
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
@@ -158,21 +159,26 @@ def impact(players, team_gp):
 
 # ---------- projections ----------
 
-def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=None):
+def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=None, confirmed=False):
     out = {surname(n) for n in out_names}
     avail = [p for p in players if surname(p["name"]) not in out and p["_rate"]]
     missing = [p["name"] for p in players if surname(p["name"]) in out]
     if not avail:
         return None
-    # expected minutes: season average, rescaled so the team plays 200, nobody above 38
-    # minutes per *team* game, so someone who played 1 of 4 games isn't counted as a regular
-    mins = {p["name"]: p.get("_mpg") or p["min"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in avail}
+    # expected minutes, rescaled so the team plays 200, nobody above MAX_MIN.
+    # Lineup confirmed: everyone listed plays, so use minutes per game *played* (a player who missed games
+    # through injury or a late signing isn't treated as a bench player). Not confirmed: minutes per *team*
+    # game, so someone who sat out most games isn't counted as a regular.
+    if confirmed:
+        mins = {p["name"]: p.get("_mpp") or p["min"] for p in avail}
+    else:
+        mins = {p["name"]: p.get("_mpg") or p["min"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in avail}
     # hand-set minutes from lineups.json ("minutes": {"Motiejunas": 18}), e.g. a new signing with no history
     fixed = {p["name"]: float(m) for p in avail for k, m in (set_min or {}).items() if surname(p["name"]) == surname(k)}
     for _ in range(5):
         free = sum(v for k, v in mins.items() if k not in fixed)
         scale = (200 - sum(fixed.values())) / free if free else 1
-        mins = {k: fixed.get(k, min(38.0, v * scale)) for k, v in mins.items()}
+        mins = {k: fixed.get(k, min(MAX_MIN, v * scale)) for k, v in mins.items()}
     lineup_pts = sum(p["_rate"]["pts"] * mins[p["name"]] for p in avail)
     lg = LEAGUE.get(comp) or {}
     lg_pace, lg_ortg = lg.get("pace") or 74.0, lg.get("ortg") or 108.0
@@ -422,7 +428,9 @@ def main():
                 season_players = season_players + [dict(p, _tgp=all_team["gp"]) for p in all_players if surname(p["name"]) not in have]
                 # expected minutes (the player's role) from every game this season: two league games are too few
                 role = {surname(p["name"]): p["min"] * p["gp"] / all_team["gp"] for p in all_players}
-                season_players = [dict(p, _mpg=role.get(surname(p["name"]))) for p in season_players]
+                played = {surname(p["name"]): p["min"] for p in all_players}
+                season_players = [dict(p, _mpg=role.get(surname(p["name"])), _mpp=played.get(surname(p["name"])))
+                                  for p in season_players]
             else:
                 season_team, season_players = all_team, all_players
             registered = {surname(p["name"]) for p in data["roster"]}
@@ -435,8 +443,9 @@ def main():
                 pw = next((x for x in POWER.get(comp, []) if x["team"] == t["team"]), {}) if t else {}
                 return dict(stats, adjOrtg=t["adjOrtg"], adjDrtg=t["adjDrtg"], adjGp=t["gp"], prior=pw.get("prior", 0)) if t else stats
             season_team, opp_team = with_adj(season_team, "PAOK"), with_adj(opp_team, nxt["opp"])
-            us = project_side(season_players, paok_out, season_team, opp_team, comp, nxt["home"], lu.get("minutes"))
-            them = project_side(opp_players, opp_out, opp_team, season_team, comp, not nxt["home"])
+            confirmed = source in ("manual", "official")
+            us = project_side(season_players, paok_out, season_team, opp_team, comp, nxt["home"], lu.get("minutes"), confirmed)
+            them = project_side(opp_players, opp_out, opp_team, season_team, comp, not nxt["home"], confirmed=confirmed)
             if us and them:
                 report["projection"] = {
                     "paok": us, "opp": them, "winProb": win_prob(us["score"] - them["score"]), "pace": us["pace"],
