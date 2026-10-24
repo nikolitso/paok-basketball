@@ -4,7 +4,7 @@
  "hs": 88,
  "as": 58,
  "date": "2026-10-10T14:30:00Z",
- "venue": "Αλεξανδρειο",
+ "venue": "Alexandreio Arena, Thessaloniki",
  "teams": [
   {
    "name": "ΑΡΗΣ",
@@ -373,7 +373,7 @@
      "sec": 1033,
      "pir": 1,
      "no": "3",
-     "name": "Ii Landers Nolley",
+     "name": "Landers Nolley II",
      "start": false,
      "pm": null
     },

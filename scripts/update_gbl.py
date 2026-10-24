@@ -175,7 +175,11 @@ def parse_date(s):
 
 
 def person(last, first):
-    return f"{first} {last}".title()
+    # the league sometimes puts a suffix in front of the first name ("III GREG" BROWN) -> "Greg Brown III"
+    parts = first.split()
+    suffix = [w.upper() for w in parts if w.upper() in ("II", "III", "IV", "JR", "JR.", "SR")]
+    first = " ".join(w for w in parts if w.upper() not in ("II", "III", "IV", "JR", "JR.", "SR"))
+    return " ".join([f"{first} {last}".strip().title()] + [s.replace("JR", "Jr").replace("SR", "Sr") for s in suffix])
 
 
 def num(s):

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T13:56:42Z",
+ "updated": "2026-10-24T13:58:13Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -1287,7 +1287,7 @@
      "tags": []
     },
     {
-     "name": "Ii Landers Nolley",
+     "name": "Landers Nolley II",
      "no": "3",
      "gp": 3,
      "min": 19.3,
@@ -1523,7 +1523,7 @@
      "pm": null
     },
     {
-     "name": "Ii Landers Nolley",
+     "name": "Landers Nolley II",
      "no": "3",
      "gp": 3,
      "min": 19.3,
@@ -1565,7 +1565,7 @@
      "pm": null
     },
     {
-     "name": "Iii Greg Brown",
+     "name": "Greg Brown III",
      "no": "0",
      "gp": 1,
      "min": 16.3,
@@ -1778,7 +1778,7 @@
    "oppRoster": [
     {
      "no": "0",
-     "name": "Iii Greg Brown",
+     "name": "Greg Brown III",
      "pos": "Forward",
      "posCode": "PF",
      "nat": "USA",
@@ -1796,7 +1796,7 @@
     },
     {
      "no": "3",
-     "name": "Ii Landers Nolley",
+     "name": "Landers Nolley II",
      "pos": "Forward",
      "posCode": "SF",
      "nat": "USA",
@@ -2024,124 +2024,106 @@
      "pace": 71.7
     },
     "opp": {
-     "score": 77.0,
+     "score": 74.6,
      "players": [
       {
        "name": "Nelly Joseph",
        "no": "23",
-       "min": 30,
-       "pts": 15.0,
-       "reb": 5.7,
-       "ast": 0.9,
-       "pir": 16.5
+       "min": 38,
+       "pts": 17.6,
+       "reb": 7.1,
+       "ast": 1.1,
+       "pir": 20.8
       },
       {
-       "name": "Ii Landers Nolley",
+       "name": "Landers Nolley II",
        "no": "3",
-       "min": 19,
-       "pts": 8.3,
-       "reb": 2.7,
-       "ast": 1.7,
-       "pir": 9.3
-      },
-      {
-       "name": "Thomas Heurtel",
-       "no": "77",
-       "min": 21,
-       "pts": 6.6,
-       "reb": 2.6,
-       "ast": 5.3,
-       "pir": 8.6
-      },
-      {
-       "name": "Deandre Pinckney",
-       "no": "0",
-       "min": 20,
-       "pts": 6.7,
-       "reb": 3.7,
-       "ast": 1.4,
-       "pir": 7.9
+       "min": 24,
+       "pts": 9.7,
+       "reb": 3.4,
+       "ast": 2.2,
+       "pir": 11.8
       },
       {
        "name": "Dimitris Katsivelis",
        "no": "4",
-       "min": 15,
-       "pts": 6.3,
-       "reb": 3.4,
-       "ast": 0.8,
-       "pir": 7.7
+       "min": 19,
+       "pts": 7.4,
+       "reb": 4.3,
+       "ast": 1.1,
+       "pir": 9.8
       },
       {
        "name": "Giannoulis Larentzakis",
        "no": "5",
-       "min": 18,
-       "pts": 7.4,
-       "reb": 2.0,
-       "ast": 2.3,
-       "pir": 7.2
+       "min": 23,
+       "pts": 8.6,
+       "reb": 2.6,
+       "ast": 2.9,
+       "pir": 9.1
       },
       {
        "name": "Giorgos Tsalmpouris",
        "no": "35",
-       "min": 15,
-       "pts": 5.6,
-       "reb": 1.8,
-       "ast": 1.2,
-       "pir": 5.7
+       "min": 19,
+       "pts": 6.6,
+       "reb": 2.3,
+       "ast": 1.5,
+       "pir": 7.1
       },
       {
        "name": "Lukas Lekavicius",
        "no": "9",
-       "min": 17,
-       "pts": 5.1,
-       "reb": 1.6,
-       "ast": 1.6,
-       "pir": 4.9
+       "min": 21,
+       "pts": 6.0,
+       "reb": 2.0,
+       "ast": 2.1,
+       "pir": 6.2
       },
       {
        "name": "Dimitris Flionis",
        "no": "7",
-       "min": 13,
-       "pts": 4.1,
-       "reb": 1.4,
-       "ast": 1.6,
-       "pir": 4.6
+       "min": 16,
+       "pts": 4.8,
+       "reb": 1.8,
+       "ast": 2.0,
+       "pir": 5.8
       },
       {
        "name": "Frank Bartley",
        "no": "24",
-       "min": 16,
-       "pts": 5.1,
-       "reb": 1.4,
-       "ast": 1.4,
-       "pir": 4.4
+       "min": 20,
+       "pts": 6.0,
+       "reb": 1.7,
+       "ast": 1.8,
+       "pir": 5.6
       },
       {
        "name": "Derrick Williams",
        "no": "20",
-       "min": 8,
-       "pts": 3.2,
-       "reb": 0.9,
-       "ast": 0.5,
-       "pir": 2.8
+       "min": 10,
+       "pts": 3.7,
+       "reb": 1.2,
+       "ast": 0.6,
+       "pir": 3.5
       },
       {
-       "name": "Iii Greg Brown",
+       "name": "Greg Brown III",
        "no": "0",
-       "min": 5,
-       "pts": 2.6,
-       "reb": 0.7,
-       "ast": 0.4,
-       "pir": 2.3
+       "min": 7,
+       "pts": 3.1,
+       "reb": 0.9,
+       "ast": 0.5,
+       "pir": 3.0
       },
       {
        "name": "Gaios Skordilis",
        "no": "1",
        "min": 2,
-       "pts": 0.6,
-       "reb": 0.2,
-       "ast": 0.1,
-       "pir": 0.6
+       "pts": 0.7,
+       "reb": 0.3,
+       "ast": 0.2,
+       "pir": 0.7
       },
       {
        "name": "Vasilis Chartonas",
@@ -2150,65 +2132,60 @@
        "pts": 0.3,
        "reb": 0.1,
        "ast": 0.1,
-       "pir": 0.3
-      },
-      {
-       "name": "Stavros Gymnopoulos",
-       "no": "16",
-       "min": 0,
-       "pts": 0.1,
-       "reb": 0.0,
-       "ast": 0.0,
-       "pir": 0.1
+       "pir": 0.4
       }
      ],
-     "missing": [],
+     "missing": [
+      "Deandre Pinckney",
+      "Thomas Heurtel",
+      "Stavros Gymnopoulos"
+     ],
      "pace": 71.7
     },
-    "winProb": 64,
+    "winProb": 72,
     "pace": 71.7,
     "lineupSource": "manual",
-    "note": "PAOK's 12 for AEK: Calathes back; Mitrou-Long out with a knock; Hudgins and Motiejunas are the two foreign players left out.",
+    "note": "PAOK's 12 for AEK: Calathes back; Mitrou-Long out with a knock; Hudgins and Motiejunas are the two foreign players left out. AEK without Heurtel and Feazell (injured); Pinckney not in their 12; Bartley returns.",
     "teamStats": {
      "pts": {
       "paok": 81.0,
-      "opp": 77.0,
-      "total": 158.0
+      "opp": 74.6,
+      "total": 155.6
      },
      "fg2m": {
       "paok": 18.0,
-      "opp": 18.9,
-      "total": 36.9
+      "opp": 18.3,
+      "total": 36.3
      },
      "fg3m": {
       "paok": 8.9,
-      "opp": 7.0,
-      "total": 15.9
+      "opp": 6.8,
+      "total": 15.7
      },
      "ftm": {
       "paok": 18.1,
-      "opp": 18.2,
-      "total": 36.3
+      "opp": 17.7,
+      "total": 35.8
      },
      "ast": {
       "paok": 17.9,
-      "opp": 16.6,
-      "total": 34.5
+      "opp": 16.0,
+      "total": 34.0
      },
      "oreb": {
       "paok": 12.9,
-      "opp": 9.2,
-      "total": 22.1
+      "opp": 9.5,
+      "total": 22.4
      },
      "dreb": {
-      "paok": 23.4,
+      "paok": 24.0,
       "opp": 21.6,
-      "total": 45.0
+      "total": 45.6
      },
      "reb": {
-      "paok": 36.3,
-      "opp": 30.8,
-      "total": 67.1
+      "paok": 36.9,
+      "opp": 31.1,
+      "total": 68.0
      }
     }
    }
