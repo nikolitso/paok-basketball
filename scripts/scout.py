@@ -460,6 +460,29 @@ def main():
 
     with open(os.path.join(DATA, "scout.json"), "w", encoding="utf-8") as f:
         json.dump({"updated": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "reports": reports}, f, ensure_ascii=False, indent=1)
+    log_projections(reports, now)
+
+
+def log_projections(reports, now):
+    """Keep each game's last pre-game projection in data/projection_log.json (frozen at tip-off), so the site
+    can compare it with the result afterwards."""
+    path = os.path.join(DATA, "projection_log.json")
+    log = load("projection_log.json") if os.path.exists(path) else {}
+    for r in reports:
+        pr = r.get("projection")
+        if not pr or not r.get("date") or not r["date"].endswith("Z"):
+            continue
+        tip = datetime.fromisoformat(r["date"].replace("Z", "+00:00"))
+        if now >= tip:
+            continue  # game under way or over: keep the projection as it stood before tip-off
+        log[f"{r['comp']}:{r['code']}"] = {
+            "comp": r["comp"], "code": str(r["code"]), "date": r["date"], "opp": r["opp"], "home": r["home"],
+            "saved": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "paok": pr["paok"]["score"], "oppScore": pr["opp"]["score"],
+            "winProb": pr["winProb"], "lineupSource": pr["lineupSource"], "teamStats": pr.get("teamStats"),
+            "players": {"paok": pr["paok"]["players"], "opp": pr["opp"]["players"]},
+        }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(log, f, ensure_ascii=False, indent=1)
 
 
 if __name__ == "__main__":
