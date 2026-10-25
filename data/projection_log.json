@@ -856,7 +856,7 @@
   "date": "2026-10-27T16:00:00Z",
   "opp": "Bahcesehir",
   "home": false,
-  "saved": "2026-10-24T22:51:33Z",
+  "saved": "2026-10-25T19:08:02Z",
   "paok": 78.6,
   "oppScore": 85.8,
   "winProb": 26,
@@ -1164,21 +1164,21 @@
   "date": "2026-10-31T15:30:00Z",
   "opp": "Iraklis",
   "home": false,
-  "saved": "2026-10-24T22:51:33Z",
-  "paok": 74.7,
+  "saved": "2026-10-25T19:08:02Z",
+  "paok": 74.4,
   "oppScore": 73.6,
-  "winProb": 54,
+  "winProb": 53,
   "lineupSource": "assumed",
   "teamStats": {
    "pts": {
-    "paok": 74.7,
+    "paok": 74.4,
     "opp": 73.6,
-    "total": 148.3
+    "total": 148.0
    },
    "fg2m": {
-    "paok": 17.6,
+    "paok": 17.5,
     "opp": 17.1,
-    "total": 34.6
+    "total": 34.5
    },
    "fg3m": {
     "paok": 7.0,
@@ -1186,24 +1186,24 @@
     "total": 15.6
    },
    "ftm": {
-    "paok": 18.5,
-    "opp": 13.7,
+    "paok": 18.4,
+    "opp": 13.8,
     "total": 32.2
    },
    "ast": {
-    "paok": 12.6,
-    "opp": 14.2,
-    "total": 26.8
+    "paok": 12.5,
+    "opp": 14.1,
+    "total": 26.7
    },
    "oreb": {
     "paok": 12.7,
     "opp": 10.1,
-    "total": 22.9
+    "total": 22.7
    },
    "dreb": {
-    "paok": 23.5,
-    "opp": 26.4,
-    "total": 50.0
+    "paok": 23.6,
+    "opp": 26.6,
+    "total": 50.1
    },
    "tov": {
     "paok": 10.8,
@@ -1211,9 +1211,9 @@
     "total": 24.4
    },
    "reb": {
-    "paok": 36.2,
-    "opp": 36.5,
-    "total": 72.9
+    "paok": 36.3,
+    "opp": 36.7,
+    "total": 72.8
    }
   },
   "players": {
@@ -1225,16 +1225,16 @@
      "pts": 14.6,
      "reb": 3.7,
      "ast": 1.7,
-     "pir": 17.0
+     "pir": 17.2
     },
     {
      "name": "Ben Moore",
      "no": "26",
      "min": 17,
-     "pts": 5.4,
+     "pts": 5.3,
      "reb": 4.9,
      "ast": 1.1,
-     "pir": 9.7
+     "pir": 9.5
     },
     {
      "name": "Naz Mitrou-Long",
@@ -1252,7 +1252,7 @@
      "pts": 5.5,
      "reb": 4.4,
      "ast": 0.9,
-     "pir": 8.8
+     "pir": 8.7
     },
     {
      "name": "Trevor Hudgins",
@@ -1261,7 +1261,7 @@
      "pts": 6.3,
      "reb": 1.9,
      "ast": 2.3,
-     "pir": 8.5
+     "pir": 8.4
     },
     {
      "name": "Breein Tyree",
@@ -1270,7 +1270,7 @@
      "pts": 8.7,
      "reb": 1.7,
      "ast": 0.9,
-     "pir": 8.3
+     "pir": 8.0
     },
     {
      "name": "Marcus Foster",
@@ -1279,7 +1279,7 @@
      "pts": 8.5,
      "reb": 2.4,
      "ast": 2.9,
-     "pir": 6.9
+     "pir": 7.1
     },
     {
      "name": "Nick Calathes",
@@ -1288,7 +1288,7 @@
      "pts": 5.0,
      "reb": 2.5,
      "ast": 2.3,
-     "pir": 6.2
+     "pir": 5.7
     },
     {
      "name": "Raiquan Gray",
@@ -1297,7 +1297,7 @@
      "pts": 5.2,
      "reb": 3.1,
      "ast": 0.9,
-     "pir": 5.4
+     "pir": 5.5
     },
     {
      "name": "Thanasis Bazinas",
@@ -1306,7 +1306,7 @@
      "pts": 2.4,
      "reb": 1.1,
      "ast": 0.7,
-     "pir": 3.2
+     "pir": 3.3
     },
     {
      "name": "Nikos Persidis",
@@ -1321,10 +1321,10 @@
      "name": "Nikos Chougkaz",
      "no": "9",
      "min": 8,
-     "pts": 1.9,
+     "pts": 1.8,
      "reb": 1.2,
      "ast": 0.3,
-     "pir": 1.8
+     "pir": 1.7
     },
     {
      "name": "Dimitris Kaklamanakis",

@@ -6,6 +6,7 @@ Usage:
 Then run scripts/update_gbl.py (the GitHub Action does this automatically).
 """
 import json
+from datetime import datetime, timezone
 import os
 import re
 import sys
@@ -31,8 +32,12 @@ with open(os.path.join(DATA, "gbl.json"), encoding="utf-8") as f:
 matches = [g for g in games if g["opp"].lower().split()[0] in opp_name]
 if not matches:
     raise SystemExit(f"No Greek League game found against {opp_name}")
-# the earliest one not yet played (or the last one, if both meetings are done)
-game = next((g for g in matches if not g["played"]), matches[-1])
+# the meeting at the same venue (LiveStats lists the home team first), and of those the one that has
+# already started: never a future fixture that just happens to be against the same team
+paok_home = "PAOK" in names[0].upper()
+matches = [g for g in matches if g["home"] == paok_home] or matches
+started = [g for g in matches if g["date"] and g["date"][:10] <= datetime.now(timezone.utc).strftime("%Y-%m-%d")]
+game = started[-1] if started else matches[0]
 
 path = os.path.join(DATA, "livestats.json")
 links = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {}

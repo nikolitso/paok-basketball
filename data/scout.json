@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T22:51:33Z",
+ "updated": "2026-10-25T19:08:02Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -1181,48 +1181,48 @@
     "drebPct": 71.8
    },
    "league": {
-    "pts": 79.2,
-    "fg2m": 18.2,
-    "fg2a": 35.6,
-    "fg3m": 9.0,
-    "fg3a": 26.0,
-    "ftm": 15.7,
-    "fta": 22.1,
-    "oreb": 10.8,
-    "dreb": 25.3,
-    "reb": 36.1,
+    "pts": 78.5,
+    "fg2m": 18.1,
+    "fg2a": 35.7,
+    "fg3m": 8.9,
+    "fg3a": 26.1,
+    "ftm": 15.4,
+    "fta": 21.9,
+    "oreb": 10.9,
+    "dreb": 25.5,
+    "reb": 36.5,
     "ast": 16.9,
-    "stl": 7.6,
-    "tov": 14.0,
+    "stl": 7.7,
+    "tov": 13.9,
     "blk": 3.1,
-    "pf": 22.2,
-    "pir": 84.9,
-    "gp": 52,
-    "w": 26,
-    "allowed": 79.2,
-    "fgp": 44.2,
-    "fg2p": 51.3,
-    "fg3p": 34.5,
-    "ftp": 71.2,
-    "opp_fgp": 44.2,
-    "poss": 74.5,
-    "pace": 73.8,
-    "ortg": 106.2,
-    "drtg": 106.2,
-    "efg": 51.5,
-    "ts": 55.5,
-    "tovPct": 18.8,
-    "orebPct": 29.8,
-    "ftr": 25.5,
-    "astPct": 61.9,
+    "pf": 22.0,
+    "pir": 84.2,
+    "gp": 56,
+    "w": 28,
+    "allowed": 78.5,
+    "fgp": 43.8,
+    "fg2p": 50.9,
+    "fg3p": 34.2,
+    "ftp": 70.5,
+    "opp_fgp": 43.8,
+    "poss": 74.4,
+    "pace": 73.7,
+    "ortg": 105.5,
+    "drtg": 105.5,
+    "efg": 51.0,
+    "ts": 55.0,
+    "tovPct": 18.7,
+    "orebPct": 30.0,
+    "ftr": 25.0,
+    "astPct": 62.3,
     "par3": 42.3,
-    "fgm": 27.2,
-    "fga": 61.6,
-    "opp_efg": 51.5,
-    "forcedTov": 18.8,
-    "drebPct": 70.2,
-    "opp_ftr": 25.5,
-    "l": 26,
+    "fgm": 27.1,
+    "fga": 61.8,
+    "opp_efg": 51.0,
+    "forcedTov": 18.7,
+    "drebPct": 70.0,
+    "opp_ftr": 25.0,
+    "l": 28,
     "net": 0.0
    },
    "impact": [
@@ -1362,7 +1362,7 @@
      "stl": 1.0,
      "blk": 0.0,
      "tov": 0.3,
-     "pir": 21.3,
+     "pir": 21.7,
      "fg3m": 3.3,
      "fg3a": 23,
      "fg3p": 43.5,
@@ -1370,7 +1370,7 @@
      "fta": 7.3,
      "dreb": 3.0,
      "pf": 2.3,
-     "pm": 14.5,
+     "pm": 12.7,
      "tags": [
       "3-pt threat",
       "Gets to the line"
@@ -1387,7 +1387,7 @@
      "stl": 1.5,
      "blk": 0.0,
      "tov": 1.0,
-     "pir": 16.5,
+     "pir": 15.5,
      "fg3m": 2.0,
      "fg3a": 12,
      "fg3p": 33.3,
@@ -1395,7 +1395,7 @@
      "fta": 9.0,
      "dreb": 1.0,
      "pf": 4.0,
-     "pm": 16.0,
+     "pm": 9.0,
      "tags": [
       "Top scorer",
       "Gets to the line"
@@ -1462,7 +1462,7 @@
      "stl": 0.7,
      "blk": 1.7,
      "tov": 1.3,
-     "pir": 12.0,
+     "pir": 11.7,
      "fg3m": 0.0,
      "fg3a": 1,
      "fg3p": 0.0,
@@ -1470,7 +1470,7 @@
      "fta": 2.3,
      "dreb": 3.3,
      "pf": 2.3,
-     "pm": 10.0,
+     "pm": 10.7,
      "tags": [
       "Rebounder",
       "Disruptor"
@@ -1870,7 +1870,7 @@
    ],
    "projection": {
     "paok": {
-     "score": 74.7,
+     "score": 74.4,
      "players": [
       {
        "name": "Cedi Osman",
@@ -1879,16 +1879,16 @@
        "pts": 14.6,
        "reb": 3.7,
        "ast": 1.7,
-       "pir": 17.0
+       "pir": 17.2
       },
       {
        "name": "Ben Moore",
        "no": "26",
        "min": 17,
-       "pts": 5.4,
+       "pts": 5.3,
        "reb": 4.9,
        "ast": 1.1,
-       "pir": 9.7
+       "pir": 9.5
       },
       {
        "name": "Naz Mitrou-Long",
@@ -1906,7 +1906,7 @@
        "pts": 5.5,
        "reb": 4.4,
        "ast": 0.9,
-       "pir": 8.8
+       "pir": 8.7
       },
       {
        "name": "Trevor Hudgins",
@@ -1915,7 +1915,7 @@
        "pts": 6.3,
        "reb": 1.9,
        "ast": 2.3,
-       "pir": 8.5
+       "pir": 8.4
       },
       {
        "name": "Breein Tyree",
@@ -1924,7 +1924,7 @@
        "pts": 8.7,
        "reb": 1.7,
        "ast": 0.9,
-       "pir": 8.3
+       "pir": 8.0
       },
       {
        "name": "Marcus Foster",
@@ -1933,7 +1933,7 @@
        "pts": 8.5,
        "reb": 2.4,
        "ast": 2.9,
-       "pir": 6.9
+       "pir": 7.1
       },
       {
        "name": "Nick Calathes",
@@ -1942,7 +1942,7 @@
        "pts": 5.0,
        "reb": 2.5,
        "ast": 2.3,
-       "pir": 6.2
+       "pir": 5.7
       },
       {
        "name": "Raiquan Gray",
@@ -1951,7 +1951,7 @@
        "pts": 5.2,
        "reb": 3.1,
        "ast": 0.9,
-       "pir": 5.4
+       "pir": 5.5
       },
       {
        "name": "Thanasis Bazinas",
@@ -1960,7 +1960,7 @@
        "pts": 2.4,
        "reb": 1.1,
        "ast": 0.7,
-       "pir": 3.2
+       "pir": 3.3
       },
       {
        "name": "Nikos Persidis",
@@ -1975,10 +1975,10 @@
        "name": "Nikos Chougkaz",
        "no": "9",
        "min": 8,
-       "pts": 1.9,
+       "pts": 1.8,
        "reb": 1.2,
        "ast": 0.3,
-       "pir": 1.8
+       "pir": 1.7
       },
       {
        "name": "Dimitris Kaklamanakis",
@@ -2126,20 +2126,20 @@
      "missing": [],
      "pace": 71.1
     },
-    "winProb": 54,
+    "winProb": 53,
     "pace": 71.1,
     "lineupSource": "assumed",
     "note": "",
     "teamStats": {
      "pts": {
-      "paok": 74.7,
+      "paok": 74.4,
       "opp": 73.6,
-      "total": 148.3
+      "total": 148.0
      },
      "fg2m": {
-      "paok": 17.6,
+      "paok": 17.5,
       "opp": 17.1,
-      "total": 34.6
+      "total": 34.5
      },
      "fg3m": {
       "paok": 7.0,
@@ -2147,24 +2147,24 @@
       "total": 15.6
      },
      "ftm": {
-      "paok": 18.5,
-      "opp": 13.7,
+      "paok": 18.4,
+      "opp": 13.8,
       "total": 32.2
      },
      "ast": {
-      "paok": 12.6,
-      "opp": 14.2,
-      "total": 26.8
+      "paok": 12.5,
+      "opp": 14.1,
+      "total": 26.7
      },
      "oreb": {
       "paok": 12.7,
       "opp": 10.1,
-      "total": 22.9
+      "total": 22.7
      },
      "dreb": {
-      "paok": 23.5,
-      "opp": 26.4,
-      "total": 50.0
+      "paok": 23.6,
+      "opp": 26.6,
+      "total": 50.1
      },
      "tov": {
       "paok": 10.8,
@@ -2172,9 +2172,9 @@
       "total": 24.4
      },
      "reb": {
-      "paok": 36.2,
-      "opp": 36.5,
-      "total": 72.9
+      "paok": 36.3,
+      "opp": 36.7,
+      "total": 72.8
      }
     }
    }
