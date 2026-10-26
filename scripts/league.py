@@ -128,6 +128,7 @@ def summarize(rows):
 
 
 HOME_EDGE = 1.5   # points per 100 possessions a home team scores more (and allows fewer)
+MARGIN_CAP = 25.0 # per 100 possessions: a 40-point rout of the weakest team says little more than a 25-point one
 ADJ_PRIOR = 0.5   # games' worth of league-average performance, keeps the adjustment stable early on
 
 
@@ -141,6 +142,9 @@ def adjust(games):
         if not poss:
             continue
         pa, pb = 100 * a["total"]["pts"] / poss, 100 * b["total"]["pts"] / poss
+        if abs(pa - pb) > MARGIN_CAP:  # blowout: count it as a MARGIN_CAP win, split evenly between attack and defence
+            excess = (abs(pa - pb) - MARGIN_CAP) / 2 * (1 if pa > pb else -1)
+            pa, pb = pa - excess, pb + excess
         rows += [(a["team"], b["team"], pa, pb, True), (b["team"], a["team"], pb, pa, False)]
     if not rows:
         return {}

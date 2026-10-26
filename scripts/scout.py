@@ -29,6 +29,7 @@ ADJ = {}     # comp -> schedule-adjusted team ratings from data/league.json
 LEAGUE = {}  # filled in main() from data/league.json: comp -> league-average stats (pace, ortg, ...)
 RATE_PRIOR_MIN = 40
 MAX_MIN = 36.0   # most minutes the projection gives any player
+ASSIST_LOSS = 0.08  # attack lost per share of the team's assists that is missing
 REPLACEMENT_LOSS = 0.2  # share of a missing player's scoring the team doesn't make up
 RATE_KEYS = ("fg2m", "fg3m", "ftm", "ast", "fga", "oreb", "dreb", "tov")
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
@@ -208,7 +209,10 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
     # the absent players' share of the team's scoring (points per team game); teammates make up most of it,
     # but less efficiently, so the attack loses REPLACEMENT_LOSS of that share. Absences can only lower it.
     lost = sum(p["pts"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in players if surname(p["name"]) in out)
-    availability = max(0.8, 1 - REPLACEMENT_LOSS * lost / full) if full else 1
+    # playmaking too: a missing lead passer costs more than his points (PAOK without Calathes: 7 assists, 21 turnovers)
+    team_ast = sum(p["ast"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in players) or 1
+    lost_ast = sum(p["ast"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in players if surname(p["name"]) in out)
+    availability = max(0.8, 1 - REPLACEMENT_LOSS * lost / full - ASSIST_LOSS * lost_ast / team_ast) if full else 1
     points_per_100 = ortg * opp_drtg / lg_ortg * availability
     score = pace * points_per_100 / 100 + (HOME_EDGE if home else -HOME_EDGE)
     k = score / lineup_pts if lineup_pts else 1

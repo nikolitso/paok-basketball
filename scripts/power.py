@@ -25,6 +25,7 @@ DATA = os.path.join(ROOT, "data")
 CACHE = os.path.join(DATA, "league_cache")
 
 HOME_EDGE = 3.0      # points per 100 possessions for the home team
+MARGIN_CAP = 25.0    # per-game margins capped at this many points per 100 possessions
 PRIOR_GAMES = 4      # the starting rating (pre-season odds or last season) counts like this many games
 PRIOR_KEEP = 0.5     # share of last season's margin carried over (rosters change over the summer)
 NEW_TEAM_PRIOR = -8  # Greek League teams without last-season data (promoted): slightly below average
@@ -216,7 +217,8 @@ def ratings(games, teams, prior=None, weight=1.0):
                 home = g["home"] == t
                 margin = (g["hp"] - g["ap"]) if home else (g["ap"] - g["hp"])
                 opp = g["away"] if home else g["home"]
-                total += 100 * margin / g["poss"] - (HOME_EDGE if home else -HOME_EDGE) + r.get(opp, 0.0)
+                per100 = max(-MARGIN_CAP, min(MARGIN_CAP, 100 * margin / g["poss"]))  # blowouts count as MARGIN_CAP
+                total += per100 - (HOME_EDGE if home else -HOME_EDGE) + r.get(opp, 0.0)
                 n += 1
             new[t] = total / n
         r = {t: 0.5 * r[t] + 0.5 * new[t] for t in teams}  # damped, so lightly connected schedules converge
