@@ -169,10 +169,18 @@ def project_side(players, out_names, team_stats, opp_stats, comp, home, set_min=
     # Lineup confirmed: everyone listed plays, so use minutes per game *played* (a player who missed games
     # through injury or a late signing isn't treated as a bench player). Not confirmed: minutes per *team*
     # game, so someone who sat out most games isn't counted as a regular.
+    per_team_game = {p["name"]: p.get("_mpg") or p["min"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in avail}
     if confirmed:
-        mins = {p["name"]: p.get("_mpp") or p["min"] for p in avail}
+        # halfway between: a player who missed games still gets a real role, but a deep squad that's all
+        # available doesn't squeeze the regulars' minutes
+        mins = {p["name"]: (per_team_game[p["name"]] + (p.get("_mpp") or p["min"])) / 2 for p in avail}
     else:
-        mins = {p["name"]: p.get("_mpg") or p["min"] * p["gp"] / p.get("_tgp", team_stats["gp"]) for p in avail}
+        mins = per_team_game
+    # only 12 dress: keep the 12 biggest expected roles (and anyone with hand-set minutes)
+    keep = {k for k, _ in sorted(mins.items(), key=lambda kv: -kv[1])[:12]}
+    keep |= {p["name"] for p in avail for k in (set_min or {}) if surname(p["name"]) == surname(k)}
+    avail = [p for p in avail if p["name"] in keep]
+    mins = {k: v for k, v in mins.items() if k in keep}
     # hand-set minutes from lineups.json ("minutes": {"Motiejunas": 18}), e.g. a new signing with no history
     fixed = {p["name"]: float(m) for p in avail for k, m in (set_min or {}).items() if surname(p["name"]) == surname(k)}
     for _ in range(5):

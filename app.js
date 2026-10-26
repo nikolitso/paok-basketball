@@ -477,6 +477,10 @@ VIEWS.scout = function scout() {
       <div class="table-wrap"><table><thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>PIR</th></tr></thead>
       <tbody>${side.players.map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.min}</td><td><b>${f1(r.pts)}</b></td><td>${f1(r.reb)}</td><td>${f1(r.ast)}</td><td>${f1(r.pir)}</td></tr>`).join('')}</tbody></table></div></div>`;
     // player lines are computed but hidden until there's more data; just list who's out
+    // PAOK players' expected points (other player lines stay hidden until there's more data)
+    const paokPts = us.players.length ? `<h3 style="margin-top:20px">PAOK players: expected points</h3>
+      <div class="table-wrap" style="max-width:520px"><table><thead><tr><th class="l">#</th><th class="l">Player</th><th>Min</th><th>Pts</th></tr></thead>
+      <tbody>${[...us.players].sort((a, b) => b.pts - a.pts).map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.min}</td><td><b>${f1(r.pts)}</b></td></tr>`).join('')}</tbody></table></div>` : '';
     const absent = (side, name) => side.missing.length ? `<p class="muted" style="margin:8px 0 0"><b>${esc(name)} out:</b> ${side.missing.map(esc).join(', ')}</p>` : '';
     const ts = pr.teamStats;
     const tsRows = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
@@ -494,8 +498,10 @@ VIEWS.scout = function scout() {
       </div>
       ${tstats}
       ${absent(us, 'PAOK')}${absent(them, pick.opp)}
+      ${paokPts}
       <p class="note">How it works: expected possessions = both teams' possessions per game relative to the league average. Points per 100 possessions = a team's schedule-adjusted offensive rating × the opponent's schedule-adjusted defensive rating ÷ the league average (adjusted = corrected for the strength of the opponents faced so far),
         reduced if key scorers are missing. Early-season numbers are pulled toward each team's pre-season expectation, plus a small home-court edge.
+        Player points: each player's points per minute in this competition (pulled toward the team average while samples are small) × his expected minutes, scaled to add up to the projected score; minutes of players who are out are shared among the rest.
         Team stats: each team's rate per 100 possessions × what the opponent allows ÷ the league average, over the expected possessions; made shots are scaled to add up to the projected score,
         and rebounds come from the expected misses and both teams' offensive and defensive rebounding rates.
         PAOK's numbers come from games in this competition only (the rosters differ between the Greek League and the EuroCup); only expected minutes use all games.
