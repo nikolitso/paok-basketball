@@ -308,3 +308,29 @@ h3.official-h { margin-top: 30px; }
 .coach-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px 22px; margin-top: 10px; }
 .coach-col { min-width: 0; }
 .coach-none { margin: 6px 0 0; font-size: 13px; }
+
+/* game files on Next Game: hand-written analysis of both teams' games (data/gamefiles/) */
+.gamefile { display: grid; gap: 22px; max-width: 980px; }
+.gamefile section { display: grid; gap: 12px; }
+.gamefile h3 { margin: 6px 0 0; font-size: 18px; padding-bottom: 6px; border-bottom: 2px solid var(--black); }
+.gamefile h4 { margin: 0; font-size: 15px; }
+.gamefile p { margin: 0; max-width: 72ch; line-height: 1.55; }
+.gf-lede { color: var(--muted); }
+.gf-verdict { background: var(--black); color: var(--white); padding: 18px; border-radius: var(--radius); display: grid; gap: 10px; }
+.gf-verdict h4 { color: var(--white); }
+.gf-verdict ul, .gf-points { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; line-height: 1.55; }
+.gf-tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+.gf-tbl table { min-width: 640px; }
+.gf-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.gf-two > div, .gf-cols > div { min-width: 0; display: grid; gap: 6px; align-content: start; }
+.gf-games { display: grid; gap: 14px; }
+.gf-game { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 10px; }
+.gf-game header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.gf-score { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.gf-eyebrow, .gf-k { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; }
+.gf-facts { display: flex; flex-wrap: wrap; gap: 6px; }
+.gf-facts span { font-size: 12.5px; background: var(--soft); border: 1px solid var(--line); padding: 3px 8px; border-radius: 6px; }
+.gf-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 22px; }
+.gamefile blockquote { margin: 0; padding: 10px 14px; border-left: 3px solid var(--black); background: var(--soft); border-radius: 0 6px 6px 0; font-size: 14.5px; line-height: 1.55; max-width: 76ch; }
+.gamefile blockquote cite { display: block; margin-top: 6px; font-size: 12px; font-style: normal; color: var(--muted); }
+.gf-note { font-size: 13px; color: var(--muted); }

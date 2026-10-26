@@ -42,6 +42,9 @@ async function load() {
     }
   }
   state.games = [...state.ec.games, ...state.gbl.games].filter((g) => g.date).sort((a, b) => toDate(a.date) - toDate(b.date));
+  // hand-written game files for upcoming games (data/gamefiles/<comp>-<code>.html), shown on Next Game
+  state.gameFiles = Object.fromEntries(await Promise.all((state.scout.reports || []).map((r) => `${r.comp}-${r.code}`)
+    .map((k) => fetch(`data/gamefiles/${k}.html?v=${Date.now()}`).then((r) => (r.ok ? r.text() : '')).catch(() => '').then((t) => [k, t]))));
   try { const saved = localStorage.getItem('paokComp'); if (saved) applyComp(saved); } catch (e) { /* no storage */ }
   window.addEventListener('hashchange', render);
   render();
@@ -507,6 +510,7 @@ VIEWS.scout = function scout() {
         PAOK's numbers come from games in this competition only (the rosters differ between the Greek League and the EuroCup); only expected minutes use all games.
 </p>`;
   }
+  const gf = (state.gameFiles || {})[`${pick.comp}-${pick.code}`];
   return `<h2>Next Game</h2>${tabs}
     <div class="card dark" style="margin-bottom:8px">
       <div class="label">${esc(compName(pick.comp))} · ${esc(pick.round)}</div>
@@ -515,6 +519,7 @@ VIEWS.scout = function scout() {
       ${clubLinks(pick.opp) ? `<div class="muted" style="margin-top:4px">${esc(pick.opp)}: ${clubLinksHtml(pick.opp, 'report club-link')}</div>` : ''}
     </div>
     <h2>Match-day projections</h2>${proj}
+    ${gf ? `<h2>${esc(pick.home ? `PAOK – ${pick.opp}` : `${pick.opp} – PAOK`)}: the game file</h2><div class="gamefile">${gf}</div>` : ''}
     ${projVsResults()}
     <h2>${esc(pick.opp)}: impact players</h2>
     ${pick.impact.length ? `<div class="grid three">${pick.impact.map(card).join('')}</div>` : '<p class="empty">They haven\'t played yet this season.</p>'}
