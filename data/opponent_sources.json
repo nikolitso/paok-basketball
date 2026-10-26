@@ -1,0 +1,12 @@
+{
+ "_note": "Where to look for opponents' team news (injuries, squads) before PAOK games. Not shown on the site.",
+ "EuroCup": {
+  "Bahcesehir": {"site": "https://bahcesehirsporkulubu.org", "instagram": "https://www.instagram.com/bkbasketbol/", "x": "https://x.com/BKBasketbol", "news_lang": "tr"},
+  "Manresa": {"site": "https://www.basquetmanresa.com/en", "instagram": "https://www.instagram.com/basquetmanresa/", "x": "https://twitter.com/BasquetManresa", "news_lang": "ca/es"},
+  "Bosna": {"site": "https://kkbosna.ba", "instagram": "https://www.instagram.com/kkbosna_meridianbet", "facebook": "https://www.facebook.com/kkbosna.official", "news_lang": "bs"},
+  "Lietkabelis": {"site": "https://www.kklietkabelis.lt", "instagram": "https://www.instagram.com/bclietkabelis", "facebook": "https://www.facebook.com/bclietkabelis", "news_lang": "lt"},
+  "Ulm": {"site": "https://ratiopharmulm.com", "instagram": "https://www.instagram.com/ratiopharmulm/", "x": "https://twitter.com/ratiopharmulm", "news_lang": "de"},
+  "Roma": {"site": "https://www.virtusroma1960.it", "instagram": "https://www.instagram.com/virtusroma1960/", "news_lang": "it"},
+  "Balkan": {"site": "https://balkan-basket.com", "instagram": "https://www.instagram.com/balkanbotevgrad/", "facebook": "https://www.facebook.com/Balkan.Botevgrad/", "news_lang": "bg"}
+ }
+}
