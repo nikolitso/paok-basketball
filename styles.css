@@ -337,3 +337,5 @@ h3.official-h { margin-top: 30px; }
 .gamefile blockquote { margin: 0; padding: 10px 14px; border-left: 3px solid var(--black); background: var(--soft); border-radius: 0 6px 6px 0; font-size: 14.5px; line-height: 1.55; max-width: 76ch; }
 .gamefile blockquote cite { display: block; margin-top: 6px; font-size: 12px; font-style: normal; color: var(--muted); }
 .gf-note { font-size: 13px; color: var(--muted); }
+.coach-focus { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.coach-focus p { margin: 4px 0 0; font-size: 14px; }

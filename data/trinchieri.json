@@ -1,5 +1,5 @@
 {
- "_note": "Andrea Trinchieri's words, translated into English and lightly shortened. games[]: linked to the schedule by comp + code; pre = before the game, post = after. ref = where it was said/reported (not shown on the site).",
+ "_note": "Andrea Trinchieri's words, translated into English and lightly shortened. games[]: linked to the schedule by comp + code; pre = before the game, post = after. ref = where it was said/reported (not shown on the site). focus (post entries): the stat he said must improve, checked on the site against PAOK's next game; stat = tovPct | drebPct | oppEfg | ortg | drtg.",
  "updated": "2026-10-26",
  "themes": [
   {
@@ -128,7 +128,13 @@
    "when": "post",
    "setting": "Flash interview and press conference",
    "quote": "A difficult game; we didn't play well, but we did the right things in the last quarter. We got many offensive rebounds but not defensive ones. It was a bad night from three, but we made them lose a lot of possessions, and that's why we won. Sometimes we forget where we come from: I had never coached any of these players; we're a completely new team. We need time. We don't have it, but we need it. In the end I think we found five players who could fit together on the floor.",
-   "ref": "https://www.paok24.com/mpasket/645583/"
+   "ref": "https://www.paok24.com/mpasket/645583/",
+   "focus": [
+    {
+     "stat": "drebPct",
+     "said": "\"Many offensive rebounds but not defensive ones\""
+    }
+   ]
   },
   {
    "comp": "GBL",
@@ -144,7 +150,13 @@
    "when": "post",
    "setting": "Press conference (empty arena, ban)",
    "quote": "A professional win. We had a lazy start and improved after that. In the first half we were behind on the boards, in the second we had more: my players understood what I asked. The biggest mistake was not putting the game away when we had a big lead; we have to learn to do that. About Osman, Calathes and Motiejunas not playing: it's player management. Whoever is on the floor must give his best. I trust all my players, and we have to look after their health.",
-   "ref": "https://www.paok24.com/mpasket/646162/"
+   "ref": "https://www.paok24.com/mpasket/646162/",
+   "focus": [
+    {
+     "stat": "drebPct",
+     "said": "\"In the first half we were behind on the boards\""
+    }
+   ]
   },
   {
    "comp": "EuroCup",
@@ -160,7 +172,13 @@
    "when": "post",
    "setting": "Press conference",
    "quote": "Congratulations to the opponent for a totally deserved win. They kicked our butt. It has nothing to do with basketball: it's energy, passion, determination, and we didn't match it. We let them shoot 62% from the field, we never stopped them, and the few times we did, they got the loose balls. I can accept losing when the opponent is better at basketball. I can't accept my team losing because the opponent wanted it more. It's a landing in reality; I think we were ripe for this. In the previous games we won, but we didn't play the way we should. Seven minutes are not enough; you have to play 40.",
-   "ref": "https://www.paok24.com/mpasket/646812/"
+   "ref": "https://www.paok24.com/mpasket/646812/",
+   "focus": [
+    {
+     "stat": "oppEfg",
+     "said": "\"We let them shoot 62%, we never stopped them\""
+    }
+   ]
   },
   {
    "comp": "GBL",
@@ -192,7 +210,17 @@
    "when": "post",
    "setting": "Press conference",
    "quote": "We controlled the tempo, very important against Ulm, who attack in the first 14 seconds and play at the fastest pace in the EuroCup. We were solid on defence for 40 minutes and did very good work on the boards. Then we committed a mortal sin: 21 turnovers. I'll be very blunt and honest: right now we're ugly. We play ugly, but we're capable of doing what's needed to win games. We're predictable and slow on offence and I have to change something. Calathes is a veteran and an important piece, but the responsibility is mine. This is PAOK, and it knows how to suffer.",
-   "ref": "https://www.paok24.com/mpasket/648260/"
+   "ref": "https://www.paok24.com/mpasket/648260/",
+   "focus": [
+    {
+     "stat": "tovPct",
+     "said": "\"21 turnovers, a mortal sin\""
+    },
+    {
+     "stat": "ortg",
+     "said": "\"Predictable and slow on offence, I have to change something\""
+    }
+   ]
   },
   {
    "comp": "GBL",
@@ -208,7 +236,13 @@
    "when": "post",
    "setting": "Press conference",
    "quote": "We're working. We had a good offensive night in the previous game, almost 90 points, but today we scored five in one quarter. I have a team that fights to do what I ask. After the last game we said we had to be better on defence; we were, and then we stopped playing on offence. That's normal for a new team: we never know how we'll play. We didn't make open shots, but we played excellent defence. Mitrou-Long had an injury and couldn't play. Calathes had been out for 15 days and had no rhythm; I had to give him minutes, because practice alone doesn't bring back game rhythm. After ten games it's like a crack: we fix one problem and another appears. The good thing is that the players respond to what I ask; now we need to find stability.",
-   "ref": "https://www.paok24.com/mpasket/648834/"
+   "ref": "https://www.paok24.com/mpasket/648834/",
+   "focus": [
+    {
+     "stat": "ortg",
+     "said": "\"We stopped playing on offence; we didn't make open shots\""
+    }
+   ]
   },
   {
    "comp": "EuroCup",

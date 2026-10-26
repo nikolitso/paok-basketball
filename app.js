@@ -590,6 +590,13 @@ function projVsResults() {
 }
 
 /* ---------- the coach: Andrea Trinchieri in his own words, before and after every game ---------- */
+const FOCUS_STATS = {
+  tovPct: { label: 'turnovers per 100 possessions', up: false, calc: (b) => (100 * b.team.tov) / gamePoss({ box: b }), fmt: (v) => f1(v) },
+  drebPct: { label: 'defensive rebounds', up: true, calc: (b) => (100 * b.team.dreb) / (b.team.dreb + b.opp.oreb), fmt: (v) => `${f1(v)}%` },
+  oppEfg: { label: "opponents' effective shooting", up: false, calc: (b) => (100 * (b.opp.fg2m + 1.5 * b.opp.fg3m)) / (b.opp.fg2a + b.opp.fg3a), fmt: (v) => `${f1(v)}%` },
+  ortg: { label: 'points per 100 possessions', up: true, calc: (b) => (100 * b.team.pts) / gamePoss({ box: b }), fmt: (v) => f1(v) },
+  drtg: { label: 'points allowed per 100 possessions', up: false, calc: (b) => (100 * b.opp.pts) / gamePoss({ box: b }), fmt: (v) => f1(v) },
+};
 VIEWS.coach = function coach() {
   const c = state.coach || {};
   const staff = (state.clubStaff || []).find((x) => /trinchieri/i.test(x.name || '')) || {};
@@ -603,6 +610,19 @@ VIEWS.coach = function coach() {
     byGame.get(k)[q.when === 'pre' ? 'pre' : 'post'].push(q);
   }
   const games = [...byGame.values()].sort((a, b) => toDate(b.g.date) - toDate(a.g.date));
+  // "his focus": the stat he said must improve after a game, measured then and in PAOK's next game (any competition)
+  const order = state.games.filter((x) => x.played && x.box);
+  const focusLine = (g, f) => {
+    const st = FOCUS_STATS[f.stat];
+    if (!st || !g.box) return '';
+    const nx = order[order.findIndex((x) => x === g) + 1];
+    const was = st.calc(g.box);
+    const now = nx ? st.calc(nx.box) : null;
+    const better = now != null && (st.up ? now > was : now < was);
+    const verdict = now == null ? '<span class="muted">next game not played yet</span>'
+      : `<b>${st.fmt(now)}</b> against ${esc(nx.opp)} · <b class="${better ? 'pos-text' : 'neg-text'}">${better ? 'better' : 'worse'}</b>`;
+    return `<div class="coach-focus"><span class="label">His focus → next game</span><p>${esc(f.said)} · ${st.label}: <b>${st.fmt(was)}</b> → ${verdict}</p></div>`;
+  };
   const res = (g) => (g.played ? `<span class="wl ${g.us > g.them ? 'W' : 'L'}">${g.us > g.them ? 'W' : 'L'}</span> ${g.home ? `PAOK ${g.us}–${g.them} ${esc(g.opp)}` : `${esc(g.opp)} ${g.them}–${g.us} PAOK`}` : `${g.home ? 'PAOK vs' : '@'} ${esc(g.opp)}`);
   const quote = (q) => `<blockquote class="coach-q"><p>${esc(q.quote)}</p><cite>${esc(q.setting || '')}</cite></blockquote>`;
   const col = (list, label) => `<div class="coach-col"><div class="label">${label}</div>${list.length ? list.map(quote).join('') : '<p class="muted coach-none">Nothing on record.</p>'}</div>`;
@@ -620,6 +640,7 @@ VIEWS.coach = function coach() {
     ${games.length ? games.map(({ g, pre, post }) => `<div class="card coach-game">
         <div class="coach-head"><b>${esc(compName(g.comp))} · ${res(g)}</b><span class="muted">${esc(g.round)} · ${fmtDate(g.date, { weekday: 'short' })}</span></div>
         <div class="coach-cols">${col(pre, 'Before the game')}${col(post, 'After the game')}</div>
+        ${post.flatMap((q) => q.focus || []).map((f) => focusLine(g, f)).join('')}
       </div>`).join('') : '<p class="empty">Nothing on record for these games yet.</p>'}`;
 };
 
