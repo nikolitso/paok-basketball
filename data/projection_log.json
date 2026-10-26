@@ -856,56 +856,56 @@
   "date": "2026-10-27T16:00:00Z",
   "opp": "Bahcesehir",
   "home": false,
-  "saved": "2026-10-25T23:41:54Z",
-  "paok": 78.6,
-  "oppScore": 85.8,
+  "saved": "2026-10-26T10:29:47Z",
+  "paok": 78.1,
+  "oppScore": 85.2,
   "winProb": 26,
-  "lineupSource": "assumed",
+  "lineupSource": "manual",
   "teamStats": {
    "pts": {
-    "paok": 78.6,
-    "opp": 85.8,
-    "total": 164.4
+    "paok": 78.1,
+    "opp": 85.2,
+    "total": 163.3
    },
    "fg2m": {
-    "paok": 18.0,
-    "opp": 22.0,
-    "total": 40.0
+    "paok": 17.7,
+    "opp": 21.9,
+    "total": 39.6
    },
    "fg3m": {
     "paok": 8.6,
-    "opp": 8.0,
-    "total": 16.7
+    "opp": 8.1,
+    "total": 16.8
    },
    "ftm": {
-    "paok": 16.8,
-    "opp": 17.7,
-    "total": 34.5
+    "paok": 16.7,
+    "opp": 17.0,
+    "total": 33.7
    },
    "ast": {
-    "paok": 15.4,
-    "opp": 17.1,
-    "total": 32.5
+    "paok": 15.1,
+    "opp": 17.3,
+    "total": 32.4
    },
    "oreb": {
     "paok": 11.3,
-    "opp": 9.9,
-    "total": 21.2
+    "opp": 9.5,
+    "total": 20.8
    },
    "dreb": {
-    "paok": 20.9,
-    "opp": 24.9,
-    "total": 45.8
+    "paok": 21.0,
+    "opp": 25.4,
+    "total": 46.4
    },
    "tov": {
-    "paok": 12.7,
+    "paok": 12.5,
     "opp": 13.1,
-    "total": 25.8
+    "total": 25.6
    },
    "reb": {
-    "paok": 32.2,
-    "opp": 34.8,
-    "total": 67.0
+    "paok": 32.3,
+    "opp": 34.9,
+    "total": 67.2
    }
   },
   "players": {
@@ -913,247 +913,247 @@
     {
      "name": "Cedi Osman",
      "no": "6",
-     "min": 28,
-     "pts": 15.6,
-     "reb": 4.2,
-     "ast": 1.6,
-     "pir": 17.6
+     "min": 25,
+     "pts": 13.9,
+     "reb": 3.8,
+     "ast": 1.4,
+     "pir": 15.2
     },
     {
      "name": "Kyle Alexander",
      "no": "8",
      "min": 16,
-     "pts": 6.7,
-     "reb": 3.9,
+     "pts": 6.2,
+     "reb": 4.1,
      "ast": 0.7,
-     "pir": 10.9
-    },
-    {
-     "name": "Marcus Foster",
-     "no": "17",
-     "min": 24,
-     "pts": 11.0,
-     "reb": 2.9,
-     "ast": 2.8,
-     "pir": 10.8
-    },
-    {
-     "name": "Nick Calathes",
-     "no": "33",
-     "min": 17,
-     "pts": 6.0,
-     "reb": 2.6,
-     "ast": 3.7,
-     "pir": 8.9
-    },
-    {
-     "name": "Trevor Hudgins",
-     "no": "12",
-     "min": 18,
-     "pts": 7.1,
-     "reb": 2.0,
-     "ast": 2.3,
-     "pir": 8.4
+     "pir": 10.0
     },
     {
      "name": "Breein Tyree",
      "no": "5",
-     "min": 13,
-     "pts": 8.3,
-     "reb": 1.4,
-     "ast": 0.9,
-     "pir": 8.2
+     "min": 14,
+     "pts": 10.2,
+     "reb": 1.5,
+     "ast": 1.0,
+     "pir": 9.1
     },
     {
-     "name": "Ben Moore",
-     "no": "26",
-     "min": 18,
-     "pts": 4.8,
-     "reb": 4.2,
-     "ast": 0.7,
-     "pir": 7.7
+     "name": "Nick Calathes",
+     "no": "33",
+     "min": 19,
+     "pts": 6.6,
+     "reb": 3.0,
+     "ast": 4.0,
+     "pir": 8.9
+    },
+    {
+     "name": "Marcus Foster",
+     "no": "17",
+     "min": 19,
+     "pts": 8.6,
+     "reb": 2.3,
+     "ast": 2.1,
+     "pir": 8.0
+    },
+    {
+     "name": "Trevor Hudgins",
+     "no": "12",
+     "min": 14,
+     "pts": 5.9,
+     "reb": 1.6,
+     "ast": 1.9,
+     "pir": 6.7
     },
     {
      "name": "Naz Mitrou Long",
      "no": "1",
-     "min": 17,
-     "pts": 7.1,
-     "reb": 2.1,
-     "ast": 1.5,
-     "pir": 7.4
+     "min": 14,
+     "pts": 5.9,
+     "reb": 1.7,
+     "ast": 1.1,
+     "pir": 5.9
+    },
+    {
+     "name": "Ben Moore",
+     "no": "26",
+     "min": 14,
+     "pts": 3.7,
+     "reb": 3.4,
+     "ast": 0.6,
+     "pir": 5.8
     },
     {
      "name": "Raiquan Gray",
      "no": "0",
      "min": 19,
-     "pts": 4.0,
-     "reb": 2.3,
+     "pts": 4.3,
+     "reb": 2.4,
      "ast": 1.3,
-     "pir": 4.6
+     "pir": 5.0
     },
     {
      "name": "Athanasios Bazinas",
      "no": "77",
+     "min": 10,
+     "pts": 3.1,
+     "reb": 1.3,
+     "ast": 0.7,
+     "pir": 3.8
+    },
+    {
+     "name": "Donatas Motiejunas",
+     "no": "20",
      "min": 7,
-     "pts": 2.2,
-     "reb": 1.0,
-     "ast": 0.6,
+     "pts": 2.0,
+     "reb": 1.4,
+     "ast": 0.3,
      "pir": 2.8
     },
     {
      "name": "Nikolaos Persidis",
      "no": "18",
      "min": 9,
-     "pts": 2.3,
+     "pts": 2.4,
      "reb": 1.7,
      "ast": 0.5,
+     "pir": 2.8
+    },
+    {
+     "name": "Dimitris Kaklamanakis",
+     "no": "14",
+     "min": 6,
+     "pts": 1.7,
+     "reb": 1.3,
+     "ast": 0.3,
      "pir": 2.7
     },
     {
      "name": "Nikos Chougkaz",
      "no": "9",
-     "min": 7,
-     "pts": 1.6,
-     "reb": 0.8,
-     "ast": 0.3,
-     "pir": 1.4
-    },
-    {
-     "name": "Donatas Motiejunas",
-     "no": "20",
-     "min": 3,
-     "pts": 0.8,
-     "reb": 0.6,
-     "ast": 0.1,
-     "pir": 1.2
-    },
-    {
-     "name": "Dimitris Kaklamanakis",
-     "no": "14",
-     "min": 3,
-     "pts": 0.7,
-     "reb": 0.5,
-     "ast": 0.1,
-     "pir": 1.1
+     "min": 10,
+     "pts": 2.4,
+     "reb": 1.2,
+     "ast": 0.4,
+     "pir": 2.0
     },
     {
      "name": "Giorgos Fillios",
      "no": "25",
-     "min": 1,
-     "pts": 0.4,
-     "reb": 0.1,
-     "ast": 0.1,
-     "pir": 0.4
+     "min": 3,
+     "pts": 0.9,
+     "reb": 0.3,
+     "ast": 0.2,
+     "pir": 0.9
     }
    ],
    "opp": [
     {
+     "name": "Marcquise Reed",
+     "no": "0",
+     "min": 19,
+     "pts": 12.1,
+     "reb": 3.3,
+     "ast": 1.7,
+     "pir": 12.2
+    },
+    {
      "name": "Mateusz Ponitka",
      "no": "38",
-     "min": 21,
-     "pts": 9.2,
-     "reb": 2.8,
-     "ast": 2.0,
-     "pir": 13.1
+     "min": 19,
+     "pts": 8.4,
+     "reb": 2.6,
+     "ast": 1.9,
+     "pir": 12.1
     },
     {
      "name": "Malachi Flynn",
      "no": "22",
-     "min": 25,
-     "pts": 11.3,
-     "reb": 2.8,
-     "ast": 3.2,
-     "pir": 13.0
+     "min": 23,
+     "pts": 10.3,
+     "reb": 2.6,
+     "ast": 3.0,
+     "pir": 12.0
     },
     {
      "name": "Tyler Cavanaugh",
      "no": "34",
-     "min": 21,
-     "pts": 10.1,
-     "reb": 3.3,
-     "ast": 1.8,
-     "pir": 12.3
+     "min": 19,
+     "pts": 9.3,
+     "reb": 3.1,
+     "ast": 1.7,
+     "pir": 11.3
     },
     {
      "name": "Trevion Williams",
      "no": "50",
-     "min": 20,
-     "pts": 7.9,
-     "reb": 5.6,
-     "ast": 2.5,
-     "pir": 12.0
+     "min": 18,
+     "pts": 7.2,
+     "reb": 5.2,
+     "ast": 2.3,
+     "pir": 11.1
     },
     {
      "name": "Aleksa Avramovic",
      "no": "4",
-     "min": 20,
-     "pts": 9.5,
-     "reb": 3.1,
-     "ast": 2.0,
-     "pir": 11.2
-    },
-    {
-     "name": "Marcquise Reed",
-     "no": "0",
-     "min": 16,
-     "pts": 9.9,
-     "reb": 2.7,
-     "ast": 1.4,
-     "pir": 9.9
-    },
-    {
-     "name": "Damien Inglis",
-     "no": "7",
      "min": 18,
-     "pts": 8.2,
-     "reb": 3.3,
-     "ast": 2.1,
-     "pir": 9.9
-    },
-    {
-     "name": "Kenan Sipahi",
-     "no": "55",
-     "min": 20,
-     "pts": 5.8,
-     "reb": 3.3,
-     "ast": 2.3,
-     "pir": 8.0
+     "pts": 8.7,
+     "reb": 2.9,
+     "ast": 1.8,
+     "pir": 10.4
     },
     {
      "name": "Isiaha Mike",
      "no": "24",
-     "min": 15,
-     "pts": 6.0,
-     "reb": 2.0,
-     "ast": 1.0,
-     "pir": 7.6
+     "min": 18,
+     "pts": 7.3,
+     "reb": 2.5,
+     "ast": 1.3,
+     "pir": 9.4
+    },
+    {
+     "name": "Damien Inglis",
+     "no": "7",
+     "min": 17,
+     "pts": 7.5,
+     "reb": 3.1,
+     "ast": 1.9,
+     "pir": 9.2
+    },
+    {
+     "name": "Kenan Sipahi",
+     "no": "55",
+     "min": 18,
+     "pts": 5.3,
+     "reb": 3.0,
+     "ast": 2.2,
+     "pir": 7.4
     },
     {
      "name": "Furkan Haltali",
      "no": "14",
-     "min": 14,
-     "pts": 4.3,
-     "reb": 2.6,
-     "ast": 0.9,
-     "pir": 5.3
-    },
-    {
-     "name": "Ismet Akpinar",
-     "no": "5",
-     "min": 7,
-     "pts": 2.2,
-     "reb": 0.9,
-     "ast": 0.6,
-     "pir": 2.4
+     "min": 13,
+     "pts": 3.9,
+     "reb": 2.4,
+     "ast": 0.8,
+     "pir": 4.9
     },
     {
      "name": "Luka Mitrovic",
      "no": "99",
-     "min": 4,
-     "pts": 1.4,
-     "reb": 0.8,
-     "ast": 0.4,
-     "pir": 1.6
+     "min": 7,
+     "pts": 2.6,
+     "reb": 1.5,
+     "ast": 0.7,
+     "pir": 3.0
+    },
+    {
+     "name": "Ismet Akpinar",
+     "no": "5",
+     "min": 9,
+     "pts": 2.7,
+     "reb": 1.1,
+     "ast": 0.8,
+     "pir": 3.0
     }
    ]
   }
@@ -1164,7 +1164,7 @@
   "date": "2026-10-31T15:30:00Z",
   "opp": "Iraklis",
   "home": false,
-  "saved": "2026-10-25T23:41:54Z",
+  "saved": "2026-10-26T10:29:47Z",
   "paok": 74.4,
   "oppScore": 73.6,
   "winProb": 53,
