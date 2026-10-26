@@ -292,3 +292,19 @@ h3.official-h { margin-top: 30px; }
 .club-links { font-size: 11.5px; font-weight: 500; margin-top: 2px; }
 .club-links a { color: var(--muted); text-decoration: none; }
 .club-links a:hover { color: var(--ink); text-decoration: underline; }
+
+/* coach page */
+.coach-hero { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.coach-hero img { width: 96px; height: 96px; object-fit: cover; border-radius: 50%; background: #222; }
+.coach-hero > div { min-width: 0; flex: 1 1 260px; }
+.coach-themes .card h3 { font-size: 16px; margin-bottom: 6px; }
+.coach-themes .card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); }
+.coach-general { display: grid; gap: 14px; max-width: 860px; }
+.coach-q { margin: 6px 0 0; padding: 10px 14px; border-left: 3px solid var(--black); background: var(--soft); border-radius: 0 6px 6px 0; }
+.coach-q p { margin: 0; font-size: 14.5px; line-height: 1.55; }
+.coach-q cite { display: block; margin-top: 6px; font-size: 12px; font-style: normal; color: var(--muted); }
+.coach-game { margin-top: 14px; }
+.coach-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; justify-content: space-between; }
+.coach-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px 22px; margin-top: 10px; }
+.coach-col { min-width: 0; }
+.coach-none { margin: 6px 0 0; font-size: 13px; }

@@ -28,8 +28,8 @@ async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
   let additions;
-  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power, state.highlights, state.projLog, state.oppSources] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} })), get('highlights.json').catch(() => ({})), get('projection_log.json').catch(() => ({})), get('opponent_sources.json').catch(() => ({}))]);
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power, state.highlights, state.projLog, state.oppSources, state.coach] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} })), get('highlights.json').catch(() => ({})), get('projection_log.json').catch(() => ({})), get('opponent_sources.json').catch(() => ({})), get('trinchieri.json').catch(() => ({ games: [] }))]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
@@ -64,7 +64,7 @@ function seg(name, options) {
 }
 // one competition choice for the whole site: picking Greek League / EuroCup / All on any page applies it on
 // every page (pages that don't offer that choice keep their own), and it's remembered for the next visit
-const COMP_FILTERS = ['team', 'players', 'standings', 'scout', 'roster', 'schedule', 'profiles'];
+const COMP_FILTERS = ['team', 'players', 'standings', 'scout', 'roster', 'schedule', 'profiles', 'coach'];
 function applyComp(v) {
   for (const f of COMP_FILTERS) state.filters[f] = v;
 }
@@ -588,6 +588,45 @@ function projVsResults() {
       <tbody>${hist}</tbody></table></div>
     <p class="note">The projection as it stood just before tip-off, against the final box score (overtime included). Margin / total vs proj. = how many points PAOK's margin and the combined score came in above (+) or below (−) the projection.</p>`;
 }
+
+/* ---------- the coach: Andrea Trinchieri in his own words, before and after every game ---------- */
+VIEWS.coach = function coach() {
+  const c = state.coach || {};
+  const comps = compsWithGames();
+  const comp = comps.includes(state.filters.coach) ? state.filters.coach : 'All';
+  state.filters.coach = comp;
+  const staff = (state.clubStaff || []).find((x) => /trinchieri/i.test(x.name || '')) || {};
+  const said = (c.games || []).filter((q) => comp === 'All' || q.comp === comp);
+  // one block per game, newest first, with what he said before and after it
+  const byGame = new Map();
+  for (const q of said) {
+    const g = state.games.find((x) => x.comp === q.comp && String(x.code) === String(q.code));
+    if (!g) continue;
+    const k = `${g.comp}:${g.code}`;
+    if (!byGame.has(k)) byGame.set(k, { g, pre: [], post: [] });
+    byGame.get(k)[q.when === 'pre' ? 'pre' : 'post'].push(q);
+  }
+  const games = [...byGame.values()].sort((a, b) => toDate(b.g.date) - toDate(a.g.date));
+  const res = (g) => (g.played ? `<span class="wl ${g.us > g.them ? 'W' : 'L'}">${g.us > g.them ? 'W' : 'L'}</span> ${g.home ? `PAOK ${g.us}–${g.them} ${esc(g.opp)}` : `${esc(g.opp)} ${g.them}–${g.us} PAOK`}` : `${g.home ? 'PAOK vs' : '@'} ${esc(g.opp)}`);
+  const quote = (q) => `<blockquote class="coach-q"><p>${esc(q.quote)}</p><cite>${esc(q.setting || '')}</cite></blockquote>`;
+  const col = (list, label) => `<div class="coach-col"><div class="label">${label}</div>${list.length ? list.map(quote).join('') : '<p class="muted coach-none">Nothing on record.</p>'}</div>`;
+  return `<h2>The coach</h2>
+    <div class="card dark coach-hero">
+      ${staff.photo ? `<img src="${esc(staff.photo)}" alt="Andrea Trinchieri" loading="lazy">` : ''}
+      <div><div class="label">Head coach</div><div class="big">Andrea Trinchieri</div>
+        <p class="muted" style="margin:6px 0 0">What he says before and after every game, translated into English. Read together, it shows how he thinks about the team, the season and the game.</p></div>
+    </div>
+    <h2>His philosophy</h2>
+    <div class="grid three coach-themes">${(c.themes || []).map((t) => `<div class="card"><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div>`).join('')}</div>
+    <h2>In his words</h2>
+    <div class="coach-general">${(c.general || []).map((q) => `<div class="coach-g"><div class="label">${fmtDate(q.date, { year: 'numeric' })} · ${esc(q.context)}</div>${quote({ quote: q.quote })}</div>`).join('')}</div>
+    <h2>Game by game</h2>
+    ${seg('coach', [['All', 'All games'], ...comps.map((x) => [x, compName(x)])])}
+    ${games.length ? games.map(({ g, pre, post }) => `<div class="card coach-game">
+        <div class="coach-head"><b>${res(g)}</b><span class="muted">${esc(compName(g.comp))} · ${esc(g.round)} · ${fmtDate(g.date, { weekday: 'short' })}</span></div>
+        <div class="coach-cols">${col(pre, 'Before the game')}${col(post, 'After the game')}</div>
+      </div>`).join('') : '<p class="empty">Nothing on record for these games yet.</p>'}`;
+};
 
 /* ---------- player profiles ---------- */
 const TAG_RULES = [

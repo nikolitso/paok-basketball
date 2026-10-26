@@ -72,6 +72,7 @@ If a run is red or missing: open it, click **Re-run all jobs**, or use **Run wor
 | Player leaving / to hide from the site | "Remove <name>" | `data/excluded_players.json` → `players` |
 | Youth player: hide until he plays | "Hide <name> until he plays" | `data/excluded_players.json` → `until_played` |
 | Contract extension, joined date, previous club | The news item | `data/player_info.json` |
+| Trinchieri's pre- or post-game comments | The link, or "add Trinchieri's quotes" | `data/trinchieri.json` (Coach page) |
 | Number assigned to a new player | Nothing: it comes in with the rosters | — |
 
 New signings disappear from the manual list by themselves once an official roster lists them.
