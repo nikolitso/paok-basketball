@@ -498,7 +498,7 @@ VIEWS.scout = function scout() {
         reduced if key scorers are missing. Early-season numbers are pulled toward each team's pre-season expectation, plus a small home-court edge.
         Team stats: each team's rate per 100 possessions × what the opponent allows ÷ the league average, over the expected possessions; made shots are scaled to add up to the projected score,
         and rebounds come from the expected misses and both teams' offensive and defensive rebounding rates.
-        PAOK's ratings come from games in this competition only.
+        PAOK's numbers come from games in this competition only (the rosters differ between the Greek League and the EuroCup); only expected minutes use all games.
 </p>`;
   }
   return `<h2>Next Game</h2>${tabs}

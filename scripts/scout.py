@@ -416,23 +416,20 @@ def main():
             opp_out = [p["name"] for p in opp_players if surname(p["name"]) not in dressed_opp]
             source = "official"
         if paok_team and opp_team:
-            # PAOK's strength: EuroCup from every game this season (all competitions); Greek League from league games only.
-            # Only players registered for this competition; one with no minutes in it yet (a new signing)
-            # borrows his per-minute numbers from the other competitions.
+            # PAOK's strength: this competition's games only (the rosters differ: Greek League and EuroCup have
+            # different foreign-player rules). Only players registered for this competition; one with no minutes
+            # in it yet (a new signing) borrows his per-minute numbers from the other competitions.
             all_boxes = [{"players": g["box"]["players"], "team": g["box"]["team"], "opp": g["box"]["opp"], "won": g["us"] > g["them"]}
                          for d in (ecd, gbld) for g in d["games"] if g["played"] and g.get("box")]
             all_team, all_players = aggregate(all_boxes)
-            if comp == "GBL":
-                season_team, season_players = paok_team, paok_players
-                have = {surname(p["name"]) for p in season_players}
-                season_players = season_players + [dict(p, _tgp=all_team["gp"]) for p in all_players if surname(p["name"]) not in have]
-                # expected minutes (the player's role) from every game this season: two league games are too few
-                role = {surname(p["name"]): p["min"] * p["gp"] / all_team["gp"] for p in all_players}
-                played = {surname(p["name"]): p["min"] for p in all_players}
-                season_players = [dict(p, _mpg=role.get(surname(p["name"])), _mpp=played.get(surname(p["name"])))
-                                  for p in season_players]
-            else:
-                season_team, season_players = all_team, all_players
+            season_team, season_players = paok_team, paok_players
+            have = {surname(p["name"]) for p in season_players}
+            season_players = season_players + [dict(p, _tgp=all_team["gp"]) for p in all_players if surname(p["name"]) not in have]
+            # expected minutes (the player's role) from every game this season: a few games per competition are too few
+            role = {surname(p["name"]): p["min"] * p["gp"] / all_team["gp"] for p in all_players}
+            played = {surname(p["name"]): p["min"] for p in all_players}
+            season_players = [dict(p, _mpg=role.get(surname(p["name"])), _mpp=played.get(surname(p["name"])))
+                              for p in season_players]
             registered = {surname(p["name"]) for p in data["roster"]}
             season_players = [p for p in season_players if surname(p["name"]) in registered]
             # schedule-adjusted ratings from the league table (PAOK's are from this competition's games)
