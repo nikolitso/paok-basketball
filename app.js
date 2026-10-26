@@ -450,17 +450,12 @@ VIEWS.scout = function scout() {
       ${pl.tags.length ? `<div class="tags">${pl.tags.map((t) => `<span class="pill">${esc(t)}</span>`).join(' ')}</div>` : ''}
     </div>`;
 
-  // projections unlock on match day (Greek time)
-  const today = new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date());
-  const matchDay = athensDay(pick.date) <= today;
+  // projections are shown as soon as they exist; the lineup line says whether team news is in yet
   let proj;
   if (!pick.projection) proj = '<p class="empty">Not enough data for projections yet.</p>';
-  else if (!matchDay) {
-    proj = `<div class="card locked"><b>Projections unlock on match day</b> (${fmtDate(pick.date, { weekday: 'long' })}).
-      <p class="muted" style="margin:6px 0 0">They use the expected lineups, so they're published once it's known who plays.</p></div>`;
-  } else {
+  else {
     const pr = pick.projection, us = pr.paok, them = pr.opp;
-    const src = { manual: 'Lineups: confirmed team news', official: 'Lineups: official game roster', assumed: 'Lineups not confirmed yet: full squads assumed' }[pr.lineupSource];
+    const src = { manual: 'Lineups: latest team news', official: 'Lineups: official game roster', assumed: 'Lineups not confirmed yet: full squads assumed' }[pr.lineupSource];
     const ptable = (side, name) => `<div><h3>${esc(name)} <span class="muted" style="font:500 13px Inter">${side.missing.length ? 'Out: ' + side.missing.map(esc).join(', ') : 'No absences'}</span></h3>
       <div class="table-wrap"><table><thead><tr><th class="l">#</th><th class="l">Player</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>PIR</th></tr></thead>
       <tbody>${side.players.map((r) => `<tr><td class="l">${esc(r.no)}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.min}</td><td><b>${f1(r.pts)}</b></td><td>${f1(r.reb)}</td><td>${f1(r.ast)}</td><td>${f1(r.pir)}</td></tr>`).join('')}</tbody></table></div></div>`;
