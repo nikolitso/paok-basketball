@@ -592,7 +592,7 @@ function projVsResults() {
 VIEWS.coach = function coach() {
   const c = state.coach || {};
   const staff = (state.clubStaff || []).find((x) => /trinchieri/i.test(x.name || '')) || {};
-  // one block per game, every competition together in date order, with what he said before and after it
+  // one block per game, every competition together, newest first, with what he said before and after it
   const byGame = new Map();
   for (const q of c.games || []) {
     const g = state.games.find((x) => x.comp === q.comp && String(x.code) === String(q.code));
@@ -601,7 +601,7 @@ VIEWS.coach = function coach() {
     if (!byGame.has(k)) byGame.set(k, { g, pre: [], post: [] });
     byGame.get(k)[q.when === 'pre' ? 'pre' : 'post'].push(q);
   }
-  const games = [...byGame.values()].sort((a, b) => toDate(a.g.date) - toDate(b.g.date));
+  const games = [...byGame.values()].sort((a, b) => toDate(b.g.date) - toDate(a.g.date));
   const res = (g) => (g.played ? `<span class="wl ${g.us > g.them ? 'W' : 'L'}">${g.us > g.them ? 'W' : 'L'}</span> ${g.home ? `PAOK ${g.us}–${g.them} ${esc(g.opp)}` : `${esc(g.opp)} ${g.them}–${g.us} PAOK`}` : `${g.home ? 'PAOK vs' : '@'} ${esc(g.opp)}`);
   const quote = (q) => `<blockquote class="coach-q"><p>${esc(q.quote)}</p><cite>${esc(q.setting || '')}</cite></blockquote>`;
   const col = (list, label) => `<div class="coach-col"><div class="label">${label}</div>${list.length ? list.map(quote).join('') : '<p class="muted coach-none">Nothing on record.</p>'}</div>`;
