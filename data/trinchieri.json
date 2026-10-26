@@ -2,74 +2,221 @@
  "_note": "Andrea Trinchieri's words, translated into English and lightly shortened. games[]: linked to the schedule by comp + code; pre = before the game, post = after. ref = where it was said/reported (not shown on the site).",
  "updated": "2026-10-26",
  "themes": [
-  {"title": "Effort is the one thing he guarantees", "text": "He refuses to promise wins, only effort, concentration and doing the small things right. Losing to a better team is acceptable; losing to a team that wanted it more is not."},
-  {"title": "Defence and rebounds first", "text": "\"Without rebounds you can't play, and without moving the ball you can't score.\" When the offence has no rhythm, he wants the team to win through defence."},
-  {"title": "A long road, built step by step", "text": "PAOK are \"three levels\" below where they want to be, and the gap runs through the whole organisation, not just the team. A new book, written one good page a day. Talk of titles now \"doesn't want PAOK's good\"."},
-  {"title": "No excuses, no alibis", "text": "Short rest, travel and injuries are mentioned and then dismissed. He takes responsibility himself and won't single out players in public."},
-  {"title": "Never satisfied", "text": "He hates the word \"normality\": normal means average. \"I'm paid not to be satisfied.\" He expects improvement in stages until about January."},
-  {"title": "Consistency over 40 minutes", "text": "The recurring complaint: sluggish starts, ups and downs, \"seven minutes are not enough\". He asks for the same level from everyone and every quarter."},
-  {"title": "Details that decide games", "text": "Using fouls to give when not in the bonus, the first 30 seconds after a mistake, limiting turnovers, and not being predictable on offence."},
-  {"title": "Pressure is a privilege", "text": "\"When nobody expects anything from you, it means you don't count.\" Trophies gather dust; the memories and the crowd are his fuel."}
+  {
+   "title": "Effort is the one thing he guarantees",
+   "text": "He refuses to promise wins, only effort, concentration and doing the small things right. Losing to a better team is acceptable; losing to a team that wanted it more is not."
+  },
+  {
+   "title": "Defence and rebounds first",
+   "text": "\"Without rebounds you can't play, and without moving the ball you can't score.\" When the offence has no rhythm, he wants the team to win through defence."
+  },
+  {
+   "title": "A long road, built step by step",
+   "text": "PAOK are \"three levels\" below where they want to be, and the gap runs through the whole organisation, not just the team. A new book, written one good page a day. Talk of titles now \"doesn't want PAOK's good\"."
+  },
+  {
+   "title": "No excuses, no alibis",
+   "text": "Short rest, travel and injuries are mentioned and then dismissed. He takes responsibility himself and won't single out players in public."
+  },
+  {
+   "title": "Never satisfied",
+   "text": "He hates the word \"normality\": normal means average. \"I'm paid not to be satisfied.\" He expects improvement in stages until about January."
+  },
+  {
+   "title": "Consistency over 40 minutes",
+   "text": "The recurring complaint: sluggish starts, ups and downs, \"seven minutes are not enough\". He asks for the same level from everyone and every quarter."
+  },
+  {
+   "title": "Details that decide games",
+   "text": "Using fouls to give when not in the bonus, the first 30 seconds after a mistake, limiting turnovers, and not being predictable on offence."
+  },
+  {
+   "title": "Pressure is a privilege",
+   "text": "\"When nobody expects anything from you, it means you don't count.\" Trophies gather dust; the memories and the crowd are his fuel."
+  }
  ],
  "general": [
-  {"date": "2026-08-12", "context": "First practice of the season, speech to the players", "quote": "I feel grateful because I got all the players I wanted; this is the team I wanted. It's very important that you know what this jersey represents and how heavy it is. That isn't pressure. It means you must know what you have to do: commitment to this club, always giving your best.", "ref": "https://www.paok24.com/mpasket/635263/"},
-  {"date": "2026-08-31", "context": "After the preseason camp in Metsovo", "quote": "A young player needs a chance; some will grab it and some won't. I insist on having an academy and a plan for young players. I'd like to produce Greek players for PAOK. How do you produce them if you don't give them a chance? The new training centre changes the game for PAOK.", "ref": "https://www.paok24.com/mpasket/638638/"},
-  {"date": "2026-09-14", "context": "Media day", "quote": "How can the team be ready now? Being ready in September is one piece. October is a second piece, December a third and March a fourth. We have some chemistry and some hierarchy; the execution isn't as good as it should be yet, but we are building bonds.", "ref": "https://www.paok24.com/mpasket/641325/"},
-  {"date": "2026-09-23", "context": "Interview with Serbian media", "quote": "Pressure has never been a problem for me. There is a gap of three levels to close, not only between coach and players but across the whole organisation: you need top people in every role, from whoever cleans the floor to the staff answering the emails. Whoever talks about titles right now doesn't want what's good for PAOK.", "ref": "https://www.paok24.com/mpasket/643176/"},
-  {"date": "2026-09-24", "context": "Before the start of the Greek League", "quote": "The new season isn't just a new page for PAOK; it's the start of a new book. When you open a new book you can't write the last page on day one. You have to write one good page every day. Pressure is a privilege, because when nobody expects anything from you, it means you don't count.", "ref": "https://www.paok24.com/mpasket/643353/"},
-  {"date": "2026-10-20", "context": "Asked whether PAOK are entering a period of normality", "quote": "You used a word I hate: normality. For me normal equals average. I don't want to be average, not for my players and not for the team. I never feel satisfied. I'm paid not to be satisfied, to push and improve the team every day. It may take a bit more time than I expected; until January we'll go through stages of improvement.", "ref": "https://www.eurohoops.net/el/eurocup-el/2023395/"}
+  {
+   "date": "2026-08-12",
+   "context": "First practice of the season, speech to the players",
+   "quote": "I feel grateful because I got all the players I wanted; this is the team I wanted. It's very important that you know what this jersey represents and how heavy it is. That isn't pressure. It means you must know what you have to do: commitment to this club, always giving your best.",
+   "ref": "https://www.paok24.com/mpasket/635263/"
+  },
+  {
+   "date": "2026-08-31",
+   "context": "After the preseason camp in Metsovo",
+   "quote": "A young player needs a chance; some will grab it and some won't. I insist on having an academy and a plan for young players. I'd like to produce Greek players for PAOK. How do you produce them if you don't give them a chance? The new training centre changes the game for PAOK.",
+   "ref": "https://www.paok24.com/mpasket/638638/"
+  },
+  {
+   "date": "2026-09-14",
+   "context": "Media day",
+   "quote": "How can the team be ready now? Being ready in September is one piece. October is a second piece, December a third and March a fourth. We have some chemistry and some hierarchy; the execution isn't as good as it should be yet, but we are building bonds.",
+   "ref": "https://www.paok24.com/mpasket/641325/"
+  },
+  {
+   "date": "2026-09-23",
+   "context": "Interview with Serbian media",
+   "quote": "Pressure has never been a problem for me. There is a gap of three levels to close, not only between coach and players but across the whole organisation: you need top people in every role, from whoever cleans the floor to the staff answering the emails. Whoever talks about titles right now doesn't want what's good for PAOK.",
+   "ref": "https://www.paok24.com/mpasket/643176/"
+  },
+  {
+   "date": "2026-09-24",
+   "context": "Before the start of the Greek League",
+   "quote": "The new season isn't just a new page for PAOK; it's the start of a new book. When you open a new book you can't write the last page on day one. You have to write one good page every day. Pressure is a privilege, because when nobody expects anything from you, it means you don't count.",
+   "ref": "https://www.paok24.com/mpasket/643353/"
+  },
+  {
+   "date": "2026-10-20",
+   "context": "Asked whether PAOK are entering a period of normality",
+   "quote": "You used a word I hate: normality. For me normal equals average. I don't want to be average, not for my players and not for the team. I never feel satisfied. I'm paid not to be satisfied, to push and improve the team every day. It may take a bit more time than I expected; until January we'll go through stages of improvement.",
+   "ref": "https://www.eurohoops.net/el/eurocup-el/2023395/"
+  }
  ],
  "games": [
-  {"comp": "Greek Super Cup", "code": "43A0A50E", "when": "post", "setting": "Press conference",
+  {
+   "comp": "Greek Super Cup",
+   "code": "43A0A50E",
+   "when": "post",
+   "setting": "Press conference",
    "quote": "It's September, so there's a long road ahead. It was our first official game, against one of the best teams in Europe. We won the rebounding battle, we had more assists, we played with energy and passion. We could have finished it earlier and made our lives easier, but we never lost hope. The most important thing, as I always tell my players, is the first 30 seconds after a stupid mistake: coming back after two silly turnovers, playing the last possession right and hitting a buzzer-beater. That's energy and passion. Without rebounds you can't play, and without moving the ball you can't score.",
-   "ref": "https://www.paok24.com/mpasket/643807/"},
-  {"comp": "Greek Super Cup", "code": "04920552", "when": "post", "setting": "Press conference",
+   "ref": "https://www.paok24.com/mpasket/643807/"
+  },
+  {
+   "comp": "Greek Super Cup",
+   "code": "04920552",
+   "when": "post",
+   "setting": "Press conference",
    "quote": "We fought and gave everything. It's hard for us: we're a new team, and Olympiacos have been the same since World War II. They are the champions of Europe and we lost by one shot. Some credit to them: at least eight great baskets based on talent. It's a loss that hurts, but at this point of the season I can't ask much more from my players. We didn't do a good job of understanding what the referees were calling. I'll study and get better at understanding where the officiating takes the game.",
-   "ref": "https://www.paok24.com/mpasket/644017/"},
-  {"comp": "EuroCup", "code": "14", "when": "pre", "setting": "Pre-game press conference",
+   "ref": "https://www.paok24.com/mpasket/644017/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "14",
+   "when": "pre",
+   "setting": "Pre-game press conference",
    "quote": "Manresa are a very smart Spanish team: they know how to play, how to trick you, they space the floor very well and shoot well. It's a game that demands great concentration on the small things, because they make the big things happen. You can have a must-win mentality, but does that mean we must guarantee the win? No. We must guarantee the effort to win, our concentration, playing hard. I'll have butterflies in my stomach. Trophies gather dust; memories stay forever. That's my fuel.",
-   "ref": "https://www.paok24.com/mpasket/644252/"},
-  {"comp": "EuroCup", "code": "14", "when": "post", "setting": "Press conference",
+   "ref": "https://www.paok24.com/mpasket/644252/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "14",
+   "when": "post",
+   "setting": "Press conference",
    "quote": "We didn't play well, and to tell the truth I expected exactly this kind of game. Opening night is always tricky; the tension was different and everybody wanted to do it alone. In the first half Manresa did what they wanted: millions of layups, and every loose ball was theirs. Their coach did a much better job than me, and I couldn't convince my players to play the way I wanted. Their minds were on the next possession, not the one being played, and I kept telling them to go possession by possession. In the second half two players changed the game: Gray was fantastic on defence and won lots of loose balls, and Tyree carried us on offence in the third quarter. Tonight's lesson: when the final buzzer sounds, your jersey must be sweaty and dirty. If it isn't, it's hard to get results. After the win, the second-best thing today was the amazing atmosphere in the arena.",
-   "ref": "press conference transcript sent by the user"},
-  {"comp": "GBL", "code": "47FBE805", "when": "post", "setting": "Press conference",
+   "ref": "press conference transcript sent by the user"
+  },
+  {
+   "comp": "GBL",
+   "code": "47FBE805",
+   "when": "post",
+   "setting": "Press conference",
    "quote": "Congratulations to Mykonos. We had a very sluggish start that gave them confidence: when you start the game missing four lay-ups and six free throws, that's about concentration and mental toughness. I've seen this script a million times: the shooters' night, big shots go in and the home team gets huge enthusiasm. No excuses: Mykonos played better. We did the right things in the last quarter. We're very bad at using our fouls; we conceded a basket in the fourth while we still had fouls to give. With the schedule we had barely an hour of practice, but I won't use that as an explanation. I don't want to give the team an alibi.",
-   "ref": "https://paokday.gr/trinkieri-i-mykonos-epaixe-kalytera-alla-den-anisycho"},
-  {"comp": "EuroCup", "code": "32", "when": "pre", "setting": "Before leaving for Sarajevo",
+   "ref": "https://paokday.gr/trinkieri-i-mykonos-epaixe-kalytera-alla-den-anisycho"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "32",
+   "when": "pre",
+   "setting": "Before leaving for Sarajevo",
    "quote": "It will be a very difficult game. Bosna are a very good team, back in European competition after a long time. We have to play well for all 40 minutes, not like our performance in the previous games, in a very difficult arena. As an organisation we're always in the market; we wanted to add a player like Motiejunas, who has experience and understands basketball.",
-   "ref": "https://www.paok24.com/mpasket/645229/"},
-  {"comp": "EuroCup", "code": "32", "when": "post", "setting": "Flash interview and press conference",
+   "ref": "https://www.paok24.com/mpasket/645229/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "32",
+   "when": "post",
+   "setting": "Flash interview and press conference",
    "quote": "A difficult game; we didn't play well, but we did the right things in the last quarter. We got many offensive rebounds but not defensive ones. It was a bad night from three, but we made them lose a lot of possessions, and that's why we won. Sometimes we forget where we come from: I had never coached any of these players; we're a completely new team. We need time. We don't have it, but we need it. In the end I think we found five players who could fit together on the floor.",
-   "ref": "https://www.paok24.com/mpasket/645583/"},
-  {"comp": "GBL", "code": "28F71477", "when": "pre", "setting": "Assistant Max Menetti, pre-game statement",
+   "ref": "https://www.paok24.com/mpasket/645583/"
+  },
+  {
+   "comp": "GBL",
+   "code": "28F71477",
+   "when": "pre",
+   "setting": "Assistant Max Menetti, pre-game statement",
    "quote": "We are building our team mentality day by day, and respect for every opponent is part of that. Doxa are newly promoted and will bring the energy and enthusiasm of a team new to this league, and after their loss to Kolossos they will want to react. We won't have our fans and we'll miss them, so we must work harder to create that intensity ourselves. We still have parts of our game and our consistency to improve, but the goal is clear: to fight for the win.",
-   "ref": "https://www.athletiko.gr/etoimos-na-ypodechtei-ti-doxa-leykadas-sto-adeio-palataki-o-paok-107201"},
-  {"comp": "GBL", "code": "28F71477", "when": "post", "setting": "Press conference (empty arena, ban)",
+   "ref": "https://www.athletiko.gr/etoimos-na-ypodechtei-ti-doxa-leykadas-sto-adeio-palataki-o-paok-107201"
+  },
+  {
+   "comp": "GBL",
+   "code": "28F71477",
+   "when": "post",
+   "setting": "Press conference (empty arena, ban)",
    "quote": "A professional win. We had a lazy start and improved after that. In the first half we were behind on the boards, in the second we had more: my players understood what I asked. The biggest mistake was not putting the game away when we had a big lead; we have to learn to do that. About Osman, Calathes and Motiejunas not playing: it's player management. Whoever is on the floor must give his best. I trust all my players, and we have to look after their health.",
-   "ref": "https://www.paok24.com/mpasket/646162/"},
-  {"comp": "EuroCup", "code": "45", "when": "pre", "setting": "Pre-game statement",
+   "ref": "https://www.paok24.com/mpasket/646162/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "45",
+   "when": "pre",
+   "setting": "Pre-game statement",
    "quote": "We face a well-organised team with a very specific style of play. We need stability in our game, to stay focused on our responsibilities and to be unpredictable for all 40 minutes. It's decisive to execute our game plan and to bring the energy needed to win a difficult away game.",
-   "ref": "https://www.paok24.com/mpasket/646660/"},
-  {"comp": "EuroCup", "code": "45", "when": "post", "setting": "Press conference",
+   "ref": "https://www.paok24.com/mpasket/646660/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "45",
+   "when": "post",
+   "setting": "Press conference",
    "quote": "Congratulations to the opponent for a totally deserved win. They kicked our butt. It has nothing to do with basketball: it's energy, passion, determination, and we didn't match it. We let them shoot 62% from the field, we never stopped them, and the few times we did, they got the loose balls. I can accept losing when the opponent is better at basketball. I can't accept my team losing because the opponent wanted it more. It's a landing in reality; I think we were ripe for this. In the previous games we won, but we didn't play the way we should. Seven minutes are not enough; you have to play 40.",
-   "ref": "https://www.paok24.com/mpasket/646812/"},
-  {"comp": "GBL", "code": "4A05E464", "when": "pre", "setting": "Assistant Max Menetti, pre-game statement",
+   "ref": "https://www.paok24.com/mpasket/646812/"
+  },
+  {
+   "comp": "GBL",
+   "code": "4A05E464",
+   "when": "pre",
+   "setting": "Assistant Max Menetti, pre-game statement",
    "quote": "After the loss to Lietkabelis our focus is fully on Kolossos; we analysed what we need to improve. Kolossos have good perimeter players who can create advantages, plus experience and physical strength that punish any lapse in concentration. We need discipline, energy, attention to detail and consistency for all 40 minutes. It will be a difficult game.",
-   "ref": "https://www.sport-fm.gr/article/basket/greece/paok-oi-dilwseis-tou-boithou-tou-adrea-trinkieri/5154433"},
-  {"comp": "GBL", "code": "4A05E464", "when": "post", "setting": "Ejected late in the game",
+   "ref": "https://www.sport-fm.gr/article/basket/greece/paok-oi-dilwseis-tou-boithou-tou-adrea-trinkieri/5154433"
+  },
+  {
+   "comp": "GBL",
+   "code": "4A05E464",
+   "when": "post",
+   "setting": "Ejected late in the game",
    "quote": "No press conference from him: with about 19 seconds left he walked onto the floor to scold Marcus Foster over a defensive lapse while play was stopped, and was ejected with a second technical. Assistant Max Menetti spoke after the 88–84 win.",
-   "ref": "https://www.paok24.com/mpasket/647391/"},
-  {"comp": "EuroCup", "code": "64", "when": "pre", "setting": "Pre-game press conference",
+   "ref": "https://www.paok24.com/mpasket/647391/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "64",
+   "when": "pre",
+   "setting": "Pre-game press conference",
    "quote": "A very talented, very fresh and very athletic team. They'll try to play fast, attack in under 14 seconds and run in the open floor; they have athletic, tall guards. The first thing is to impose our own game. The most important thing for us will be the rebounds. We started preparing in mid-August and we've played only once in front of our fans; it's something I really miss. What I want to see better is stability: we were very stable in the last quarter at Rhodes, before that we had ups and downs.",
-   "ref": "https://www.paok24.com/mpasket/647940/"},
-  {"comp": "EuroCup", "code": "64", "when": "post", "setting": "Press conference",
+   "ref": "https://www.paok24.com/mpasket/647940/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "64",
+   "when": "post",
+   "setting": "Press conference",
    "quote": "We controlled the tempo, very important against Ulm, who attack in the first 14 seconds and play at the fastest pace in the EuroCup. We were solid on defence for 40 minutes and did very good work on the boards. Then we committed a mortal sin: 21 turnovers. I'll be very blunt and honest: right now we're ugly. We play ugly, but we're capable of doing what's needed to win games. We're predictable and slow on offence and I have to change something. Calathes is a veteran and an important piece, but the responsibility is mine. This is PAOK, and it knows how to suffer.",
-   "ref": "https://www.paok24.com/mpasket/648260/"},
-  {"comp": "GBL", "code": "BD2162B8", "when": "pre", "setting": "Pre-game statement",
+   "ref": "https://www.paok24.com/mpasket/648260/"
+  },
+  {
+   "comp": "GBL",
+   "code": "BD2162B8",
+   "when": "pre",
+   "setting": "Pre-game statement",
    "quote": "We face a team with experience and quality. They may be hurt lately, but that makes them more dangerous. It's very important to stay focused for 40 minutes, keep the same energy and commitment on defence, and avoid turnovers by making the right choices on offence. The presence of our fans will give us rhythm and energy.",
-   "ref": "https://www.paok24.com/mpasket/648575/"},
-  {"comp": "GBL", "code": "BD2162B8", "when": "post", "setting": "Press conference",
-   "quote": "We're working. We had a good offensive night in the previous game, almost 90 points, but today we scored five in one quarter. I have a team that fights to do what I ask. After the last game we said we had to be better on defence; we were, and then we stopped playing on offence. That's normal for a new team: we never know how we'll play. We didn't make open shots, but we played excellent defence.",
-   "ref": "https://www.paok24.com/mpasket/648834/"}
+   "ref": "https://www.paok24.com/mpasket/648575/"
+  },
+  {
+   "comp": "GBL",
+   "code": "BD2162B8",
+   "when": "post",
+   "setting": "Press conference",
+   "quote": "We're working. We had a good offensive night in the previous game, almost 90 points, but today we scored five in one quarter. I have a team that fights to do what I ask. After the last game we said we had to be better on defence; we were, and then we stopped playing on offence. That's normal for a new team: we never know how we'll play. We didn't make open shots, but we played excellent defence. Mitrou-Long had an injury and couldn't play. Calathes had been out for 15 days and had no rhythm; I had to give him minutes, because practice alone doesn't bring back game rhythm. After ten games it's like a crack: we fix one problem and another appears. The good thing is that the players respond to what I ask; now we need to find stability.",
+   "ref": "https://www.paok24.com/mpasket/648834/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "78",
+   "when": "pre",
+   "setting": "Looking ahead, after the AEK game",
+   "quote": "Bahcesehir are one of the best teams in the competition and we have to prepare well. I'm optimistic that PAOK will show up improved.",
+   "ref": "https://paoktoday.gr/basket/ti-dilose-o-trinkieri-gia-to-paichnidi-me-tin-bachtsesechir/"
+  }
  ]
 }
