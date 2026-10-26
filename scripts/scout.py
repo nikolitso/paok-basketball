@@ -33,7 +33,9 @@ ASSIST_LOSS = 0.08  # attack lost per share of the team's assists that is missin
 REPLACEMENT_LOSS = 0.2  # share of a missing player's scoring the team doesn't make up
 RATE_KEYS = ("fg2m", "fg3m", "ftm", "ast", "fga", "oreb", "dreb", "tov")
 PRIOR_GAMES = 3      # how strongly early-season numbers are pulled toward the league average
-HOME_EDGE = 1.5      # points added to the home team (and taken from the away team)
+HOME_EDGE = 2.0      # points added to the home team (and taken from the away team); backtest on this season's games: home sides beat a 1.5 edge by 1.6 a game
+STAT_PRIOR_GAMES = 10  # team-stat rates (made shots, assists, turnovers) settle slower than scoring: 10 league-average games fit best
+REB_PRIOR_GAMES = 15   # rebounding rates barely carry over from game to game this early: 15 games fit best
 SPREAD_SD = 11.0     # typical spread of final margins around the projection
 
 
@@ -236,7 +238,7 @@ def project_team_stats(a, b, a_score, b_score, poss, comp):
     if not lg.get("poss"):
         return None
     lg_r = {k: 100 * (lg.get(k) or 0) / lg["poss"] for k in RATE_KEYS}
-    reg = lambda x, gp, base: (gp * x + PRIOR_GAMES * base) / (gp + PRIOR_GAMES) if x is not None else base
+    reg = lambda x, gp, base, w=STAT_PRIOR_GAMES: (gp * x + w * base) / (gp + w) if x is not None else base
 
     def counts(off, de, score):
         if "r100" not in off or "opp100" not in de:
@@ -260,7 +262,7 @@ def project_team_stats(a, b, a_score, b_score, poss, comp):
     lg_miss = (lg.get("fga") or 0) - (lg.get("fgm") or 0)
     for off, de, c, c_def in ((a, b, ca, cb), (b, a, cb, ca)):
         # share of misses rebounded by the shooting side: own offensive % x opponent's allowed %, relative to the league
-        orb = reg(off.get("orebPct"), off["gp"], lg_or) * (100 - reg(de.get("drebPct"), de["gp"], 100 - lg_or)) / lg_or
+        orb = reg(off.get("orebPct"), off["gp"], lg_or, REB_PRIOR_GAMES) * (100 - reg(de.get("drebPct"), de["gp"], 100 - lg_or, REB_PRIOR_GAMES)) / lg_or
         orb = max(10.0, min(60.0, orb))
         # calibrated so a league-average matchup reproduces the league's per-game offensive and defensive rebounds
         scale = c["miss"] / lg_miss if lg_miss else 0

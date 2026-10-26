@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T11:16:13Z",
+ "updated": "2026-10-26T17:18:53Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -772,13 +772,13 @@
    ],
    "projection": {
     "paok": {
-     "score": 82.3,
+     "score": 81.8,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 28,
-       "pts": 15.6,
+       "pts": 15.5,
        "reb": 4.3,
        "ast": 1.5,
        "pir": 17.8
@@ -787,7 +787,7 @@
        "name": "Nick Calathes",
        "no": "33",
        "min": 19,
-       "pts": 8.1,
+       "pts": 8.0,
        "reb": 4.0,
        "ast": 4.1,
        "pir": 11.2
@@ -805,7 +805,7 @@
        "name": "Marcus Foster",
        "no": "17",
        "min": 22,
-       "pts": 10.9,
+       "pts": 10.8,
        "reb": 3.8,
        "ast": 1.2,
        "pir": 10.6
@@ -823,7 +823,7 @@
        "name": "Trevor Hudgins",
        "no": "12",
        "min": 16,
-       "pts": 6.8,
+       "pts": 6.7,
        "reb": 1.9,
        "ast": 1.2,
        "pir": 7.0
@@ -832,7 +832,7 @@
        "name": "Raiquan Gray",
        "no": "0",
        "min": 21,
-       "pts": 4.4,
+       "pts": 4.3,
        "reb": 2.1,
        "ast": 1.7,
        "pir": 5.8
@@ -887,13 +887,13 @@
      "pace": 75.5
     },
     "opp": {
-     "score": 86.8,
+     "score": 87.3,
      "players": [
       {
        "name": "Mateusz Ponitka",
        "no": "38",
        "min": 20,
-       "pts": 8.9,
+       "pts": 9.0,
        "reb": 2.7,
        "ast": 1.9,
        "pir": 12.6
@@ -902,7 +902,7 @@
        "name": "Malachi Flynn",
        "no": "22",
        "min": 24,
-       "pts": 10.9,
+       "pts": 11.0,
        "reb": 2.7,
        "ast": 3.1,
        "pir": 12.5
@@ -911,7 +911,7 @@
        "name": "Tyler Cavanaugh",
        "no": "34",
        "min": 20,
-       "pts": 9.8,
+       "pts": 9.9,
        "reb": 3.2,
        "ast": 1.8,
        "pir": 11.8
@@ -929,7 +929,7 @@
        "name": "Marcquise Reed",
        "no": "0",
        "min": 18,
-       "pts": 11.2,
+       "pts": 11.3,
        "reb": 3.0,
        "ast": 1.5,
        "pir": 11.1
@@ -938,7 +938,7 @@
        "name": "Aleksa Avramovic",
        "no": "4",
        "min": 19,
-       "pts": 9.2,
+       "pts": 9.3,
        "reb": 3.0,
        "ast": 1.9,
        "pir": 10.8
@@ -947,7 +947,7 @@
        "name": "Damien Inglis",
        "no": "7",
        "min": 17,
-       "pts": 7.9,
+       "pts": 8.0,
        "reb": 3.2,
        "ast": 2.0,
        "pir": 9.5
@@ -974,7 +974,7 @@
        "name": "Furkan Haltali",
        "no": "14",
        "min": 14,
-       "pts": 4.1,
+       "pts": 4.2,
        "reb": 2.5,
        "ast": 0.9,
        "pir": 5.1
@@ -1001,55 +1001,55 @@
      "missing": [],
      "pace": 75.5
     },
-    "winProb": 34,
+    "winProb": 31,
     "pace": 75.5,
     "lineupSource": "manual",
     "note": "PAOK travel to Istanbul with everyone available; Mitrou-Long (missed Saturday with a knock) is doubtful, decision on match day, counted as available for now. Bahcesehir beat Besiktas 100-96 at the weekend but lost to Bosna in the EuroCup last week. Djordjevic calls it their biggest group game so far and expects a physical game against an experienced, athletic PAOK; Flynn is set to play.",
     "teamStats": {
      "pts": {
-      "paok": 82.3,
-      "opp": 86.8,
+      "paok": 81.8,
+      "opp": 87.3,
       "total": 169.1
      },
      "fg2m": {
-      "paok": 20.8,
-      "opp": 23.2,
-      "total": 44.0
+      "paok": 20.9,
+      "opp": 23.0,
+      "total": 43.9
      },
      "fg3m": {
-      "paok": 7.6,
-      "opp": 8.1,
-      "total": 15.8
+      "paok": 7.8,
+      "opp": 8.3,
+      "total": 16.1
      },
      "ftm": {
-      "paok": 17.8,
-      "opp": 16.0,
-      "total": 33.7
+      "paok": 16.6,
+      "opp": 16.4,
+      "total": 33.0
      },
      "ast": {
-      "paok": 14.8,
-      "opp": 17.5,
-      "total": 32.3
+      "paok": 15.6,
+      "opp": 17.7,
+      "total": 33.3
      },
      "oreb": {
-      "paok": 9.5,
-      "opp": 9.7,
-      "total": 19.2
+      "paok": 10.3,
+      "opp": 9.9,
+      "total": 20.2
      },
      "dreb": {
-      "paok": 21.3,
-      "opp": 24.1,
-      "total": 45.4
+      "paok": 21.5,
+      "opp": 23.6,
+      "total": 45.2
      },
      "tov": {
-      "paok": 14.1,
-      "opp": 14.8,
-      "total": 28.9
+      "paok": 14.7,
+      "opp": 15.0,
+      "total": 29.7
      },
      "reb": {
-      "paok": 30.8,
-      "opp": 33.8,
-      "total": 64.6
+      "paok": 31.8,
+      "opp": 33.5,
+      "total": 65.4
      }
     }
    }
@@ -1843,13 +1843,13 @@
    ],
    "projection": {
     "paok": {
-     "score": 74.8,
+     "score": 74.3,
      "players": [
       {
        "name": "Cedi Osman",
        "no": "6",
        "min": 29,
-       "pts": 15.0,
+       "pts": 14.9,
        "reb": 3.8,
        "ast": 1.8,
        "pir": 17.8
@@ -1867,7 +1867,7 @@
        "name": "Naz Mitrou-Long",
        "no": "1",
        "min": 16,
-       "pts": 7.2,
+       "pts": 7.1,
        "reb": 2.4,
        "ast": 2.1,
        "pir": 9.1
@@ -1876,7 +1876,7 @@
        "name": "Kyle Alexander",
        "no": "8",
        "min": 18,
-       "pts": 5.7,
+       "pts": 5.6,
        "reb": 4.5,
        "ast": 0.9,
        "pir": 8.9
@@ -1885,7 +1885,7 @@
        "name": "Trevor Hudgins",
        "no": "12",
        "min": 16,
-       "pts": 6.5,
+       "pts": 6.4,
        "reb": 2.0,
        "ast": 2.4,
        "pir": 8.7
@@ -1912,7 +1912,7 @@
        "name": "Nick Calathes",
        "no": "33",
        "min": 17,
-       "pts": 5.2,
+       "pts": 5.1,
        "reb": 2.6,
        "ast": 2.4,
        "pir": 5.9
@@ -1921,7 +1921,7 @@
        "name": "Raiquan Gray",
        "no": "0",
        "min": 20,
-       "pts": 5.4,
+       "pts": 5.3,
        "reb": 3.2,
        "ast": 0.9,
        "pir": 5.7
@@ -1958,13 +1958,13 @@
      "pace": 71.1
     },
     "opp": {
-     "score": 73.2,
+     "score": 73.7,
      "players": [
       {
        "name": "Dontrez Styles",
        "no": "3",
        "min": 24,
-       "pts": 11.4,
+       "pts": 11.5,
        "reb": 5.2,
        "ast": 1.3,
        "pir": 13.8
@@ -1973,7 +1973,7 @@
        "name": "Cleveland Melvin",
        "no": "2",
        "min": 29,
-       "pts": 12.1,
+       "pts": 12.2,
        "reb": 6.3,
        "ast": 1.7,
        "pir": 12.7
@@ -1982,7 +1982,7 @@
        "name": "Hassan Diarra",
        "no": "10",
        "min": 30,
-       "pts": 11.3,
+       "pts": 11.4,
        "reb": 4.9,
        "ast": 3.7,
        "pir": 12.1
@@ -1991,7 +1991,7 @@
        "name": "Cole Syllas",
        "no": "16",
        "min": 26,
-       "pts": 7.5,
+       "pts": 7.6,
        "reb": 4.2,
        "ast": 1.3,
        "pir": 10.1
@@ -2000,7 +2000,7 @@
        "name": "Jalen Lecque",
        "no": "0",
        "min": 25,
-       "pts": 11.0,
+       "pts": 11.1,
        "reb": 2.6,
        "ast": 1.5,
        "pir": 7.0
@@ -2018,7 +2018,7 @@
        "name": "Giorgos Arnokouros",
        "no": "19",
        "min": 13,
-       "pts": 3.7,
+       "pts": 3.8,
        "reb": 2.8,
        "ast": 0.4,
        "pir": 4.6
@@ -2072,55 +2072,55 @@
      "missing": [],
      "pace": 71.1
     },
-    "winProb": 56,
+    "winProb": 52,
     "pace": 71.1,
     "lineupSource": "assumed",
     "note": "",
     "teamStats": {
      "pts": {
-      "paok": 74.8,
-      "opp": 73.2,
+      "paok": 74.3,
+      "opp": 73.7,
       "total": 148.0
      },
      "fg2m": {
-      "paok": 17.6,
-      "opp": 17.0,
-      "total": 34.5
+      "paok": 17.3,
+      "opp": 17.1,
+      "total": 34.4
      },
      "fg3m": {
-      "paok": 7.0,
+      "paok": 7.7,
       "opp": 8.5,
-      "total": 15.6
+      "total": 16.2
      },
      "ftm": {
-      "paok": 18.5,
-      "opp": 13.7,
-      "total": 32.2
+      "paok": 16.5,
+      "opp": 14.1,
+      "total": 30.6
      },
      "ast": {
-      "paok": 12.6,
-      "opp": 14.1,
-      "total": 26.7
+      "paok": 14.2,
+      "opp": 15.0,
+      "total": 29.3
      },
      "oreb": {
-      "paok": 12.6,
-      "opp": 10.1,
-      "total": 22.7
+      "paok": 11.5,
+      "opp": 10.3,
+      "total": 21.8
      },
      "dreb": {
-      "paok": 23.7,
-      "opp": 26.5,
-      "total": 50.1
+      "paok": 24.1,
+      "opp": 25.7,
+      "total": 49.8
      },
      "tov": {
-      "paok": 10.8,
-      "opp": 13.6,
-      "total": 24.4
+      "paok": 12.0,
+      "opp": 13.5,
+      "total": 25.5
      },
      "reb": {
-      "paok": 36.3,
-      "opp": 36.6,
-      "total": 72.8
+      "paok": 35.6,
+      "opp": 36.0,
+      "total": 71.6
      }
     }
    }
