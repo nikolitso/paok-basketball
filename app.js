@@ -544,8 +544,9 @@ function clubLinksHtml(name, cls = '') {
 /* ---------- projections vs results: each game's last pre-game projection against what happened ---------- */
 const PVR_STATS = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
   ['ast', 'Assists'], ['tov', 'Turnovers'], ['fg3m', 'Three-pointers made'], ['ftm', 'Free throws made']];
+const PVR_START = '2026-12-01'; // projections are tracked against results from December on (earlier ones stay in the log)
 function projVsResults() {
-  const done = Object.values(state.projLog || {}).map((p) => {
+  const done = Object.values(state.projLog || {}).filter((p) => (p.date || '') >= PVR_START).map((p) => {
     const g = state.games.find((x) => x.comp === p.comp && String(x.code) === String(p.code) && x.played && x.box);
     return g ? { p, g } : null;
   }).filter(Boolean).sort((a, b) => toDate(b.g.date) - toDate(a.g.date));
