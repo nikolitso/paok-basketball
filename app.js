@@ -64,7 +64,7 @@ function seg(name, options) {
 }
 // one competition choice for the whole site: picking Greek League / EuroCup / All on any page applies it on
 // every page (pages that don't offer that choice keep their own), and it's remembered for the next visit
-const COMP_FILTERS = ['team', 'players', 'standings', 'scout', 'roster', 'schedule', 'profiles', 'coach'];
+const COMP_FILTERS = ['team', 'players', 'standings', 'scout', 'roster', 'schedule', 'profiles'];
 function applyComp(v) {
   for (const f of COMP_FILTERS) state.filters[f] = v;
 }
@@ -592,21 +592,17 @@ function projVsResults() {
 /* ---------- the coach: Andrea Trinchieri in his own words, before and after every game ---------- */
 VIEWS.coach = function coach() {
   const c = state.coach || {};
-  const comps = compsWithGames();
-  const comp = comps.includes(state.filters.coach) ? state.filters.coach : 'All';
-  state.filters.coach = comp;
   const staff = (state.clubStaff || []).find((x) => /trinchieri/i.test(x.name || '')) || {};
-  const said = (c.games || []).filter((q) => comp === 'All' || q.comp === comp);
-  // one block per game, newest first, with what he said before and after it
+  // one block per game, every competition together in date order, with what he said before and after it
   const byGame = new Map();
-  for (const q of said) {
+  for (const q of c.games || []) {
     const g = state.games.find((x) => x.comp === q.comp && String(x.code) === String(q.code));
     if (!g) continue;
     const k = `${g.comp}:${g.code}`;
     if (!byGame.has(k)) byGame.set(k, { g, pre: [], post: [] });
     byGame.get(k)[q.when === 'pre' ? 'pre' : 'post'].push(q);
   }
-  const games = [...byGame.values()].sort((a, b) => toDate(b.g.date) - toDate(a.g.date));
+  const games = [...byGame.values()].sort((a, b) => toDate(a.g.date) - toDate(b.g.date));
   const res = (g) => (g.played ? `<span class="wl ${g.us > g.them ? 'W' : 'L'}">${g.us > g.them ? 'W' : 'L'}</span> ${g.home ? `PAOK ${g.us}–${g.them} ${esc(g.opp)}` : `${esc(g.opp)} ${g.them}–${g.us} PAOK`}` : `${g.home ? 'PAOK vs' : '@'} ${esc(g.opp)}`);
   const quote = (q) => `<blockquote class="coach-q"><p>${esc(q.quote)}</p><cite>${esc(q.setting || '')}</cite></blockquote>`;
   const col = (list, label) => `<div class="coach-col"><div class="label">${label}</div>${list.length ? list.map(quote).join('') : '<p class="muted coach-none">Nothing on record.</p>'}</div>`;
@@ -621,9 +617,8 @@ VIEWS.coach = function coach() {
     <h2>In his words</h2>
     <div class="coach-general">${(c.general || []).map((q) => `<div class="coach-g"><div class="label">${fmtDate(q.date, { year: 'numeric' })} · ${esc(q.context)}</div>${quote({ quote: q.quote })}</div>`).join('')}</div>
     <h2>Game by game</h2>
-    ${seg('coach', [['All', 'All games'], ...comps.map((x) => [x, compName(x)])])}
     ${games.length ? games.map(({ g, pre, post }) => `<div class="card coach-game">
-        <div class="coach-head"><b>${res(g)}</b><span class="muted">${esc(compName(g.comp))} · ${esc(g.round)} · ${fmtDate(g.date, { weekday: 'short' })}</span></div>
+        <div class="coach-head"><b>${esc(compName(g.comp))} · ${res(g)}</b><span class="muted">${esc(g.round)} · ${fmtDate(g.date, { weekday: 'short' })}</span></div>
         <div class="coach-cols">${col(pre, 'Before the game')}${col(post, 'After the game')}</div>
       </div>`).join('') : '<p class="empty">Nothing on record for these games yet.</p>'}`;
 };
