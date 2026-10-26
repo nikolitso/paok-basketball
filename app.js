@@ -28,8 +28,8 @@ async function load() {
   const get = (f) => fetch(`data/${f}?v=${Date.now()}`).then((r) => r.json());
   let hidden;
   let additions;
-  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power, state.highlights, state.projLog] = await Promise.all([get('eurocup.json'), get('gbl.json'),
-    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} })), get('highlights.json').catch(() => ({})), get('projection_log.json').catch(() => ({}))]);
+  [state.ec, state.gbl, state.scout, hidden, state.club, state.clubStaff, state.info, additions, state.league, state.power, state.highlights, state.projLog, state.oppSources] = await Promise.all([get('eurocup.json'), get('gbl.json'),
+    get('scout.json').catch(() => ({ reports: [] })), get('excluded_players.json').catch(() => ({})), get('paokbc.json').catch(() => ({})), get('paokbc_staff.json').catch(() => []), get('player_info.json').catch(() => ({})), get('roster_additions.json').catch(() => ({})), get('league.json').catch(() => ({ comps: {} })), get('power.json').catch(() => ({ comps: {} })), get('highlights.json').catch(() => ({})), get('projection_log.json').catch(() => ({})), get('opponent_sources.json').catch(() => ({}))]);
   // players hidden until their first game (e.g. youth players registered for depth)
   const surnameOf = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
   const played = new Set([...state.ec.games, ...state.gbl.games].flatMap((g) => (g.box ? g.box.players.filter((p) => p.sec > 0).map((p) => surnameOf(p.name)) : [])));
@@ -42,6 +42,7 @@ async function load() {
     }
   }
   state.games = [...state.ec.games, ...state.gbl.games].filter((g) => g.date).sort((a, b) => toDate(a.date) - toDate(b.date));
+  try { const saved = localStorage.getItem('paokComp'); if (saved) applyComp(saved); } catch (e) { /* no storage */ }
   window.addEventListener('hashchange', render);
   render();
 }
@@ -57,8 +58,20 @@ function render() {
 const rerender = () => { const y = window.scrollY; render(); window.scrollTo(0, y); };
 
 function seg(name, options) {
+  const click = (v) => (COMP_FILTERS.includes(name) ? `setComp('${v}')` : `state.filters['${name}']='${v}';rerender()`);
   return `<div class="seg">${options.map(([v, label]) =>
-    `<button class="${state.filters[name] === v ? 'on' : ''}" onclick="state.filters['${name}']='${v}';rerender()">${esc(label)}</button>`).join('')}</div>`;
+    `<button class="${state.filters[name] === v ? 'on' : ''}" onclick="${click(v)}">${esc(label)}</button>`).join('')}</div>`;
+}
+// one competition choice for the whole site: picking Greek League / EuroCup / All on any page applies it on
+// every page (pages that don't offer that choice keep their own), and it's remembered for the next visit
+const COMP_FILTERS = ['team', 'players', 'standings', 'scout', 'roster', 'schedule', 'profiles'];
+function applyComp(v) {
+  for (const f of COMP_FILTERS) state.filters[f] = v;
+}
+function setComp(v) {
+  applyComp(v);
+  try { localStorage.setItem('paokComp', v); } catch (e) { /* storage unavailable: just this visit */ }
+  rerender();
 }
 const compsWithGames = () => ['GBL', 'EuroCup', ...new Set(state.games.map((g) => g.comp).filter((c) => !['GBL', 'EuroCup'].includes(c)))];
 
@@ -142,7 +155,8 @@ const VIEWS = {
   },
 
   roster() {
-    const comp = state.filters.roster;
+    const comp = ['GBL', 'EuroCup'].includes(state.filters.roster) ? state.filters.roster : 'GBL';
+    state.filters.roster = comp; // a site-wide choice this page doesn't offer (e.g. All): show its default
     const ec = state.ec.roster, gbl = state.gbl.roster;
     const sur = (n) => n.toLowerCase().replace(/-/g, ' ').split(' ').pop();
     const inEc = new Set(ec.map((p) => sur(p.name))), inGbl = new Set(gbl.map((p) => sur(p.name)));
@@ -191,7 +205,8 @@ const VIEWS = {
   },
 
   schedule() {
-    const f = state.filters.schedule;
+    const f = compsWithGames().includes(state.filters.schedule) ? state.filters.schedule : 'All';
+    state.filters.schedule = f;
     const list = state.games.filter((g) => f === 'All' || g.comp === f);
     const next = state.games.find((g) => !g.played);
     let month = '';
@@ -212,7 +227,8 @@ const VIEWS = {
   },
 
   team() {
-    const comp = state.filters.team;
+    const comp = [...compsWithGames(), 'All'].includes(state.filters.team) ? state.filters.team : 'GBL';
+    state.filters.team = comp;
     const games = gamesWithBox(comp);
     const opts = [...compsWithGames().map((c) => [c, compName(c)]), ['All', 'All games']];
     if (!games.length) return `<h2>Team Stats</h2>${seg('team', opts)}<p class="empty">No ${esc(compName(comp))} games played yet.</p>`;
@@ -284,7 +300,8 @@ const VIEWS = {
   },
 
   players() {
-    const comp = state.filters.players, mode = state.filters.mode;
+    const comp = [...compsWithGames(), 'All'].includes(state.filters.players) ? state.filters.players : 'GBL', mode = state.filters.mode;
+    state.filters.players = comp;
     const opts = [...compsWithGames().map((c) => [c, compName(c)]), ['All', 'All games']];
     const ps = playerTotals(comp);
     if (!ps.length) return `<h2>Player Stats</h2>${seg('players', opts)}<p class="empty">No ${esc(compName(comp))} games played yet.</p>`;
@@ -334,7 +351,7 @@ const VIEWS = {
           ? `<tr class="cutline up"><td colspan="${cols}">▲ Top ${cut} ${comp === 'GBL' ? 'reach the play-off quarter-finals' : 'of the group reach the EuroCup play-offs'}</td></tr>` : '';
         const ded = withPts && deduction(s) > 0;
         const diff = s.pf != null ? s.pf - s.pa : s.diff;
-        return `<tr class="${s.paok ? 'hl' : ''}"><td><span class="pos ${zone(s.pos, rows.length, comp)}">${s.pos}</span></td><td class="l">${esc(s.team)}</td><td>${s.gp}</td><td>${s.w}</td><td>${s.l}</td>
+        return `<tr class="${s.paok ? 'hl' : ''}"><td><span class="pos ${zone(s.pos, rows.length, comp)}">${s.pos}</span></td><td class="l">${esc(s.team)}${comp === 'EuroCup' && !s.paok && clubLinks(s.team) ? `<div class="club-links">${clubLinksHtml(s.team)}</div>` : ''}</td><td>${s.gp}</td><td>${s.w}</td><td>${s.l}</td>
           ${withPts ? `<td><b class="${ded ? 'deducted' : ''}" ${ded ? `title="${deduction(s)} point${deduction(s) > 1 ? 's' : ''} deducted"` : ''}>${s.pts}${ded ? '*' : ''}</b></td>` : ''}
           <td>${s.pf ?? '–'}</td><td>${s.pa ?? '–'}</td><td class="${diff > 0 ? 'pos-text' : diff < 0 ? 'neg-text' : ''}">${diff == null ? '–' : (diff > 0 ? '+' : '') + diff}</td>
           <td>${(() => { const lt = leagueTeam(comp, s.paok ? 'PAOK' : s.team); return lt && lt.poss != null ? f1(lt.poss) : '–'; })()}</td></tr>`.replace(/^/, before) + after;
@@ -464,9 +481,10 @@ VIEWS.scout = function scout() {
     const ts = pr.teamStats;
     const tsRows = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
       ['ast', 'Assists'], ['tov', 'Turnovers'], ['fg3m', 'Three-pointers made'], ['ftm', 'Free throws made']];
+    const sides = pick.home ? [['paok', 'PAOK'], ['opp', pick.opp]] : [['opp', pick.opp], ['paok', 'PAOK']]; // home team first
     const tstats = ts ? `<h3 style="margin-top:20px">Projected team stats</h3>
-      <div class="table-wrap"><table><thead><tr><th class="l">Stat</th><th>PAOK</th><th>${esc(pick.opp)}</th><th>Total</th></tr></thead>
-      <tbody>${tsRows.filter(([k]) => ts[k]).map(([k, label]) => `<tr><td class="l">${label}</td><td><b>${f1(ts[k].paok)}</b></td><td><b>${f1(ts[k].opp)}</b></td><td>${f1(ts[k].total)}</td></tr>`).join('')}</tbody></table></div>` : '';
+      <div class="table-wrap"><table><thead><tr><th class="l">Stat</th>${sides.map(([, n]) => `<th>${esc(n)}</th>`).join('')}<th>Total</th></tr></thead>
+      <tbody>${tsRows.filter(([k]) => ts[k]).map(([k, label]) => `<tr><td class="l">${label}</td>${sides.map(([s]) => `<td><b>${f1(ts[k][s])}</b></td>`).join('')}<td>${f1(ts[k].total)}</td></tr>`).join('')}</tbody></table></div>` : '';
     const [hn, hs, an, as] = pick.home ? ['PAOK', us.score, pick.opp, them.score] : [pick.opp, them.score, 'PAOK', us.score];
     proj = `<div class="card dark proj">
         <div class="label">Projected score</div>
@@ -488,6 +506,7 @@ VIEWS.scout = function scout() {
       <div class="label">${esc(compName(pick.comp))} · ${esc(pick.round)}</div>
       <div class="big">PAOK ${pick.home ? 'vs' : '@'} ${esc(pick.opp)}</div>
       <div class="muted">${fmtDate(pick.date, { weekday: 'long', year: 'numeric' })} · ${fmtTime(pick.date)} · ${esc(pick.venue)}${pick.url ? ` · <a class="report" style="color:#fff" href="${esc(pick.url)}" target="_blank" rel="noopener">Game page ↗</a>` : ''}</div>
+      ${clubLinks(pick.opp) ? `<div class="muted" style="margin-top:4px">${esc(pick.opp)}: ${clubLinksHtml(pick.opp, 'report club-link')}</div>` : ''}
     </div>
     <h2>Match-day projections</h2>${proj}
     ${projVsResults()}
@@ -502,6 +521,20 @@ VIEWS.scout = function scout() {
     ${hasLg ? `<p class="note">Rank among the ${leagueOf(pick.comp).teams.length} ${esc(scopeLabel(pick.comp))} (1st = best).</p>` : ''}
     ${pick.paokImpact.length ? `<h2>PAOK's key players (${esc(compName(pick.comp))})</h2><div class="grid three">${pick.paokImpact.slice(0, 3).map(card).join('')}</div>` : ''}`;
 };
+
+/* opponents' own site and Instagram (data/opponent_sources.json) */
+function clubLinks(name) {
+  const all = Object.values(state.oppSources || {}).filter((v) => v && typeof v === 'object').flatMap((c) => Object.entries(c));
+  const k = nameKey(name);
+  const hit = all.find(([n]) => { const m = nameKey(n); return m === k || k.includes(m) || m.includes(k); });
+  return hit ? hit[1] : null;
+}
+function clubLinksHtml(name, cls = '') {
+  const c = clubLinks(name);
+  if (!c) return '';
+  const a = (u, l) => (u ? `<a class="${cls}" href="${esc(u)}" target="_blank" rel="noopener">${l}</a>` : '');
+  return [a(c.site, 'Official site ↗'), a(c.instagram, 'Instagram ↗')].filter(Boolean).join(' · ');
+}
 
 /* ---------- projections vs results: each game's last pre-game projection against what happened ---------- */
 const PVR_STATS = [['pts', 'Points'], ['reb', 'Rebounds'], ['dreb', 'Defensive rebounds'], ['oreb', 'Offensive rebounds'],
@@ -523,20 +556,24 @@ function projVsResults() {
   const ts = p.teamStats || {};
   const act = (side, k) => (g.box[side] || {})[k];
   const cell = (proj, actual) => `<td>${proj == null ? '–' : f1(proj)}</td><td><b>${actual == null ? '–' : actual}</b></td>`;
+  const order = g.home ? [['paok', 'team', 'PAOK'], ['opp', 'opp', g.opp]] : [['opp', 'opp', g.opp], ['paok', 'team', 'PAOK']]; // home team first
   const detail = PVR_STATS.filter(([k]) => ts[k] || k === 'pts').map(([k, l]) => {
     const pr = k === 'pts' ? { paok: p.paok, opp: p.oppScore, total: p.paok + p.oppScore } : ts[k];
     const a = act('team', k), b = act('opp', k);
-    return `<tr><td class="l">${l}</td>${cell(pr.paok, a)}${cell(pr.opp, b)}${cell(pr.total, a != null && b != null ? a + b : null)}</tr>`;
+    return `<tr><td class="l">${l}</td>${order.map(([s, side]) => cell(pr[s], act(side, k))).join('')}${cell(pr.total, a != null && b != null ? a + b : null)}</tr>`;
   }).join('');
-  const src = { manual: 'confirmed team news', official: 'official game roster', assumed: 'full squads assumed' }[p.lineupSource] || '';
-  const hist = done.map(({ p, g }) => `<tr><td class="l">${fmtDate(g.date)}</td><td class="l">${esc(compName(g.comp))} · PAOK ${g.home ? 'vs' : '@'} ${esc(g.opp)}</td>
-    <td>${Math.round(p.paok)}–${Math.round(p.oppScore)}</td><td><b>${g.us}–${g.them}</b></td><td>${p.winProb}%</td>
+  const src = { manual: 'latest team news', official: 'official game roster', assumed: 'full squads assumed' }[p.lineupSource] || '';
+  // home team first, like every score on the site
+  const hf = (g, us, them) => (g.home ? `${us}–${them}` : `${them}–${us}`);
+  const matchup = (g) => (g.home ? `PAOK – ${esc(g.opp)}` : `${esc(g.opp)} – PAOK`);
+  const hist = done.map(({ p, g }) => `<tr><td class="l">${fmtDate(g.date)}</td><td class="l">${esc(compName(g.comp))} · ${matchup(g)}</td>
+    <td>${hf(g, Math.round(p.paok), Math.round(p.oppScore))}</td><td><b>${hf(g, g.us, g.them)}</b></td><td>${p.winProb}%</td>
     <td>${pickOk({ p, g }) ? '<span class="pos-text">✓</span>' : '<span class="neg-text">✗</span>'}</td>
     <td>${sign((g.us - g.them) - (p.paok - p.oppScore))}</td><td>${sign((g.us + g.them) - (p.paok + p.oppScore))}</td></tr>`).join('');
   return `<h2>Projections vs results</h2>
-    <h3>Last game: PAOK ${g.home ? 'vs' : '@'} ${esc(g.opp)}, ${g.us}–${g.them} <span class="muted" style="font:500 13px Inter">${esc(compName(g.comp))} · ${fmtDate(g.date)} · projected ${Math.round(p.paok)}–${Math.round(p.oppScore)}, PAOK win chance ${p.winProb}%${src ? ' · ' + src : ''}</span></h3>
+    <h3>Last game: ${g.home ? `PAOK ${g.us}–${g.them} ${esc(g.opp)}` : `${esc(g.opp)} ${g.them}–${g.us} PAOK`} <span class="muted" style="font:500 13px Inter">${esc(compName(g.comp))} · ${fmtDate(g.date)} · projected ${hf(g, Math.round(p.paok), Math.round(p.oppScore))}, PAOK win chance ${p.winProb}%${src ? ' · ' + src : ''}</span></h3>
     <div class="table-wrap" style="max-width:860px"><table>
-      <thead><tr><th class="l">Stat</th><th>PAOK proj.</th><th>PAOK</th><th>${esc(g.opp)} proj.</th><th>${esc(g.opp)}</th><th>Total proj.</th><th>Total</th></tr></thead>
+      <thead><tr><th class="l">Stat</th>${order.map(([, , n]) => `<th>${esc(n)} proj.</th><th>${esc(n)}</th>`).join('')}<th>Total proj.</th><th>Total</th></tr></thead>
       <tbody>${detail}</tbody></table></div>
     <h3 style="margin-top:20px">Every game so far</h3>
     <p class="muted" style="margin:0 0 8px">Winner picked right in <b>${right} of ${done.length}</b> · average miss: margin ${f1(marginErr)} pts, total points ${f1(totalErr)} pts</p>
@@ -632,7 +669,8 @@ VIEWS.profiles = function profiles() {
   const team = state.filters.profTeam;
   let items, regulars, emptyText, intro = '';
   if (team === 'PAOK') {
-    const comp = state.filters.profiles;
+    const comp = compsWithGames().includes(state.filters.profiles) ? state.filters.profiles : 'All';
+    state.filters.profiles = comp;
     const teamGp = gamesWithBox(comp).length;
     const lines = playerTotals(comp).map(perGameFromTotals);
     regulars = lines.filter((p) => p.gp >= Math.max(1, Math.ceil(teamGp / 2)));

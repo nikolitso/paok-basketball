@@ -286,3 +286,9 @@ h3.official-h { margin-top: 30px; }
 .pm-row:empty { margin-top: 0; }
 .pm-row b { font: 700 18px Oswald, sans-serif; }
 .pm-row .muted { font-size: 12px; }
+
+/* opponents' site / Instagram links */
+.club-link { color: #fff !important; }
+.club-links { font-size: 11.5px; font-weight: 500; margin-top: 2px; }
+.club-links a { color: var(--muted); text-decoration: none; }
+.club-links a:hover { color: var(--ink); text-decoration: underline; }
