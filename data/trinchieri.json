@@ -1,6 +1,6 @@
 {
  "_note": "Andrea Trinchieri's words, translated into English and lightly shortened. games[]: linked to the schedule by comp + code; pre = before the game, post = after. ref = where it was said/reported (not shown on the site). focus (post entries): the stat he said must improve, checked on the site against PAOK's next game; stat = tovPct | drebPct | oppEfg | ortg | drtg.",
- "updated": "2026-10-26",
+ "updated": "2026-10-27",
  "themes": [
   {
    "title": "Effort is the one thing he guarantees",
@@ -251,6 +251,14 @@
    "setting": "Looking ahead, press conference after the AEK game (24 Oct)",
    "quote": "It's a big game: Bahcesehir are one of the best teams in the EuroCup, and we have to be ready to play against them. I'm optimistic that PAOK will show up improved; we will work to be ready. We play again on Tuesday, so there is little time to practise. That's why I gave Calathes minutes: he had been out for 15 days, and only games bring back match rhythm. Mitrou-Long is injured; it wasn't my decision to leave him out. Right now we are unstable: we fixed our defence after giving up 90 points, and then we forgot how to score. Every time we fix one problem, another one appears. Over the next month I want balance, consistency, emotional stability and physical condition across the whole roster. The players care, the chemistry is good, and it's taking longer than I expected, but we are climbing back.",
    "ref": "https://www.thestival.gr/eidiseis/athlitika/trinkieri-charoymenos-poy-propono-ayt/ ; https://www.sdna.gr/mpasket/1479871_trinkieri-oi-dyskolies-einai-meros-tis-klironomias-toy-paok-ta-kalytera-erhontai ; https://paoktoday.gr/basket/ti-dilose-o-trinkieri-gia-to-paichnidi-me-tin-bachtsesechir/"
+  },
+  {
+   "comp": "EuroCup",
+   "code": "78",
+   "when": "post",
+   "setting": "Press conference",
+   "quote": "Congratulations to Bahcesehir; it was a nice game to watch. We came back late but stayed one possession short. They were better overall and at times outsmarted us. We had spells of excellent basketball, but when we played badly, we played very badly, and two big comebacks in one game are hard against a team that beat Fenerbahce and, 72 hours ago, Besiktas. What I liked is the fighting spirit: not giving up is the first thing I ask of my teams. I won't talk about individual performances after a loss: some played well and some didn't, but we win and lose together. In the empty spells we let negative emotions take over: three or four excellent plays, then five bad ones. I thought it was a lack of urgency, but the comeback shows it isn't. It's discipline and mental focus, doing what's best for the team rather than what looks best individually. We're still in a grey zone there, and it costs us; that's normal for a very inexperienced group still learning to play together.",
+   "ref": "https://www.paok24.com/mpasket/649426/oi-atakes-trinkieri-gia-foster-kai-kena-diastimata/"
   }
  ]
 }

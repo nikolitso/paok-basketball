@@ -1137,7 +1137,7 @@
   "date": "2026-10-31T15:30:00Z",
   "opp": "Iraklis",
   "home": false,
-  "saved": "2026-10-27T01:01:30Z",
+  "saved": "2026-10-27T20:27:56Z",
   "paok": 74.3,
   "oppScore": 73.7,
   "winProb": 52,
@@ -1408,6 +1408,287 @@
      "reb": 0.2,
      "ast": 0.1,
      "pir": 0.3
+    }
+   ]
+  }
+ },
+ "EuroCup:95": {
+  "comp": "EuroCup",
+  "code": "95",
+  "date": "2026-11-03T18:00:00Z",
+  "opp": "Roma",
+  "home": true,
+  "saved": "2026-10-27T20:27:56Z",
+  "paok": 84.0,
+  "oppScore": 76.8,
+  "winProb": 74,
+  "lineupSource": "assumed",
+  "teamStats": {
+   "pts": {
+    "paok": 84.0,
+    "opp": 76.8,
+    "total": 160.8
+   },
+   "fg2m": {
+    "paok": 21.7,
+    "opp": 19.9,
+    "total": 41.5
+   },
+   "fg3m": {
+    "paok": 8.5,
+    "opp": 7.5,
+    "total": 16.0
+   },
+   "ftm": {
+    "paok": 15.0,
+    "opp": 14.7,
+    "total": 29.7
+   },
+   "ast": {
+    "paok": 16.9,
+    "opp": 15.0,
+    "total": 31.9
+   },
+   "oreb": {
+    "paok": 11.2,
+    "opp": 11.2,
+    "total": 22.4
+   },
+   "dreb": {
+    "paok": 24.2,
+    "opp": 23.5,
+    "total": 47.8
+   },
+   "tov": {
+    "paok": 14.5,
+    "opp": 15.8,
+    "total": 30.4
+   },
+   "reb": {
+    "paok": 35.4,
+    "opp": 34.7,
+    "total": 70.2
+   }
+  },
+  "players": {
+   "paok": [
+    {
+     "name": "Cedi Osman",
+     "no": "6",
+     "min": 29,
+     "pts": 18.5,
+     "reb": 4.6,
+     "ast": 1.8,
+     "pir": 21.4
+    },
+    {
+     "name": "Kyle Alexander",
+     "no": "8",
+     "min": 19,
+     "pts": 7.5,
+     "reb": 5.1,
+     "ast": 0.9,
+     "pir": 12.3
+    },
+    {
+     "name": "Marcus Foster",
+     "no": "17",
+     "min": 25,
+     "pts": 13.2,
+     "reb": 4.2,
+     "ast": 1.9,
+     "pir": 12.3
+    },
+    {
+     "name": "Breein Tyree",
+     "no": "5",
+     "min": 15,
+     "pts": 10.2,
+     "reb": 1.8,
+     "ast": 1.0,
+     "pir": 9.2
+    },
+    {
+     "name": "Nick Calathes",
+     "no": "33",
+     "min": 18,
+     "pts": 6.6,
+     "reb": 3.5,
+     "ast": 3.9,
+     "pir": 9.2
+    },
+    {
+     "name": "Trevor Hudgins",
+     "no": "12",
+     "min": 15,
+     "pts": 6.4,
+     "reb": 1.8,
+     "ast": 1.2,
+     "pir": 6.3
+    },
+    {
+     "name": "Raiquan Gray",
+     "no": "0",
+     "min": 20,
+     "pts": 4.0,
+     "reb": 2.1,
+     "ast": 1.6,
+     "pir": 5.5
+    },
+    {
+     "name": "Naz Mitrou Long",
+     "no": "1",
+     "min": 15,
+     "pts": 5.9,
+     "reb": 1.5,
+     "ast": 1.0,
+     "pir": 4.9
+    },
+    {
+     "name": "Ben Moore",
+     "no": "26",
+     "min": 17,
+     "pts": 4.0,
+     "reb": 3.1,
+     "ast": 0.4,
+     "pir": 4.4
+    },
+    {
+     "name": "Athanasios Bazinas",
+     "no": "77",
+     "min": 9,
+     "pts": 3.2,
+     "reb": 1.1,
+     "ast": 0.7,
+     "pir": 2.9
+    },
+    {
+     "name": "Nikolaos Persidis",
+     "no": "18",
+     "min": 8,
+     "pts": 2.3,
+     "reb": 1.3,
+     "ast": 0.4,
+     "pir": 2.3
+    },
+    {
+     "name": "Nikos Chougkaz",
+     "no": "9",
+     "min": 9,
+     "pts": 2.2,
+     "reb": 1.2,
+     "ast": 0.4,
+     "pir": 2.1
+    }
+   ],
+   "opp": [
+    {
+     "name": "Niccolo Mannion",
+     "no": "1",
+     "min": 27,
+     "pts": 16.8,
+     "reb": 2.7,
+     "ast": 4.6,
+     "pir": 21.4
+    },
+    {
+     "name": "Gerald Ayayi",
+     "no": "11",
+     "min": 27,
+     "pts": 10.2,
+     "reb": 5.7,
+     "ast": 2.9,
+     "pir": 14.2
+    },
+    {
+     "name": "Marko Simonovic",
+     "no": "19",
+     "min": 21,
+     "pts": 9.8,
+     "reb": 5.0,
+     "ast": 1.2,
+     "pir": 12.8
+    },
+    {
+     "name": "Arturs Strautins",
+     "no": "12",
+     "min": 28,
+     "pts": 10.0,
+     "reb": 3.6,
+     "ast": 1.5,
+     "pir": 9.8
+    },
+    {
+     "name": "Kelly Olynyk",
+     "no": "22",
+     "min": 9,
+     "pts": 4.7,
+     "reb": 1.4,
+     "ast": 0.7,
+     "pir": 5.2
+    },
+    {
+     "name": "Erik Stevenson",
+     "no": "10",
+     "min": 21,
+     "pts": 7.0,
+     "reb": 2.7,
+     "ast": 1.2,
+     "pir": 4.9
+    },
+    {
+     "name": "Corey Davis Jr.",
+     "no": "5",
+     "min": 22,
+     "pts": 5.4,
+     "reb": 2.2,
+     "ast": 2.0,
+     "pir": 4.2
+    },
+    {
+     "name": "Paul Watson Jr",
+     "no": "3",
+     "min": 20,
+     "pts": 5.9,
+     "reb": 2.6,
+     "ast": 1.0,
+     "pir": 3.8
+    },
+    {
+     "name": "Giovanni Emejuru",
+     "no": "7",
+     "min": 9,
+     "pts": 3.0,
+     "reb": 1.7,
+     "ast": 0.4,
+     "pir": 3.2
+    },
+    {
+     "name": "Andrea Mezzanotte",
+     "no": "24",
+     "min": 9,
+     "pts": 2.0,
+     "reb": 1.0,
+     "ast": 0.4,
+     "pir": 2.0
+    },
+    {
+     "name": "Trentyn Flowers",
+     "no": "9",
+     "min": 5,
+     "pts": 1.7,
+     "reb": 1.0,
+     "ast": 0.3,
+     "pir": 1.5
+    },
+    {
+     "name": "Giannis Odzebe",
+     "no": "13",
+     "min": 0,
+     "pts": 0.2,
+     "reb": 0.1,
+     "ast": 0.0,
+     "pir": 0.2
     }
    ]
   }
