@@ -1,7 +1,7 @@
 {
  "competition": "BKT EuroCup",
  "season": "2026-27",
- "updated": "2026-10-27T20:27:50Z",
+ "updated": "2026-10-28T00:48:05Z",
  "source": "https://www.euroleaguebasketball.net/eurocup/",
  "group": "Group D",
  "staff": [
@@ -2125,25 +2125,25 @@
   },
   {
    "pos": 6,
-   "team": "Roma",
-   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
-   "paok": false,
-   "gp": 4,
-   "w": 2,
-   "l": 2,
-   "pf": 327,
-   "pa": 355
-  },
-  {
-   "pos": 7,
    "team": "Bosna",
    "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOJl/0024f0d4-55d9-4ed0-be41-68c0e90c41d5.png",
    "paok": false,
-   "gp": 4,
-   "w": 1,
+   "gp": 5,
+   "w": 2,
    "l": 3,
-   "pf": 323,
-   "pa": 329
+   "pf": 408,
+   "pa": 409
+  },
+  {
+   "pos": 7,
+   "team": "Roma",
+   "crest": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCjnOS1/1e9e0379-db30-4234-89b0-19576709c285.png",
+   "paok": false,
+   "gp": 5,
+   "w": 2,
+   "l": 3,
+   "pf": 407,
+   "pa": 440
   },
   {
    "pos": 8,
