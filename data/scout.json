@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T10:53:25Z",
+ "updated": "2026-10-29T15:55:54Z",
  "reports": [
   {
    "comp": "EuroCup",
@@ -1784,15 +1784,6 @@
      "nat": "USA",
      "height": 204,
      "born": "1998-01-01"
-    },
-    {
-     "no": "7",
-     "name": "Vasilis Mouratos",
-     "pos": "Guard",
-     "posCode": "PG",
-     "nat": "GRE",
-     "height": 193,
-     "born": "1997-11-24"
     },
     {
      "no": "10",
