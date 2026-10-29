@@ -1137,7 +1137,7 @@
   "date": "2026-10-31T15:30:00Z",
   "opp": "Iraklis",
   "home": false,
-  "saved": "2026-10-28T21:35:08Z",
+  "saved": "2026-10-29T01:20:48Z",
   "paok": 74.3,
   "oppScore": 73.7,
   "winProb": 52,
@@ -1418,21 +1418,21 @@
   "date": "2026-11-03T18:00:00Z",
   "opp": "Roma",
   "home": true,
-  "saved": "2026-10-28T21:35:08Z",
-  "paok": 87.4,
-  "oppScore": 79.0,
+  "saved": "2026-10-29T01:20:48Z",
+  "paok": 87.5,
+  "oppScore": 79.1,
   "winProb": 78,
   "lineupSource": "assumed",
   "teamStats": {
    "pts": {
-    "paok": 87.4,
-    "opp": 79.0,
-    "total": 166.4
+    "paok": 87.5,
+    "opp": 79.1,
+    "total": 166.6
    },
    "fg2m": {
     "paok": 22.5,
     "opp": 20.2,
-    "total": 42.6
+    "total": 42.7
    },
    "fg3m": {
     "paok": 8.7,
@@ -1442,10 +1442,10 @@
    "ftm": {
     "paok": 16.4,
     "opp": 15.0,
-    "total": 31.4
+    "total": 31.5
    },
    "ast": {
-    "paok": 17.6,
+    "paok": 17.7,
     "opp": 15.6,
     "total": 33.2
    },
@@ -1457,7 +1457,7 @@
    "dreb": {
     "paok": 24.3,
     "opp": 23.1,
-    "total": 47.5
+    "total": 47.4
    },
    "tov": {
     "paok": 14.3,
@@ -1467,7 +1467,7 @@
    "reb": {
     "paok": 35.2,
     "opp": 34.3,
-    "total": 69.6
+    "total": 69.5
    }
   },
   "players": {
