@@ -29,7 +29,11 @@
  "tyree": {
   "name": "Breein Tyree",
   "photo": "https://paokbc.gr/images/players/2025-26/TYREE.png",
-  "profile": "https://paokbc.gr/en/the-team/players/player/130"
+  "profile": "https://paokbc.gr/en/the-team/players/player/130",
+  "nationality": "USA",
+  "birthplace": "Metuchen, New Jersey",
+  "born": "13/01/1998",
+  "height": "1.88"
  },
  "osman": {
   "name": "Cedi Osman",
@@ -52,7 +56,11 @@
  "chougkaz": {
   "name": "Nikos Chougkaz",
   "photo": "https://paokbc.gr/images/players/2025-26/CHOUGKAZ.png",
-  "profile": "https://paokbc.gr/en/the-team/players/player/132"
+  "profile": "https://paokbc.gr/en/the-team/players/player/132",
+  "nationality": "Athens",
+  "birthplace": "Athens",
+  "born": "04/10/2000",
+  "height": "2.08"
  },
  "spanos": {
   "name": "Giannis Spanos",
@@ -75,7 +83,11 @@
  "hudgins": {
   "name": "Trevor Hudgins",
   "photo": "https://paokbc.gr/images/players/2025-26/HUDGINS.png",
-  "profile": "https://paokbc.gr/en/the-team/players/player/140"
+  "profile": "https://paokbc.gr/en/the-team/players/player/140",
+  "nationality": "USA",
+  "birthplace": "Manhattan, Kansas",
+  "born": "23/03/1999",
+  "height": "1.78"
  },
  "kaklamanakis": {
   "name": "Dimitris Kaklamanakis",
@@ -116,12 +128,20 @@
  "motiejunas": {
   "name": "Donatas Motiejunas",
   "photo": null,
-  "profile": "https://paokbc.gr/en/the-team/players/player/146"
+  "profile": "https://paokbc.gr/en/the-team/players/player/146",
+  "nationality": "Lithuania",
+  "birthplace": "Kaunas",
+  "born": "20/09/1990",
+  "height": "2.13"
  },
  "fillios": {
   "name": "Giorgos Fillios",
   "photo": "https://paokbc.gr/images/players/2025-26/FILLIOS.png",
-  "profile": "https://paokbc.gr/en/the-team/players/player/117"
+  "profile": "https://paokbc.gr/en/the-team/players/player/117",
+  "nationality": "Greek",
+  "birthplace": "Thessaloniki",
+  "born": "10/02/2002",
+  "height": "1.96"
  },
  "moore": {
   "name": "Ben Moore",
@@ -144,7 +164,11 @@
  "calathes": {
   "name": "Nick Calathes",
   "photo": "https://paokbc.gr/images/players/2025-26/CALATHES.png",
-  "profile": "https://paokbc.gr/en/the-team/players/player/138"
+  "profile": "https://paokbc.gr/en/the-team/players/player/138",
+  "nationality": "GRE-USA",
+  "birthplace": "",
+  "born": "07/02/1989",
+  "height": "1.98"
  },
  "bazinas": {
   "name": "Nasos Bazinas",
