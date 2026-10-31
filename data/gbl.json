@@ -1,7 +1,7 @@
 {
  "competition": "Stoiximan GBL",
  "season": "2026-27",
- "updated": "2026-10-31T14:45:50Z",
+ "updated": "2026-10-31T16:45:22Z",
  "source": "https://www.esake.gr/",
  "roster": [
   {
@@ -2601,6 +2601,18 @@
   },
   {
    "pos": 2,
+   "team": "Karditsa",
+   "paok": false,
+   "pts": 8,
+   "gp": 5,
+   "w": 3,
+   "l": 2,
+   "pf": 357,
+   "pa": 356,
+   "diff": 1
+  },
+  {
+   "pos": 3,
    "team": "Aris",
    "paok": false,
    "pts": 7,
@@ -2612,7 +2624,43 @@
    "diff": 57
   },
   {
-   "pos": 3,
+   "pos": 4,
+   "team": "Kolossos",
+   "paok": false,
+   "pts": 7,
+   "gp": 5,
+   "w": 2,
+   "l": 3,
+   "pf": 403,
+   "pa": 413,
+   "diff": -10
+  },
+  {
+   "pos": 5,
+   "team": "Doxa Lefkadas",
+   "paok": false,
+   "pts": 7,
+   "gp": 5,
+   "w": 2,
+   "l": 3,
+   "pf": 394,
+   "pa": 402,
+   "diff": -8
+  },
+  {
+   "pos": 6,
+   "team": "AEK",
+   "paok": false,
+   "pts": 7,
+   "gp": 5,
+   "w": 2,
+   "l": 3,
+   "pf": 379,
+   "pa": 397,
+   "diff": -18
+  },
+  {
+   "pos": 7,
    "team": "Peristeri",
    "paok": false,
    "pts": 7,
@@ -2624,19 +2672,7 @@
    "diff": -10
   },
   {
-   "pos": 4,
-   "team": "Olympiacos",
-   "paok": false,
-   "pts": 6,
-   "gp": 4,
-   "w": 4,
-   "l": 0,
-   "pf": 341,
-   "pa": 264,
-   "diff": 77
-  },
-  {
-   "pos": 5,
+   "pos": 8,
    "team": "Panathinaikos",
    "paok": false,
    "pts": 6,
@@ -2648,67 +2684,43 @@
    "diff": 88
   },
   {
-   "pos": 6,
-   "team": "Karditsa",
-   "paok": false,
-   "pts": 6,
-   "gp": 4,
-   "w": 2,
-   "l": 2,
-   "pf": 276,
-   "pa": 291,
-   "diff": -15
-  },
-  {
-   "pos": 7,
-   "team": "Kolossos",
-   "paok": false,
-   "pts": 6,
-   "gp": 4,
-   "w": 2,
-   "l": 2,
-   "pf": 338,
-   "pa": 332,
-   "diff": 6
-  },
-  {
-   "pos": 8,
-   "team": "AEK",
-   "paok": false,
-   "pts": 6,
-   "gp": 4,
-   "w": 2,
-   "l": 2,
-   "pf": 295,
-   "pa": 302,
-   "diff": -7
-  },
-  {
    "pos": 9,
-   "team": "Doxa Lefkadas",
+   "team": "Olympiacos",
    "paok": false,
-   "pts": 5,
+   "pts": 6,
    "gp": 4,
-   "w": 1,
-   "l": 3,
-   "pf": 321,
-   "pa": 343,
-   "diff": -22
+   "w": 4,
+   "l": 0,
+   "pf": 341,
+   "pa": 264,
+   "diff": 77
   },
   {
    "pos": 10,
-   "team": "Promitheas",
+   "team": "Vikos Falcons",
    "paok": false,
-   "pts": 5,
-   "gp": 4,
+   "pts": 6,
+   "gp": 5,
    "w": 1,
-   "l": 3,
-   "pf": 272,
-   "pa": 342,
-   "diff": -70
+   "l": 4,
+   "pf": 381,
+   "pa": 431,
+   "diff": -50
   },
   {
    "pos": 11,
+   "team": "Mykonos",
+   "paok": false,
+   "pts": 6,
+   "gp": 5,
+   "w": 1,
+   "l": 4,
+   "pf": 377,
+   "pa": 412,
+   "diff": -35
+  },
+  {
+   "pos": 12,
    "team": "Iraklis",
    "paok": false,
    "pts": 5,
@@ -2720,19 +2732,19 @@
    "diff": -2
   },
   {
-   "pos": 12,
-   "team": "Mykonos",
+   "pos": 13,
+   "team": "Promitheas",
    "paok": false,
    "pts": 5,
    "gp": 4,
    "w": 1,
    "l": 3,
-   "pf": 318,
-   "pa": 339,
-   "diff": -21
+   "pf": 272,
+   "pa": 342,
+   "diff": -70
   },
   {
-   "pos": 13,
+   "pos": 14,
    "team": "Maroussi",
    "paok": false,
    "pts": 4,
@@ -2742,18 +2754,6 @@
    "pf": 287,
    "pa": 330,
    "diff": -43
-  },
-  {
-   "pos": 14,
-   "team": "Vikos Falcons",
-   "paok": false,
-   "pts": 4,
-   "gp": 4,
-   "w": 0,
-   "l": 4,
-   "pf": 286,
-   "pa": 347,
-   "diff": -61
   }
  ]
 }
