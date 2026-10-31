@@ -1,6 +1,6 @@
 {
  "_note": "Andrea Trinchieri's words, translated into English and lightly shortened. games[]: linked to the schedule by comp + code; pre = before the game, post = after. ref = where it was said/reported (not shown on the site). focus (post entries): the stat he said must improve, checked on the site against PAOK's next game; stat = tovPct | drebPct | oppEfg | ortg | drtg.",
- "updated": "2026-10-27",
+ "updated": "2026-10-31",
  "themes": [
   {
    "title": "Effort is the one thing he guarantees",
@@ -259,6 +259,14 @@
    "setting": "Press conference",
    "quote": "Congratulations to Bahcesehir; it was a nice game to watch. We came back late but stayed one possession short. They were better overall and at times outsmarted us. We had spells of excellent basketball, but when we played badly, we played very badly, and two big comebacks in one game are hard against a team that beat Fenerbahce and, 72 hours ago, Besiktas. What I liked is the fighting spirit: not giving up is the first thing I ask of my teams. I won't talk about individual performances after a loss: some played well and some didn't, but we win and lose together. In the empty spells we let negative emotions take over: three or four excellent plays, then five bad ones. I thought it was a lack of urgency, but the comeback shows it isn't. It's discipline and mental focus, doing what's best for the team rather than what looks best individually. We're still in a grey zone there, and it costs us; that's normal for a very inexperienced group still learning to play together.",
    "ref": "https://www.paok24.com/mpasket/649426/oi-atakes-trinkieri-gia-foster-kai-kena-diastimata/"
+  },
+  {
+   "comp": "GBL",
+   "code": "29CD5AD8",
+   "when": "pre",
+   "setting": "Pre-game statement",
+   "quote": "It's our second away game in a row this week. We know the particularities of this game, and we know our opponent is a capable team that will put pressure on us from the start. We need energy and concentration for 40 minutes. We must be patient and execute our plan correctly on offence, and be persistent in everything we have to do on defence.",
+   "ref": "https://www.sport-fm.gr/article/basket/greece/trinkieri-kseroume-tis-idiaiterotites-tou-agwna-prepei-na-exoume-upomoni/5157625 ; https://www.gazzetta.gr/basketball/basket-league/2582098/trinkieri-xeroyme-tis-idiaiterotites-kontra-ston-irakli"
   }
  ]
 }
